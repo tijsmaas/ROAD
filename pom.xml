@@ -10,6 +10,13 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>MovementEntities</module>
+        <module>BillSystem</module>
+        <module>CarSystem</module>
+        <module>MovementDTS</module>
+        <module>MovementParser</module>
+        <module>MovementServer</module>
+        <module>PoliceSystem</module>
+        <module>UserService</module>
     </modules>
 
 

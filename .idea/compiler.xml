@@ -22,7 +22,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="BillSystem" />
+        <module name="CarSystem" />
+        <module name="MovementDTS" />
         <module name="MovementEntities" />
+        <module name="MovementParser" />
+        <module name="MovementServer" />
+        <module name="PoliceSystem" />
+        <module name="UserService" />
       </profile>
     </annotationProcessing>
   </component>
