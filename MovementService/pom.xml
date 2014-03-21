@@ -11,5 +11,17 @@
 
     <artifactId>MovementServer</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.clojure</groupId>
+            <artifactId>clojure</artifactId>
+            <version>1.6.0-RC1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.zeromq</groupId>
+            <artifactId>jzmq</artifactId>
+            <version>3.0.1</version>
+        </dependency>
 
+    </dependencies>
 </project>
