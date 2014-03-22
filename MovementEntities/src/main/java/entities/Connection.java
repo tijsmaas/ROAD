@@ -4,15 +4,18 @@ package entities;
  * Created by Niek on 14/03/14.
  */
 public class Connection {
-    private Edge from;
+	// required
+	private Edge from;
     private Edge to;
     private Lane fromLane;
     private Lane toLane;
-    private Lane via;
-    private TrafficLightProgram trafficLight;
-    private int linkIndex;
     private ConnectionDirection direction;
     private ConnectionState state;
+    
+    // optional
+    private Lane via;
+    private TrafficLightProgram trafficLight; // we won't use this
+    private int linkIndex; // we won't use this
 
     public enum ConnectionDirection {
         STRAIGHT,
@@ -37,7 +40,23 @@ public class Connection {
         RED,
         GREEN_MINOR,
         GREEN_MAJOR
-
     }
+    
+    public Connection(Edge from, Edge to, Lane fromLane, Lane toLane, String direction, String state) {
+    	if(from == null || to == null || fromLane == null || toLane == null) throw new IllegalArgumentException("Required connection attributes are empty");
+    	this.from = from;
+    	this.to = to;
+    	this.fromLane = fromLane;
+    	this.toLane = toLane;
+    	
+    	// TODO convert direction and state, also add to exception above
+    }
+
+	public void setVia(Lane via)
+	{
+		this.via = via;
+	}
+    
+    
 
 }
