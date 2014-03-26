@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="NewPersistenceUnit">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <properties>
+            <property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@//172.16.239.133:1521/aidas"/>
+            <property name="eclipselink.jdbc.driver" value="oracle.jdbc.driver"/>
+            <property name="eclipselink.jdbc.user" value="aidas"/>
+            <property name="eclipselink.jdbc.password" value="aidas123"/>
+        </properties>
+    </persistence-unit>
+</persistence>

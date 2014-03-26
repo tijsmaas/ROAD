@@ -1,33 +1,45 @@
 package entities;
 
+import javax.persistence.*;
 import java.util.Vector;
 
 /**
  * Created by Niek on 14/03/14.
  */
+@Entity
 public class Lane {
-	private String id; // example id: "-92_1" or ":-38_5_0"
+
+    @Id @GeneratedValue
+	private int id; // example id: "-92_1" or ":-38_5_0" //TODO: NOPE
     private String laneIdentifier; // not used?
+
+    @ManyToOne
     private Edge edge; // double relation, not needed?
     private int index;
     private float speed; // double?
     private float length; // double?
-    private Vector position;
+
+
+    private String position;
+    //TODO: Find a way to map vector
     
     public Lane(String id, int index)
 	{
-		this.id = id;
+		this.laneIdentifier = id;
 		this.index = index;
 	}
 
-	public String getId()
+    public Lane() {
+    }
+
+    public String getLaneIdentifier()
 	{
-		return id;
+		return this.laneIdentifier;
 	}
 
 	public int getIndex()
 	{
-		return index;
+		return this.index;
 	}
 
 	public void setSpeed(Float speed)

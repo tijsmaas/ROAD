@@ -1,24 +1,47 @@
 package entities;
 
+import javax.persistence.*;
+
 /**
  * Created by Niek on 14/03/14.
  */
+@Entity
 public class Connection
 {
+    @Id @GeneratedValue
+    private int id;
 	// required
+    @ManyToOne
 	private Edge from;
+
+    @ManyToOne
 	private Edge to;
+
+    @ManyToOne
 	private Lane fromLane;
+
+    @ManyToOne
 	private Lane toLane;
+
+    @Enumerated(EnumType.STRING)
 	private ConnectionDirection direction;
+
+    @Enumerated(EnumType.STRING)
 	private ConnectionState state;
 
 	// optional
+    @ManyToOne
 	private Lane via;
+
+    @ManyToOne
 	private TrafficLightProgram trafficLight; // we won't use this
+
 	private int linkIndex; // we won't use this
 
-	public enum ConnectionDirection
+    public Connection() {
+    }
+
+    public enum ConnectionDirection
 	{
 		STRAIGHT("s"), TURN("t"), LEFT("l"), RIGHT("r"), PARTIALLY_LEFT("L"), PARTIALLY_RIGHT("R"), INVALID("");
 

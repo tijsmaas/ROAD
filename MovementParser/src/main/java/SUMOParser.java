@@ -1,18 +1,17 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
+import entities.Connection;
+import entities.Edge;
+import entities.Edge.EdgeFunction;
+import entities.Lane;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
-
 import utils.TypeConversion;
-import entities.Connection;
-import entities.Edge;
-import entities.Edge.EdgeFunction;
-import entities.Lane;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class SUMOParser extends DefaultHandler
 {
@@ -71,10 +70,10 @@ public class SUMOParser extends DefaultHandler
 			for (Edge e : edgeList)
 			{
 
-				if (from == null && e.getId().equals(from_str))
+				if (from == null && e.getEdgeIdentifier().equals(from_str))
 					from = e;
 
-				if (to == null && e.getId().equals(to_str))
+				if (to == null && e.getEdgeIdentifier().equals(to_str))
 					to = e;
 
 				for (Lane l : e.getLanes())
@@ -85,7 +84,7 @@ public class SUMOParser extends DefaultHandler
 					if (toLane == null && l.getIndex() == toLane_int)
 						toLane = l;
 
-					if (via == null && l.getId().equals(via_str))
+					if (via == null && l.getLaneIdentifier().equals(via_str))
 						via = l;
 				}
 			}
