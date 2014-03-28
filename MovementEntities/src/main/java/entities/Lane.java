@@ -19,8 +19,11 @@ public class Lane
     @ManyToOne
     private Edge edge;
 
+    @Column(name = "LaneIndex")
     private int index;
     private float speed; // double?
+
+    @Column(name = "LaneLength")
     private float length; // double?
 
 

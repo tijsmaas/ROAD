@@ -32,5 +32,85 @@ public class Junction
     @OneToMany
     private List<JunctionRequest> requests;
 
+    //region Properties
+    public int getId()
+    {
+        return id;
+    }
 
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public String getJunctionIdentifier()
+    {
+        return junctionIdentifier;
+    }
+
+    public void setJunctionIdentifier(String junctionIdentifier)
+    {
+        this.junctionIdentifier = junctionIdentifier;
+    }
+
+    public double getX()
+    {
+        return x;
+    }
+
+    public void setX(double x)
+    {
+        this.x = x;
+    }
+
+    public double getY()
+    {
+        return y;
+    }
+
+    public void setY(double y)
+    {
+        this.y = y;
+    }
+
+    public List<Lane> getIncLanes()
+    {
+        return incLanes;
+    }
+
+    public void setIncLanes(List<Lane> incLanes)
+    {
+        this.incLanes = incLanes;
+    }
+
+    public List<Lane> getIntLanes()
+    {
+        return intLanes;
+    }
+
+    public void setIntLanes(List<Lane> intLanes)
+    {
+        this.intLanes = intLanes;
+    }
+
+    public Polygon getShape()
+    {
+        return shape;
+    }
+
+    public void setShape(Polygon shape)
+    {
+        this.shape = shape;
+    }
+
+    public List<JunctionRequest> getRequests()
+    {
+        return requests;
+    }
+
+    public void setRequests(List<JunctionRequest> requests)
+    {
+        this.requests = requests;
+    }
+    //endregion
 }

@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -16,8 +17,7 @@ public class Movement
     @GeneratedValue
     private int id;
 
-    @Temporal(TemporalType.DATE)
-    private GregorianCalendar movementDate;
+    private Calendar movementDate;
 
     @ManyToOne
     private Lane lane;
@@ -40,12 +40,12 @@ public class Movement
         this.id = id;
     }
 
-    public GregorianCalendar getMovementDate()
+    public Calendar getMovementDate()
     {
         return movementDate;
     }
 
-    public void setMovementDate(GregorianCalendar movementDate)
+    public void setMovementDate(Calendar movementDate)
     {
         this.movementDate = movementDate;
     }

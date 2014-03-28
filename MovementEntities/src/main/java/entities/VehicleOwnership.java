@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -22,11 +23,9 @@ public class VehicleOwnership
     private int userID;
 
 
-    @Temporal(TemporalType.DATE)
-    private GregorianCalendar registrationdate;
+    private Calendar registrationdate;
 
-    @Temporal(TemporalType.DATE)
-    private GregorianCalendar registrationExperationDate;
+    private Calendar registrationExperationDate;
 
 
     //region Properties
@@ -60,7 +59,7 @@ public class VehicleOwnership
         this.userID = userID;
     }
 
-    public GregorianCalendar getRegistrationdate()
+    public Calendar getRegistrationdate()
     {
         return registrationdate;
     }
@@ -70,7 +69,7 @@ public class VehicleOwnership
         this.registrationdate = registrationdate;
     }
 
-    public GregorianCalendar getRegistrationExperationDate()
+    public Calendar getRegistrationExperationDate()
     {
         return registrationExperationDate;
     }

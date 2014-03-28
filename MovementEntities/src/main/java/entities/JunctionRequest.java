@@ -1,10 +1,7 @@
 package entities;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by Niek on 14/03/14.
@@ -14,7 +11,10 @@ import javax.persistence.ManyToOne;
 public class JunctionRequest {
     @Id @GeneratedValue
     private int id;
-    private int index;
+
+    @Column(name = "requestIndex")
+    protected int index;
+
     private String response;
     private String foes;
     private boolean cont;

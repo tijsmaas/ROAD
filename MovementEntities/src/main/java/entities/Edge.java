@@ -19,11 +19,17 @@ public class Edge
 
     @Enumerated(EnumType.STRING)
     private EdgeFunction function;
+
+    @Column(name = "EdgeType")
     private String type; // highway.primary, highway.secondary, etc
 
     @OneToMany
     private List<Lane> lanes;
-    private String from; // points to edge or junction
+
+    @Column(name = "fromEdge")
+    private String from;// points to edge or junction
+
+    @Column(name = "ToEdge")
     private String to; // points to edge or junction
     private Integer priority; // changed to Integer because it can also be NULL
 

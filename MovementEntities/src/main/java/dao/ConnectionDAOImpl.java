@@ -2,12 +2,20 @@ package dao;
 
 import entities.Connection;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
+
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
 public class ConnectionDAOImpl implements ConnectionDAO
 {
+
+    @PersistenceContext(unitName = "MovementPU")
+    private EntityManager em;
 
 
     /**
@@ -16,7 +24,9 @@ public class ConnectionDAOImpl implements ConnectionDAO
     @Override
     public int count()
     {
-        return 0;
+        Query query = em.createQuery("select count(connection) from Connection connection");
+        return (Integer)query.getSingleResult();
+
     }
 
     /**
@@ -26,7 +36,7 @@ public class ConnectionDAOImpl implements ConnectionDAO
     @Override
     public void create(Connection connection)
     {
-
+        em.persist(connection);
     }
 
     /**
@@ -35,7 +45,7 @@ public class ConnectionDAOImpl implements ConnectionDAO
     @Override
     public void edit(Connection connection)
     {
-
+        em.merge(connection);
     }
 
     /**
@@ -44,7 +54,7 @@ public class ConnectionDAOImpl implements ConnectionDAO
     @Override
     public void remove(Connection connection)
     {
-
+        em.remove(connection);
     }
 
     /**
@@ -53,6 +63,10 @@ public class ConnectionDAOImpl implements ConnectionDAO
     @Override
     public Connection find(int connectionID)
     {
-        return null;
+        Query query = em.createQuery("Select connection from Connection connection where connection.id = :id");
+        query.setParameter("id", connectionID);
+
+        List<Connection> foundConnections = query.getResultList();
+        return foundConnections.isEmpty() ? null : foundConnections.get(0);
     }
 }
