@@ -27,4 +27,57 @@ public class Movement
 
     @OneToMany
     private List<MovementVehicle> movementVehicles;
+
+
+    //region Properties
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public GregorianCalendar getMovementDate()
+    {
+        return movementDate;
+    }
+
+    public void setMovementDate(GregorianCalendar movementDate)
+    {
+        this.movementDate = movementDate;
+    }
+
+    public Lane getLane()
+    {
+        return lane;
+    }
+
+    public void setLane(Lane lane)
+    {
+        this.lane = lane;
+    }
+
+    public Edge getEdge()
+    {
+        return edge;
+    }
+
+    public void setEdge(Edge edge)
+    {
+        this.edge = edge;
+    }
+
+    public List<MovementVehicle> getMovementVehicles()
+    {
+        return movementVehicles;
+    }
+
+    public void setMovementVehicles(List<MovementVehicle> movementVehicles)
+    {
+        this.movementVehicles = movementVehicles;
+    }
+    //endregion
 }

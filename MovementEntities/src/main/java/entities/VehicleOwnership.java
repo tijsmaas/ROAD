@@ -28,4 +28,56 @@ public class VehicleOwnership
     @Temporal(TemporalType.DATE)
     private GregorianCalendar registrationExperationDate;
 
+
+    //region Properties
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public Vehicle getVehicle()
+    {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle)
+    {
+        this.vehicle = vehicle;
+    }
+
+    public int getUserID()
+    {
+        return userID;
+    }
+
+    public void setUserID(int userID)
+    {
+        this.userID = userID;
+    }
+
+    public GregorianCalendar getRegistrationdate()
+    {
+        return registrationdate;
+    }
+
+    public void setRegistrationdate(GregorianCalendar registrationdate)
+    {
+        this.registrationdate = registrationdate;
+    }
+
+    public GregorianCalendar getRegistrationExperationDate()
+    {
+        return registrationExperationDate;
+    }
+
+    public void setRegistrationExperationDate(GregorianCalendar registrationExperationDate)
+    {
+        this.registrationExperationDate = registrationExperationDate;
+    }
+    //endregion
 }

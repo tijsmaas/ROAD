@@ -4,16 +4,13 @@
     <persistence-unit name="MovementPU">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@//172.16.239.133:1521/aidas"/>
-            <property name="eclipselink.jdbc.driver" value="oracle.jdbc.driver"/>
-            <property name="eclipselink.jdbc.user" value="aidas"/>
-            <property name="eclipselink.jdbc.password" value="aidas123"/>
             <property name="hibernate.transaction.jta.platform"
                       value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
             <property name="dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
             
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
+
         </properties>
     </persistence-unit>
 </persistence>
