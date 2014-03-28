@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source source="LOCAL" name="NewPersistenceUnit" uuid="c67d1420-0eff-4aca-9d3f-5e46072a4b05">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source source="LOCAL" name="Oracle - @VM" uuid="3d0fef62-2d86-4488-8cba-7b10809c7019">
+    <database-info product="Oracle" version="Oracle Database 12c Enterprise Edition Release 12.1.0.1.0 - 64bit Production&#xa;With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options" jdbc-version="11.2" driver-name="Oracle JDBC driver" driver-version="11.2.0.3.0">
+      <extra-name-characters>$#</extra-name-characters>
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+  </data-source>
+  <data-source source="LOCAL" name="MovementPU" uuid="b4787b76-8d4e-4edf-9bc9-0486224d9a57">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>
