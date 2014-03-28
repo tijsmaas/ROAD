@@ -30,6 +30,99 @@ public class Edge
     @OneToMany
     private List<Connection> connections;
 
+    //region Properties
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public String getEdgeIdentifier()
+    {
+        return edgeIdentifier;
+    }
+
+    public void setEdgeIdentifier(String edgeIdentifier)
+    {
+        this.edgeIdentifier = edgeIdentifier;
+    }
+
+    public EdgeFunction getFunction()
+    {
+        return function;
+    }
+
+    public void setFunction(EdgeFunction function)
+    {
+        this.function = function;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+    public List<Lane> getLanes()
+    {
+        return lanes;
+    }
+
+    public void setLanes(List<Lane> lanes)
+    {
+        this.lanes = lanes;
+    }
+
+    public String getFrom()
+    {
+        return from;
+    }
+
+    public void setFrom(String from)
+    {
+        this.from = from;
+    }
+
+    public String getTo()
+    {
+        return to;
+    }
+
+    public void setTo(String to)
+    {
+        this.to = to;
+    }
+
+    public Integer getPriority()
+    {
+        return priority;
+    }
+
+    public void setPriority(Integer priority)
+    {
+        this.priority = priority;
+    }
+
+    public List<Connection> getConnections()
+    {
+        return connections;
+    }
+
+    public void setConnections(List<Connection> connections)
+    {
+        this.connections = connections;
+    }
+    //endregion
+
+
     public Edge()
     {
     }
@@ -49,59 +142,14 @@ public class Edge
         this.connections = new ArrayList();
     }
 
-    public String getEdgeIdentifier()
-    {
-        return this.edgeIdentifier;
-    }
-
-    public void setFunction(EdgeFunction function)
-    {
-        this.function = function;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
-    public void addLane(Lane lane)
-    {
-        this.lanes.add(lane);
-    }
-
-    public void setLanes(List<Lane> lanes)
-    {
-        this.lanes = lanes;
-    }
-
-    public List<Lane> getLanes()
-    {
-        return lanes;
-    }
-
-    public void setFrom(String from)
-    {
-        this.from = from;
-    }
-
-    public void setTo(String to)
-    {
-        this.to = to;
-    }
-
-    public void setPriority(Integer priority)
-    {
-        this.priority = priority;
-    }
-
-    public List<Connection> getConnections()
-    {
-        return connections;
-    }
 
     public void addConnection(Connection connection)
     {
         this.connections.add(connection);
+    }
+
+    public void addLane(Lane lane){
+        this.lanes.add(lane);
     }
 
 }

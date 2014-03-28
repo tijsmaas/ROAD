@@ -35,6 +35,83 @@ public class Connection
     @ManyToOne
     private Lane via;
 
+    //region Properties
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public Edge getFrom()
+    {
+        return from;
+    }
+
+    public void setFrom(Edge from)
+    {
+        this.from = from;
+    }
+
+    public Edge getTo()
+    {
+        return to;
+    }
+
+    public void setTo(Edge to)
+    {
+        this.to = to;
+    }
+
+    public Lane getFromLane()
+    {
+        return fromLane;
+    }
+
+    public void setFromLane(Lane fromLane)
+    {
+        this.fromLane = fromLane;
+    }
+
+    public Lane getToLane()
+    {
+        return toLane;
+    }
+
+    public void setToLane(Lane toLane)
+    {
+        this.toLane = toLane;
+    }
+
+    public ConnectionDirection getDirection()
+    {
+        return direction;
+    }
+
+    public void setDirection(ConnectionDirection direction)
+    {
+        this.direction = direction;
+    }
+
+    public ConnectionState getState()
+    {
+        return state;
+    }
+
+    public void setState(ConnectionState state)
+    {
+        this.state = state;
+    }
+
+    public Lane getVia()
+    {
+        return via;
+    }
+    //endregion
+
     public Connection()
     {
     }
