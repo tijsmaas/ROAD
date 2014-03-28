@@ -34,18 +34,4 @@ public interface MovementDAO
      * @param movement The Movement object to remove
      */
     void remove(Movement movement);
-
-    /**
-     * Find a movement by ID
-     * @param MovementID The ID of the movement
-     * @return The found movement
-     */
-    Movement find(int MovementID);
-
-    /**
-     * Get all movements of a certain date
-     * @param date movement date
-     * @return List of found movements
-     */
-    List<Movement> getMovementsByDate(Date date);
 }

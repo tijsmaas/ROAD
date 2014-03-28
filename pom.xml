@@ -17,6 +17,7 @@
         <module>MovementService</module>
         <module>PoliceSystem</module>
         <module>UserService</module>
+        <module>MovementEntityAccess</module>
     </modules>
 
 

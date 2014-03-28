@@ -2,6 +2,8 @@ package dao;
 
 import entities.Vehicle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -10,37 +12,8 @@ import java.util.List;
  */
 public class VehicleDAOImpl implements VehicleDAO
 {
-
-    /**
-     * {@inheritDoc}
-     * @param vehicle The Vehicle object to persist
-     */
-    @Override
-    public void create(Vehicle vehicle)
-    {
-
-    }
-
-
-    /**
-     * {@inheritDoc}
-     * @param vehicle The modified Vehicle object
-     */
-    @Override
-    public void edit(Vehicle vehicle)
-    {
-
-    }
-
-    /**
-     * {@inheritDoc}
-     * @param vehicle The Vehicle object to remove
-     */
-    @Override
-    public void remove(Vehicle vehicle)
-    {
-
-    }
+    @PersistenceContext(unitName = "MovementPU")
+    private EntityManager em;
 
     /**
      * {@inheritDoc}

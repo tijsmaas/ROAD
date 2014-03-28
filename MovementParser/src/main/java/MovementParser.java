@@ -1,29 +1,21 @@
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
+import entities.Connection;
+import entities.Edge;
+import entities.Lane;
+import entities.MovementMap;
 import osm.jaxb.OsmType;
 import sumo.jaxb.ConnectionType;
 import sumo.jaxb.EdgeType;
 import sumo.jaxb.LaneType;
 import sumo.jaxb.NetType;
 import sumo.movements.jaxb.SumoNetstateType;
-import utils.TypeConversion;
-import entities.Connection;
-import entities.Edge;
-import entities.Lane;
-import entities.MovementMap;
-import entities.Connection.ConnectionDirection;
-import entities.Connection.ConnectionState;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MovementParser {
