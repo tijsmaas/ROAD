@@ -1,17 +1,21 @@
 import java.io.File;
-import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
-import org.xml.sax.SAXException;
+import osm.jaxb.OsmType;
+import sumo.jaxb.NetType;
+import sumo.movements.jaxb.SumoNetstateType;
 
 
 public class MovementParser {
 	
 	public static void main(String [] args) {
-		new MovementParser().parseSUMO(new File("res/PTS-ESD-2.net.xml"));
+		MovementParser mp = new MovementParser();
+		mp.parseSUMO(new File("res/PTS-ESD-2.net.xml"));
+		mp.parseChanges(new File("/home/tijs/Downloads/verpl_systeem/verplaatsingen_20110208.xml"));
 	}
 	
 	/**
@@ -20,47 +24,13 @@ public class MovementParser {
 	 * 3. parse connections
 	 * @param map
 	 */
-	public boolean parseSUMO(File map) {
-		SAXParserFactory spfac = SAXParserFactory.newInstance();
-
-        //Now use the parser factory to create a SAXParser object
-        SAXParser sp = null;
-		try
-		{
-			sp = spfac.newSAXParser();
-		} catch (ParserConfigurationException e)
-		{
-			e.printStackTrace();
-			// We can't fix this if it occurs
-			return false;
-		} catch (SAXException e)
-		{
-			e.printStackTrace();
-			// Should not happen on initialisation
-			return false;
+	public void parseSUMO(File map) {
+		long startTime = System.nanoTime();
+		JAXBElement<NetType> root = (JAXBElement<NetType>) parse(map, "sumo.jaxb");
+		if(root != null) {
+			System.out.println("Parsed "+map.getName()+" in "+(System.nanoTime()-startTime)+"ns");
+			// TODO persist
 		}
-
-        //Create an instance of this class; it defines all the handler methods
-        SUMOParser handler = new SUMOParser();
-
-        //Finally, tell the parser to parse the input and notify the handler
-        try
-		{
-			sp.parse(map, handler);
-		} catch (SAXException e)
-		{
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-			// @TODO: Report to someone that the XML file is inaccesible
-			return false;
-		}
-       
-        handler.readEdges();
-        handler.readConnections();
-        
-        return true;
 	}
 	
 	/**
@@ -70,7 +40,12 @@ public class MovementParser {
 	 * @param map
 	 */
 	public void parseOSM(File map) {
-		
+		long startTime = System.nanoTime();
+		JAXBElement<OsmType> root = (JAXBElement<OsmType>) parse(map, "osm.jaxb");
+		if(root != null) {
+			System.out.println("Parsed "+map.getName()+" in "+(System.nanoTime()-startTime)+"ns");
+			// TODO persist
+		}
 	}
 
 	/**
@@ -79,6 +54,29 @@ public class MovementParser {
 	 * @param changes
 	 */
 	public void parseChanges(File changes) {
-		
+		long startTime = System.nanoTime();
+		@SuppressWarnings("unchecked")
+		JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) parse(changes, "osm.jaxb");
+		if(root != null) {
+			System.out.println("Parsed "+changes.getName()+" in "+(System.nanoTime()-startTime)+"ns");
+			// TODO persist
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private JAXBElement parse(File file, String classpath) {
+        JAXBContext jc;
+		try
+		{
+			/** Read XML(JAXB) annotations from the classes in this package **/
+			jc = JAXBContext.newInstance(classpath);
+	        Unmarshaller unmarshaller = jc.createUnmarshaller();
+			return (JAXBElement) unmarshaller.unmarshal(file);
+		} catch (JAXBException e)
+		{
+			System.err.println("Parsing of "+file.getName()+" failed");
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
