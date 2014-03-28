@@ -131,15 +131,32 @@ public class Edge
     {
         normal,
         internal,
-        connector,
+        connector;
+        
+        public static EdgeFunction fromString(String s) {
+        	if("normal".equals(s)) {
+        		return EdgeFunction.normal;
+        	}else if("internal".equals(s)) {
+        		return EdgeFunction.internal;
+        	}else if("connector".equals(s)) {
+        		return EdgeFunction.connector;
+        	}else{
+        		return null;
+        	}
+        };
     }
 
-    public Edge(String id)
+    public Edge(String id, String function, String type, String from, String to, Integer priority)
     {
         if (id == null || id.isEmpty()) throw new IllegalArgumentException("Edge ID cannot be empty");
         this.edgeIdentifier = id;
+        this.function = EdgeFunction.fromString(function);
+        this.type = type;
+        this.from = from;
+        this.to = to;
+        this.priority = priority;
         this.lanes = new ArrayList();
-        this.connections = new ArrayList();
+        this.connections = new ArrayList();        
     }
 
 

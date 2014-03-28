@@ -118,7 +118,7 @@ public class Connection
 
     public enum ConnectionDirection
     {
-        STRAIGHT("s"), TURN("t"), LEFT("l"), RIGHT("r"), PARTIALLY_LEFT("L"), PARTIALLY_RIGHT("R"), INVALID("");
+        STRAIGHT("s"), TURN("t"), LEFT("l"), RIGHT("r"), PARTIALLY_LEFT("L"), PARTIALLY_RIGHT("R"), INVALID("XX");
 
         private String text;
 
@@ -151,7 +151,18 @@ public class Connection
     public enum ConnectionState
     {
         // TODO add conversion strings
-        DEAD_END(""), EQUAL("="), MINOR_LINK("m"), MAJOR_LINK("M"), CONTROLLER_OFF(""), YELLOW_FLASHING(""), YELLOW_MINOR_LINK(""), YELLOW_MAJOR_LINK(""), RED(""), GREEN_MINOR(""), GREEN_MAJOR("");
+        DEAD_END("-"), 
+        EQUAL("="), 
+        MINOR_LINK("m"), 
+        MAJOR_LINK("M"), 
+        CONTROLLER_OFF("O"), 
+        YELLOW_FLASHING("o"), 
+        YELLOW_MINOR_LINK("y"), 
+        YELLOW_MAJOR_LINK("Y"), 
+        RED("r"), 
+        GREEN_MINOR("g"), 
+        GREEN_MAJOR("G");
+        
         /*
 		 * <xsd:attribute name="state" use="required">
 		 * <xsd:enumeration value="M"/>

@@ -33,7 +33,7 @@ public class Lane
         this.index = index;
     }
 
-    public Lane()
+    public Lane(Edge edge, String id, int index, float speed, float length)
     {
     }
 
