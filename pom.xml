@@ -14,7 +14,7 @@
         <module>CarSystem</module>
         <module>MovementDTS</module>
         <module>MovementParser</module>
-        <module>MovementServer</module>
+        <module>MovementService</module>
         <module>PoliceSystem</module>
         <module>UserService</module>
     </modules>
