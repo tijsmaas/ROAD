@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 /**
  * Created by Niek on 14/03/14.
+ * © Aidas 2014
  */
 @Entity
 public class JunctionRequest {

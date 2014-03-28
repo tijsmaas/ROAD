@@ -8,12 +8,17 @@ import java.util.List;
 
 /**
  * Created by Niek on 14/03/14.
+ * © Aidas 2014
  */
 @Entity
-public class Vehicle {
-    @Id @GeneratedValue
+public class Vehicle
+{
+    @Id
+    @GeneratedValue
     private int id;
+
     private String licensePlate;
+
     private boolean isStolen;
 
     @OneToMany

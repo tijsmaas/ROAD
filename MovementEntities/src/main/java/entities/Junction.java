@@ -9,10 +9,13 @@ import java.util.List;
 
 /**
  * Created by Niek on 14/03/14.
+ * © Aidas 2014
  */
 @Entity
-public class Junction {
-    @Id @GeneratedValue
+public class Junction
+{
+    @Id
+    @GeneratedValue
     private int id;
     private String junctionIdentifier;
     private double x;
@@ -28,7 +31,6 @@ public class Junction {
 
     @OneToMany
     private List<JunctionRequest> requests;
-
 
 
 }

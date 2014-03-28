@@ -5,16 +5,20 @@ import java.util.Vector;
 
 /**
  * Created by Niek on 14/03/14.
+ * © Aidas 2014
  */
 @Entity
-public class Lane {
+public class Lane
+{
 
-    @Id @GeneratedValue
-	private int id; // example id: "-92_1" or ":-38_5_0" //TODO: NOPE
-    private String laneIdentifier; // not used?
+    @Id
+    @GeneratedValue
+    private int id;
+    private String laneIdentifier;
 
     @ManyToOne
-    private Edge edge; // double relation, not needed?
+    private Edge edge;
+
     private int index;
     private float speed; // double?
     private float length; // double?
@@ -22,33 +26,34 @@ public class Lane {
 
     private String position;
     //TODO: Find a way to map vector
-    
-    public Lane(String id, int index)
-	{
-		this.laneIdentifier = id;
-		this.index = index;
-	}
 
-    public Lane() {
+    public Lane(String id, int index)
+    {
+        this.laneIdentifier = id;
+        this.index = index;
+    }
+
+    public Lane()
+    {
     }
 
     public String getLaneIdentifier()
-	{
-		return this.laneIdentifier;
-	}
+    {
+        return this.laneIdentifier;
+    }
 
-	public int getIndex()
-	{
-		return this.index;
-	}
+    public int getIndex()
+    {
+        return this.index;
+    }
 
-	public void setSpeed(Float speed)
-	{
-		this.speed = speed;
-	}
+    public void setSpeed(Float speed)
+    {
+        this.speed = speed;
+    }
 
-	public void setLength(Float length)
-	{
-		this.length = length;
-	}
+    public void setLength(Float length)
+    {
+        this.length = length;
+    }
 }
