@@ -1,3 +1,4 @@
+import entities.Edge;
 import org.junit.*;
 
 import javax.persistence.EntityManager;
@@ -16,40 +17,54 @@ public class PUTest
     protected EntityManager em;
 
     @BeforeClass
-    public static void createEMF(){
+    public static void createEMF()
+    {
         emf = Persistence.createEntityManagerFactory("MovementPU");
     }
 
     @AfterClass
-    public static void closeEntityManagerFactory(){
+    public static void closeEntityManagerFactory()
+    {
         emf.close();
     }
 
     @Before
-    public void beginTransaction(){
+    public void beginTransaction()
+    {
         em = emf.createEntityManager();
         em.getTransaction().begin();
     }
 
     @After
-    public void rollBackTransaction(){
-        if (em.getTransaction().isActive()) {
+    public void rollBackTransaction()
+    {
+        if (em.getTransaction().isActive())
+        {
             em.getTransaction().rollback();
         }
 
-        if (em.isOpen()) {
+        if (em.isOpen())
+        {
             em.close();
         }
     }
 
     @Test
-    public void TestSimpleQuery() throws InterruptedException
+    public void testSimpleQuery() throws InterruptedException
     {
-       Query q = em.createQuery("select count(movement) From Movement movement");
+        Query q = em.createQuery("select count(movement) From Movement movement");
 
-       Long resultCount = (Long)q.getSingleResult();
+        Long resultCount = (Long) q.getSingleResult();
 
-       Assert.assertEquals(new Long(0), resultCount);
+        Assert.assertEquals(new Long(0), resultCount);
+    }
+
+    @Test
+    public void createTestEdge() throws InterruptedException
+    {
+        Edge testEdge = new Edge("-99.2", "swekkerbuoi", "SwekkerType", "FromType", "toType", 1);
+
+        em.persist(testEdge);
     }
 
 
