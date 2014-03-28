@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b8ca3cf-bb96-4415-af03-33504551016b" name="Default" comment="Added DAO">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/ConnectionDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/ConnectionDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/EdgeDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/EdgeDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/JunctionDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/JunctionDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/LaneDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/LaneDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/MovementDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/MovementDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/service/MovementService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/VehicleDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/VehicleDAOImpl.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Phase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/TrafficLightProgram.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BillSystem/BillSystem.iml" afterPath="$PROJECT_DIR$/BillSystem/BillSystem.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Connection.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Connection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Edge.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Edge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Junction.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Junction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/JunctionRequest.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/JunctionRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Lane.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Lane.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Movement.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Movement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/MovementEntities.iml" afterPath="$PROJECT_DIR$/MovementEntities/MovementEntities.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/MovementVehicle.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/MovementVehicle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Vehicle.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Vehicle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/VehicleOwnership.java" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/VehicleOwnership.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/MovementEntities/src/main/java/META-INF/persistence.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MovementEntities/pom.xml" afterPath="$PROJECT_DIR$/MovementEntities/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="9b8ca3cf-bb96-4415-af03-33504551016b" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/BillSystem/BillSystem.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/BillSystem/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CarSystem/CarSystem.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CarSystem/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementDTS/MovementDTS.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementDTS/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/MovementEntities.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/META-INF/persistence.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/ConnectionDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/ConnectionDAOImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/EdgeDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/EdgeDAOImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/JunctionDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/JunctionDAOImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/LaneDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/LaneDAOImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/MovementDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/MovementDAOImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/VehicleDAO.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/dao/VehicleDAOImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Connection.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Edge.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Junction.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/JunctionRequest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Lane.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Movement.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/MovementVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/Vehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/entities/VehicleOwnership.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementEntities/src/main/java/service/MovementService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementParser/MovementParser.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementParser/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementParser/res/PTS-ESD-2.net.out.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementParser/res/PTS-ESD-2.net.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementParser/res/PTS-ESD-2.osm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementParser/src/main/java/MovementParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementParser/src/main/java/SUMOParser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementParser/src/main/java/utils/TypeConversion.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementService/MovementService.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementService/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementService/src/main/java/Start.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementService/src/main/java/service/Server.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MovementService/src/main/java/service/Worker.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PoliceSystem/PoliceSystem.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PoliceSystem/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ROAD.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/UserService/UserService.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/UserService/pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pom.xml" afterPath="" />
     </list>
     <ignored path="ROAD.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -865,12 +890,17 @@
       <updated>1395996520299</updated>
       <workItem from="1395996524522" duration="97000" />
       <workItem from="1395996635269" duration="151000" />
-      <workItem from="1395996911664" duration="6933000" />
+      <workItem from="1395996911664" duration="6991000" />
     </task>
+    <task id="LOCAL-00001" summary="Added basic DAO implementations (Still needs the functionality)">
+      <created>1396005872258</created>
+      <updated>1396005872258</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7181000" />
+    <option name="totallyTimeSpent" value="7239000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="16" y="22" width="2522" height="1496" extended-state="0" />
@@ -920,7 +950,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="Added DAO" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added DAO" />
+    <MESSAGE value="Added basic DAO implementations (Still needs the functionality)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added basic DAO implementations (Still needs the functionality)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
