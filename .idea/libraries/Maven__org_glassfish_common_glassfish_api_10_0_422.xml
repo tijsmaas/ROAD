@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.glassfish.common:glassfish-api:10.0.422">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/common/glassfish-api/10.0.422/glassfish-api-10.0.422.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/common/glassfish-api/10.0.422/glassfish-api-10.0.422-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/glassfish/common/glassfish-api/10.0.422/glassfish-api-10.0.422-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
