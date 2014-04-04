@@ -103,7 +103,7 @@ public class SUMOParser extends DefaultHandler
 				this.fatalError(new SAXParseException("Edge cannot be nested", this.locator));
 
 			domStack.push(element.EDGE);
-			edge = new Edge(attributes.getValue("id"));
+			edge = new Edge();
 			/**
 			 * Based on value of attribute edge.function requires more or less
 			 * edge attributes are required. (See the XSD here:
