@@ -1,36 +1,47 @@
-import entities.Connection;
-import entities.Edge;
-import entities.Lane;
-import entities.MovementMap;
-import osm.jaxb.OsmType;
-import sumo.jaxb.ConnectionType;
-import sumo.jaxb.EdgeType;
-import sumo.jaxb.LaneType;
-import sumo.jaxb.NetType;
-import sumo.movements.jaxb.SumoNetstateType;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import osm.jaxb.OsmType;
+import sumo.jaxb.ConnectionType;
+import sumo.jaxb.EdgeType;
+import sumo.jaxb.JunctionType;
+import sumo.jaxb.LaneType;
+import sumo.jaxb.NetType;
+import sumo.movements.jaxb.SumoNetstateType;
+import dao.ConnectionDAO;
+import dao.EdgeDAO;
+import dao.JunctionDAO;
+import dao.LaneDAO;
+import entities.Connection;
+import entities.Edge;
+import entities.Junction;
+import entities.Lane;
+import entities.MovementMap;
+
 
 public class MovementParser {
 	
-	MovementMap mm;
+	@Inject
+	private JunctionDAO junctionDAO;
+	
+	@Inject
+	private EdgeDAO edgeDAO;
+	
+	@Inject LaneDAO laneDAO;
+	
+	@Inject ConnectionDAO connectionDAO;
 	
 	public static void main(String [] args) {
 		MovementParser mp = new MovementParser();
 		mp.parseSUMO(new File("res/PTS-ESD-2.net.xml"));
 		mp.parseChanges(new File("/home/tijs/Downloads/verpl_systeem/verplaatsingen_20110208.xml"));
-	}
-	
-	public MovementParser()
-	{
-		mm = new MovementMap();
 	}
 	
 	/**
@@ -45,16 +56,17 @@ public class MovementParser {
 		if(root != null) {
 			
 			// Persist edges, convert xmltypes to JPA entities
-			List<Edge> edges = new ArrayList<Edge>();
+			List<Edge> edges = new ArrayList<>();
 			for(EdgeType xmlEdge : root.getValue().getEdge()) {
 				Edge edge = new Edge(xmlEdge.getId(), xmlEdge.getFunction(), xmlEdge.getType(), xmlEdge.getFrom(), xmlEdge.getTo(), xmlEdge.getPriority().intValue());
+				edgeDAO.create(edge);
 				for(LaneType xmlLane : xmlEdge.getLane()) {
 					Lane lane = new Lane(edge, xmlLane.getId(), xmlLane.getIndex().intValue(), xmlLane.getSpeed(), xmlLane.getLength());
 					edge.addLane(lane);
+					laneDAO.create(lane);
 				}
-				edges.add(edge);
+				edgeDAO.edit(edge);
 			}
-			mm.setEdges(edges);
 			
 			List<Connection> connections = new ArrayList<>();
 			for(ConnectionType xmlConn : root.getValue().getConnection()) {
@@ -70,8 +82,8 @@ public class MovementParser {
 				String direction_str = xmlConn.getDir();
 				String state_str = xmlConn.getState();
 
-				Edge from, to = null;
-				Lane fromLane, toLane, via = null;
+				Edge from = null, to = null;
+				Lane fromLane = null, toLane = null, via = null;
 
 				for (Edge e : edges)
 				{
@@ -100,7 +112,18 @@ public class MovementParser {
 				connections.add(connection);
 				from.addConnection(connection);
 				to.addConnection(connection);
+				edgeDAO.edit(from);
+				edgeDAO.edit(to);
+				connectionDAO.create(connection);				
 			}
+			
+			List<Junction> junctions = new ArrayList<Junction>();
+			for(JunctionType xmlJunc : root.getValue().getJunction()) {
+				Junction junction = new Junction(xmlJunc.getId(), xmlJunc.getX(), xmlJunc.getY());
+				junctions.add(junction);
+				junctionDAO.create(junction);
+			}
+			
 			
 			System.out.println("Parsed "+map.getName()+" in "+(System.nanoTime()-startTime)+"ns");
 		}
