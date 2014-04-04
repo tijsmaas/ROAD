@@ -33,17 +33,4 @@ public interface LaneDAO
      */
     void remove(Lane lane);
 
-    /**
-     * Selects a lane object by ID
-     * @param laneID The ID of the lane to find
-     * @return The found Lane object
-     */
-    Lane find(int laneID);
-
-    /**
-     * Finds a lane object by the SUMO identifier
-     * @param laneIdentifier The SUMO lane identifier
-     * @return The found Lane object.
-     */
-    Lane find(String laneIdentifier);
 }

@@ -32,12 +32,6 @@ public interface ConnectionDAO
      */
     void remove(Connection connection);
 
-    /**
-     * Searches for a connection in the database
-     * @param connectionID the ID of the connection
-     * @return The connection found, or null.
-     */
-    Connection find(int connectionID);
 
 
 }

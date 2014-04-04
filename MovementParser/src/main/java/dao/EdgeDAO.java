@@ -33,17 +33,4 @@ public interface EdgeDAO
      */
     void remove(Edge edge);
 
-    /**
-     * Find an edge by it's ID
-     * @param edgeID The ID of the edge to find
-     * @return The found edge object
-     */
-    Edge find(int edgeID);
-
-    /**
-     * Find an edge by the SUMO Edge identifier
-     * @param edgeIdentifier The sumo Edge Identifier
-     * @return The found Edge object
-     */
-    Edge findByIdentifier(String edgeIdentifier);
 }

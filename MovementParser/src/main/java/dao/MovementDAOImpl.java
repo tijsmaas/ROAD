@@ -2,8 +2,8 @@ package dao;
 
 import entities.Movement;
 
-import java.util.Date;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * Created by Niek on 28/03/14.
@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class MovementDAOImpl implements MovementDAO
 {
+
+    @PersistenceContext(unitName = "MovementPU")
+    private EntityManager em;
     /**
      * {@inheritDoc}
      */
@@ -27,7 +30,7 @@ public class MovementDAOImpl implements MovementDAO
     @Override
     public void create(Movement movement)
     {
-
+        em.persist(movement);
     }
 
     /**
@@ -37,7 +40,7 @@ public class MovementDAOImpl implements MovementDAO
     @Override
     public void edit(Movement movement)
     {
-
+        em.merge(movement);
     }
 
     /**
@@ -47,26 +50,7 @@ public class MovementDAOImpl implements MovementDAO
     @Override
     public void remove(Movement movement)
     {
-
+        em.remove(movement);
     }
 
-    /**
-     * {@inheritDoc}
-     * @param MovementID The ID of the movement
-     */
-    @Override
-    public Movement find(int MovementID)
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     * @param date movement date
-     */
-    @Override
-    public List<Movement> getMovementsByDate(Date date)
-    {
-        return null;
-    }
 }

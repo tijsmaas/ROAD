@@ -11,24 +11,6 @@ import java.util.List;
 public interface VehicleDAO
 {
     /**
-     * Persists a vehicle to the database
-     * @param vehicle The Vehicle object to persist
-     */
-    void create(Vehicle vehicle);
-
-    /**
-     * Merges the changes of a modified Vehicle
-     * @param vehicle The modified Vehicle object
-     */
-    void edit(Vehicle vehicle);
-
-    /**
-     * Removes a Vehicle from the database
-     * @param vehicle The Vehicle object to remove.
-     */
-    void remove(Vehicle vehicle);
-
-    /**
      * Find a vehicle by ID
      * @param id the ID of the vehicle
      * @return The found Vehicle object

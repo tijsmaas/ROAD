@@ -26,6 +26,7 @@
         <module name="CarSystem" />
         <module name="MovementDTS" />
         <module name="MovementEntities" />
+        <module name="MovementEntityAccess" />
         <module name="MovementParser" />
         <module name="MovementService" />
         <module name="PoliceSystem" />
