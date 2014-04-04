@@ -16,6 +16,7 @@
         <module>MovementParser</module>
         <module>MovementService</module>
         <module>PoliceSystem</module>
+        <module>UserDtos</module>
         <module>UserService</module>
         <module>MovementEntityAccess</module>
     </modules>
