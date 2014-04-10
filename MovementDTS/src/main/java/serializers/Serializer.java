@@ -8,8 +8,8 @@ import org.codehaus.jackson.map.ObjectWriter;
  */
 public class Serializer
 {
-    ObjectReader reader;
-    ObjectWriter writer;
+    private ObjectReader reader;
+    private ObjectWriter writer;
 
     public Serializer()
     {
