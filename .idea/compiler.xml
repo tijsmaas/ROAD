@@ -24,7 +24,6 @@
         <processorPath useClasspath="true" />
         <module name="BillSystem" />
         <module name="CarSystem" />
-        <module name="DemoModule" />
         <module name="JPADemoModule" />
         <module name="MovementDTS" />
         <module name="MovementEntities" />
