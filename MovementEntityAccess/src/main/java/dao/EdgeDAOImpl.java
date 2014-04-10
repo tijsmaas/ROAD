@@ -16,6 +16,14 @@ public class EdgeDAOImpl implements EdgeDAO
     @PersistenceContext(unitName = "MovementPU")
     private EntityManager em;
 
+    @Override
+    public Long count()
+    {
+        Query query = em.createQuery("Select count(edge) from Edge edge");
+
+        return (Long)query.getSingleResult();
+    }
+
     /**
      * {@inheritDoc}
      * @param edgeID The ID of the edge to find
