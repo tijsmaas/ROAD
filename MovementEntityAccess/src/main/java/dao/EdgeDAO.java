@@ -9,6 +9,8 @@ import entities.Edge;
 public interface EdgeDAO
 {
 
+    Long count();
+
     /**
      * Find an edge by it's ID
      * @param edgeID The ID of the edge to find
