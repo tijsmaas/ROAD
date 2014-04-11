@@ -20,6 +20,7 @@
         <module>MovementEntityAccess</module>
         <module>JPADemoModule</module>
         <module>BillDTS</module>
+        <module>CarSystem1</module>
     </modules>
 
 

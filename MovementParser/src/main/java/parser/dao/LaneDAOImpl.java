@@ -1,5 +1,6 @@
-package dao;
+package parser.dao;
 
+import parser.dao.LaneDAO;
 import entities.Lane;
 
 import javax.persistence.EntityManager;

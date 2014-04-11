@@ -1,5 +1,6 @@
-package dao;
+package parser.dao;
 
+import parser.dao.EdgeDAO;
 import entities.Edge;
 
 import javax.persistence.EntityManager;

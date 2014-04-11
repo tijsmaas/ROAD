@@ -21,4 +21,6 @@ public interface LaneDAO
      * @return The found Lane object.
      */
     Lane find(String laneIdentifier);
+
+	int count();
 }
