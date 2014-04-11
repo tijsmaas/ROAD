@@ -1,5 +1,6 @@
-package dao;
+package parser.dao;
 
+import parser.dao.MovementDAO;
 import entities.Movement;
 
 import javax.persistence.EntityManager;
