@@ -19,6 +19,7 @@
         <module>UserService</module>
         <module>MovementEntityAccess</module>
         <module>JPADemoModule</module>
+        <module>BillDTS</module>
     </modules>
 
 

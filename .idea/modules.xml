@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BillDTS/BillDTS.iml" filepath="$PROJECT_DIR$/BillDTS/BillDTS.iml" />
       <module fileurl="file://$PROJECT_DIR$/BillSystem/BillSystem.iml" filepath="$PROJECT_DIR$/BillSystem/BillSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/CarSystem/CarSystem.iml" filepath="$PROJECT_DIR$/CarSystem/CarSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JPADemoModule/JPADemoModule.iml" filepath="$PROJECT_DIR$/JPADemoModule/JPADemoModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/JPADemoModule/JPADemoModule.iml" filepath="$PROJECT_DIR$/JPADemoModule/JPADemoModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/MovementDTS/MovementDTS.iml" filepath="$PROJECT_DIR$/MovementDTS/MovementDTS.iml" />
       <module fileurl="file://$PROJECT_DIR$/MovementEntities/MovementEntities.iml" filepath="$PROJECT_DIR$/MovementEntities/MovementEntities.iml" />
