@@ -4,6 +4,7 @@ import entities.Lane;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * Created by Niek on 28/03/14.
@@ -32,5 +33,17 @@ public class LaneDAOImpl implements LaneDAO
     public Lane find(String laneIdentifier)
     {
         return null;
+    }
+    
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int count()
+    {
+        Query query = em.createQuery("select count(lane) from Lane lane");
+        return (Integer)query.getSingleResult();
+
     }
 }

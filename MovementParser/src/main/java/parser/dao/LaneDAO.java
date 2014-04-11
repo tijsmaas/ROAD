@@ -1,4 +1,4 @@
-package dao;
+package parser.dao;
 
 import entities.Lane;
 

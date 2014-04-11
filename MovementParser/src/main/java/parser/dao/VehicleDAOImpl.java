@@ -1,5 +1,6 @@
-package dao;
+package parser.dao;
 
+import parser.dao.VehicleDAO;
 import entities.Vehicle;
 
 import javax.persistence.EntityManager;

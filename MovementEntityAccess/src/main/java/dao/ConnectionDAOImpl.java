@@ -5,6 +5,7 @@ import entities.Connection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 import java.util.List;
 
 /**
@@ -28,5 +29,17 @@ public class ConnectionDAOImpl implements ConnectionDAO
 
         List<Connection> foundConnections = query.getResultList();
         return foundConnections.isEmpty() ? null : foundConnections.get(0);
+    }
+    
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int count()
+    {
+        Query query = em.createQuery("select count(connection) from Connection connection");
+        return (Integer)query.getSingleResult();
+
     }
 }

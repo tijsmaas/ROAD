@@ -1,5 +1,6 @@
-package dao;
+package parser.dao;
 
+import parser.dao.JunctionDAO;
 import entities.Junction;
 
 import javax.persistence.EntityManager;

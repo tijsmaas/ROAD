@@ -1,5 +1,6 @@
-package dao;
+package parser.dao;
 
+import parser.dao.ConnectionDAO;
 import entities.Connection;
 
 import javax.persistence.EntityManager;

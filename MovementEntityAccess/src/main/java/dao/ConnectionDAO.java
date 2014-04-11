@@ -14,4 +14,6 @@ public interface ConnectionDAO
      * @return The connection found, or null.
      */
     Connection find(int connectionID);
+
+	int count();
 }
