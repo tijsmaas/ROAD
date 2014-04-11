@@ -2,8 +2,9 @@
  * Copyright by AIDaS.
  */
 
-package aidas.usersystem;
+package aidas.security;
 
+import aidas.usersystem.UserManager;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -29,7 +30,7 @@ public class Security {
     /**
      * The number of bytes used for the salt size.
      */
-    private static final int SALT_BYTE_SIZE = 32;
+    private static final int SALT_BYTE_SIZE = 256;
     
     /**
      * The number of iterations done when hashing the password. (creates a slower hash)
@@ -74,7 +75,7 @@ public class Security {
      * @param key the key to encrypt the provided string.
      * @return the encryped string.
      */
-    private static String encrypt(String toEncrypt, String key) 
+    public static String encrypt(String toEncrypt, String key) 
             throws NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException {
         SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(), "Blowfish");
         Cipher cipher = Cipher.getInstance("Blowfish");
@@ -89,7 +90,7 @@ public class Security {
      * @param salt the salt to use to hash the provided string.
      * @return the hashed string.
      */
-    private static String hash(String toHash, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static String hash(String toHash, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
         PBEKeySpec spec = new PBEKeySpec(toHash.toCharArray(), salt, HASH_INTERATION_COUNT, 1026);
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         

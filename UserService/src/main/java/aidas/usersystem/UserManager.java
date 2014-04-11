@@ -4,6 +4,7 @@
 
 package aidas.usersystem;
 
+import aidas.security.Security;
 import aidas.usersystem.dto.Right;
 import aidas.usersystem.entities.UserEntity;
 import java.util.Map;
