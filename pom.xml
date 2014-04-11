@@ -11,16 +11,14 @@
     <modules>
         <module>MovementEntities</module>
         <module>BillSystem</module>
-        <module>CarSystem</module>
         <module>MovementDTS</module>
         <module>MovementParser</module>
         <module>MovementService</module>
         <module>PoliceSystem</module>
         <module>UserService</module>
         <module>MovementEntityAccess</module>
+        <module>CarSystem</module>
         <module>JPADemoModule</module>
-        <module>BillDTS</module>
-        <module>CarSystem1</module>
     </modules>
 
 

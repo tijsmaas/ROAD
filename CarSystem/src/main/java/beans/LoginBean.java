@@ -1,7 +1,9 @@
 package beans;
 
+import domain.user.DriverService;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /*
@@ -22,6 +24,8 @@ public class LoginBean
     private String password;
     @ManagedProperty(value="#{userBean}")
     private UserBean userBean;
+    @Inject
+    private DriverService driverService;
 
     public void setUsername(String username)
     {
@@ -45,6 +49,6 @@ public class LoginBean
     
     public void login()
     {
-        //TODO
+        userBean.setLoggedinUser(driverService.login(username, password));
     }
 }
