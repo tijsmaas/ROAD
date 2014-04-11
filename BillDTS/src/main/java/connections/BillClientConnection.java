@@ -1,20 +1,25 @@
 package connections;
 
+import aidas.usersystem.dto.UserDto;
+
+import javax.inject.Named;
+
 /**
  * Created by geh on 11-4-14.
  * This is the connection that should be used by the BillSystem. One can call remotecall.
  * This class is NOT THREADSAFE. If you want multithreading, create on BillConnection for EACH
  * thread.
  */
-public class BillConnection extends ClientConnection implements IBillQuery
+@Named
+public class BillClientConnection extends ClientConnection implements IBillQuery
 {
-    public BillConnection(String serverAddress, String factoryName, String sendTo)
+    public BillClientConnection()
     {
-        super(serverAddress, factoryName, sendTo);
+        super("localhost:1099", MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
     }
 
     @Override
-    public String authenticate(String userId, String password)
+    public UserDto authenticate(String userId, String password)
     {
         return this.remoteCall("authenticate", userId, password);
     }
