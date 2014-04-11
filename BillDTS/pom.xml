@@ -11,5 +11,11 @@
 
     <artifactId>BillDTS</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>ROAD</groupId>
+            <artifactId>MovementDTS</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
