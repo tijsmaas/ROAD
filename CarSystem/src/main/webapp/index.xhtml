@@ -1,11 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="#{translator.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-   <f:view>
-      <h:outputLabel value="Hello, world"/>
-   </f:view>
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:view locale="#{translator.locale}">
+        <h:head>
+            <title>Facelet Title</title>
+        </h:head>
+        <h:body>
+            <p:fieldset legend="Login" style="margin-left: 25%; margin-right: 25%; margin-top: 50px; text-align: center">
+                <h:form>
+                    <h:panelGrid columns="2"> 
+                        Language : 
+                        <h:selectOneMenu value="#{translator.language}" onchange="submit()">
+                            <f:selectItem itemValue="en" itemLabel="English" />
+                            <f:selectItem itemValue="nl" itemLabel="Nederlands" />
+                        </h:selectOneMenu>
+                    </h:panelGrid> 
+                </h:form>
+                <h:form>
+                    <h:outputLabel id="usernameLabel" for="usernameInput" value="#{msg['username']}:"/>
+                    <h:inputText id="usernameInput" value="#{loginBean.username}"/>
+                    <br/>
+                    <h:outputLabel id="passwordLabel" for="passwordInput" value="#{msg['password']}:"/>
+                    <h:inputText id="passwordInput" value="#{loginBean.password}"/>
+                    <br/>
+                    <h:commandButton action="#{loginBean.login()}" value="Login"/>
+                </h:form>
+            </p:fieldset>
+        </h:body>
+    </f:view>
 </html>
+

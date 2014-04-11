@@ -3,9 +3,14 @@ package translation;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 
 /*
@@ -24,30 +29,36 @@ public class Translator implements Serializable
 {
     private Properties properties;
     
-    public Translator(Locale locale)
+    private Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+
+    public Locale getLocale()
     {
-        changeLanguage(locale);
+        return locale;
     }
-    
-    public void changeLanguage(Locale locale)
+
+    public String getLanguage()
     {
-        try
-        {
-            String core = "./src/main/java/translation/";
-            String translation = core + "car.properties";
-            if(locale.getISO3Language().equalsIgnoreCase("nl"))
-            {
-                translation = core + "car_nl.properties";
-            }
-            FileReader reader = new FileReader(translation);
-            properties = new Properties();
-            properties.load(reader);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        return locale.getLanguage();
     }
+
+    public void setLanguage(String language)
+    {
+        this.locale = new Locale(language);
+//        try
+//        {
+//            String translation = "car.properties";
+//            if(locale.getISO3Language().equalsIgnoreCase("nl"))
+//            {
+//                translation = "car_nl.properties";
+//            }
+//            properties = new Properties();
+//            properties.load(getClass().getResourceAsStream(translation));
+//        }
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
+    }         
     
     public String getProperty(String propertyName)
     {

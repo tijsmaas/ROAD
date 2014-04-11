@@ -6,6 +6,7 @@
 
 package beans;
 
+import domain.user.UserDTO;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -18,17 +19,17 @@ import javax.inject.Named;
 @SessionScoped
 public class UserBean implements Serializable
 {
-//    private UserDTO loggedinUser;
-//
-//    public void setLoggedinUser(UserDTO loggedinUser)
-//    {
-//        this.loggedinUser = loggedinUser;
-//    }
-//
-//    public UserDTO getLoggedinUser()
-//    {
-//        return loggedinUser;
-//    }
+    private UserDTO loggedinUser;
+
+    public void setLoggedinUser(UserDTO loggedinUser)
+    {
+        this.loggedinUser = loggedinUser;
+    }
+
+    public UserDTO getLoggedinUser()
+    {
+        return loggedinUser;
+    }
     
     public void logout()
     {
