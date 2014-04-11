@@ -8,10 +8,13 @@ import javax.inject.Named;
 /**
  * Created by Niek on 10/04/14.
  * © Aidas 2014
+ *
+ * Simple demo bean that injects a DAO and queries it
  */
 @Named
 public class DemoBean
 {
+    //Inject the required DAO, in order to make injection possible from an external lib, see the producer package
     @Inject
     private EdgeDAO dao;
 
@@ -29,9 +32,11 @@ public class DemoBean
         this.content = content;
     }
 
+
     public void doTest(){
-        System.out.println("Counting number of edges");
+        //Execute the count method of the dao, returning the number of edges
         Long count = dao.count();
+
         System.out.println("Number of edges in database: " + count.toString());
     }
 }
