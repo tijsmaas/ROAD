@@ -1,7 +1,10 @@
 package connections;
 
+import helpers.RequestHelper;
 import javafx.util.Pair;
 import javax.naming.Context;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -26,12 +29,12 @@ public abstract class ClientConnection
         {
             ex.printStackTrace();
         }
-
     }
 
-    public <T> T RemoteCall(String method, Object... parameters)
+    public <T> T remoteCall(String methodName, Object... parameters)
     {
-        Pair<String, Object[]> pair = new Pair(method, parameters);
+        String uniqueName = RequestHelper.getUniqueName(methodName, parameters);
+        Pair<String, Object[]> pair = new Pair(uniqueName, parameters);
         String rawRequest = this.connection.serializer.serialize(pair);
         String rawReply = this.connection.send(rawRequest);
         T reply = this.connection.serializer.deSerialize(rawReply);
