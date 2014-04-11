@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CarSystem1:war">
+    <output-path>$PROJECT_DIR$/CarSystem/target</output-path>
+    <root id="archive" name="CarSystem1-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="CarSystem1:war exploded" />
+    </root>
+  </artifact>
+</component>

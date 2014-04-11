@@ -34,12 +34,15 @@
         <module name="MovementService" />
         <module name="PoliceSystem" />
         <module name="TestModule" />
+        <module name="UserDtos" />
         <module name="UserService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="CarSystem" target="1.7" />
       <module name="CarSystem1" target="1.7" />
+      <module name="UserDtos" target="1.7" />
+      <module name="UserService" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
