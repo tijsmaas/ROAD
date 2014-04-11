@@ -8,6 +8,7 @@
     <artifactId>ROAD</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+	
     <modules>
         <module>MovementEntities</module>
         <module>BillSystem</module>
@@ -19,7 +20,6 @@
         <module>UserDtos</module>
         <module>UserService</module>
         <module>MovementEntityAccess</module>
+        <module>JPADemoModule</module>
     </modules>
-
-
 </project>

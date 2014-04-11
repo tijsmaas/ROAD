@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="ojdbc7">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/MovementEntities/lib/ojdbc7.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

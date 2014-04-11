@@ -24,7 +24,9 @@ public class Server
 
         Context ctx = ZMQ.context(1);
         Socket routerSocket = ctx.socket(ZMQ.ROUTER);
+        routerSocket.bind(routerAddress);
         Socket dealerSocket = ctx.socket(ZMQ.DEALER);
+        dealerSocket.bind(dealerAddress);
 
         this.queueDevice = new ZMQQueue(ctx, routerSocket, dealerSocket);
         this.workers = new ArrayList<Worker>();
@@ -52,7 +54,7 @@ public class Server
             this.queueDevice.close();
             for(Worker worker : this.workers)
             {
-                worker.stop();
+                //worker.stop();
             }
         }
         catch(Exception ex)
