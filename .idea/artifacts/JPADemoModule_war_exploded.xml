@@ -1,0 +1,88 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="JPADemoModule:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/JPADemoModule_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="JPADemoModule/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="JPADemoModule" />
+          <element id="module-output" name="MovementEntityAccess" />
+          <element id="module-output" name="MovementEntities" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/MovementEntities/lib/ojdbc7.jar" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-entitymanager:4.3.4.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.1.3.GA" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging-annotations:1.2.0.Beta1" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:4.3.4.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
+          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
+          <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.4.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.18.1-GA" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+          <element id="library" level="project" name="Maven: org.jboss:jandex:1.1.0.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec:1.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-osgi:4.3.4.Final" />
+          <element id="library" level="project" name="Maven: org.osgi:org.osgi.core:4.3.1" />
+          <element id="library" level="project" name="Maven: org.osgi:org.osgi.compendium:4.3.1" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-envers:4.3.4.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-c3p0:4.3.4.Final" />
+          <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.2.1" />
+          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.3.4" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-proxool:4.3.4.Final" />
+          <element id="library" level="project" name="Maven: proxool:proxool:0.8.3" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-infinispan:4.3.4.Final" />
+          <element id="library" level="project" name="Maven: org.infinispan:infinispan-core:6.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.infinispan:infinispan-commons:6.0.0.Final" />
+          <element id="library" level="project" name="Maven: org.jgroups:jgroups:3.4.1.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:1.0.1.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.marshalling:jboss-marshalling-river:1.3.18.GA" />
+          <element id="library" level="project" name="Maven: org.jboss.marshalling:jboss-marshalling:1.3.18.GA" />
+          <element id="library" level="project" name="Maven: org.rhq.helpers:rhq-pluginAnnotations:3.0.4" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-ehcache:4.3.4.Final" />
+          <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.4.3" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.1" />
+          <element id="library" level="project" name="Maven: javax:javaee-api:7.0" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.0" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.0.1" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:16.0.1" />
+          <element id="library" level="project" name="Maven: javax.mail:mail:1.4.7" />
+          <element id="library" level="project" name="Maven: org.glassfish.security:security:10.0-b28" />
+          <element id="library" level="project" name="Maven: com.sun.enterprise:hk2:0.3.31" />
+          <element id="library" level="project" name="Maven: com.sun.enterprise:hk2-core:0.3.31" />
+          <element id="library" level="project" name="Maven: com.sun.enterprise:config:0.3.31" />
+          <element id="library" level="project" name="Maven: com.sun.enterprise:auto-depends:0.3.31" />
+          <element id="library" level="project" name="Maven: com.sun.enterprise:tiger-types-osgi:0.3.31" />
+          <element id="library" level="project" name="Maven: org.glassfish.security:realms:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.security:securitycommon:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.admin:config-api:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.common:common-util:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.common:glassfish-api:10.0.422" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.xml.stream:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.deployment:dol:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.servlet:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.annotation:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.transaction:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.enterprise.deploy:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.persistence:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.resource:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.deployment:deployment-common:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.common:internal-api:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.external:grizzly-module:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.common:annotation-framework:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.connectors:connectors-internal-api:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.transaction:transaction-internal-api:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish.external:ldapbp-repackaged:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.security.auth.message:10.0-b28" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.security.jacc:10.0-b28" />
+          <element id="library" level="project" name="Maven: junit:junit:4.11" />
+          <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+        </element>
+      </element>
+      <element id="library" level="project" name="Maven: org.glassfish:javax.persistence:10.0-b28" />
+    </root>
+  </artifact>
+</component>
