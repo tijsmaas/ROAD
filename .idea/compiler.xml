@@ -22,9 +22,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="BillDTS" />
         <module name="BillSystem" />
         <module name="CarSystem" />
+        <module name="CarSystem1" />
         <module name="JPADemoModule" />
         <module name="MovementDTS" />
         <module name="MovementEntities" />
@@ -36,6 +36,10 @@
         <module name="UserService" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CarSystem" target="1.7" />
+      <module name="CarSystem1" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 
