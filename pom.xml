@@ -18,6 +18,7 @@
         <module>PoliceSystem</module>
         <module>UserService</module>
         <module>MovementEntityAccess</module>
+        <module>CarSystem1</module>
     </modules>
 
 
