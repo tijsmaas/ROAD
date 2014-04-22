@@ -18,14 +18,16 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class BillService
 {
+    @Inject
+    
     @PostConstruct
     private void init()
     {
-        //driverClient.start();
+        billClient.start();
     }
     
     public Object login(String username, String password)
     {
-        return null;//driverClient.authenticate(username, password);
+        return billClient.authenticate(username, password);
     }
 }

@@ -22,10 +22,11 @@ public class LoginBean
 {
     private String username;
     private String password;
+    private boolean success;
     @ManagedProperty(value="#{userBean}")
     private UserBean userBean;
     @Inject
-    private BillService driverService;
+    private BillService billService;
 
     public void setUsername(String username)
     {
@@ -49,6 +50,10 @@ public class LoginBean
     
     public void login()
     {
-        userBean.setLoggedinUser(driverService.login(username, password));
+        Object user = billService.login(username, password);
+        success = (user != null);
+        if(success) {
+            userBean.setLoggedinUser(user);
+        }
     }
 }
