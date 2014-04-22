@@ -22,5 +22,6 @@
         <module>MovementEntityAccess</module>
         <module>JPADemoModule</module>
         <module>BillDTS</module>
+        <module>DriverSystem</module>
     </modules>
 </project>
