@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2749107072">
+  <component name="DataSourceManagerImpl" format="xml" hash="833857593">
     <data-source source="LOCAL" name="Oracle - @VM" uuid="3d0fef62-2d86-4488-8cba-7b10809c7019">
       <driver-ref>oracle</driver-ref>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
@@ -9,6 +9,14 @@
       <user-password>dfcbdfc3dfcedfcbdfd9df9bdf98df99</user-password>
       <schema-pattern>*.AIDAS</schema-pattern>
       <default-schemas>*.AIDAS</default-schemas>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Oracle - @localhost" uuid="4d1b2e12-c024-4016-8cb6-0385118bc3a4">
+      <driver-ref>oracle</driver-ref>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//localhost:1521</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfd8dfc5dfc5dfde</user-password>
       <libraries />
     </data-source>
   </component>

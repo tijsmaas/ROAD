@@ -1,6 +1,8 @@
 package connections;
 
 import aidas.usersystem.dto.UserDto;
+
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
@@ -9,7 +11,7 @@ import javax.inject.Named;
  * This class is NOT THREADSAFE. If you want multithreading, create one BillConnection for EACH
  * thread.
  */
-@Named
+@RequestScoped
 public class BillClientConnection extends ClientConnection implements IBillQuery
 {
     public BillClientConnection()

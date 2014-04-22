@@ -6,6 +6,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/CarSystem" />
     <file type="web" url="file://$PROJECT_DIR$/CarSystem1" />
+    <file type="web" url="file://$PROJECT_DIR$/DriverSystem" />
   </component>
   <component name="IdProvider" IDEtalkID="1D2F6497E6777B6480BA416D2E7059B8" />
   <component name="MavenProjectsManager">

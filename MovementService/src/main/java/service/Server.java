@@ -14,9 +14,7 @@ import javax.inject.Inject;
 @Singleton @Startup
 public class Server
 {
-    @Inject
     private BillServerConnection billServerConnection;
-    @Inject
     private DriverServerConnection driverServerConnection;
 
     public Server()
@@ -27,6 +25,9 @@ public class Server
     @PostConstruct
     public void init()
     {
+        this.billServerConnection = new BillServerConnection();
+        this.driverServerConnection = new DriverServerConnection();
+
         billServerConnection.start();
         driverServerConnection.start();
     }
