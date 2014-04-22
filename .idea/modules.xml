@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/BillDTS/BillDTS.iml" filepath="$PROJECT_DIR$/BillDTS/BillDTS.iml" />
       <module fileurl="file://$PROJECT_DIR$/BillSystem/BillSystem.iml" filepath="$PROJECT_DIR$/BillSystem/BillSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/CarSystem/CarSystem.iml" filepath="$PROJECT_DIR$/CarSystem/CarSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DriverDTS/DriverDTS.iml" filepath="$PROJECT_DIR$/DriverDTS/DriverDTS.iml" />
       <module fileurl="file://$PROJECT_DIR$/DriverSystem/DriverSystem.iml" filepath="$PROJECT_DIR$/DriverSystem/DriverSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/JPADemoModule/JPADemoModule.iml" filepath="$PROJECT_DIR$/JPADemoModule/JPADemoModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/MovementDTS/MovementDTS.iml" filepath="$PROJECT_DIR$/MovementDTS/MovementDTS.iml" />

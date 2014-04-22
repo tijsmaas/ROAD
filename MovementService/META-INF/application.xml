@@ -6,7 +6,7 @@
     <module id="MovementService">
         <web>
             <web-uri>movementservice</web-uri>
-            <context-root>/service/</context-root>
+            <context-root>/movementservice/</context-root>
         </web>
     </module>
 </application>

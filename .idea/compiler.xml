@@ -26,6 +26,7 @@
         <module name="BillSystem" />
         <module name="CarSystem" />
         <module name="CarSystem1" />
+        <module name="DriverDTS" />
         <module name="DriverSystem" />
         <module name="JPADemoModule" />
         <module name="MovementDTS" />
