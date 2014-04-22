@@ -10,7 +10,7 @@
            <supported-locale>nl</supported-locale>
         </locale-config>
         <resource-bundle>
-           <base-name>car</base-name>
+           <base-name>driver</base-name>
            <var>msg</var>
         </resource-bundle>
     </application>
