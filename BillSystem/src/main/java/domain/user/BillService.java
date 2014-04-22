@@ -6,6 +6,7 @@
 
 package domain.user;
 
+import aidas.usersystem.dto.UserDto;
 import connections.BillClientConnection;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -28,7 +29,7 @@ public class BillService
         billClient.start();
     }
     
-    public Object login(String username, String password)
+    public UserDto login(String username, String password)
     {
         return billClient.authenticate(username, password);
     }

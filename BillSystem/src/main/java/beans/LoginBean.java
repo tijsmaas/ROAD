@@ -1,5 +1,6 @@
 package beans;
 
+import aidas.usersystem.dto.UserDto;
 import domain.user.BillService;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedProperty;
@@ -50,7 +51,7 @@ public class LoginBean
     
     public void login()
     {
-        Object user = billService.login(username, password);
+        UserDto user = billService.login(username, password);
         success = (user != null);
         if(success) {
             userBean.setLoggedinUser(user);
