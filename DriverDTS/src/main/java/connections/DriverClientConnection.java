@@ -2,9 +2,12 @@ package connections;
 
 import aidas.usersystem.dto.UserDto;
 
+import javax.inject.Named;
+
 /**
  * Created by geh on 22-4-14.
  */
+@Named
 public class DriverClientConnection extends ClientConnection implements IDriverQuery
 {
     public DriverClientConnection()
