@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package domain.user;
+package domain.dts;
 
 import aidas.usersystem.dto.UserDto;
 import connections.BillClientConnection;
@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import qualifier.ProducerQualifier;
 
 /**
  *
@@ -20,7 +21,7 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class BillService
 {
-    @Inject
+    @Inject @ProducerQualifier
     BillClientConnection billClient;
     
     @PostConstruct
