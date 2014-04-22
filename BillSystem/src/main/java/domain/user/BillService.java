@@ -6,6 +6,7 @@
 
 package domain.user;
 
+import connections.BillClientConnection;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 public class BillService
 {
     @Inject
+    BillClientConnection billClient;
     
     @PostConstruct
     private void init()
