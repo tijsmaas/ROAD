@@ -48,10 +48,10 @@ public class Translator implements Serializable
         this.locale = new Locale(language);
         try
         {
-            String translation = "car.properties";
+            String translation = "bill.properties";
             if(language.equalsIgnoreCase("nl"))
             {
-                translation = "car_nl.properties";
+                translation = "bill_nl.properties";
             }
             properties = new Properties();
             properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(translation));
@@ -67,7 +67,7 @@ public class Translator implements Serializable
         if(properties == null) {
             try {
                 properties = new Properties();
-                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("car.properties"));
+                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("bill.properties"));
             } catch (IOException ex) {
                 Logger.getLogger(Translator.class.getName()).log(Level.SEVERE, null, ex);
             }

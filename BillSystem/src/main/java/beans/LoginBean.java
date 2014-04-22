@@ -1,7 +1,7 @@
 package beans;
 
 import aidas.usersystem.dto.UserDto;
-import domain.dts.DriverService;
+import domain.dts.BillService;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
@@ -27,7 +27,7 @@ public class LoginBean
     @ManagedProperty(value="#{userBean}")
     private UserBean userBean;
     @Inject
-    private DriverService driverService;
+    private BillService billService;
 
     public void setUsername(String username)
     {
@@ -51,7 +51,7 @@ public class LoginBean
     
     public void login()
     {
-        UserDto user = driverService.login(username, password);
+        UserDto user = billService.login(username, password);
         success = (user != null);
         if(success) {
             userBean.setLoggedinUser(user);

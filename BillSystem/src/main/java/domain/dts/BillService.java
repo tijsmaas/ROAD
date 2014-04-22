@@ -4,33 +4,34 @@
  * and open the template in the editor.
  */
 
-package domain.user;
+package domain.dts;
 
 import aidas.usersystem.dto.UserDto;
-import connections.DriverClientConnection;
+import connections.BillClientConnection;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import qualifier.ProducerQualifier;
 
 /**
  *
  * @author Mitch
  */
 @ApplicationScoped
-public class DriverService
+public class BillService
 {
-    @Inject
-    DriverClientConnection driverClient;
-
+    @Inject @ProducerQualifier
+    BillClientConnection billClient;
+    
     @PostConstruct
     private void init()
     {
-        driverClient.start();
+        billClient.start();
     }
     
     public UserDto login(String username, String password)
     {
-        return driverClient.authenticate(username, password);
+        return billClient.authenticate(username, password);
     }
 }
