@@ -6,17 +6,31 @@
 
 package domain.user;
 
+import aidas.usersystem.dto.UserDto;
+import connections.DriverClientConnection;
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 /**
  *
  * @author Mitch
  */
-@Stateless
-public class DriverService {
-    DriverClient driverClient;
+@ApplicationScoped
+public class DriverService
+{
+    @Inject
+    DriverClientConnection driverClient;
 
-    public UserDTO login(String username, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @PostConstruct
+    private void init()
+    {
+        driverClient.start();
+    }
+    
+    public UserDto login(String username, String password)
+    {
+        return driverClient.authenticate(username, password);
     }
 }
