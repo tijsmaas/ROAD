@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package domain.user;
+package domain.dts;
 
 import aidas.usersystem.dto.UserDto;
 import connections.DriverClientConnection;
@@ -12,15 +12,18 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
+import qualifier.ProducerQualifier;
 
 /**
  *
  * @author Mitch
  */
+@Named
 @ApplicationScoped
 public class DriverService
 {
-    @Inject
+    @Inject @ProducerQualifier
     DriverClientConnection driverClient;
 
     @PostConstruct

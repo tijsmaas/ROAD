@@ -1,7 +1,7 @@
 package beans;
 
 import aidas.usersystem.dto.UserDto;
-import domain.user.DriverService;
+import domain.dts.DriverService;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
