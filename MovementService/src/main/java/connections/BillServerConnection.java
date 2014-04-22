@@ -3,7 +3,6 @@ package connections;
 import aidas.usersystem.IUserManager;
 import aidas.usersystem.dto.UserDto;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
