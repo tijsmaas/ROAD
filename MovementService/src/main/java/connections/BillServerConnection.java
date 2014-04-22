@@ -21,12 +21,6 @@ public class BillServerConnection extends ServerConnection implements IBillQuery
         super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
     }
 
-    @PostConstruct
-    private void init()
-    {
-        this.start();
-    }
-
     @Override
     public UserDto authenticate(String userId, String password)
     {
