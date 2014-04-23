@@ -1,13 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright by AIDaS.
  */
 
 package aidas.utils;
 
 /**
- *
+ * This class represents the helper functions for the byte type.
+ * 
  * @author Geert
  */
 public class Byte {

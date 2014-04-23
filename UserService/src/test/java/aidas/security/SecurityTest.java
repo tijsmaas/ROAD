@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 public class SecurityTest {
     
     /**
-     * Test the {@link Security.generateSalt} function.
+     * Test the {@link Security#generateSalt()} function.
      */
     @Test
     public void testSaltGeneration() {
@@ -35,7 +35,7 @@ public class SecurityTest {
     }
     
     /**
-     * Test the {@link Security.processPassword} function.
+     * Test the {@link Security#processPassword(java.lang.String, java.lang.String, byte[])} function.
      */
     @Test
     public void testPasswordProcess() throws Exception {
@@ -77,7 +77,7 @@ public class SecurityTest {
     }
     
     /**
-     * Test the {@link Security.hash} function.
+     * Test the {@link Security#hash(java.lang.String, byte[])} function.
      */
     @Test
     public void testHash() throws Exception {
@@ -109,8 +109,12 @@ public class SecurityTest {
         Assert.assertNotEquals(hashedString3, hashedString4);
     }
     
+    /**
+     * Test the {@link Security#encrypt(java.lang.String, java.lang.String)} function.
+     * @throws Exception 
+     */
     @Test
-    public void testEncryption() throws Exception {
+    public void testEncrypt() throws Exception {
         String stringToEncrypt1 = "password";
         String key1 = "SomeKey";
         
