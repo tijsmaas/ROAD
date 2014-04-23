@@ -15,7 +15,7 @@ public class BillServerConnection extends ServerConnection implements IBillQuery
 
     public BillServerConnection()
     {
-        super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
+        super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue, IBillQuery.class);
     }
 
     @Override

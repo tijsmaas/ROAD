@@ -16,12 +16,13 @@ public abstract class ClientConnection
     {
         try
         {
-            Properties props = new Properties();
-            props.put(Context.INITIAL_CONTEXT_FACTORY, "org.jnp.interfaces.NamingContextFactory");
-            props.put(Context.URL_PKG_PREFIXES, "org.jnp.interfaces");
-            props.put(Context.PROVIDER_URL, serverAddress);
-
-            this.connection = new RequestConnection(props, factoryName, sendTo);
+            //Properties props = new Properties();
+            //props.put(Context.INITIAL_CONTEXT_FACTORY, "org.jnp.interfaces.NamingContextFactory");
+            //props.put(Context.URL_PKG_PREFIXES, "org.jnp.interfaces");)
+            //props.put(Context.PROVIDER_URL, serverAddress);
+            //props.put("addresslist", serverAddress);
+            //this.connection = new RequestConnection(props, factoryName, sendTo);
+            this.connection = new RequestConnection(null, factoryName, sendTo);
         }
         catch(Exception ex)
         {

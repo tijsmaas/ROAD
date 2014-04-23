@@ -22,11 +22,11 @@ public class ReplyConnection extends MovementConnection implements MessageListen
             this.factory = (ConnectionFactory)this.context.lookup(factoryName);
             this.connection = this.factory.createConnection();
 
-            this.session = this.connection.createSession();
+            this.session = this.connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             this.producer = this.session.createProducer(null);
 
-            this.listenTo = this.session.createQueue(listenTo);
+            this.listenTo = (Destination)this.context.lookup(listenTo);
             this.consumer = this.session.createConsumer(this.listenTo);
             this.consumer.setMessageListener(this);
             this.listener = listener;

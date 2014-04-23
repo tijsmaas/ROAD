@@ -15,7 +15,7 @@ public class PoliceServerConnection extends ServerConnection implements IPoliceQ
 
     public PoliceServerConnection()
     {
-        super(MovementConnection.FactoryName, MovementConnection.PoliceSystemQueue);
+        super(MovementConnection.FactoryName, MovementConnection.PoliceSystemQueue, IPoliceQuery.class);
     }
 
     @Override

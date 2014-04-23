@@ -1,7 +1,11 @@
 package connections;
 
 import helpers.Pair;
+import helpers.RequestHelper;
+
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -12,9 +16,27 @@ public abstract class ServerConnection implements ConnectionListener
     private ReplyConnection connection;
     private ConcurrentHashMap<String, Method> methods;
 
-    public ServerConnection(String factoryName, String listenTo)
+    public ServerConnection(String factoryName, String listenTo, Class methods)
     {
         this.connection = new ReplyConnection(factoryName, listenTo, this);
+        this.methods = new ConcurrentHashMap<>();
+        for(Method method : methods.getMethods())
+        {
+            List<Object> parameters = new ArrayList<Object>();
+            for(Class par : method.getParameterTypes())
+            {
+                try
+                {
+                    parameters.add(par.newInstance());
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+            }
+            String name = RequestHelper.getUniqueName(method.getName(), parameters.toArray());
+            this.methods.put(name, method);
+        }
     }
 
     @Override

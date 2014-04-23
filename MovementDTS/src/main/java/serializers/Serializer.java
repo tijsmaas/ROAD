@@ -1,5 +1,6 @@
 package serializers;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectReader;
 import org.codehaus.jackson.map.ObjectWriter;
 
@@ -8,12 +9,11 @@ import org.codehaus.jackson.map.ObjectWriter;
  */
 public class Serializer
 {
-    private ObjectReader reader;
-    private ObjectWriter writer;
+    private ObjectMapper mapper;
 
     public Serializer()
     {
-
+        this.mapper = new ObjectMapper();
     }
 
     public <T> String serialize(T obj)
@@ -21,7 +21,7 @@ public class Serializer
         String result = null;
         try
         {
-            result = writer.writeValueAsString(obj);
+            result = mapper.writeValueAsString(obj);
         }
         catch(Exception ex)
         {
@@ -38,7 +38,7 @@ public class Serializer
         T result = null;
         try
         {
-            result = reader.readValue(raw);
+            result = mapper.reader().readValue(raw);
         }
         catch(Exception ex)
         {

@@ -2,6 +2,7 @@ package service;
 
 import connections.BillServerConnection;
 import connections.DriverServerConnection;
+import connections.PoliceServerConnection;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -15,6 +16,7 @@ public class Server
 {
     private BillServerConnection billServerConnection;
     private DriverServerConnection driverServerConnection;
+    private PoliceServerConnection policeServerConnection;
 
     public Server()
     {
@@ -26,8 +28,10 @@ public class Server
     {
         this.billServerConnection = new BillServerConnection();
         this.driverServerConnection = new DriverServerConnection();
+        this.policeServerConnection = new PoliceServerConnection();
 
-        billServerConnection.start();
-        driverServerConnection.start();
+        this.billServerConnection.start();
+        this.driverServerConnection.start();
+        this.policeServerConnection.start();
     }
 }
