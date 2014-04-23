@@ -2,12 +2,12 @@
  * Copyright by AIDaS.
  */
 
-package aidas.usersystem;
+package aidas.userservice;
 
 import aidas.security.Security;
-import aidas.usersystem.dto.Right;
-import aidas.usersystem.entities.UserEntity;
-import aidas.usersystem.exceptions.UserSystemException;
+import aidas.userservice.dto.Right;
+import aidas.userservice.entities.UserEntity;
+import aidas.userservice.exceptions.UserSystemException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -27,12 +28,13 @@ import javax.persistence.PersistenceContext;
  * 
  * @author Geert
  */
+//@Stateless
 public class UserManager implements IUserManager {
     
     /**
      * The persistence context used to connect to the database.
      */
-    @PersistenceContext(name="UserSystem")
+    @PersistenceContext(name="UserServicePU")
     private EntityManager em;
     
     /**
@@ -83,7 +85,7 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public void Register(String username, String password) throws UserSystemException {
+    public void register(String username, String password) throws UserSystemException {
         if (username == null || username.isEmpty() || username.length() > 28) {
             throw new UserSystemException("The username is mandatory and can have a maximum length of 28 characters.");
         } else if (password == null || password.isEmpty() || password.length() < 8 || password.length() > 4000) {

@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright by AIDaS.
  */
 
 package aidas.security;
@@ -12,7 +10,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- *
+ * This class provides the tests for the functions in the {@link Security} 
+ * class.
+ * 
  * @author Geert
  */
 public class SecurityTest {
@@ -35,7 +35,11 @@ public class SecurityTest {
     }
     
     /**
-     * Test the {@link Security#processPassword(java.lang.String, java.lang.String, byte[])} function.
+     * Test the {@link Security#processPassword(java.lang.String, 
+     * java.lang.String, byte[])} function.
+     * 
+     * @throws java.lang.Exception when a function called in the test function 
+     * throws an unexpected exception.
      */
     @Test
     public void testPasswordProcess() throws Exception {
@@ -44,23 +48,23 @@ public class SecurityTest {
         String password = "9jDNGuLjV7aUc8x3cvYfWksY";
         
         String processedPassword1 = Security.processPassword(password, username, salt);
-        Assert.assertNotNull(processedPassword1); // Check if the processed password is not null.
+        Assert.assertNotNull(processedPassword1);
         String processedPassword2 = Security.processPassword(password, username, salt);
-        Assert.assertNotNull(processedPassword2); // Check if the processed password is not null.
+        Assert.assertNotNull(processedPassword2);
         
         // Check if the password is processed in the same matter on providing the same parameters.
         Assert.assertEquals(processedPassword2, processedPassword1);
         
         String username2 = "Henk";
         String processedPassword3 = Security.processPassword(password, username2, salt);
-        Assert.assertNotNull(processedPassword3); // Check if the processed password is not null.
+        Assert.assertNotNull(processedPassword3);
         
         // Check if the processed password is different when changing the username parameter.
         Assert.assertNotEquals(processedPassword3, processedPassword1);
         
         String password2 = "QNUh3fdgAbkFaSevdHdsGear";
         String processedPassword4 = Security.processPassword(password2, username, salt);
-        Assert.assertNotNull(processedPassword4); // Check if the processed password is not null.
+        Assert.assertNotNull(processedPassword4);
         
         // Check if the processed password is different when changing the password parameter.
         Assert.assertNotEquals(processedPassword4, processedPassword1);
@@ -70,7 +74,7 @@ public class SecurityTest {
         Assert.assertNotEquals(salt, salt2);
         
         String processedPassword5 = Security.processPassword(password, username, salt2);
-        Assert.assertNotNull(processedPassword5); // Check if the processed password is not null.
+        Assert.assertNotNull(processedPassword5);
         
         // Check if the processed password is different when changing the salt parameter.
         Assert.assertNotEquals(processedPassword5, processedPassword1);
@@ -78,6 +82,9 @@ public class SecurityTest {
     
     /**
      * Test the {@link Security#hash(java.lang.String, byte[])} function.
+     * 
+     * @throws java.lang.Exception when a function called in the test function 
+     * throws an unexpected exception.
      */
     @Test
     public void testHash() throws Exception {
@@ -110,8 +117,11 @@ public class SecurityTest {
     }
     
     /**
-     * Test the {@link Security#encrypt(java.lang.String, java.lang.String)} function.
-     * @throws Exception 
+     * Test the {@link Security#encrypt(java.lang.String, java.lang.String)} 
+     * function.
+     * 
+     * @throws java.lang.Exception when a function called in the test function 
+     * throws an unexpected exception.
      */
     @Test
     public void testEncrypt() throws Exception {

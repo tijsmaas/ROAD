@@ -2,10 +2,10 @@
  * Copyright by AIDaS.
  */
 
-package aidas.usersystem;
+package aidas.userservice;
 
-import aidas.usersystem.dto.Right;
-import aidas.usersystem.exceptions.UserSystemException;
+import aidas.userservice.dto.Right;
+import aidas.userservice.exceptions.UserSystemException;
 
 /**
  * This interface represents the manager which handles all the functions which 
@@ -21,7 +21,7 @@ public interface IUserManager {
      * {@link #login(java.lang.String, java.lang.String)} function.
      * @param right the right which is expected of the current {@link UserDto}.
      * 
-     * @throws aidas.usersystem.exceptions.UserSystemException when failed the 
+     * @throws aidas.userservice.exceptions.UserSystemException when failed the 
      * exception will be thrown containing a message with the details of the 
      * failure.
      * 
@@ -38,7 +38,7 @@ public interface IUserManager {
      * @return the authentication identifier identifing the logged in user. Will 
      * return null when the authentication failed.
      * 
-     * @throws aidas.usersystem.exceptions.UserSystemException when failed the 
+     * @throws aidas.userservice.exceptions.UserSystemException when failed the 
      * exception will be thrown containing a message with the details of the 
      * failure.
      */
@@ -49,11 +49,11 @@ public interface IUserManager {
      * @param username the {@link UserDto.username} of the user.
      * @param password the {@link UserDto.password} of the user.
      * 
-     * @throws aidas.usersystem.exceptions.UserSystemException when failed the 
+     * @throws aidas.userservice.exceptions.UserSystemException when failed the 
      * exception will be thrown containing a message with the details of the 
      * failure.
      */
-    void Register(String username, String password) throws UserSystemException;
+    void register(String username, String password) throws UserSystemException;
     
     /**
      * Check if the current {@link UserDto} has the provided right.

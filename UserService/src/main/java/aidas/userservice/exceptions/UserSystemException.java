@@ -2,7 +2,7 @@
  * Copyright by AIDaS.
  */
 
-package aidas.usersystem.exceptions;
+package aidas.userservice.exceptions;
 
 /**
  * This class represents the exceptions which can be thrown by the UserSystem.
