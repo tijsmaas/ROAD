@@ -21,13 +21,13 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class BillService
 {
-    @Inject
-    @ProducerQualifier
+    //@Inject @ProducerQualifier
     BillClientConnection billClient;
 
     @PostConstruct
     private void init()
     {
+        billClient = new BillClientConnection();
         billClient.start();
     }
     
