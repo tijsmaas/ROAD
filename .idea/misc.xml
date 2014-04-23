@@ -4,6 +4,7 @@
     <entry_points version="2.0" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/BillSystem" />
     <file type="web" url="file://$PROJECT_DIR$/CarSystem" />
     <file type="web" url="file://$PROJECT_DIR$/CarSystem1" />
     <file type="web" url="file://$PROJECT_DIR$/DriverSystem" />
