@@ -23,7 +23,7 @@ public class LoginBean
 {
     private String username;
     private String password;
-    private boolean success;
+    private boolean failed;
     @ManagedProperty(value="#{userBean}")
     private UserBean userBean;
     @Inject
@@ -48,13 +48,24 @@ public class LoginBean
     {
         return password;
     }
-    
+
+    public boolean isFailed()
+    {
+        return failed;
+    }
+
+    public void setFailed(boolean failed)
+    {
+        this.failed = failed;
+    }
+
     public void login()
     {
         UserDto user = driverService.login(username, password);
-        success = (user != null);
-        if(success) {
+        failed = (user == null);
+        if(failed) {
             userBean.setLoggedinUser(user);
         }
     }
+
 }

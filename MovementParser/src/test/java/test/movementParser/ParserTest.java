@@ -1,19 +1,15 @@
 package test.movementParser;
-import static org.junit.Assert.*;
-
-import java.io.File;
-
-import javax.inject.Inject;
-
-import movementParser.MovementParser;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.Assert;
-
 import dao.ConnectionDAO;
 import dao.EdgeDAO;
 import dao.LaneDAO;
+import movementParser.MovementParser;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.inject.Inject;
+import java.io.File;
+
+import static org.junit.Assert.assertTrue;
 
 
 

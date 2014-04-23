@@ -1,19 +1,14 @@
 package translation;
 
-import java.io.FileReader;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-import javax.inject.Named;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -48,10 +43,10 @@ public class Translator implements Serializable
         this.locale = new Locale(language);
         try
         {
-            String translation = "bill.properties";
+            String translation = "driver.properties";
             if(language.equalsIgnoreCase("nl"))
             {
-                translation = "bill_nl.properties";
+                translation = "driver_nl.properties";
             }
             properties = new Properties();
             properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(translation));
@@ -67,7 +62,7 @@ public class Translator implements Serializable
         if(properties == null) {
             try {
                 properties = new Properties();
-                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("bill.properties"));
+                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("driver.properties"));
             } catch (IOException ex) {
                 Logger.getLogger(Translator.class.getName()).log(Level.SEVERE, null, ex);
             }
