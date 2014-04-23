@@ -4,6 +4,7 @@ import helpers.Pair;
 import serializers.Serializer;
 import javax.jms.*;
 import javax.naming.InitialContext;
+import java.util.ArrayList;
 
 /**
  * Created by geh on 10-4-14.
@@ -43,9 +44,8 @@ public class ReplyConnection extends MovementConnection implements MessageListen
         try
         {
             TextMessage textMessage = (TextMessage)message;
-            Pair<String, Object[]> pair = this.serializer.deSerialize(textMessage.getText());
-            Object obj = this.listener.receive(pair);
-            String rawReply = this.serializer.serialize(obj);
+            Pair<String, ArrayList<Object>> pair = this.serializer.deSerialize(textMessage.getText(), Pair.class);
+            String rawReply = this.listener.receive(pair);
 
             TextMessage reply = this.session.createTextMessage();
             reply.setText(rawReply);

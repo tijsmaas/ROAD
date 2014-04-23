@@ -2,8 +2,6 @@ package connections;
 
 import helpers.Pair;
 import helpers.RequestHelper;
-import javax.naming.Context;
-import java.util.Properties;
 
 /**
  * Created by geh on 4-4-14.
@@ -30,13 +28,13 @@ public abstract class ClientConnection
         }
     }
 
-    public <T> T remoteCall(String methodName, Object... parameters)
+    public <T> T remoteCall(String methodName, Class<T> returnType, Object... parameters)
     {
         String uniqueName = RequestHelper.getUniqueName(methodName, parameters);
         Pair<String, Object[]> pair = new Pair(uniqueName, parameters);
         String rawRequest = this.connection.serializer.serialize(pair);
         String rawReply = this.connection.send(rawRequest);
-        T reply = this.connection.serializer.deSerialize(rawReply);
+        T reply = this.connection.serializer.deSerialize(rawReply, returnType);
         return reply;
     }
 

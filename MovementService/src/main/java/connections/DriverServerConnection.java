@@ -15,7 +15,8 @@ public class DriverServerConnection extends ServerConnection implements IDriverQ
 
     public DriverServerConnection()
     {
-        super(MovementConnection.FactoryName, MovementConnection.DriverSystemQueue, IDriverQuery.class);
+        super(MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
+        super.initRpc(IDriverQuery.class, this);
     }
 
     @Override

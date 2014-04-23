@@ -2,13 +2,9 @@ package connections;
 
 import aidas.usersystem.dto.UserDto;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-
 /**
  * Created by geh on 22-4-14.
  */
-@RequestScoped
 public class DriverClientConnection extends ClientConnection implements IDriverQuery
 {
     public DriverClientConnection()
@@ -19,6 +15,6 @@ public class DriverClientConnection extends ClientConnection implements IDriverQ
     @Override
     public UserDto authenticate(String userId, String password)
     {
-        return this.remoteCall("authenticate", userId, password);
+        return this.remoteCall("authenticate", UserDto.class, userId, password);
     }
 }

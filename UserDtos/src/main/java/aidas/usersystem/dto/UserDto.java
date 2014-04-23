@@ -13,19 +13,20 @@ public class UserDto {
     /**
      * The identifier of the user.
      */
-    private final int id;
+    private int id;
     
     /**
      * The username of the user. Cannot be an empty {@link String}.
      */
-    private final String username;
+    private String username;
     
     /**
      * Creates a new instance of the {@link UserDto} class.
      * @param id the identifier of the user.
      * @param username the username of the user. Cannot be an empty {@link String}.
      */
-    public UserDto(int id, String username) {
+    public UserDto(int id, String username)
+    {
         this.id = id;
         this.username = username;
     }
@@ -34,15 +35,27 @@ public class UserDto {
      * Get the {@link #id} of the {@link UserDto}.
      * @return the identifier of the user.
      */
-    public int getId() {
+    public int getId()
+    {
         return this.id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
     
     /**
      * Get the {@link #username} of the {@link UserDto}. Cannot be an empty {@link String}.
      * @return the username of the user.
      */
-    public String getUsername() {
+    public String getUsername()
+    {
         return this.username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
     }
 }
