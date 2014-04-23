@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div class="container">
+
+        <!--In case user is not authenticated-->
+        <h:panelGroup layout="block" id="notAuthenticatedHeader">
+            <!-- Button trigger modal -->
+            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
+                Login
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body" style="overflow:auto">
+                            <ui:include src="../views/LoginView.xhtml">
+                                <ui:param name="id" value="modal"/>
+                                <ui:param name="title" value="#{title}"/>
+                            </ui:include>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:panelGroup>
+
+
+        <a href="#{url}" class="text-muted main-logo">#{title}</a>
+        <h:form>
+            <h:panelGrid columns="2">
+                <span>Language:</span>
+                <h:selectOneMenu value="#{translator.language}" onchange="submit()">
+                    <f:selectItem itemValue="en" itemLabel="English" />
+                    <f:selectItem itemValue="nl" itemLabel="Nederlands" />
+                </h:selectOneMenu>
+            </h:panelGrid>
+        </h:form>
+    </div>
+</ui:composition>
