@@ -1,15 +1,17 @@
 package parser.dao;
 
-import parser.dao.LaneDAO;
 import entities.Lane;
+import javax.enterprise.context.ApplicationScoped;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
+@ApplicationScoped
 public class LaneDAOImpl implements LaneDAO
 {
 
@@ -21,7 +23,8 @@ public class LaneDAOImpl implements LaneDAO
     @Override
     public int count()
     {
-        return 0;
+        Query q = em.createQuery("select count(lane) from Lane lane");
+        return ((Long) q.getSingleResult()).intValue();
     }
 
     /**

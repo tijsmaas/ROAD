@@ -2,14 +2,17 @@ package parser.dao;
 
 import parser.dao.MovementDAO;
 import entities.Movement;
+import javax.enterprise.context.ApplicationScoped;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
+@ApplicationScoped
 public class MovementDAOImpl implements MovementDAO
 {
 
@@ -21,7 +24,8 @@ public class MovementDAOImpl implements MovementDAO
     @Override
     public int count()
     {
-        return 0;
+        Query q = em.createQuery("select count(movement) from Movement movement");
+        return ((Long) q.getSingleResult()).intValue();
     }
 
     /**
