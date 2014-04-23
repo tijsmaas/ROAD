@@ -21,12 +21,13 @@ import qualifier.ProducerQualifier;
 @ApplicationScoped
 public class PoliceService
 {
-    @Inject @ProducerQualifier
+    //@Inject @ProducerQualifier
     PoliceClientConnection policeClient;
     
     @PostConstruct
     private void init()
     {
+        policeClient = new PoliceClientConnection();
         policeClient.start();
     }
     
