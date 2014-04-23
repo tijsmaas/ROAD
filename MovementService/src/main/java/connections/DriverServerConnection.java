@@ -1,6 +1,6 @@
 package connections;
 
-import aidas.usersystem.IUserManager;
+//import aidas.usersystem.IUserManager;
 import aidas.usersystem.dto.UserDto;
 
 import javax.inject.Inject;
@@ -10,8 +10,8 @@ import javax.inject.Inject;
  */
 public class DriverServerConnection extends ServerConnection implements IDriverQuery
 {
-    @Inject
-    private IUserManager userManager;
+    //@Inject
+    //private IUserManager userManager;
 
     public DriverServerConnection()
     {
