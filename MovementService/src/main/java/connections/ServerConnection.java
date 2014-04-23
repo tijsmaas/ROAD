@@ -1,6 +1,6 @@
 package connections;
 
-import javafx.util.Pair;
+import helpers.Pair;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,8 +23,8 @@ public abstract class ServerConnection implements ConnectionListener
         String rawResult = "";
         try
         {
-            Method method = this.methods.get(request.getKey());
-            Object result = method.invoke(request.getValue());
+            Method method = this.methods.get(request.getFirst());
+            Object result = method.invoke(request.getSecond());
             rawResult = this.connection.serializer.serialize(method.getReturnType().cast(result));
         }
         catch(Exception ex)

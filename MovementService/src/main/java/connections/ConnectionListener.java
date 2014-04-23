@@ -1,6 +1,6 @@
 package connections;
 
-import javafx.util.Pair;
+import helpers.Pair;
 
 import javax.jms.TextMessage;
 

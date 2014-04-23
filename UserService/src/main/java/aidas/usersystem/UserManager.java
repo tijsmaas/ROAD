@@ -128,3 +128,4 @@ public class UserManager implements IUserManager {
         return uuid;
     }
 }
+}

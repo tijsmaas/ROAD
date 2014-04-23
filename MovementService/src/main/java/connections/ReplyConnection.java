@@ -1,8 +1,7 @@
 package connections;
 
-import javafx.util.Pair;
+import helpers.Pair;
 import serializers.Serializer;
-
 import javax.jms.*;
 import javax.naming.InitialContext;
 

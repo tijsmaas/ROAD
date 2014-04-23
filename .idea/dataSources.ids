@@ -7,5 +7,168 @@
     </database-info>
     <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
     <schema name="AIDAS" catalog=""/>
+    <table name="CONNECTION" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="DIRECTION" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATE" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FROM_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="FROMLANE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="TO_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="TOLANE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="VIA_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SYS_C0010283" columns="ID"/>
+      <foreign-key name="FK_GOPPXW9NFYIJ06RSHNWGN54JG" columns="FROM_ID" ref-table="EDGE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_HLF1GQYP89NSX83HDWNOSDYNR" columns="TO_ID" ref-table="EDGE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_GUPSU48MYIWQHP04DYGFW5QQR" columns="TOLANE_ID" ref-table="LANE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_BPBLKVE7GBP4UDBVIL56E6V0I" columns="FROMLANE_ID" ref-table="LANE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_9U36S5UNUPNOMYISKUV7HJC4G" columns="VIA_ID" ref-table="LANE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FK_8USX059G0FJM58INNSFV1L3M8" table="EDGE_CONNECTION" schema="AIDAS" catalog="" columns="CONNECTIONS_ID"/>
+    </table>
+    <table name="EDGE" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="EDGEIDENTIFIER" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FROMEDGE" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FUNCTION" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PRIORITY" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="TOEDGE" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EDGETYPE" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SYS_C0010285" columns="ID"/>
+      <exported-key name="FK_GOPPXW9NFYIJ06RSHNWGN54JG" table="CONNECTION" schema="AIDAS" catalog="" columns="FROM_ID"/>
+      <exported-key name="FK_HLF1GQYP89NSX83HDWNOSDYNR" table="CONNECTION" schema="AIDAS" catalog="" columns="TO_ID"/>
+      <exported-key name="FK_63CW299SRFVRCQIA4E24WLPED" table="EDGE_CONNECTION" schema="AIDAS" catalog="" columns="EDGE_ID"/>
+      <exported-key name="FK_PWW0W4H6QUNP2R0O9Y9V3S3A7" table="EDGE_LANE" schema="AIDAS" catalog="" columns="EDGE_ID"/>
+      <exported-key name="FK_42FILKWOG380R6F4I9PE4GCLV" table="LANE" schema="AIDAS" catalog="" columns="EDGE_ID"/>
+      <exported-key name="FK_2EKL4FMCBHMFQEUO1EX6BN8XQ" table="MOVEMENT" schema="AIDAS" catalog="" columns="EDGE_ID"/>
+    </table>
+    <table name="EDGE_CONNECTION" schema="AIDAS" catalog="" type="TABLE">
+      <column name="EDGE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="CONNECTIONS_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <foreign-key name="FK_8USX059G0FJM58INNSFV1L3M8" columns="CONNECTIONS_ID" ref-table="CONNECTION" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_63CW299SRFVRCQIA4E24WLPED" columns="EDGE_ID" ref-table="EDGE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <index name="UK_8USX059G0FJM58INNSFV1L3M8" unique="true" columns="CONNECTIONS_ID"/>
+    </table>
+    <table name="EDGE_LANE" schema="AIDAS" catalog="" type="TABLE">
+      <column name="EDGE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="LANES_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <foreign-key name="FK_PWW0W4H6QUNP2R0O9Y9V3S3A7" columns="EDGE_ID" ref-table="EDGE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_OCOTH23DJ5738LOOMRWHSJKT4" columns="LANES_ID" ref-table="LANE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <index name="UK_OCOTH23DJ5738LOOMRWHSJKT4" unique="true" columns="LANES_ID"/>
+    </table>
+    <table name="HIBERNATE_SEQUENCE" schema="AIDAS" catalog="" type="SEQUENCE"/>
+    <table name="JUNCTION" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="JUNCTIONIDENTIFIER" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="SHAPE" sqlType="RAW" precision="255" scale="0" nullable="true" jdbcType="-3"/>
+      <column name="X" sqlType="FLOAT" precision="126" scale="0" nullable="false" jdbcType="6"/>
+      <column name="Y" sqlType="FLOAT" precision="126" scale="0" nullable="false" jdbcType="6"/>
+      <primary-key name="SYS_C0010293" columns="ID"/>
+      <exported-key name="FK_L9LCDP0QX80XROKNQ5W4UWULN" table="JUNCTIONREQUEST" schema="AIDAS" catalog="" columns="JUNCTION_ID"/>
+      <exported-key name="FK_5DOT4MPWFJFD2U3LDL0YSMTEP" table="JUNCTION_JUNCTIONREQUEST" schema="AIDAS" catalog="" columns="JUNCTION_ID"/>
+      <exported-key name="FK_3RTAERG6RQHRJYCNR9VUVX1R6" table="JUNCTION_LANE" schema="AIDAS" catalog="" columns="JUNCTION_ID"/>
+    </table>
+    <table name="JUNCTIONREQUEST" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="CONT" sqlType="NUMBER" precision="1" scale="0" nullable="false" jdbcType="3"/>
+      <column name="FOES" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="REQUESTINDEX" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="RESPONSE" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="JUNCTION_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SYS_C0010296" columns="ID"/>
+      <foreign-key name="FK_L9LCDP0QX80XROKNQ5W4UWULN" columns="JUNCTION_ID" ref-table="JUNCTION" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FK_HPKVM4QI41A7EXYW8QNSKSOEU" table="JUNCTION_JUNCTIONREQUEST" schema="AIDAS" catalog="" columns="REQUESTS_ID"/>
+    </table>
+    <table name="JUNCTION_JUNCTIONREQUEST" schema="AIDAS" catalog="" type="TABLE">
+      <column name="JUNCTION_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="REQUESTS_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <foreign-key name="FK_5DOT4MPWFJFD2U3LDL0YSMTEP" columns="JUNCTION_ID" ref-table="JUNCTION" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_HPKVM4QI41A7EXYW8QNSKSOEU" columns="REQUESTS_ID" ref-table="JUNCTIONREQUEST" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <index name="UK_HPKVM4QI41A7EXYW8QNSKSOEU" unique="true" columns="REQUESTS_ID"/>
+    </table>
+    <table name="JUNCTION_LANE" schema="AIDAS" catalog="" type="TABLE">
+      <column name="JUNCTION_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="INTLANES_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="INCLANES_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <foreign-key name="FK_3RTAERG6RQHRJYCNR9VUVX1R6" columns="JUNCTION_ID" ref-table="JUNCTION" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_52EOAIH49E9IDIBGWYIH96D5A" columns="INCLANES_ID" ref-table="LANE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_3HQXP3B1B5W3MN0O5K2N5WBSJ" columns="INTLANES_ID" ref-table="LANE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <index name="UK_3HQXP3B1B5W3MN0O5K2N5WBSJ" unique="true" columns="INTLANES_ID"/>
+      <index name="UK_52EOAIH49E9IDIBGWYIH96D5A" unique="true" columns="INCLANES_ID"/>
+    </table>
+    <table name="LANE" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="LANEINDEX" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="LANEIDENTIFIER" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LANELENGTH" sqlType="FLOAT" precision="126" scale="0" nullable="true" jdbcType="6"/>
+      <column name="POSITION" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="SPEED" sqlType="FLOAT" precision="126" scale="0" nullable="false" jdbcType="6"/>
+      <column name="EDGE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SYS_C0010304" columns="ID"/>
+      <foreign-key name="FK_42FILKWOG380R6F4I9PE4GCLV" columns="EDGE_ID" ref-table="EDGE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FK_GUPSU48MYIWQHP04DYGFW5QQR" table="CONNECTION" schema="AIDAS" catalog="" columns="TOLANE_ID"/>
+      <exported-key name="FK_BPBLKVE7GBP4UDBVIL56E6V0I" table="CONNECTION" schema="AIDAS" catalog="" columns="FROMLANE_ID"/>
+      <exported-key name="FK_9U36S5UNUPNOMYISKUV7HJC4G" table="CONNECTION" schema="AIDAS" catalog="" columns="VIA_ID"/>
+      <exported-key name="FK_OCOTH23DJ5738LOOMRWHSJKT4" table="EDGE_LANE" schema="AIDAS" catalog="" columns="LANES_ID"/>
+      <exported-key name="FK_52EOAIH49E9IDIBGWYIH96D5A" table="JUNCTION_LANE" schema="AIDAS" catalog="" columns="INCLANES_ID"/>
+      <exported-key name="FK_3HQXP3B1B5W3MN0O5K2N5WBSJ" table="JUNCTION_LANE" schema="AIDAS" catalog="" columns="INTLANES_ID"/>
+      <exported-key name="FK_I7R2DKMF30W52W5HTIYBNNV2G" table="MOVEMENT" schema="AIDAS" catalog="" columns="LANE_ID"/>
+    </table>
+    <table name="MOVEMENT" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="MOVEMENTDATE" sqlType="TIMESTAMP(6)" precision="11" scale="6" nullable="true" jdbcType="93"/>
+      <column name="EDGE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="LANE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SYS_C0010306" columns="ID"/>
+      <foreign-key name="FK_2EKL4FMCBHMFQEUO1EX6BN8XQ" columns="EDGE_ID" ref-table="EDGE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_I7R2DKMF30W52W5HTIYBNNV2G" columns="LANE_ID" ref-table="LANE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FK_NG5XOY02G0J2BGCUP33UROTBA" table="MOVEMENTVEHICLE" schema="AIDAS" catalog="" columns="MOVEMENT_ID"/>
+      <exported-key name="FK_G5OAP6INYESQODXBYQDUMJER1" table="MOVEMENT_MOVEMENTVEHICLE" schema="AIDAS" catalog="" columns="MOVEMENT_ID"/>
+    </table>
+    <table name="MOVEMENTVEHICLE" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="POSITION" sqlType="FLOAT" precision="126" scale="0" nullable="false" jdbcType="6"/>
+      <column name="SPEED" sqlType="FLOAT" precision="126" scale="0" nullable="false" jdbcType="6"/>
+      <column name="MOVEMENT_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <column name="VEHICLE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SYS_C0010310" columns="ID"/>
+      <foreign-key name="FK_NG5XOY02G0J2BGCUP33UROTBA" columns="MOVEMENT_ID" ref-table="MOVEMENT" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_6HIC99X9X85BPUU29SX33LDAR" columns="VEHICLE_ID" ref-table="VEHICLE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FK_2K0RI1KSJ2HML4VQDS99UVOE1" table="MOVEMENT_MOVEMENTVEHICLE" schema="AIDAS" catalog="" columns="MOVEMENTVEHICLES_ID"/>
+    </table>
+    <table name="MOVEMENT_MOVEMENTVEHICLE" schema="AIDAS" catalog="" type="TABLE">
+      <column name="MOVEMENT_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="MOVEMENTVEHICLES_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <foreign-key name="FK_G5OAP6INYESQODXBYQDUMJER1" columns="MOVEMENT_ID" ref-table="MOVEMENT" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_2K0RI1KSJ2HML4VQDS99UVOE1" columns="MOVEMENTVEHICLES_ID" ref-table="MOVEMENTVEHICLE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <index name="UK_2K0RI1KSJ2HML4VQDS99UVOE1" unique="true" columns="MOVEMENTVEHICLES_ID"/>
+    </table>
+    <table name="VEHICLE" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="ISSTOLEN" sqlType="NUMBER" precision="1" scale="0" nullable="false" jdbcType="3"/>
+      <column name="LICENSEPLATE" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SYS_C0010315" columns="ID"/>
+      <exported-key name="FK_6HIC99X9X85BPUU29SX33LDAR" table="MOVEMENTVEHICLE" schema="AIDAS" catalog="" columns="VEHICLE_ID"/>
+      <exported-key name="FK_7SJEFNAIN14XV1STY62LTXDY0" table="VEHICLEOWNERSHIP" schema="AIDAS" catalog="" columns="VEHICLE_ID"/>
+      <exported-key name="FK_JK5HR08HA22REFGCA4YHPMMP5" table="VEHICLE_VEHICLEOWNERSHIP" schema="AIDAS" catalog="" columns="VEHICLE_ID"/>
+    </table>
+    <table name="VEHICLEOWNERSHIP" schema="AIDAS" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="REGISTRATIONEXPERATIONDATE" sqlType="TIMESTAMP(6)" precision="11" scale="6" nullable="true" jdbcType="93"/>
+      <column name="REGISTRATIONDATE" sqlType="TIMESTAMP(6)" precision="11" scale="6" nullable="true" jdbcType="93"/>
+      <column name="USERID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="VEHICLE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SYS_C0010318" columns="ID"/>
+      <foreign-key name="FK_7SJEFNAIN14XV1STY62LTXDY0" columns="VEHICLE_ID" ref-table="VEHICLE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FK_J3TSWMK51WBAOGCOBL9OSJKGU" table="VEHICLE_VEHICLEOWNERSHIP" schema="AIDAS" catalog="" columns="VEHICLEOWNERS_ID"/>
+    </table>
+    <table name="VEHICLE_VEHICLEOWNERSHIP" schema="AIDAS" catalog="" type="TABLE">
+      <column name="VEHICLE_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="VEHICLEOWNERS_ID" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <foreign-key name="FK_JK5HR08HA22REFGCA4YHPMMP5" columns="VEHICLE_ID" ref-table="VEHICLE" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FK_J3TSWMK51WBAOGCOBL9OSJKGU" columns="VEHICLEOWNERS_ID" ref-table="VEHICLEOWNERSHIP" ref-schema="AIDAS" ref-catalog="" ref-columns="ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <index name="UK_J3TSWMK51WBAOGCOBL9OSJKGU" unique="true" columns="VEHICLEOWNERS_ID"/>
+    </table>
+  </data-source>
+  <data-source source="LOCAL" name="Oracle - @localhost" uuid="4d1b2e12-c024-4016-8cb6-0385118bc3a4">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
   </data-source>
 </component>

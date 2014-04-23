@@ -1,10 +1,8 @@
 package connections;
 
+import helpers.Pair;
 import helpers.RequestHelper;
-import javafx.util.Pair;
 import javax.naming.Context;
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Properties;
 
 /**

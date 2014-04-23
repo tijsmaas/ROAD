@@ -1,66 +1,34 @@
 package service;
 
-import org.zeromq.*;
-import org.zeromq.ZMQ.Context;
-import org.zeromq.ZMQ.Socket;
-import org.zeromq.ZMQQueue;
+import connections.BillServerConnection;
+import connections.DriverServerConnection;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.inject.Inject;
 
 /**
  * Created by geh on 21-3-14.
  */
+@Singleton @Startup
 public class Server
 {
-    private ZMQQueue queueDevice;
-    private List<Worker> workers;
+    private BillServerConnection billServerConnection;
+    private DriverServerConnection driverServerConnection;
 
     public Server()
     {
-        String serverName = "billservice";
-        String routerAddress = "tcp://" + serverName + ":32500";
-        String dealerAddress = "inproc://responders";
 
-        Context ctx = ZMQ.context(1);
-        Socket routerSocket = ctx.socket(ZMQ.ROUTER);
-        routerSocket.bind(routerAddress);
-        Socket dealerSocket = ctx.socket(ZMQ.DEALER);
-        dealerSocket.bind(dealerAddress);
-
-        this.queueDevice = new ZMQQueue(ctx, routerSocket, dealerSocket);
-        this.workers = new ArrayList<Worker>();
-
-        for(int i = 0; i < 10; i++)
-        {
-            Worker worker = new Worker(ctx, dealerAddress);
-            this.workers.add(worker);
-        }
     }
 
-    public void start()
+    @PostConstruct
+    public void init()
     {
-        this.queueDevice.run();
-        for(Worker worker : this.workers)
-        {
-            worker.start();
-        }
-    }
+        this.billServerConnection = new BillServerConnection();
+        this.driverServerConnection = new DriverServerConnection();
 
-    public void stop()
-    {
-        try
-        {
-            this.queueDevice.close();
-            for(Worker worker : this.workers)
-            {
-                //worker.stop();
-            }
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
+        billServerConnection.start();
+        driverServerConnection.start();
     }
 }
