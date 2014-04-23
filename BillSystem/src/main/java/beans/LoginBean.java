@@ -64,7 +64,7 @@ public class LoginBean
     {
         UserDto user = billService.login(username, password);
         failed = (user == null);
-        if(failed) {
+        if(!failed) {
             userBean.setLoggedinUser(user);
         }
     }
