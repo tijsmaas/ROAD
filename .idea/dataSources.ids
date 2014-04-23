@@ -168,7 +168,4 @@
       <index name="UK_J3TSWMK51WBAOGCOBL9OSJKGU" unique="true" columns="VEHICLEOWNERS_ID"/>
     </table>
   </data-source>
-  <data-source source="LOCAL" name="Oracle - @localhost" uuid="4d1b2e12-c024-4016-8cb6-0385118bc3a4">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
-  </data-source>
 </component>

@@ -24,5 +24,6 @@
         <module>BillDTS</module>
         <module>DriverSystem</module>
         <module>DriverDTS</module>
+        <module>PoliceDTS</module>
     </modules>
 </project>
