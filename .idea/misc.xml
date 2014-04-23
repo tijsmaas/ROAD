@@ -20,6 +20,7 @@
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/DemoModule/pom.xml" />
+        <option value="$PROJECT_DIR$/WebCommons/pom.xml" />
       </set>
     </option>
   </component>

@@ -8,11 +8,11 @@ package domain.dts;
 
 import aidas.usersystem.dto.UserDto;
 import connections.BillClientConnection;
+import producer.ProducerQualifier;
+
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import qualifier.ProducerQualifier;
 
 /**
  *
@@ -21,9 +21,10 @@ import qualifier.ProducerQualifier;
 @ApplicationScoped
 public class BillService
 {
-    @Inject @ProducerQualifier
+    @Inject
+    @ProducerQualifier
     BillClientConnection billClient;
-    
+
     @PostConstruct
     private void init()
     {
