@@ -48,6 +48,11 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
+        </dependency>
     </dependencies>
 
     <!--<build>-->

@@ -9,8 +9,14 @@
     <ui:param name="url" value="/policeSystem/"/>
 
     <ui:define name="content">
-        <div>
+        <div class="pill login-pill" id="loginPill">
 
+            <ui:insert name="login">
+                <ui:include src="WEB-INF/views/LoginView.xhtml">
+                    <ui:param name="id" value="main"/>
+                    <ui:param name="title" value="BillSystem"/>
+                </ui:include>
+            </ui:insert>
         </div>
     </ui:define>
 

@@ -1,0 +1,210 @@
+/* Space out content a bit */
+body {
+    background-color: #3a92c8;
+    background: -webkit-radial-gradient(circle, #94d2f8, #3a92c8);
+    background: -moz-radial-gradient(circle, #94d2f8, #3a92c8);
+    background: -ms-radial-gradient(circle, #94d2f8, #3a92c8);
+}
+
+
+.pill{
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    border:0;
+    position: relative;
+    margin-bottom:10px;
+}
+
+.main-logo {
+    cursor: pointer;
+    line-height: 30px;
+    font-size: 24px;
+}
+
+.login-pill{
+    position:fixed;
+    top:40%;
+    left:50%;
+    width: 600px;
+    height: 300px;
+    margin:-150px 0 0 -300px;
+}
+
+.avatarContainer {
+    height:100px;
+    width:100px;
+    padding:5px;
+    border-radius:3px;
+    background-color:#898A84;
+    margin:0 auto;
+}
+
+.containedImage {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+    background-color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    position:absolute;
+    left:0;
+    right:0;
+}
+
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+}
+
+.header .container{
+    width:auto;
+    max-width: 1170px;
+    padding: 10px;
+
+}
+
+.contentWrapper {
+    margin-top: 85px;
+    margin-bottom: 30px;
+}
+
+.dashboard {
+    float:left;
+    width: 30%;
+}
+
+.rightContent{
+    float:right;
+    width:68%;
+}
+
+
+/* Custom page footer */
+.footer {
+    padding-top: 19px;
+    color: #fff;
+    border-top: 1px solid #e5e5e5;
+    position:absolute;
+    bottom:0;
+    width:1170px;
+}
+
+
+/* Customize container */
+@media (min-width: 768px) {
+    .container {
+        max-width: 1170px;
+    }
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 40px 0;
+}
+
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+.labelMargin {
+    margin-right:10px;
+    cursor:pointer;
+    color: #000;
+}
+
+.labelMargin:hover {
+    color: #696969;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+}
+
+.fullSearch {
+    position:relative;
+}
+
+.fullSearch input {
+    width:100%;
+    padding-left: 30px;
+}
+
+.fullSearch .searchIcon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    top: 6px;
+    border: 0px;
+    overflow: hidden;
+    background: url("#{resource['images:search.png']}");
+}
+
+.tweetContainer {
+    border: 1px solid rgba(0, 0, 0, 0.28);
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.profileLink{
+    display:block;
+    color: #000;
+    font-weight:bold;
+}
+
+.small {
+    font-style:italic;
+}
+
+.newTweet{
+    padding-left:2px !important;
+}
+
+
+/*Icons*/
