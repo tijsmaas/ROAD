@@ -4,14 +4,11 @@
 
 package aidas.security;
 
-import aidas.usersystem.UserManager;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -56,17 +53,14 @@ public class Security {
      * @param salt the salt used to hash the password.
      * @return the processed password.
      */
-    public static String processPassword(String password, String username, byte[] salt) {
-        String hashedPassword = null;
+    public static String processPassword(String password, String username, byte[] salt)
+            throws NoSuchAlgorithmException, NoSuchPaddingException,
+            InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
+            InvalidKeySpecException {
         
-        try {
-            String encryptedPassword = Security.encrypt(password, username + password);
-            hashedPassword = Security.hash(encryptedPassword, salt);
-        } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidKeySpecException | IllegalBlockSizeException | NoSuchPaddingException | BadPaddingException ex) {
-            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String encryptedPassword = Security.encrypt(password, username + password);
         
-        return hashedPassword;
+        return Security.hash(encryptedPassword, salt);
     }
     
     /**
@@ -76,12 +70,15 @@ public class Security {
      * @return the encryped string.
      */
     public static String encrypt(String toEncrypt, String key) 
-            throws NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException {
+            throws NoSuchAlgorithmException, NoSuchPaddingException, 
+            InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        
         SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(), "Blowfish");
         Cipher cipher = Cipher.getInstance("Blowfish");
         cipher.init(Cipher.ENCRYPT_MODE, keySpec);
         
-        return Arrays.toString(cipher.doFinal(toEncrypt.getBytes()));
+        byte[] encryped = cipher.doFinal(toEncrypt.getBytes());
+        return aidas.utils.Byte.arrayToString(encryped);
     }
     
     /**
@@ -90,10 +87,13 @@ public class Security {
      * @param salt the salt to use to hash the provided string.
      * @return the hashed string.
      */
-    public static String hash(String toHash, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static String hash(String toHash, byte[] salt) 
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+        
         PBEKeySpec spec = new PBEKeySpec(toHash.toCharArray(), salt, HASH_INTERATION_COUNT, 1026);
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        
-        return Arrays.toString(skf.generateSecret(spec).getEncoded());
+
+        byte[] encoded = skf.generateSecret(spec).getEncoded();
+        return aidas.utils.Byte.arrayToString(encoded);
     }
 }
