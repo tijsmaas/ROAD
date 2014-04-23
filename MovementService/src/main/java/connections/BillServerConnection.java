@@ -1,17 +1,17 @@
 package connections;
 
-import aidas.usersystem.IUserManager;
+//import aidas.usersystem.IUserManager;
 import aidas.usersystem.dto.UserDto;
 
-import javax.inject.Inject;
+//import javax.inject.Inject;
 
 /**
  * Created by geh on 11-4-14.
  */
 public class BillServerConnection extends ServerConnection implements IBillQuery
 {
-    @Inject
-    private IUserManager manager;
+    //@Inject
+    //private IUserManager manager;
 
     public BillServerConnection()
     {

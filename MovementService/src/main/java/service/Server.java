@@ -6,7 +6,6 @@ import connections.DriverServerConnection;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.inject.Inject;
 
 /**
  * Created by geh on 21-3-14.
