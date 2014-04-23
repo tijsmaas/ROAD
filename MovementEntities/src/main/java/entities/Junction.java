@@ -32,6 +32,9 @@ public class Junction
     @OneToMany
     private List<JunctionRequest> requests;
 
+    public Junction() {
+    }
+
     public Junction(String junctionIdentifier, double x, double y) {
     	this.junctionIdentifier = junctionIdentifier;
     	this.x = x;

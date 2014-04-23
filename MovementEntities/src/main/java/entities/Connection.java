@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 /**
  * Created by Niek on 14/03/14.
@@ -204,14 +205,14 @@ public class Connection
 
     public Connection(Edge from, Edge to, Lane fromLane, Lane toLane, String direction, String state)
     {
-        if (from == null || to == null || fromLane == null || toLane == null || direction == null || state == null)
-            throw new IllegalArgumentException("Required connection attributes are empty");
+        if (from == null || to == null || /* fromLane == null || toLane == null || */ direction == null || state == null)
+            throw new IllegalArgumentException("Connection::Required connection attributes are empty: "+(from == null)+(to == null)+(fromLane == null)+(toLane == null)+(direction == null)+(state == null));
         this.from = from;
         this.to = to;
         this.fromLane = fromLane;
         this.toLane = toLane;
-        this.direction = ConnectionDirection.valueOf(direction);
-        this.state = ConnectionState.valueOf(state);
+        this.direction = ConnectionDirection.fromString(direction);
+        this.state = ConnectionState.fromString(state);
     }
 
     public void setVia(Lane via)

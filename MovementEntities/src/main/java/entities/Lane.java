@@ -1,7 +1,6 @@
 package entities;
 
 import javax.persistence.*;
-import java.util.Vector;
 
 /**
  * Created by Niek on 14/03/14.
@@ -42,6 +41,11 @@ public class Lane
 
     public Lane(Edge edge, String id, int index, float speed, float length)
     {
+        this.edge = edge;
+        this.laneIdentifier = id;
+        this.index = index;
+        this.speed = speed;
+        this.length = length;
     }
 
     public String getLaneIdentifier()
