@@ -21,6 +21,6 @@ public class BillServerConnection extends ServerConnection implements IBillQuery
     @Override
     public UserDto authenticate(String userId, String password)
     {
-        return new UserDto(1, "test");
+        return new UserDto(1, "bill user");
     }
 }
