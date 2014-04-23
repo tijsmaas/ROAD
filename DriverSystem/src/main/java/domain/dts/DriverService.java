@@ -23,12 +23,13 @@ import qualifier.ProducerQualifier;
 @ApplicationScoped
 public class DriverService
 {
-    @Inject @ProducerQualifier
+    //@Inject @ProducerQualifier
     DriverClientConnection driverClient;
 
     @PostConstruct
     private void init()
     {
+        driverClient = new DriverClientConnection();
         driverClient.start();
     }
     
