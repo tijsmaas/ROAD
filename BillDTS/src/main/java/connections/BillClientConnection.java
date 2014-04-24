@@ -18,8 +18,8 @@ public class BillClientConnection extends ClientConnection implements IBillQuery
     }
 
     @Override
-    public UserDto authenticate(String userId, String password)
+    public UserDto authenticate(String user, String password)
     {
-        return this.remoteCall("authenticate", UserDto.class, userId, password);
+        return this.remoteCall("authenticate", UserDto.class, user, password);
     }
 }
