@@ -36,10 +36,10 @@ public class ConnectionDAOImpl implements ConnectionDAO
      * {@inheritDoc}
      */
     @Override
-    public int count()
+    public Long count()
     {
         Query query = em.createQuery("select count(connection) from Connection connection");
-        return (Integer)query.getSingleResult();
+        return (Long)query.getSingleResult();
 
     }
 

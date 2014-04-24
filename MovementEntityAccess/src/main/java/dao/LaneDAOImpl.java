@@ -49,10 +49,10 @@ public class LaneDAOImpl implements LaneDAO
      * {@inheritDoc}
      */
     @Override
-    public int count()
+    public Long count()
     {
         Query query = em.createQuery("select count(lane) from Lane lane");
-        return (Integer)query.getSingleResult();
+        return (Long)query.getSingleResult();
 
     }
 

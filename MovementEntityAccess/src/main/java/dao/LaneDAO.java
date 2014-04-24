@@ -24,7 +24,7 @@ public interface LaneDAO
      */
     Lane find(String laneIdentifier);
 
-	int count();
+	Long count();
 
     void setEntityManager(EntityManager em);
 }

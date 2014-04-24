@@ -17,7 +17,7 @@ public interface ConnectionDAO
      */
     Connection find(int connectionID);
 
-	int count();
+	Long count();
 
     void setEntityManager(EntityManager em);
 }
