@@ -4,6 +4,7 @@ import entities.Movement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 
@@ -18,12 +19,16 @@ public class MovementDAOImpl implements MovementDAO
 
     /**
      * {@inheritDoc}
-     * @param MovementID The ID of the movement
+     * @param movementID The ID of the movement
      */
     @Override
-    public Movement find(int MovementID)
+    public Movement find(int movementID)
     {
-        return null;
+        Query query = em.createQuery("Select movement from Movement movement where movement.id = :id");
+        query.setParameter("id", movementID);
+
+        List<Movement> resultList = query.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     /**
@@ -33,6 +38,16 @@ public class MovementDAOImpl implements MovementDAO
     @Override
     public List<Movement> getMovementsByDate(Date date)
     {
-        return null;
+        Query query = em.createQuery("select movement from Movement movement where movement.movementDate = :date");
+        query.setParameter("date", date);
+
+        List<Movement> resultList = query.getResultList();
+        return resultList;
+    }
+
+    @Override
+    public void setEntityManager(EntityManager em)
+    {
+        this.em = em;
     }
 }

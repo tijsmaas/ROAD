@@ -33,7 +33,7 @@ public class Edge
     private String to; // points to edge or junction
     private Integer priority; // changed to Integer because it can also be NULL
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<Connection> connections;
 
     //region Properties

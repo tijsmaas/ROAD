@@ -15,6 +15,6 @@ public class PoliceClientConnection extends ClientConnection implements IPoliceQ
     @Override
     public UserDto authenticate(String userId, String password)
     {
-        return this.remoteCall("authenticate", userId, password);
+        return this.remoteCall("authenticate", UserDto.class, userId, password);
     }
 }

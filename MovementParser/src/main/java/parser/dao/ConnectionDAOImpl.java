@@ -2,6 +2,7 @@ package parser.dao;
 
 import parser.dao.ConnectionDAO;
 import entities.Connection;
+import javax.enterprise.context.ApplicationScoped;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import javax.persistence.Query;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
+@ApplicationScoped
 public class ConnectionDAOImpl implements ConnectionDAO
 {
 
@@ -25,8 +27,7 @@ public class ConnectionDAOImpl implements ConnectionDAO
     public int count()
     {
         Query query = em.createQuery("select count(connection) from Connection connection");
-        return (Integer)query.getSingleResult();
-
+        return ((Long) query.getSingleResult()).intValue();
     }
 
     /**

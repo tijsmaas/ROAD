@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
+
+
+    <h:panelGroup id="#{id}_container">
+
+            <div id="authenticationcontainer">
+                <div id="#{id}_loginContainer" class="loginContainer">
+
+                    <h:form styleClass="form-horizontal">
+                        <h4>Log in to #{title}</h4>
+
+
+                        <c:panelGroup layout="block" styleClass="alert alert-danger"
+                                      rendered="#{loginBean.failed == true}">
+                            The username and/or password you entered is incorrect.
+                        </c:panelGroup>
+
+                        <div class="form-group">
+                            <p:outputLabel for="#{id}_txtUsername" styleClass="col-sm-3 control-label" value="#{translator.getProperty('username')}"/>
+
+                            <div class="col-sm-9">
+
+                                <p:inputText id="#{id}_txtUsername" value="#{loginBean.username}" styleClass="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p:outputLabel for="#{id}_txtPassword" styleClass="col-sm-3 control-label" value="#{translator.getProperty('password')}"/>
+
+
+                            <div class="col-sm-9">
+                                <p:password id="#{id}_txtPassword" value="#{loginBean.password}" styleClass="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-10">
+                                <p:commandButton id="#{id}_btnLogin" value="Login" styleClass="btn btn-success" actionListener="#{loginBean.login}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+    </h:panelGroup>
+</ui:composition>

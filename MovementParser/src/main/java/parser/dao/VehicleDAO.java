@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface VehicleDAO
 {
+    
+    int count();
     /**
      * Persists a vehicle to the database
      * @param vehicle The Vehicle object to persist

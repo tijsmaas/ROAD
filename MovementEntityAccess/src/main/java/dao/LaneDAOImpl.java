@@ -5,6 +5,7 @@ import entities.Lane;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 /**
  * Created by Niek on 28/03/14.
@@ -22,7 +23,11 @@ public class LaneDAOImpl implements LaneDAO
     @Override
     public Lane find(int laneID)
     {
-        return null;
+        Query query = em.createQuery("Select lane from Lane lane where lane.id = :id");
+        query.setParameter("id", laneID);
+
+        List<Lane> resultList = query.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     /**
@@ -32,7 +37,11 @@ public class LaneDAOImpl implements LaneDAO
     @Override
     public Lane find(String laneIdentifier)
     {
-        return null;
+        Query query = em.createQuery("Select lane from Lane lane where lane.laneIdentifier = :id");
+        query.setParameter("id", laneIdentifier);
+
+        List<Lane> resultList = query.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
     
 
@@ -46,4 +55,12 @@ public class LaneDAOImpl implements LaneDAO
         return (Integer)query.getSingleResult();
 
     }
+
+    @Override
+    public void setEntityManager(EntityManager em)
+    {
+        this.em = em;
+    }
+
+
 }

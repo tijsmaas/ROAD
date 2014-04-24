@@ -20,12 +20,11 @@
           <element id="library" level="project" name="Maven: javax:javaee-api:7.0" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.0" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
-          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
-          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
-          <element id="library" level="project" name="Maven: com.google.guava:guava:16.0.1" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.2.4" />
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:4.0" />
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.2" />
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.2" />
+          <element id="library" level="project" name="Maven: org.primefaces.themes:all-themes:1.0.10" />
         </element>
       </element>
     </root>

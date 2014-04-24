@@ -8,5 +8,5 @@ import aidas.usersystem.dto.UserDto;
  */
 public interface IBillQuery
 {
-    UserDto authenticate(String userId, String password);
+    UserDto authenticate(String user, String password);
 }

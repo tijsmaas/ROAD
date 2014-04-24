@@ -6,6 +6,9 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="PoliceSystem" />
+          <element id="module-output" name="UserDtos" />
+          <element id="module-output" name="MovementDTS" />
+          <element id="module-output" name="PoliceDTS" />
         </element>
       </element>
     </root>

@@ -10,7 +10,6 @@ import javax.inject.Named;
  * This class is NOT THREADSAFE. If you want multithreading, create on BillConnection for EACH
  * thread.
  */
-@Named
 public class BillClientConnection extends ClientConnection implements IBillQuery
 {
     public BillClientConnection()
@@ -19,8 +18,8 @@ public class BillClientConnection extends ClientConnection implements IBillQuery
     }
 
     @Override
-    public UserDto authenticate(String userId, String password)
+    public UserDto authenticate(String user, String password)
     {
-        return this.remoteCall("authenticate", userId, password);
+        return this.remoteCall("authenticate", UserDto.class, user, password);
     }
 }

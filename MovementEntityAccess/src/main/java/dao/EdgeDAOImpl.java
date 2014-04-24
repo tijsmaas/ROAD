@@ -53,4 +53,10 @@ public class EdgeDAOImpl implements EdgeDAO
         List<Edge> resultList = query.getResultList();
         return resultList.isEmpty() ? null : resultList.get(0);
     }
+
+    @Override
+    public void setEntityManager(EntityManager em)
+    {
+        this.em = em;
+    }
 }

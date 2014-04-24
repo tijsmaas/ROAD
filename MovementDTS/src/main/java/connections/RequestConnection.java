@@ -34,13 +34,14 @@ public class RequestConnection extends MovementConnection
             {
                 this.context = new InitialContext(props);
             }
+
             this.factory = (ConnectionFactory)this.context.lookup(factoryName);
             this.connection = this.factory.createConnection();
-
             this.session = this.connection.createSession();
 
             this.sendTo = (Destination)this.context.lookup(sendTo);
             this.producer = this.session.createProducer(this.sendTo);
+
             this.listenTo = this.session.createTemporaryQueue();
             this.consumer = this.session.createConsumer(this.listenTo);
         }
@@ -55,9 +56,8 @@ public class RequestConnection extends MovementConnection
         String rawReply = "";
         try
         {
-            TextMessage request = this.session.createTextMessage();
+            TextMessage request = this.session.createTextMessage(rawRequest);
             request.setJMSReplyTo(this.listenTo);
-            request.setText(rawRequest);
             this.producer.send(request);
 
             int tries = 0;
@@ -71,7 +71,6 @@ public class RequestConnection extends MovementConnection
             {
                 rawReply = reply.getText();
             }
-
         }
         catch(Exception ex)
         {

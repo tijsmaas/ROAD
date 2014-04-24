@@ -2,6 +2,7 @@ package parser.dao;
 
 import parser.dao.JunctionDAO;
 import entities.Junction;
+import javax.enterprise.context.ApplicationScoped;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import javax.persistence.Query;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
+@ApplicationScoped
 public class JunctionDAOImpl implements JunctionDAO
 {
 
@@ -24,7 +26,7 @@ public class JunctionDAOImpl implements JunctionDAO
     public int count()
     {
         Query q = em.createQuery("select count(junction) from Junction junction");
-        return (Integer)q.getSingleResult();
+        return ((Long) q.getSingleResult()).intValue();
     }
 
     /**

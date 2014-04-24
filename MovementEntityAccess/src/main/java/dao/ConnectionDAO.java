@@ -2,6 +2,8 @@ package dao;
 
 import entities.Connection;
 
+import javax.persistence.EntityManager;
+
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
@@ -16,4 +18,6 @@ public interface ConnectionDAO
     Connection find(int connectionID);
 
 	int count();
+
+    void setEntityManager(EntityManager em);
 }

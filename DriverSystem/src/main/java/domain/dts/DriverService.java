@@ -23,17 +23,19 @@ import qualifier.ProducerQualifier;
 @ApplicationScoped
 public class DriverService
 {
-    @Inject @ProducerQualifier
+    //@Inject @ProducerQualifier
     DriverClientConnection driverClient;
 
     @PostConstruct
     private void init()
     {
+        driverClient = new DriverClientConnection();
         driverClient.start();
     }
     
     public UserDto login(String username, String password)
     {
+        Integer x = driverClient.getLaneCount();
         return driverClient.authenticate(username, password);
     }
 }

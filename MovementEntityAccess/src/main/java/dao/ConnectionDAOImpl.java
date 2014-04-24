@@ -42,4 +42,10 @@ public class ConnectionDAOImpl implements ConnectionDAO
         return (Integer)query.getSingleResult();
 
     }
+
+    @Override
+    public void setEntityManager(EntityManager em)
+    {
+        this.em = em;
+    }
 }

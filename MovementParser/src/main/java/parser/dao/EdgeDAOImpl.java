@@ -1,7 +1,7 @@
 package parser.dao;
 
-import parser.dao.EdgeDAO;
 import entities.Edge;
+import javax.enterprise.context.ApplicationScoped;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +11,7 @@ import javax.persistence.Query;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
+@ApplicationScoped
 public class EdgeDAOImpl implements EdgeDAO
 {
 
@@ -24,7 +25,7 @@ public class EdgeDAOImpl implements EdgeDAO
     public int count()
     {
         Query query = em.createQuery("select count(edge) from Edge edge");
-        return (Integer)query.getSingleResult();
+        return ((Long) query.getSingleResult()).intValue();
     }
 
     /**
