@@ -1,7 +1,6 @@
 package entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 
 /**
  * Created by Niek on 14/03/14.
