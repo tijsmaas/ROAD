@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="DriverSystem:war">
+    <output-path>$PROJECT_DIR$/DriverSystem/target</output-path>
+    <root id="archive" name="DriverSystem-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="DriverSystem:war exploded" />
+    </root>
+  </artifact>
+</component>

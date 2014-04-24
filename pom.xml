@@ -8,18 +8,22 @@
     <artifactId>ROAD</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+	
     <modules>
         <module>MovementEntities</module>
         <module>BillSystem</module>
+        <module>CarSystem</module>
         <module>MovementDTS</module>
         <module>MovementParser</module>
         <module>MovementService</module>
         <module>PoliceSystem</module>
+        <module>UserDtos</module>
         <module>UserService</module>
         <module>MovementEntityAccess</module>
-        <module>CarSystem</module>
         <module>JPADemoModule</module>
+        <module>BillDTS</module>
+        <module>DriverSystem</module>
+        <module>DriverDTS</module>
+        <module>PoliceDTS</module>
     </modules>
-
-
 </project>

@@ -46,10 +46,13 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Do not share the databaseconfiguration
 MovementEntities/src/main/resources/META-INF/persistence.xml
 
 =======
+=======
+>>>>>>> 33b78b49e3fee3e93a200467ee77530b88da695d
 # Created by http://www.gitignore.io
 
 ### NetBeans ###
@@ -60,4 +63,7 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+<<<<<<< HEAD
+>>>>>>> 33b78b49e3fee3e93a200467ee77530b88da695d
+=======
 >>>>>>> 33b78b49e3fee3e93a200467ee77530b88da695d

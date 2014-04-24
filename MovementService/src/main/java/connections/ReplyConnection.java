@@ -1,10 +1,10 @@
 package connections;
 
-import javafx.util.Pair;
+import helpers.Pair;
 import serializers.Serializer;
-
 import javax.jms.*;
 import javax.naming.InitialContext;
+import java.util.ArrayList;
 
 /**
  * Created by geh on 10-4-14.
@@ -23,11 +23,11 @@ public class ReplyConnection extends MovementConnection implements MessageListen
             this.factory = (ConnectionFactory)this.context.lookup(factoryName);
             this.connection = this.factory.createConnection();
 
-            this.session = this.connection.createSession();
+            this.session = this.connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             this.producer = this.session.createProducer(null);
 
-            this.listenTo = this.session.createQueue(listenTo);
+            this.listenTo = (Destination)this.context.lookup(listenTo);
             this.consumer = this.session.createConsumer(this.listenTo);
             this.consumer.setMessageListener(this);
             this.listener = listener;
@@ -44,9 +44,8 @@ public class ReplyConnection extends MovementConnection implements MessageListen
         try
         {
             TextMessage textMessage = (TextMessage)message;
-            Pair<String, Object[]> pair = this.serializer.deSerialize(textMessage.getText());
-            Object obj = this.listener.receive(pair);
-            String rawReply = this.serializer.serialize(obj);
+            Pair<String, ArrayList<Object>> pair = this.serializer.deSerialize(textMessage.getText(), Pair.class);
+            String rawReply = this.listener.receive(pair);
 
             TextMessage reply = this.session.createTextMessage();
             reply.setText(rawReply);

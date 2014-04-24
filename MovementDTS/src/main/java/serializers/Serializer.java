@@ -1,19 +1,17 @@
 package serializers;
 
-import org.codehaus.jackson.map.ObjectReader;
-import org.codehaus.jackson.map.ObjectWriter;
+import com.google.gson.Gson;
 
 /**
  * Created by geh on 4-4-14.
  */
 public class Serializer
 {
-    private ObjectReader reader;
-    private ObjectWriter writer;
+    private Gson gson;
 
     public Serializer()
     {
-
+        this.gson = new Gson();
     }
 
     public <T> String serialize(T obj)
@@ -21,7 +19,7 @@ public class Serializer
         String result = null;
         try
         {
-            result = writer.writeValueAsString(obj);
+            result = this.gson.toJson(obj);
         }
         catch(Exception ex)
         {
@@ -33,12 +31,12 @@ public class Serializer
         }
     }
 
-    public <T> T deSerialize(String raw)
+    public <T> T deSerialize(String raw, Class<T> type)
     {
         T result = null;
         try
         {
-            result = reader.readValue(raw);
+            result = (T)gson.fromJson(raw, type);
         }
         catch(Exception ex)
         {

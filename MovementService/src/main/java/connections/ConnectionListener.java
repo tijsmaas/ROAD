@@ -1,13 +1,14 @@
 package connections;
 
-import javafx.util.Pair;
+import helpers.Pair;
 
 import javax.jms.TextMessage;
+import java.util.ArrayList;
 
 /**
  * Created by geh on 10-4-14.
  */
 public interface ConnectionListener
 {
-    public String receive(Pair<String, Object[]> request);
+    public String receive(Pair<String,ArrayList<Object>> request);
 }
