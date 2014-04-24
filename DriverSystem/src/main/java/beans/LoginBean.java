@@ -1,9 +1,10 @@
 package beans;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
 import domain.dts.DriverService;
-import javax.ejb.Stateless;
-import javax.faces.bean.ManagedProperty;
+import domain.dts.IDriverService;
+
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,18 +18,16 @@ import javax.inject.Named;
  *
  * @author Mitch
  */
-@Named
-@Stateless
+@Named("loginBean") @RequestScoped
 public class LoginBean
 {
     private String username;
     private String password;
     private boolean failed;
-    @ManagedProperty(value="#{userBean}")
-    private UserBean userBean;
-
     @Inject
-    private DriverService driverService;
+    private UserBean userBean;
+    @Inject
+    private IDriverService driverService;
 
     public void setUsername(String username)
     {
@@ -68,5 +67,4 @@ public class LoginBean
             userBean.setLoggedinUser(user);
         }
     }
-
 }

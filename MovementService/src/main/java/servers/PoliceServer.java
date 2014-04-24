@@ -1,7 +1,7 @@
 package servers;
 
 //import aidas.usersystem.IUserManager;
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
 import connections.IPoliceQuery;
 import connections.MovementConnection;
 import connections.ServerConnection;

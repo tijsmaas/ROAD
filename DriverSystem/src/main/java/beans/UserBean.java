@@ -6,7 +6,7 @@
 
 package beans;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -20,8 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Mitch
  */
-@Named
-@SessionScoped
+@Named("userBean") @SessionScoped
 public class UserBean implements Serializable
 {
     private UserDto loggedinUser;

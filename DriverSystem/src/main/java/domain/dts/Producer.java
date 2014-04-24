@@ -15,10 +15,10 @@ import qualifier.ProducerQualifier;
  *
  * @author Mitch
  */
-@ApplicationScoped
+//@ApplicationScoped
 public class Producer {
-    @Produces @ProducerQualifier
-    public DriverClientConnection driverClientConnectionProducer(){
-        return new DriverClientConnection();
-    }
+//    @Produces @ProducerQualifier
+//    public DriverClientConnection driverClientConnectionProducer(){
+//        return new DriverClientConnection();
+//    }
 }

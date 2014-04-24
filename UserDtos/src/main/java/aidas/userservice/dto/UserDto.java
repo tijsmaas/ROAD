@@ -2,7 +2,7 @@
  * Copyright by AIDaS.
  */
 
-package aidas.usersystem.dto;
+package aidas.userservice.dto;
 
 /**
  * This class represents a user.

@@ -1,6 +1,6 @@
 package connections;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
 
 import javax.inject.Named;
 

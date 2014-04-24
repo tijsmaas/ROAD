@@ -1,6 +1,6 @@
 package servers;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
 import connections.IDriverQuery;
 import connections.MovementConnection;
 import connections.ServerConnection;
@@ -9,6 +9,8 @@ import dao.EdgeDAO;
 import dao.LaneDAO;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
@@ -17,16 +19,16 @@ import javax.persistence.*;
 /**
  * Created by geh on 22-4-14.
  */
-@ApplicationScoped @ManagedBean(eager = true)
+@Singleton @Startup
 public class DriverServer extends ServerConnection implements IDriverQuery
 {
     //@Inject
     //private IUserManager userManager;
-    @Inject //@ProducerQualifier
+    @Inject
     private EdgeDAO edgeDAO;
-    @Inject //@ProducerQualifier
+    @Inject
     private LaneDAO laneDAO;
-    @Inject //@ProducerQualifier
+    @Inject
     private ConnectionDAO connectionDAO;
 
     public DriverServer()
@@ -53,7 +55,7 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     }
 
     @Override
-    public Integer getLaneCount()
+    public Long getLaneCount()
     {
         return this.laneDAO.count();
     }

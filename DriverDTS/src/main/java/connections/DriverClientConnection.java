@@ -1,6 +1,13 @@
 package connections;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.LocalBean;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 
 /**
  * Created by geh on 22-4-14.
@@ -19,9 +26,9 @@ public class DriverClientConnection extends ClientConnection implements IDriverQ
     }
 
     @Override
-    public Integer getLaneCount()
+    public Long getLaneCount()
     {
-        return this.remoteCall("getLaneCount", Integer.class);
+        return this.remoteCall("getLaneCount", Long.class);
     }
 
     @Override

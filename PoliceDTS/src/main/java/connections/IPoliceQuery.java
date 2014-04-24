@@ -1,6 +1,6 @@
 package connections;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
 
 /**
  * Created by geh on 23-4-14.
