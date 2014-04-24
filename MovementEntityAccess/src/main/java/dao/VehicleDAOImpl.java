@@ -55,4 +55,10 @@ public class VehicleDAOImpl implements VehicleDAO
     {
 
     }
+
+    @Override
+    public void setEntityManager(EntityManager em)
+    {
+       this.em = em;
+    }
 }

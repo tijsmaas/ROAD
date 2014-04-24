@@ -59,4 +59,10 @@ public class JunctionDAOImpl implements JunctionDAO
         List<JunctionRequest> resultList = query.getResultList();
         return resultList.isEmpty() ? null : resultList.get(0);
     }
+
+    @Override
+    public void setEntityManager(EntityManager em)
+    {
+        this.em = em;
+    }
 }

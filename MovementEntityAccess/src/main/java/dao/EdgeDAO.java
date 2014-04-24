@@ -2,6 +2,8 @@ package dao;
 
 import entities.Edge;
 
+import javax.persistence.EntityManager;
+
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
@@ -24,4 +26,7 @@ public interface EdgeDAO
      * @return The found Edge object
      */
     Edge findByIdentifier(String edgeIdentifier);
+
+
+    void setEntityManager(EntityManager em);
 }

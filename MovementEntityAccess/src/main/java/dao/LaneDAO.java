@@ -2,6 +2,8 @@ package dao;
 
 import entities.Lane;
 
+import javax.persistence.EntityManager;
+
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
@@ -23,4 +25,6 @@ public interface LaneDAO
     Lane find(String laneIdentifier);
 
 	int count();
+
+    void setEntityManager(EntityManager em);
 }
