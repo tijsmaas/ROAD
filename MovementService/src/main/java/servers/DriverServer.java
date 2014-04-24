@@ -7,27 +7,30 @@ import connections.ServerConnection;
 import dao.ConnectionDAO;
 import dao.EdgeDAO;
 import dao.LaneDAO;
+import data.annotations.ProducerQualifier;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Startup;
-import javax.ejb.Singleton;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
+import javax.persistence.*;
 
 /**
  * Created by geh on 22-4-14.
  */
-@Singleton
-@Startup
+@ApplicationScoped
+@ManagedBean(eager = true)
 public class DriverServer extends ServerConnection implements IDriverQuery
 {
     //@Inject
     //private IUserManager userManager;
-    @Inject
+    @Inject //@ProducerQualifier
     private EdgeDAO edgeDAO;
-    @Inject
+    @Inject //@ProducerQualifier
     private LaneDAO laneDAO;
-    @Inject
+    @Inject //@ProducerQualifier
     private ConnectionDAO connectionDAO;
+    private EntityManager em;
 
     public DriverServer()
     {
@@ -39,6 +42,8 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     {
         super.initRpc(IDriverQuery.class, this);
         this.start();
+
+        this.em = (EntityManager) Persistence.createEntityManagerFactory("MovementPU").createEntityManager();
     }
 
     @Override
@@ -50,6 +55,8 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     @Override
     public Integer getLaneCount()
     {
-        return this.laneDAO.count();
+        Query query = em.createQuery("Select count(edge) from Edge edge");
+        return ((Long)query.getSingleResult()).intValue();
+        //return this.laneDAO.count();
     }
 }

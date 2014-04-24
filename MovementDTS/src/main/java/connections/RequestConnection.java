@@ -71,7 +71,6 @@ public class RequestConnection extends MovementConnection
             {
                 rawReply = reply.getText();
             }
-
         }
         catch(Exception ex)
         {

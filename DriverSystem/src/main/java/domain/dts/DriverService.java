@@ -35,6 +35,7 @@ public class DriverService
     
     public UserDto login(String username, String password)
     {
+        Integer x = driverClient.getLaneCount();
         return driverClient.authenticate(username, password);
     }
 }
