@@ -17,4 +17,10 @@ public class DriverClientConnection extends ClientConnection implements IDriverQ
     {
         return this.remoteCall("authenticate", UserDto.class, userId, password);
     }
+
+    @Override
+    public Integer getLaneCount()
+    {
+        return this.remoteCall("getLaneCount", Integer.class);
+    }
 }

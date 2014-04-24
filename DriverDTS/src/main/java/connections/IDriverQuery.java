@@ -8,4 +8,6 @@ import aidas.usersystem.dto.UserDto;
 public interface IDriverQuery
 {
     UserDto authenticate(String userId, String password);
+
+    Integer getLaneCount();
 }
