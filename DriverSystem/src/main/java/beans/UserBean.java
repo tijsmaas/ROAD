@@ -39,7 +39,7 @@ public class UserBean implements Serializable
     private void redirect(String url)
     {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/PoliceSystem/" + url);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/DriverSystem/" + url);
         } catch (IOException ex) {
             Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
         }
