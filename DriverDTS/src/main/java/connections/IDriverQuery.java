@@ -10,4 +10,6 @@ public interface IDriverQuery
     UserDto authenticate(String userId, String password);
 
     Integer getLaneCount();
+
+    Long getEdgeCount();
 }

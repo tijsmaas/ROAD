@@ -4,7 +4,10 @@ import dao.*;
 import data.annotations.ProducerQualifier;
 
 import javax.enterprise.inject.Produces;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 
+@ManagedBean @ApplicationScoped
 public class MovementEntityProducer
 {
 //    @Produces @ProducerQualifier

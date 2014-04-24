@@ -23,4 +23,10 @@ public class DriverClientConnection extends ClientConnection implements IDriverQ
     {
         return this.remoteCall("getLaneCount", Integer.class);
     }
+
+    @Override
+    public Long getEdgeCount()
+    {
+        return this.remoteCall("getEdgeCount", Long.class);
+    }
 }
