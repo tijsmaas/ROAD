@@ -4,6 +4,7 @@ import entities.Vehicle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -22,7 +23,11 @@ public class VehicleDAOImpl implements VehicleDAO
     @Override
     public Vehicle find(int id)
     {
-        return null;
+        Query query = em.createQuery("Select vehicle from Vehicle vehicle where vehicle.id = :id");
+        query.setParameter("id", id);
+
+        List<Vehicle> resultList = query.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     /**
@@ -32,8 +37,11 @@ public class VehicleDAOImpl implements VehicleDAO
     @Override
     public Vehicle findByLicensePlate(String licensePlate)
     {
-        return null;
-    }
+        Query query = em.createQuery("Select vehicle from Vehicle vehicle where vehicle.licensePlate = :licensePlate");
+        query.setParameter("licensePlate", licensePlate);
+
+        List<Vehicle> resultList = query.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);    }
 
     /**
      * {@inheritDoc}
