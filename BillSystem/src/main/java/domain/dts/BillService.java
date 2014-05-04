@@ -6,13 +6,11 @@
 
 package domain.dts;
 
-import aidas.usersystem.dto.UserDto;
-import connections.BillClientConnection;
-import producer.ProducerQualifier;
+import aidas.userservice.dto.UserDto;
+import road.billdts.connections.BillClientConnection;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 /**
  *

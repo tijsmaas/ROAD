@@ -1,4 +1,4 @@
-package data.annotations;
+package road.movementservice.data.annotations;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Retention;

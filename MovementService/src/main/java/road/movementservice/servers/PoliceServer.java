@@ -1,10 +1,10 @@
-package servers;
+package road.movementservice.servers;
 
 //import aidas.usersystem.IUserManager;
 import aidas.userservice.dto.UserDto;
-import connections.IPoliceQuery;
-import connections.MovementConnection;
-import connections.ServerConnection;
+import road.policedts.connections.IPoliceQuery;
+import road.movementdts.connections.MovementConnection;
+import road.movementservice.connections.ServerConnection;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Startup;

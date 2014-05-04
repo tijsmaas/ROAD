@@ -1,4 +1,4 @@
-package serializers;
+package road.movementdts.serializers;
 
 import com.google.gson.Gson;
 

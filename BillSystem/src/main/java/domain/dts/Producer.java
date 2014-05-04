@@ -6,7 +6,7 @@
 
 package domain.dts;
 
-import connections.BillClientConnection;
+import road.billdts.connections.BillClientConnection;
 import javax.enterprise.inject.Produces;
 import qualifier.ProducerQualifier;
 

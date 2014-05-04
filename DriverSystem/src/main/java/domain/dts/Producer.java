@@ -6,11 +6,6 @@
 
 package domain.dts;
 
-import connections.DriverClientConnection;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import qualifier.ProducerQualifier;
-
 /**
  *
  * @author Mitch

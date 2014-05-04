@@ -1,6 +1,6 @@
 package producer;
 
-import connections.BillClientConnection;
+import road.billdts.connections.BillClientConnection;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

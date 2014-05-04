@@ -1,9 +1,9 @@
-package servers;
+package road.movementservice.servers;
 
 import aidas.userservice.dto.UserDto;
-import connections.IDriverQuery;
-import connections.MovementConnection;
-import connections.ServerConnection;
+import road.driverdts.connections.IDriverQuery;
+import road.movementdts.connections.MovementConnection;
+import road.movementservice.connections.ServerConnection;
 import dao.ConnectionDAO;
 import dao.EdgeDAO;
 import dao.LaneDAO;
@@ -11,8 +11,6 @@ import dao.LaneDAO;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 import javax.persistence.*;
 

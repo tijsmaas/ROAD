@@ -1,9 +1,5 @@
-package data;
+package road.movementservice.data;
 
-import dao.*;
-import data.annotations.ProducerQualifier;
-
-import javax.enterprise.inject.Produces;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 

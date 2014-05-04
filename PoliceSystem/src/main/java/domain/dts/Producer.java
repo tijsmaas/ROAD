@@ -6,7 +6,7 @@
 
 package domain.dts;
 
-import connections.PoliceClientConnection;
+import road.policedts.connections.PoliceClientConnection;
 import javax.enterprise.inject.Produces;
 import qualifier.ProducerQualifier;
 
