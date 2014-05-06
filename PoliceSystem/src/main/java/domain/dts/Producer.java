@@ -6,7 +6,8 @@
 
 package domain.dts;
 
-import road.policedts.connections.PoliceClientConnection;
+import road.policedts.connections.PoliceClient;
+
 import javax.enterprise.inject.Produces;
 import qualifier.ProducerQualifier;
 
@@ -16,7 +17,7 @@ import qualifier.ProducerQualifier;
  */
 public class Producer {
     @Produces @ProducerQualifier
-    public PoliceClientConnection policeClientConnectionProducer(){
-        return new PoliceClientConnection();
+    public PoliceClient policeClientConnectionProducer(){
+        return new PoliceClient();
     }
 }

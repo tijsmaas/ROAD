@@ -7,7 +7,7 @@
 package domain.dts;
 
 import aidas.userservice.dto.UserDto;
-import road.billdts.connections.BillClientConnection;
+import road.billdts.connections.BillClient;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -20,12 +20,12 @@ import javax.enterprise.context.ApplicationScoped;
 public class BillService
 {
     //@Inject @ProducerQualifier
-    BillClientConnection billClient;
+    BillClient billClient;
 
     @PostConstruct
     private void init()
     {
-        billClient = new BillClientConnection();
+        billClient = new BillClient();
         billClient.start();
     }
     

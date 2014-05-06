@@ -7,7 +7,7 @@
 package domain.dts;
 
 import aidas.userservice.dto.UserDto;
-import road.driverdts.connections.DriverClientConnection;
+import road.driverdts.connections.DriverClient;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -19,7 +19,7 @@ import javax.ejb.Startup;
 @Singleton @Startup
 public class DriverService implements IDriverService
 {
-    private DriverClientConnection driverQueries;
+    private DriverClient driverQueries;
 
     public DriverService()
     {
@@ -29,7 +29,7 @@ public class DriverService implements IDriverService
     @PostConstruct
     private void init()
     {
-        this.driverQueries = new DriverClientConnection();
+        this.driverQueries = new DriverClient();
         this.driverQueries.start();
     }
 

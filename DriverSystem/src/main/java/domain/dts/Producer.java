@@ -13,7 +13,7 @@ package domain.dts;
 //@ApplicationScoped
 public class Producer {
 //    @Produces @ProducerQualifier
-//    public DriverClientConnection driverClientConnectionProducer(){
-//        return new DriverClientConnection();
+//    public DriverClient driverClientConnectionProducer(){
+//        return new DriverClient();
 //    }
 }

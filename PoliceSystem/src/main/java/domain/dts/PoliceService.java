@@ -7,7 +7,8 @@
 package domain.dts;
 
 import aidas.userservice.dto.UserDto;
-import road.policedts.connections.PoliceClientConnection;
+import road.policedts.connections.PoliceClient;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 
@@ -19,12 +20,12 @@ import javax.enterprise.context.ApplicationScoped;
 public class PoliceService
 {
     //@Inject @ProducerQualifier
-    PoliceClientConnection policeClient;
+    PoliceClient policeClient;
     
     @PostConstruct
     private void init()
     {
-        policeClient = new PoliceClientConnection();
+        policeClient = new PoliceClient();
         policeClient.start();
     }
     

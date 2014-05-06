@@ -6,7 +6,8 @@
 
 package domain.dts;
 
-import road.billdts.connections.BillClientConnection;
+import road.billdts.connections.BillClient;
+
 import javax.enterprise.inject.Produces;
 import qualifier.ProducerQualifier;
 
@@ -16,7 +17,7 @@ import qualifier.ProducerQualifier;
  */
 public class Producer {
     @Produces @ProducerQualifier
-    public BillClientConnection billClientConnectionProducer(){
-        return new BillClientConnection();
+    public BillClient billClientConnectionProducer(){
+        return new BillClient();
     }
 }
