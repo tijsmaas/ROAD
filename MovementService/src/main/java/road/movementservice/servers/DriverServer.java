@@ -4,9 +4,9 @@ import aidas.userservice.dto.UserDto;
 import road.driverdts.connections.IDriverQuery;
 import road.movementdts.connections.MovementConnection;
 import road.movementservice.connections.ServerConnection;
-import dao.ConnectionDAO;
-import dao.EdgeDAO;
-import dao.LaneDAO;
+import road.movemententityaccess.dao.ConnectionDAO;
+import road.movemententityaccess.dao.EdgeDAO;
+import road.movemententityaccess.dao.LaneDAO;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;

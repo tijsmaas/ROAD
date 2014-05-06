@@ -1,6 +1,6 @@
 package parser.dao;
 
-import entities.Lane;
+import road.movemententities.entities.Lane;
 import javax.enterprise.context.ApplicationScoped;
 
 import javax.persistence.EntityManager;

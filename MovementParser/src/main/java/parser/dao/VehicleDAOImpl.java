@@ -1,7 +1,6 @@
 package parser.dao;
 
-import parser.dao.VehicleDAO;
-import entities.Vehicle;
+import road.movemententities.entities.Vehicle;
 import javax.enterprise.context.ApplicationScoped;
 
 import javax.persistence.EntityManager;

@@ -1,4 +1,4 @@
-package entities;
+package road.movemententities.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ public class Edge
     @Enumerated(EnumType.STRING)
     private EdgeFunction function;
 
+    //The type of the Edge
     @Column(name = "EdgeType")
     private String type; // highway.primary, highway.secondary, etc
 
@@ -31,6 +32,7 @@ public class Edge
 
     @Column(name = "ToEdge")
     private String to; // points to edge or junction
+
     private Integer priority; // changed to Integer because it can also be NULL
 
     @OneToMany(cascade = CascadeType.MERGE)

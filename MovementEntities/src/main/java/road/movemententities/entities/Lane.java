@@ -1,4 +1,4 @@
-package entities;
+package road.movemententities.entities;
 
 import javax.persistence.*;
 

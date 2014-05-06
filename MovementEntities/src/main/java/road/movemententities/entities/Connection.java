@@ -1,4 +1,4 @@
-package entities;
+package road.movemententities.entities;
 
 import javax.persistence.*;
 
@@ -9,13 +9,16 @@ import javax.persistence.*;
 @Entity
 public class Connection
 {
+
     @Id
     @GeneratedValue
     private int id;
-    // required
+
+    //The from Edge of this connection
     @ManyToOne
     private Edge from;
 
+    //The to edge of this connection
     @ManyToOne
     private Edge to;
 

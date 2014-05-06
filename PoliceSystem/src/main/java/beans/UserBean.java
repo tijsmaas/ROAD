@@ -6,14 +6,15 @@
 
 package beans;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
 /**
  *

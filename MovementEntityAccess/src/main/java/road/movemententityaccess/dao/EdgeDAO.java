@@ -1,6 +1,6 @@
-package dao;
+package road.movemententityaccess.dao;
 
-import entities.Edge;
+import road.movemententities.entities.Edge;
 
 import javax.persistence.EntityManager;
 

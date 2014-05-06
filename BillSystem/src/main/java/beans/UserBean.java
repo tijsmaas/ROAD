@@ -6,7 +6,7 @@
 
 package beans;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;

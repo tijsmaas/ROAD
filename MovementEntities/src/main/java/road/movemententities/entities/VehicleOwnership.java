@@ -1,8 +1,7 @@
-package entities;
+package road.movemententities.entities;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**

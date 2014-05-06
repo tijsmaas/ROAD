@@ -1,7 +1,7 @@
-package dao;
+package road.movemententityaccess.dao;
 
-import entities.Junction;
-import entities.JunctionRequest;
+import road.movemententities.entities.Junction;
+import road.movemententities.entities.JunctionRequest;
 
 import javax.persistence.EntityManager;
 

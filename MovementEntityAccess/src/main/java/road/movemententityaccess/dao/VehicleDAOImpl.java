@@ -1,6 +1,6 @@
-package dao;
+package road.movemententityaccess.dao;
 
-import entities.Vehicle;
+import road.movemententities.entities.Vehicle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
