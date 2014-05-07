@@ -6,13 +6,11 @@
 
 package domain.dts;
 
-import aidas.usersystem.dto.UserDto;
-import connections.PoliceClientConnection;
+import aidas.userservice.dto.UserDto;
+import road.policedts.connections.PoliceClient;
+
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import qualifier.ProducerQualifier;
 
 /**
  *
@@ -22,12 +20,12 @@ import qualifier.ProducerQualifier;
 public class PoliceService
 {
     //@Inject @ProducerQualifier
-    PoliceClientConnection policeClient;
+    PoliceClient policeClient;
     
     @PostConstruct
     private void init()
     {
-        policeClient = new PoliceClientConnection();
+        policeClient = new PoliceClient();
         policeClient.start();
     }
     

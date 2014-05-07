@@ -6,17 +6,21 @@
 
 package beans;
 
-import aidas.usersystem.dto.UserDto;
-import java.io.Serializable;
+import aidas.userservice.dto.UserDto;
+
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Mitch
  */
-@Named
-@SessionScoped
+@Named("userBean") @SessionScoped
 public class UserBean implements Serializable
 {
     private UserDto loggedinUser;
@@ -24,11 +28,21 @@ public class UserBean implements Serializable
     public void setLoggedinUser(UserDto loggedinUser)
     {
         this.loggedinUser = loggedinUser;
+        redirect("welcome.xhtml");
     }
 
     public UserDto getLoggedinUser()
     {
         return loggedinUser;
+    }
+    
+    private void redirect(String url)
+    {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/DriverSystem/" + url);
+        } catch (IOException ex) {
+            Logger.getLogger(UserBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void logout()

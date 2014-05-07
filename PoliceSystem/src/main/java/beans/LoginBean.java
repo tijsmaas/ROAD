@@ -1,7 +1,8 @@
 package beans;
 
-import aidas.usersystem.dto.UserDto;
+import aidas.userservice.dto.UserDto;
 import domain.dts.PoliceService;
+
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;

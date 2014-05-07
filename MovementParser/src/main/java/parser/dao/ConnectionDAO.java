@@ -1,6 +1,6 @@
 package parser.dao;
 
-import entities.Connection;
+import road.movemententities.entities.Connection;
 
 /**
  * Created by Niek on 28/03/14.

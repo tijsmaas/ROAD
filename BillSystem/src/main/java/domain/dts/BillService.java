@@ -6,13 +6,11 @@
 
 package domain.dts;
 
-import aidas.usersystem.dto.UserDto;
-import connections.BillClientConnection;
-import producer.ProducerQualifier;
+import aidas.userservice.dto.UserDto;
+import road.billdts.connections.BillClient;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 /**
  *
@@ -22,12 +20,12 @@ import javax.inject.Inject;
 public class BillService
 {
     //@Inject @ProducerQualifier
-    BillClientConnection billClient;
+    BillClient billClient;
 
     @PostConstruct
     private void init()
     {
-        billClient = new BillClientConnection();
+        billClient = new BillClient();
         billClient.start();
     }
     

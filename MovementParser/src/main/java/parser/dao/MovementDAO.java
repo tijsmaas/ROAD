@@ -1,9 +1,6 @@
 package parser.dao;
 
-import entities.Movement;
-
-import java.util.Date;
-import java.util.List;
+import road.movemententities.entities.Movement;
 
 /**
  * Created by Niek on 28/03/14.

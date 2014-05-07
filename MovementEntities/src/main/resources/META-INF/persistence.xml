@@ -3,16 +3,15 @@
     <persistence-unit name="MovementPU" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>jdbc/ROAD</jta-data-source>
-        <class>entities.Connection</class>
-        <class>entities.Edge</class>
-        <class>entities.JunctionRequest</class>
-        <class>entities.Junction</class>
-        <class>entities.Lane</class>
-        <class>entities.Movement</class>
-        <class>entities.MovementMap</class>
-        <class>entities.MovementVehicle</class>
-        <class>entities.Vehicle</class>
-        <class>entities.VehicleOwnership</class>
+        <class>road.movemententities.entities.Connection</class>
+        <class>road.movemententities.entities.Edge</class>
+        <class>road.movemententities.entities.JunctionRequest</class>
+        <class>road.movemententities.entities.Junction</class>
+        <class>road.movemententities.entities.Lane</class>
+        <class>road.movemententities.entities.Movement</class>
+        <class>road.movemententities.entities.MovementVehicle</class>
+        <class>road.movemententities.entities.Vehicle</class>
+        <class>road.movemententities.entities.VehicleOwnership</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.transaction.jta.platform"

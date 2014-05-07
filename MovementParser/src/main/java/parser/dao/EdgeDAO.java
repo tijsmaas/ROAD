@@ -1,6 +1,6 @@
 package parser.dao;
 
-import entities.Edge;
+import road.movemententities.entities.Edge;
 
 /**
  * Created by Niek on 28/03/14.

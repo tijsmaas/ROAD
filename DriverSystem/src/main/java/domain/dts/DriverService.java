@@ -6,36 +6,38 @@
 
 package domain.dts;
 
-import aidas.usersystem.dto.UserDto;
-import connections.DriverClientConnection;
+import aidas.userservice.dto.UserDto;
+import road.driverdts.connections.DriverClient;
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import qualifier.ProducerQualifier;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 
 /**
  *
  * @author Mitch
  */
-@Named
-@ApplicationScoped
-public class DriverService
+@Singleton @Startup
+public class DriverService implements IDriverService
 {
-    //@Inject @ProducerQualifier
-    DriverClientConnection driverClient;
+    private DriverClient driverQueries;
+
+    public DriverService()
+    {
+
+    }
 
     @PostConstruct
     private void init()
     {
-        driverClient = new DriverClientConnection();
-        driverClient.start();
+        this.driverQueries = new DriverClient();
+        this.driverQueries.start();
     }
-    
+
+    @Override
     public UserDto login(String username, String password)
     {
-        Integer x = driverClient.getLaneCount();
-        return driverClient.authenticate(username, password);
+        Long x = driverQueries.getLaneCount();
+        UserDto result = driverQueries.authenticate(username, password);
+        return result;
     }
 }

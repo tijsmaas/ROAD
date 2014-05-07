@@ -1,9 +1,6 @@
 package parser.dao;
 
-import entities.Junction;
-import entities.JunctionRequest;
-
-import java.util.List;
+import road.movemententities.entities.Junction;
 
 /**
  * Created by Niek on 28/03/14.

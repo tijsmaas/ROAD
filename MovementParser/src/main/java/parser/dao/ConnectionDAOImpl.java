@@ -1,7 +1,6 @@
 package parser.dao;
 
-import parser.dao.ConnectionDAO;
-import entities.Connection;
+import road.movemententities.entities.Connection;
 import javax.enterprise.context.ApplicationScoped;
 
 import javax.persistence.EntityManager;

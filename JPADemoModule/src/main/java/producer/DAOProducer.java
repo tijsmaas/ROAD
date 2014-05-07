@@ -1,7 +1,7 @@
 package producer;
 
-import dao.EdgeDAO;
-import dao.EdgeDAOImpl;
+import road.movemententityaccess.dao.EdgeDAO;
+import road.movemententityaccess.dao.EdgeDAOImpl;
 import qualifier.ProducerQualifier;
 
 import javax.enterprise.inject.Produces;

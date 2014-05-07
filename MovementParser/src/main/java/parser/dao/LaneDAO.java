@@ -1,6 +1,6 @@
 package parser.dao;
 
-import entities.Lane;
+import road.movemententities.entities.Lane;
 
 /**
  * Created by Niek on 28/03/14.

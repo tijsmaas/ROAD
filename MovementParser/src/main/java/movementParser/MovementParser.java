@@ -22,10 +22,10 @@ import sumo.jaxb.JunctionType;
 import sumo.jaxb.LaneType;
 import sumo.jaxb.NetType;
 import sumo.movements.jaxb.SumoNetstateType;
-import entities.Connection;
-import entities.Edge;
-import entities.Junction;
-import entities.Lane;
+import road.movemententities.entities.Connection;
+import road.movemententities.entities.Edge;
+import road.movemententities.entities.Junction;
+import road.movemententities.entities.Lane;
 import org.xml.sax.SAXException;
 
 @Singleton
@@ -54,7 +54,7 @@ public class MovementParser {
         if (root != null) {
 
             /**
-             * Persist edges, convert xmltypes to JPA entities
+             * Persist edges, convert xmltypes to JPA road.movemententities.entities
              */
             List<Edge> edges = new ArrayList();
             for (EdgeType xmlEdge : root.getValue().getEdge()) {

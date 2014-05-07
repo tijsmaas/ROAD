@@ -6,19 +6,14 @@
 
 package domain.dts;
 
-import connections.DriverClientConnection;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import qualifier.ProducerQualifier;
-
 /**
  *
  * @author Mitch
  */
-@ApplicationScoped
+//@ApplicationScoped
 public class Producer {
-    @Produces @ProducerQualifier
-    public DriverClientConnection driverClientConnectionProducer(){
-        return new DriverClientConnection();
-    }
+//    @Produces @ProducerQualifier
+//    public DriverClient driverClientConnectionProducer(){
+//        return new DriverClient();
+//    }
 }

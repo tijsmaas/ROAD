@@ -1,8 +1,6 @@
 package parser.dao;
 
-import entities.Vehicle;
-
-import java.util.List;
+import road.movemententities.entities.Vehicle;
 
 /**
  * Created by Niek on 28/03/14.

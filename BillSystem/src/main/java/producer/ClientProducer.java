@@ -1,6 +1,6 @@
 package producer;
 
-import connections.BillClientConnection;
+import road.billdts.connections.BillClient;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -13,8 +13,8 @@ import javax.enterprise.inject.Produces;
 public class ClientProducer
 {
     @Produces @ProducerQualifier
-    public BillClientConnection getBillClientConnection(){
-        return new BillClientConnection();
+    public BillClient getBillClientConnection(){
+        return new BillClient();
     }
 
 }
