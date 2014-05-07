@@ -24,6 +24,7 @@
         <processorPath useClasspath="true" />
         <module name="BillDTS" />
         <module name="BillSystem" />
+        <module name="CarDTS" />
         <module name="CarSystem" />
         <module name="DriverDTS" />
         <module name="DriverSystem" />

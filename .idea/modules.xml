@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BillDTS/BillDTS.iml" filepath="$PROJECT_DIR$/BillDTS/BillDTS.iml" />
       <module fileurl="file://$PROJECT_DIR$/BillSystem/BillSystem.iml" filepath="$PROJECT_DIR$/BillSystem/BillSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CarDTS/CarDTS.iml" filepath="$PROJECT_DIR$/CarDTS/CarDTS.iml" />
       <module fileurl="file://$PROJECT_DIR$/CarSystem/CarSystem.iml" filepath="$PROJECT_DIR$/CarSystem/CarSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/DriverDTS/DriverDTS.iml" filepath="$PROJECT_DIR$/DriverDTS/DriverDTS.iml" />
       <module fileurl="file://$PROJECT_DIR$/DriverSystem/DriverSystem.iml" filepath="$PROJECT_DIR$/DriverSystem/DriverSystem.iml" />

@@ -23,5 +23,6 @@
         <module>DriverSystem</module>
         <module>DriverDTS</module>
         <module>PoliceDTS</module>
-  </modules>
+        <module>CarDTS</module>
+    </modules>
 </project>
