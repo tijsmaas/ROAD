@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.persistence.*;
 
 /**
  * Created by geh on 22-4-14.
@@ -39,11 +38,6 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     {
         super.initRpc(IDriverQuery.class, this);
         this.start();
-
-//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("MovementPU");
-//        this.edgeDAO.setEntityManager(factory.createEntityManager());
-//        this.laneDAO.setEntityManager(factory.createEntityManager());
-//        this.connectionDAO.setEntityManager(factory.createEntityManager());
     }
 
     @Override
