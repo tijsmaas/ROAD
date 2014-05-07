@@ -57,10 +57,10 @@ public class UserEntity implements Serializable {
     /**
      * The rights of the user.
      */
-    @ElementCollection(targetClass = Right.class)
+    @ManyToMany
     @JoinTable(name = "USER_RIGHTS", joinColumns = @JoinColumn(name = "UserId"))
     @Enumerated(EnumType.STRING)
-    @Column(name="RightName")
+    @Column(name="RoleName")
     private List<Right> rights;
     
     /**
