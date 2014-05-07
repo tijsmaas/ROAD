@@ -2,6 +2,7 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Edge;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
+@Stateless
 public class EdgeDAOImpl implements EdgeDAO
 {
     @PersistenceContext(unitName = "MovementPU")
@@ -54,9 +56,4 @@ public class EdgeDAOImpl implements EdgeDAO
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 
-    @Override
-    public void setEntityManager(EntityManager em)
-    {
-        this.em = em;
-    }
-}
+ }

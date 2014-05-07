@@ -2,6 +2,7 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Movement;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -12,6 +13,7 @@ import java.util.List;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
+@Stateless
 public class MovementDAOImpl implements MovementDAO
 {
     @PersistenceContext(unitName = "MovementPU")
@@ -43,11 +45,5 @@ public class MovementDAOImpl implements MovementDAO
 
         List<Movement> resultList = query.getResultList();
         return resultList;
-    }
-
-    @Override
-    public void setEntityManager(EntityManager em)
-    {
-        this.em = em;
     }
 }

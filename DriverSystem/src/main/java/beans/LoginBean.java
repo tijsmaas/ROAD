@@ -1,7 +1,6 @@
 package beans;
 
 import aidas.userservice.dto.UserDto;
-import domain.dts.DriverService;
 import domain.dts.IDriverService;
 
 import javax.enterprise.context.RequestScoped;
@@ -61,6 +60,7 @@ public class LoginBean
 
     public void login()
     {
+        System.out.println("Authenticating " + username);
         UserDto user = driverService.login(username, password);
         this.failed = (user == null);
         if(!failed) {

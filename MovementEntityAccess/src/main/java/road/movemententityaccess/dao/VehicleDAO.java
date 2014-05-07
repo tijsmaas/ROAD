@@ -2,7 +2,6 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Vehicle;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -38,6 +37,4 @@ public interface VehicleDAO
      * @param userID The user ID of the new owner.
      */
     void changeVehicleOwnership(Vehicle vehicle, int userID);
-
-    void setEntityManager(EntityManager em);
 }

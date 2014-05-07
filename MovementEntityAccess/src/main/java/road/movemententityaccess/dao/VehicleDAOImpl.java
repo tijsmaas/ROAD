@@ -2,6 +2,7 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Vehicle;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -11,6 +12,7 @@ import java.util.List;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
+@Stateless
 public class VehicleDAOImpl implements VehicleDAO
 {
     @PersistenceContext(unitName = "MovementPU")
@@ -62,11 +64,5 @@ public class VehicleDAOImpl implements VehicleDAO
     public void changeVehicleOwnership(Vehicle vehicle, int userID)
     {
 
-    }
-
-    @Override
-    public void setEntityManager(EntityManager em)
-    {
-       this.em = em;
     }
 }

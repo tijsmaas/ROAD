@@ -2,8 +2,6 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Edge;
 
-import javax.persistence.EntityManager;
-
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
@@ -27,6 +25,4 @@ public interface EdgeDAO
      */
     Edge findByIdentifier(String edgeIdentifier);
 
-
-    void setEntityManager(EntityManager em);
 }

@@ -3,8 +3,6 @@ package road.movemententityaccess.dao;
 import road.movemententities.entities.Junction;
 import road.movemententities.entities.JunctionRequest;
 
-import javax.persistence.EntityManager;
-
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
@@ -33,6 +31,4 @@ public interface JunctionDAO
      * @return The JunctionRequest object found
      */
     JunctionRequest findJunctionRequest(Junction junction, int index);
-
-    void setEntityManager(EntityManager em);
 }
