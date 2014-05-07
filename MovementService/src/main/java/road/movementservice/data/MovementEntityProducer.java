@@ -1,12 +1,17 @@
 package road.movementservice.data;
 
+import road.movemententityaccess.dao.*;
+import road.movementservice.data.annotations.ProducerQualifier;
+
+import javax.enterprise.inject.Produces;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean @ApplicationScoped
 public class MovementEntityProducer
 {
-//    @Produces @ProducerQualifier
+//    @Produces
+//    @ProducerQualifier
 //    public EdgeDAO getEdgeDao()
 //    {
 //        return new EdgeDAOImpl();

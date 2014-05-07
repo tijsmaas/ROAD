@@ -2,6 +2,10 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Lane;
 
+import javax.decorator.Decorator;
+import javax.ejb.EJB;
+import javax.enterprise.inject.Decorated;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 /**
@@ -14,7 +18,7 @@ public interface LaneDAO
      * Selects a lane object by ID
      * @param laneID The ID of the lane to find
      * @return The found Lane object
-     */
+    */
     Lane find(int laneID);
 
     /**

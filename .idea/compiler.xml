@@ -25,7 +25,6 @@
         <module name="BillDTS" />
         <module name="BillSystem" />
         <module name="CarSystem" />
-        <module name="CarSystem1" />
         <module name="DriverDTS" />
         <module name="DriverSystem" />
         <module name="JPADemoModule" />
@@ -36,16 +35,11 @@
         <module name="MovementService" />
         <module name="PoliceDTS" />
         <module name="PoliceSystem" />
-        <module name="TestModule" />
         <module name="UserDtos" />
         <module name="UserService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="BillSystem" target="1.7" />
-      <module name="CarSystem" target="1.7" />
-      <module name="CarSystem1" target="1.7" />
-      <module name="DriverSystem" target="1.7" />
       <module name="MovementParser" target="1.7" />
       <module name="PoliceSystem" target="1.7" />
       <module name="UserDtos" target="1.7" />
