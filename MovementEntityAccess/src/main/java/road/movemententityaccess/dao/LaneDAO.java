@@ -2,12 +2,6 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Lane;
 
-import javax.decorator.Decorator;
-import javax.ejb.EJB;
-import javax.enterprise.inject.Decorated;
-import javax.inject.Named;
-import javax.persistence.EntityManager;
-
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
@@ -29,6 +23,4 @@ public interface LaneDAO
     Lane find(String laneIdentifier);
 
 	Long count();
-
-    void setEntityManager(EntityManager em);
 }

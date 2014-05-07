@@ -25,6 +25,9 @@
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.2" />
           <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.2" />
           <element id="library" level="project" name="Maven: org.primefaces.themes:all-themes:1.0.10" />
+          <element id="library" level="project" name="Maven: org.ocpsoft.rewrite:rewrite-servlet:2.0.10.Final" />
+          <element id="library" level="project" name="Maven: org.ocpsoft.rewrite:rewrite-config-prettyfaces:2.0.10.Final" />
+          <element id="library" level="project" name="Maven: org.ocpsoft.rewrite:rewrite-integration-faces:2.0.10.Final" />
         </element>
       </element>
     </root>

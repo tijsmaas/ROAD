@@ -2,11 +2,12 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Lane;
 
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.inject.Named;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -64,11 +65,6 @@ public class LaneDAOImpl implements LaneDAO {
         Query query = em.createQuery("select count(lane) from Lane lane");
         return (Long) query.getSingleResult();
 
-    }
-
-    @Override
-    public void setEntityManager(EntityManager em) {
-        this.em = em;
     }
 
 

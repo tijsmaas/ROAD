@@ -2,7 +2,6 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Movement;
 
-import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +24,4 @@ public interface MovementDAO
      * @return List of found movements
      */
     List<Movement> getMovementsByDate(Date date);
-
-    void setEntityManager(EntityManager em);
 }
