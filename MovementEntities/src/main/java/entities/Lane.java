@@ -7,12 +7,9 @@ import javax.persistence.*;
  * © Aidas 2014
  */
 @Entity
-public class Lane
+public class Lane implements MovementEntity<String>
 {
-
     @Id
-    @GeneratedValue
-    private int id;
     private String laneIdentifier;
 
     @ManyToOne
@@ -20,23 +17,18 @@ public class Lane
 
     @Column(name = "LaneIndex")
     private int index;
-    private float speed; // double?
+    private float speed;
 
     @Column(name = "LaneLength")
-    private float length; // double?
+    private float length;
 
-
-    private String position;
-    //TODO: Find a way to map vector
-
+    // Empty constructor for JPA
+    public Lane(){ }
+    
     public Lane(String id, int index)
     {
         this.laneIdentifier = id;
         this.index = index;
-    }
-
-    public Lane(){
-
     }
 
     public Lane(Edge edge, String id, int index, float speed, float length)
@@ -50,6 +42,10 @@ public class Lane
 
     public String getLaneIdentifier()
     {
+        return this.laneIdentifier;
+    }
+
+    public String getId() {
         return this.laneIdentifier;
     }
 

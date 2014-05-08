@@ -9,12 +9,11 @@ import java.util.List;
  * © Aidas 2014
  */
 @Entity
-public class Edge
+public class Edge implements MovementEntity<String>
 {
 
+    // example id: ":-38_5"
     @Id
-    @GeneratedValue
-    private int id; // example id: ":-38_5"
     private String edgeIdentifier;
 
     @Enumerated(EnumType.STRING)
@@ -23,28 +22,44 @@ public class Edge
     @Column(name = "EdgeType")
     private String type; // highway.primary, highway.secondary, etc
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Lane> lanes;
 
-    @Column(name = "fromEdge")
-    private String from;// points to edge or junction
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name="FromEdge")
+    private City from;
 
-    @Column(name = "ToEdge")
-    private String to; // points to edge or junction
-    private Integer priority; // changed to Integer because it can also be NULL
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name="ToEdge")
+    private City to;
+    
+    // Importance of the road, might be useful for calculations
+    private Integer priority;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    //@OneToMany(cascade = CascadeType.REMOVE)
+    @Transient
     private List<Connection> connections;
 
-    //region Properties
-    public int getId()
-    {
-        return id;
-    }
+    // Empty constructor for JPA
+    public Edge() { }
 
-    public void setId(int id)
+    public Edge(String id, String function, String type, City from, City to, Integer priority)
     {
-        this.id = id;
+        if (id == null || id.isEmpty()) throw new IllegalArgumentException("Edge ID cannot be empty");
+        this.edgeIdentifier = id;
+        this.function = EdgeFunction.fromString(function);
+        this.type = type;
+        this.from = from;
+        this.to = to;
+        this.priority = priority;
+        this.lanes = new ArrayList();
+        this.connections = new ArrayList();        
+    }
+    
+    //region Properties
+
+    public String getId() {
+        return edgeIdentifier;
     }
 
     public String getEdgeIdentifier()
@@ -87,22 +102,22 @@ public class Edge
         this.lanes = lanes;
     }
 
-    public String getFrom()
+    public City getFrom()
     {
         return from;
     }
 
-    public void setFrom(String from)
+    public void setFrom(City from)
     {
         this.from = from;
     }
 
-    public String getTo()
+    public City getTo()
     {
         return to;
     }
 
-    public void setTo(String to)
+    public void setTo(City to)
     {
         this.to = to;
     }
@@ -125,46 +140,7 @@ public class Edge
     public void setConnections(List<Connection> connections)
     {
         this.connections = connections;
-    }
-    //endregion
-
-
-    public Edge()
-    {
-    }
-
-    public enum EdgeFunction
-    {
-        normal,
-        internal,
-        connector;
-        
-        public static EdgeFunction fromString(String s) {
-        	if("normal".equals(s)) {
-        		return EdgeFunction.normal;
-        	}else if("internal".equals(s)) {
-        		return EdgeFunction.internal;
-        	}else if("connector".equals(s)) {
-        		return EdgeFunction.connector;
-        	}else{
-        		return null;
-        	}
-        };
-    }
-
-    public Edge(String id, String function, String type, String from, String to, Integer priority)
-    {
-        if (id == null || id.isEmpty()) throw new IllegalArgumentException("Edge ID cannot be empty");
-        this.edgeIdentifier = id;
-        this.function = EdgeFunction.fromString(function);
-        this.type = type;
-        this.from = from;
-        this.to = to;
-        this.priority = priority;
-        this.lanes = new ArrayList();
-        this.connections = new ArrayList();        
-    }
-
+    }    
 
     public void addConnection(Connection connection)
     {

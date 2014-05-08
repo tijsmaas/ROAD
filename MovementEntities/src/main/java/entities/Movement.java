@@ -2,8 +2,6 @@ package entities;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -11,7 +9,7 @@ import java.util.List;
  * © Aidas 2014
  */
 @Entity
-public class Movement
+public class Movement implements MovementEntity<Integer>
 {
     @Id
     @GeneratedValue
@@ -27,10 +25,20 @@ public class Movement
 
     @OneToMany
     private List<MovementVehicle> movementVehicles;
+    
+    // timestep time
+    private float time;
 
+    // Empty constructor for JPA
+    public Movement() { }
+    
+    public Movement(Calendar movementDate, float time) {
+        this.movementDate = movementDate;
+        this.time = time;
+    }
 
     //region Properties
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
@@ -38,6 +46,14 @@ public class Movement
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    public float getTime() {
+        return time;
+    }
+
+    public void setTime(float time) {
+        this.time = time;
     }
 
     public Calendar getMovementDate()
@@ -79,5 +95,6 @@ public class Movement
     {
         this.movementVehicles = movementVehicles;
     }
+    
     //endregion
 }
