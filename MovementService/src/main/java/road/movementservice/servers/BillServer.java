@@ -13,8 +13,8 @@ import javax.ejb.Startup;
 /**
  * Created by geh on 11-4-14.
  */
-@Singleton
-@Startup
+//@Singleton
+//@Startup
 public class BillServer extends ServerConnection implements IBillQuery
 {
     //@Inject
@@ -25,7 +25,7 @@ public class BillServer extends ServerConnection implements IBillQuery
         super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void init()
     {
         super.initRpc(IBillQuery.class, this);

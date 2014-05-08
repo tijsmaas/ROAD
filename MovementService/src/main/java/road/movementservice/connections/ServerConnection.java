@@ -14,8 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class ServerConnection <T> implements ConnectionListener
 {
     private ReplyConnection connection;
-    private T instance;
     private ConcurrentHashMap<String, Method> methods;
+    private T instance;
 
     public ServerConnection(String factoryName, String listenTo)
     {
@@ -52,7 +52,7 @@ public abstract class ServerConnection <T> implements ConnectionListener
         try
         {
             Method method = this.methods.get(request.getFirst());
-            Object result = method.invoke(instance, request.getSecond().toArray());
+            Object result = method.invoke(this.instance, request.getSecond().toArray());
             rawResult = this.connection.serializer.serialize(method.getReturnType().cast(result));
         }
         catch(Exception ex)

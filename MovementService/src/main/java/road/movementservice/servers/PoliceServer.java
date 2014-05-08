@@ -15,8 +15,8 @@ import javax.ejb.Singleton;
 /**
  * Created by geh on 23-4-14.
  */
-@Singleton
-@Startup
+//@Singleton
+//@Startup
 public class PoliceServer extends ServerConnection implements IPoliceQuery
 {
     //@Inject
@@ -27,7 +27,7 @@ public class PoliceServer extends ServerConnection implements IPoliceQuery
         super(MovementConnection.FactoryName, MovementConnection.PoliceSystemQueue);
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void init()
     {
         super.initRpc(IPoliceQuery.class, this);

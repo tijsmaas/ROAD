@@ -3,7 +3,8 @@ package road.movemententityaccess.dao;
 import road.movemententities.entities.Lane;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -14,19 +15,29 @@ import java.util.List;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
-@Stateless
+//@ApplicationScoped
 public class LaneDAOImpl implements LaneDAO {
 
-    @PersistenceUnit(unitName = "MovementPU")
-    private EntityManagerFactory emf;
+    //@PersistenceUnit(unitName = "MovementPU")
+    //private EntityManagerFactory emf;
 
     private EntityManager em;
 
+    public LaneDAOImpl()
+    {
 
-    @PostConstruct
-    public void init() {
-        this.em = emf.createEntityManager();
     }
+
+    public LaneDAOImpl init(EntityManagerFactory emf)
+    {
+        this.em = emf.createEntityManager();
+        return this;
+    }
+
+    //@PostConstruct
+    //public void init() {
+    //    this.em = emf.createEntityManager();
+    //}
 
     /**
      * {@inheritDoc}
