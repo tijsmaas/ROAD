@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="MovementService:Web">
-    <output-path>$PROJECT_DIR$/out/artifacts/MovementService_Web</output-path>
-    <root id="archive" name="MovementService_Web.war">
-      <element id="artifact" artifact-name="MovementService:Web exploded" />
-    </root>
-  </artifact>
-</component>

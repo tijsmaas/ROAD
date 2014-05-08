@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="PoliceSystem:war">
-    <output-path>$PROJECT_DIR$/PoliceSystem/target</output-path>
-    <root id="archive" name="PoliceSystem-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="PoliceSystem:war exploded" />
-    </root>
-  </artifact>
-</component>
