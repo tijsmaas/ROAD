@@ -1,5 +1,7 @@
 package road.movemententities.entities;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,21 +12,36 @@ import javax.persistence.ManyToOne;
  * © Aidas 2014
  */
 @Entity
-public class MovementVehicle
+public class MovementVehicle implements MovementEntity
 {
 
     @Id
     @GeneratedValue
     private int id;
 
+    // Is the license plate number of the car + _ + timestep.time
+    @Column(unique=false, nullable=false)
+    private String movementIdentifier;
+    
     @ManyToOne
     private Movement movement;
 
-    @ManyToOne
+    // Map by license plate
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Vehicle vehicle;
 
     private double position;
     private double speed;
+    
+    // Empty constructor for JPA
+    public MovementVehicle() { }
+
+    public MovementVehicle(Movement movement, String id, Float pos, Float speed) {
+        this.movement = movement;
+        this.movementIdentifier = id;
+        this.position = pos;
+        this.speed = speed;
+    }
 
     //region Properties
     public double getSpeed()
@@ -67,7 +84,7 @@ public class MovementVehicle
         this.movement = movement;
     }
 
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
@@ -76,5 +93,12 @@ public class MovementVehicle
     {
         this.id = id;
     }
-    //endregion
+    
+    public String getMovementIdentifier() {
+        return movementIdentifier;
+    }
+
+    public void setMovementIdentifier(String movementIdentifier) {
+        this.movementIdentifier = movementIdentifier;
+    }
 }

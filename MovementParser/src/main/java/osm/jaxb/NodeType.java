@@ -51,7 +51,7 @@ public class NodeType
 
 	protected List<TagType> tag;
 	@XmlAttribute(name = "id")
-	protected Byte id;
+	protected String id;
 	@XmlAttribute(name = "timestamp")
 	@XmlSchemaType(name = "dateTime")
 	protected XMLGregorianCalendar timestamp;
@@ -101,7 +101,7 @@ public class NodeType
 	 * @return possible object is {@link Byte }
 	 * 
 	 */
-	public Byte getId()
+	public String getId()
 	{
 		return id;
 	}
@@ -113,7 +113,7 @@ public class NodeType
 	 *            allowed object is {@link Byte }
 	 * 
 	 */
-	public void setId(Byte value)
+	public void setId(String value)
 	{
 		this.id = value;
 	}

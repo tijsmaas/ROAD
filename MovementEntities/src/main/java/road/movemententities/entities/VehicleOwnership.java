@@ -9,26 +9,27 @@ import java.util.GregorianCalendar;
  * © Aidas 2014
  */
 @Entity
-public class VehicleOwnership
+public class VehicleOwnership implements MovementEntity<Integer>
 {
     @Id
     @GeneratedValue
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Vehicle vehicle;
 
     //TODO: Make a connection to the user? by id?
     private int userID;
 
-
     private Calendar registrationdate;
 
     private Calendar registrationExperationDate;
 
+    // Empty constructor for JPA
+    public VehicleOwnership() { }
 
     //region Properties
-    public int getId()
+    public Integer getId()
     {
         return id;
     }
