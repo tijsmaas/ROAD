@@ -24,6 +24,8 @@ public class Parser {
     @Inject
     private MovementParser movementParser;
     
+    private int numberOfMovementParses = 0;
+    
     /**
      * Parse the SUMO version of the net map.
      *
@@ -57,7 +59,7 @@ public class Parser {
      * Parse movements from a file
      * @param changes 
      */
-    public void parseChanges(File changes) {
+    public void parseChanges(File changes) {        
         long startTime = System.nanoTime();
         @SuppressWarnings("unchecked")
         JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) parse(changes, "sumo.movements.jaxb");
@@ -69,7 +71,11 @@ public class Parser {
      * Parse movements from a string
      * @param changes 
      */
-    public void parseChanges(String changes) {
+    public void parseChanges(String changes, int sequencenr) {
+        if(numberOfMovementParses != sequencenr)
+            throw new IllegalArgumentException("Tried to add Movements with serial number "+sequencenr+", but counter was at "+numberOfMovementParses);
+        numberOfMovementParses++;
+        
         long startTime = System.nanoTime();
         @SuppressWarnings("unchecked")
         JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) parse(changes, "sumo.movements.jaxb");
