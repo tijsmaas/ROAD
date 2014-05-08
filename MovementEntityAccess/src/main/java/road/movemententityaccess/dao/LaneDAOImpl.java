@@ -2,12 +2,8 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Lane;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -15,7 +11,6 @@ import java.util.List;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
-//@ApplicationScoped
 public class LaneDAOImpl implements LaneDAO {
 
     //@PersistenceUnit(unitName = "MovementPU")
@@ -23,34 +18,9 @@ public class LaneDAOImpl implements LaneDAO {
 
     private EntityManager em;
 
-    public LaneDAOImpl()
-    {
-
-    }
-
-    public LaneDAOImpl init(EntityManagerFactory emf)
+    public LaneDAOImpl(EntityManagerFactory emf)
     {
         this.em = emf.createEntityManager();
-        return this;
-    }
-
-    //@PostConstruct
-    //public void init() {
-    //    this.em = emf.createEntityManager();
-    //}
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param laneID The ID of the lane to find
-     */
-    @Override
-    public Lane find(int laneID) {
-        Query query = em.createQuery("Select lane from Lane lane where lane.id = :id");
-        query.setParameter("id", laneID);
-
-        List<Lane> resultList = query.getResultList();
-        return resultList.isEmpty() ? null : resultList.get(0);
     }
 
     /**

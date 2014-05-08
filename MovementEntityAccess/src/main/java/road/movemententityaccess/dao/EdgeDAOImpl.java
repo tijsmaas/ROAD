@@ -2,9 +2,8 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Edge;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -12,11 +11,13 @@ import java.util.List;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
-@Stateless
 public class EdgeDAOImpl implements EdgeDAO
 {
-    @PersistenceContext(unitName = "MovementPU")
     private EntityManager em;
+
+    public EdgeDAOImpl(EntityManagerFactory emf){
+        this.em = emf.createEntityManager();
+    }
 
     @Override
     public Long count()
@@ -28,26 +29,11 @@ public class EdgeDAOImpl implements EdgeDAO
 
     /**
      * {@inheritDoc}
-     * @param edgeID The ID of the edge to find
-     * @return the found edge object
-     */
-    @Override
-    public Edge find(int edgeID)
-    {
-        Query query = em.createQuery("Select edge from Edge edge where edge.id = :id");
-        query.setParameter("id", edgeID);
-
-        List<Edge> resultList = query.getResultList();
-        return resultList.isEmpty() ? null : resultList.get(0);
-    }
-
-    /**
-     * {@inheritDoc}
      * @param edgeIdentifier The sumo Edge Identifier
      * @return the found Edge object.
      */
     @Override
-    public Edge findByIdentifier(String edgeIdentifier)
+    public Edge find(String edgeIdentifier)
     {
         Query query = em.createQuery("select edge from Edge edge where edge.edgeIdentifier = :edgeID");
         query.setParameter("edgeID", edgeIdentifier);

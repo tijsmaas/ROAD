@@ -2,24 +2,23 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Connection;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-
 import java.util.List;
 
 /**
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
-@Stateless
 public class ConnectionDAOImpl implements ConnectionDAO
 {
 
-    @PersistenceContext(unitName = "MovementPU")
     private EntityManager em;
 
+    public ConnectionDAOImpl(EntityManagerFactory emf){
+        em = emf.createEntityManager();
+    }
     /**
      * {@inheritDoc}
      */

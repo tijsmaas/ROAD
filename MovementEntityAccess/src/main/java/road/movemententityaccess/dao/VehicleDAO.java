@@ -11,13 +11,6 @@ import java.util.List;
 public interface VehicleDAO
 {
     /**
-     * Find a vehicle by ID
-     * @param id the ID of the vehicle
-     * @return The found Vehicle object
-     */
-    Vehicle find(int id);
-
-    /**
      * Find a vehicle by it's license plate
      * @param licensePlate The license plate number of the vehicle
      * @return The found vehicle

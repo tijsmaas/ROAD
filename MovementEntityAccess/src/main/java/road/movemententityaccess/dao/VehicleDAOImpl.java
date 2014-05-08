@@ -2,9 +2,8 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.Vehicle;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -12,25 +11,15 @@ import java.util.List;
  * Created by Niek on 28/03/14.
  * © Aidas 2014
  */
-@Stateless
 public class VehicleDAOImpl implements VehicleDAO
 {
-    @PersistenceContext(unitName = "MovementPU")
     private EntityManager em;
 
-    /**
-     * {@inheritDoc}
-     * @param id the ID of the vehicle
-     */
-    @Override
-    public Vehicle find(int id)
+    public VehicleDAOImpl(EntityManagerFactory emf)
     {
-        Query query = em.createQuery("Select vehicle from Vehicle vehicle where vehicle.id = :id");
-        query.setParameter("id", id);
-
-        List<Vehicle> resultList = query.getResultList();
-        return resultList.isEmpty() ? null : resultList.get(0);
+        this.em = emf.createEntityManager();
     }
+
 
     /**
      * {@inheritDoc}
