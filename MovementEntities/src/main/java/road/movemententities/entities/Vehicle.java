@@ -1,7 +1,6 @@
 package road.movemententities.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
@@ -11,19 +10,23 @@ import java.util.List;
  * © Aidas 2014
  */
 @Entity
-public class Vehicle
+public class Vehicle implements MovementEntity<String>
 {
     @Id
-    @GeneratedValue
-    private int id;
-
     private String licensePlate;
 
-    private boolean isStolen;
+    private boolean isStolen = false;
 
     @OneToMany
     private List<VehicleOwnership> vehicleOwners;
 
+    // Empty constructor for JPA
+    public Vehicle() { }
+
+    public Vehicle(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
+    
     //region Properties
     public List<VehicleOwnership> getVehicleOwners()
     {
@@ -49,20 +52,16 @@ public class Vehicle
     {
         return licensePlate;
     }
+    
+    public String getId()
+    {
+        return licensePlate;
+    }
 
     public void setLicensePlate(String licensePlate)
     {
         this.licensePlate = licensePlate;
     }
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+    
     //endregion
 }

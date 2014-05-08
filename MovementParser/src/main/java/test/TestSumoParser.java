@@ -1,9 +1,11 @@
 package test;
 
+import entities.Connection;
+import entities.Edge;
+import entities.Lane;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -11,83 +13,73 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import movementParser.MovementParser;
+import javax.persistence.PersistenceUnit;
+import movementParser.Parser;
 //import static org.junit.Assert.assertTrue;
 import org.xml.sax.SAXException;
-import parser.dao.ConnectionDAO;
-import parser.dao.EdgeDAO;
-import parser.dao.JunctionDAO;
-import parser.dao.LaneDAO;
-import parser.dao.MovementDAO;
-import parser.dao.VehicleDAO;
+import parser.dao.EntityDAO;
 
+/**
+ * This class exists pure for testing purposes. These tests should be converted
+ * to unit tests that run inside the container.
+ *
+ * @author tijs
+ */
 @Startup
 @Singleton
 public class TestSumoParser {
 
+    @PersistenceUnit
+    EntityManagerFactory emf;
+
     @PersistenceContext(unitName = "MovementPU")
     private EntityManager em;
+    
+    @Inject
+    private EntityDAO entityDAO;
 
     /**
      * Inject DAO's from MovementEntityAccess (Injection does not work for unit
-     * tests yet)
+     * tests yet) 
      */
-    @Inject
-    private EdgeDAO edgeDAO;
 
     @Inject
-    private LaneDAO laneDAO;
-
-    @Inject
-    private ConnectionDAO connectionDAO;
-
-    @Inject
-    private JunctionDAO junctionDAO;
-
-    @Inject
-    private MovementDAO movementDAO;
-
-    @Inject
-    private VehicleDAO vehicleDAO;
-
-    @Inject
-    private MovementParser parser;
-
-    /**
-     * Truncate all database tables TODO FIX: MYSQL ONLY!
-     */
-    private void clearDatabase() {
-        String[] tables = {"Connection", "Edge", "Edge_Connection", "Edge_Lane", "Junction", "JunctionRequest", "Junction_JunctionRequest", "Junction_Lane", "Lane", "Movement", "MovementVehicle", "Movement_MovementVehicle", "Vehicle", "VehicleOwnership", "Vehicle_VehicleOwnership"};
-
-        em.createNativeQuery("SET FOREIGN_KEY_CHECKS=0").executeUpdate();
-        for (String table : tables) {
-            em.createNativeQuery("truncate table " + table).executeUpdate();
-        }
-        em.createNativeQuery("SET FOREIGN_KEY_CHECKS=1").executeUpdate();
-        em.flush();
-    }
+    private Parser parser;
 
     //@PostConstruct
-    public void setup() {        
+    public void setup() {
+        System.out.println("SETUP");
         // <editor-fold defaultstate="collapsed" desc="Call all test methods in this class">
-        for (Method testmethod : TestSumoParser.class.getMethods()) {
-            try {
-                if (testmethod.getName().startsWith("test")) {
-                    testmethod.invoke(this);
-                    System.out.println("Test " + testmethod.getName() + " succeed");
-                }
-            } catch (Exception e) {
-                System.err.println("Test " + testmethod.getName() + " failed with error: ");
-                e.printStackTrace();
-            }
-        }
+//        for (Method testmethod : TestSumoParser.class.getMethods()) {
+//            try {
+//                for(Annotation a : testmethod.getAnnotations()) {
+//                    if (a.annotationType().equals(Test.class)){
+//                        testmethod.invoke(this);
+//                        System.out.println("Test " + testmethod.getName() + " succeed");
+//                    }
+//                }
+//            } catch (Exception e) {
+//                System.err.println("Test " + testmethod.getName() + " failed with error: ");
+//                e.printStackTrace();
+//            }
+//        }
 // </editor-fold>
+        try {
+            //testBatch();
+            testParserQuantities();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(TestSumoParser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void assertEqualNumber(String assertname, int number1, int number2) throws Exception {
         if (number1 != number2) {
             throw new Exception("Error in assert " + assertname + " with equals " + number1 + " == " + number2);
+        }else{
+            System.out.println(assertname+"="+number1);
         }
     }
 
@@ -96,14 +88,14 @@ public class TestSumoParser {
      *
      * @throws Exception
      */
+    //@Test
     public void testParserQuantities() throws Exception {
-        clearDatabase();
-        
         File inputSUMO = new File("/home/tijs/Development/java/ROAD/MovementParser/res/PTS-ESD-2.net.xml");
 
         System.out.println("PARSING FILE TROUGH SINGLETON TEST");
         try {
             parser.parseSUMO(inputSUMO);
+            emf.getCache().evictAll();
             System.out.println("DONE PARSING");
         } catch (SAXException ex) {
             Logger.getLogger(TestSumoParser.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,14 +131,21 @@ public class TestSumoParser {
 
         try {
             System.out.println("Calculating elements...");
-            Thread.sleep(3000);
-            assertEqualNumber("edges", edgeDAO.count(), edges);
-            assertEqualNumber("lanes", laneDAO.count(), lanes);
-            assertEqualNumber("connections", connectionDAO.count(), connections);
-            assertEqualNumber("junctions", junctionDAO.count(), junctions);
-        }catch (javax.persistence.PersistenceException pe) {
+            assertEqualNumber("edges", entityDAO.count(Edge.class), edges);
+            assertEqualNumber("lanes", entityDAO.count(Lane.class), lanes);
+            assertEqualNumber("connections", entityDAO.count(Connection.class), connections);
+        } catch (javax.persistence.PersistenceException pe) {
             pe.printStackTrace();
         }
+        
+        Edge e = (Edge) entityDAO.findById(Edge.class, "-92");
+        Lane l = (Lane) entityDAO.findById(Lane.class, "-92_0");
+        for(Lane lane : e.getLanes()) {
+            if(l.equals(lane)) {
+                System.out.println("Lanes and edges persist correctly");
+            }
+        }
+        
     }
 
 }
