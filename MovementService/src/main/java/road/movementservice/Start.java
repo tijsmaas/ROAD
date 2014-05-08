@@ -7,8 +7,7 @@ import javax.ejb.Startup;
 /**
  * Created by geh on 8-5-14.
  */
-@Singleton
-@Startup
+@Singleton @Startup
 public class Start
 {
     private static Server server;

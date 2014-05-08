@@ -15,19 +15,13 @@ import javax.ejb.Singleton;
 /**
  * Created by geh on 23-4-14.
  */
-//@Singleton
-//@Startup
 public class PoliceServer extends ServerConnection implements IPoliceQuery
 {
-    //@Inject
-    //private IUserManager userManager;
-
     public PoliceServer()
     {
         super(MovementConnection.FactoryName, MovementConnection.PoliceSystemQueue);
     }
 
-    //@PostConstruct
     public void init()
     {
         super.initRpc(IPoliceQuery.class, this);

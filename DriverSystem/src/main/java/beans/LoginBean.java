@@ -63,7 +63,8 @@ public class LoginBean
         System.out.println("Authenticating " + username);
         UserDto user = driverService.login(username, password);
         this.failed = (user == null);
-        if(!failed) {
+        if(!failed)
+        {
             userBean.setLoggedinUser(user);
         }
     }
