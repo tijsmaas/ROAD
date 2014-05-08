@@ -1,4 +1,4 @@
-package entities;
+package road.movemententities.entities;
 
 public enum ConnectionState {
 

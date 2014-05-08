@@ -1,8 +1,6 @@
 package test;
 
-import entities.Connection;
-import entities.Edge;
-import entities.Lane;
+import road.movemententities.entities.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

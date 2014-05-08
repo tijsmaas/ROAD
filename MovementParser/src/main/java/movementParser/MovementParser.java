@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
 import java.io.Serializable;
 import java.util.Calendar;
-import entities.*;
+import road.movemententities.entities.*;
 import parser.dao.EntityDAO;
 import sumo.movements.jaxb.SumoNetstateType;
 

@@ -1,4 +1,4 @@
-package entities;
+package road.movemententities.entities;
 
 /**
  * Each entity should implement this interface.

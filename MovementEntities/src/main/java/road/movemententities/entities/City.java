@@ -1,4 +1,4 @@
-package entities;
+package road.movemententities.entities;
 
 import java.util.List;
 import javax.persistence.CascadeType;

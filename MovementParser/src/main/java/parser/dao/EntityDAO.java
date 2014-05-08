@@ -1,6 +1,6 @@
 package parser.dao;
 
-import entities.MovementEntity;
+import road.movemententities.entities.MovementEntity;
 
 public interface EntityDAO {
     

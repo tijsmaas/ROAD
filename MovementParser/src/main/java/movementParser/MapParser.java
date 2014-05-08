@@ -1,9 +1,6 @@
 package movementParser;
 
-import entities.City;
-import entities.Connection;
-import entities.Edge;
-import entities.Lane;
+import road.movemententities.entities.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
