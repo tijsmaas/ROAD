@@ -64,6 +64,13 @@
             <version>2.0.10.Final</version>
         </dependency>
     </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>primefaces theme repository</id>
+            <url>http://repository.primefaces.org/</url>
+        </repository>
+    </repositories>
 
     <!--<build>-->
         <!--<plugins>-->
