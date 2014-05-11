@@ -22,7 +22,7 @@ public class ParserService {
     @PostConstruct
     public void init() {
         initialiseMap();
-        parseNewMovements();
+        //parseNewMovements();
     }
     
     public void initialiseMap() {
