@@ -91,7 +91,19 @@ public class UserEntity implements Serializable {
         this.password = password;
         this.salt = salt;
     }
-    
+
+    /**
+     * Get the {@link #id} of the {@link UserEntity}.
+     * @return the identifier of the user.
+     */
+    public int getId() { return this.id; }
+
+    /**
+     * Set the {@link #id} of the {@link UserEntity}.
+     * @param id the identifier of the user.
+     */
+    public void setId(int id) { this.id = id; }
+
     /**
      * Get the {@link #password} of the {@link UserEntity}.
      * Cannot be an empty {@link String}. 

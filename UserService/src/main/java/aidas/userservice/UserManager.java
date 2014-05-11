@@ -5,7 +5,9 @@
 package aidas.userservice;
 
 import aidas.security.Security;
+import aidas.userservice.converters.UserConverter;
 import aidas.userservice.dto.Right;
+import aidas.userservice.dto.UserDto;
 import aidas.userservice.entities.UserEntity;
 import aidas.userservice.exceptions.UserSystemException;
 import java.security.InvalidKeyException;
@@ -20,6 +22,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -27,28 +30,19 @@ import javax.persistence.PersistenceContext;
  * 
  * @author Geert
  */
-//@Stateless
 public class UserManager implements IUserManager {
     
     /**
-     * The persistence context used to connect to the database.
+     * The entity manager of the database.
      */
-    @PersistenceContext(name="UserServicePU")
     private EntityManager em;
-    
-    /**
-     * The mapping containing the users which have successfully authenticated 
-     * and are still logged in.
-     * {@link String}: the unique identifier provided for the user after authenticating.
-     * {@link UserEntity}: the user mapped to the unique identifier.
-     */
-    private final Map<String, UserEntity> loggedInUsers;
-    
+
     /**
      * Create a new instance of the {@link UserManager} class.
+     * @param emf the {@link EntityManagerFactory} from which the {@link EntityManager} can be created.
      */
-    public UserManager() {
-        this.loggedInUsers = new ConcurrentHashMap<>();
+    public UserManager(EntityManagerFactory emf) {
+        this.em = emf.createEntityManager();
     }
     
     @Override
@@ -59,18 +53,16 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public String login(String username, String password) throws UserSystemException {
+    public UserDto login(String username, String password) throws UserSystemException {
         UserEntity user = this.em.createQuery("SELECT u FROM USERS u WHERE u.username = :username", UserEntity.class)
                 .setParameter("username", username)
                 .getSingleResult();
 
-        String uniqueId = null;
+        UserDto userDto = null;
             
         try {
             if (user!= null && user.getPassword().equals(Security.processPassword(password, username, user.getSalt()))) {
-                uniqueId = this.getUniqueUserId();
-                
-                this.loggedInUsers.put(uniqueId, user);
+                userDto = UserConverter.toUserDto(user);
             }
         } catch (NoSuchAlgorithmException | NoSuchPaddingException 
                 | InvalidKeyException | IllegalBlockSizeException 
@@ -80,7 +72,7 @@ public class UserManager implements IUserManager {
             throw new UserSystemException(ex.getMessage());
         }
             
-        return uniqueId;
+        return userDto;
     }
 
     @Override
@@ -106,26 +98,10 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public boolean verifyRight(String authId, Right right) {
-        UserEntity user = this.loggedInUsers.get(authId);
-        
-        return user == null || this.em.createQuery("SELECT COUNT(u) FROM USERS u WHERE u.username = :username AND (:right IN(u.rights) OR :right IN(u.roles.rights))", int.class)
-                .setParameter("username", user.getUsername())
+    public boolean verifyRight(String username, Right right) {
+        return this.em.createQuery("SELECT COUNT(u) FROM USERS u WHERE u.username = :username AND (:right IN(u.rights) OR :right IN(u.roles.rights))", int.class)
+                .setParameter("username", username)
                 .setParameter("right", right)
                 .getFirstResult() == 0;
-    }
-    
-    /**
-     * Get a unique identifier for the authenticated {@link UserEntity} to return to server.
-     * @return the unique identifier.
-     */
-    private String getUniqueUserId() {
-        String uuid;
-        
-        do {
-            uuid = UUID.randomUUID().toString();
-        } while(this.loggedInUsers.containsKey(uuid));
-        
-        return uuid;
     }
 }
