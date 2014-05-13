@@ -7,18 +7,15 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     <ui:param name="title" value="Car Simulator"/>
 
-
-    <h:form enctype="multipart/form-data">
-        <p:messages showDetail="true"/>
-        <p:fileUpload value="#{carBean.file}" mode="simple"/>
-        <p:commandButton value="Submit" ajax="false" actionListener="#{carBean.upload}"/>
-    </h:form>
-
     <ui:define name="content">
         <div class="pill login-pill" id="loginPill">
             <h3>Car Simulator - Setup</h3>
 
-
+            <h:form enctype="multipart/form-data">
+                <p:messages showDetail="true"/>
+                <p:fileUpload value="#{carBean.file}" mode="simple"/>
+                <p:commandButton value="Submit" ajax="false" actionListener="#{carBean.upload}"/>
+            </h:form>
 
         </div>
     </ui:define>

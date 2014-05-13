@@ -4,7 +4,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:c="http://java.sun.com/jstl/core">
     <ui:param name="title" value="Car Simulator"/>
 
     <script type="text/javascript">
@@ -39,7 +40,14 @@
     <ui:define name="content">
         <div class="pill login-pill" id="loginPill">
             <h3>Car Simulator - Simulation</h3>
-            Welcome to the ROAD Car Simulator made by AIDaS! Go to the setup page to set up and start a simulation.
+            <c:choose>
+                <c:when test="#{carBean.file != null}">
+                    Simulation file has been uploaded, ready to run the simulation!
+                </c:when>
+                <c:otherwise>
+                    Simulation file has not yet been uploaded. Go to the setup page first to upload a simulation file.
+                </c:otherwise>
+            </c:choose>
         </div>
     </ui:define>
 
