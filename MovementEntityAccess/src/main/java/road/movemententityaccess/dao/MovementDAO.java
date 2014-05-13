@@ -1,6 +1,6 @@
 package road.movemententityaccess.dao;
 
-import road.movemententities.entities.Movement;
+import road.movemententities.entities.VehicleMovement;
 
 import java.util.Date;
 import java.util.List;
@@ -16,12 +16,12 @@ public interface MovementDAO
      * @param MovementID The ID of the movement
      * @return The found movement
      */
-    Movement find(int MovementID);
+    VehicleMovement find(int MovementID);
 
     /**
      * Get all movements of a certain date
      * @param date movement date
      * @return List of found movements
      */
-    List<Movement> getMovementsByDate(Date date);
+    List<VehicleMovement> getMovementsByDate(Date date);
 }
