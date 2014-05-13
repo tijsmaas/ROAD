@@ -1,7 +1,6 @@
 package road.movemententities.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,10 +10,11 @@ import java.util.Date;
 @Embeddable
 public class CityRateId implements Serializable
 {
-    @Column(unique = false, nullable = true)
+    @ManyToOne
     private City city;
 
     @Column(unique = false, nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date addDate;
 
     public City getCity() {
