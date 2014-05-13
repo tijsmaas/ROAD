@@ -21,6 +21,10 @@ public class Server
     private BillServer billServer;
     private PoliceServer policeServer;
 
+
+    /**
+     * this method is used to initialize all the different services.
+     */
     public void init()
     {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MovementPU");

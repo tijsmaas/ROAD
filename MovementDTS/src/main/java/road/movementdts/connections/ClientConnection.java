@@ -5,9 +5,14 @@ import road.movementdts.helpers.RequestHelper;
 
 /**
  * Created by geh on 4-4-14.
+ *
+ * This class is to be used for Client side RPC connections to the MovementService.
  */
 public abstract class ClientConnection
 {
+    /**
+     * The actual JMS connection used to establish communication with the MovementService
+     */
     private RequestConnection connection;
 
     public ClientConnection(String serverAddress, String factoryName, String sendTo)
@@ -28,6 +33,14 @@ public abstract class ClientConnection
         }
     }
 
+    /**
+     *
+     * @param methodName sadly a 'magic' string. this has to be the short name for the method that one wants to call. like 'remoteCall'
+     * @param returnType the class of the intended return type. this has to be of type T, the generic type itself is not sufficient.
+     * @param parameters the parameters in the correct order and amount for the method that is calling remoteCall.
+     * @param <T> the return type
+     * @return returns an object of type T. possible for this to be null.
+     */
     public <T> T remoteCall(String methodName, Class<T> returnType, Object... parameters)
     {
         String uniqueName = RequestHelper.getUniqueName(methodName, parameters);

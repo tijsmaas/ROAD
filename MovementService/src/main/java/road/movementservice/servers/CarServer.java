@@ -1,27 +1,22 @@
 package road.movementservice.servers;
 
-import javax.enterprise.context.SessionScoped;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import java.io.Serializable;
+import road.cardts.connections.ICarQuery;
+import road.movementdts.connections.MovementConnection;
+import road.movementservice.connections.ServerConnection;
 
 /**
  * Created by geh on 7-5-14.
  */
-@Path("car") @SessionScoped
-public class CarServer implements Serializable
+public class CarServer extends ServerConnection implements ICarQuery
 {
-    private int lastMessage = 0;
-
     public CarServer()
     {
-
+        super(MovementConnection.FactoryName, MovementConnection.CarSystemQueue);
     }
 
-    @POST @Path("movement/{key}|{sequence}|{xml}")
-    public String addMovement(@PathParam("key") String key, @PathParam("sequence") int sequence, @PathParam("xml") String xml)
+    @Override
+    public boolean addMovement(String apiKey, long sequence, String xml)
     {
-        return null;
+        return false;
     }
 }

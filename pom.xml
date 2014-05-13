@@ -35,5 +35,6 @@
         <module>DriverDTS</module>
         <module>PoliceDTS</module>
         <module>CarDTS</module>
+        <module>MovementMapper</module>
     </modules>
 </project>
