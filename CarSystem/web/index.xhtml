@@ -5,16 +5,16 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<ui:param name="title" value="DriverSystem"/>
+<ui:param name="url" value="/DriverSystem/"/>
+
+<ui:define name="content">
 
 
-    <ui:define name="content">
-        <f:view locale="#{translator.locale}">
-
-
-            <h:outputText value="#{msg['welcome']}!"/>
-
-        </f:view>
-    </ui:define>
+        <div class="pill login-pill" id="loginPill">
+            <h3>Ugleh</h3>
+        </div>
+</ui:define>
 
 
 </ui:composition>

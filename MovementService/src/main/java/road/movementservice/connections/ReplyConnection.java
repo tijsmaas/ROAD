@@ -48,7 +48,7 @@ public class ReplyConnection extends MovementConnection implements MessageListen
             Pair<String, ArrayList<Object>> pair = this.serializer.deSerialize(textMessage.getText(), Pair.class);
             String rawReply = this.listener.receive(pair);
 
-            TextMessage reply = this.session.createTextMessage();
+            TextMessage reply = this.session.   createTextMessage();
             reply.setText(rawReply);
             this.producer.send(message.getJMSReplyTo(), reply);
         }

@@ -3,42 +3,103 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
-
     <div class="container">
 
-        <!--In case user is not authenticated-->
-        <h:panelGroup layout="block" id="notAuthenticatedHeader">
-            <!-- Button trigger modal -->
-            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
-                Login
-            </button>
+        <!--<nav class="navbar-nav navbar-default" role="navigation">-->
+        <!--<div class="container-fluid">-->
+        <!--<div class="navbar-header">-->
+        <!--<a class="navbar-brand" href=" ">DriverSystem</a>-->
+        <!--</div>-->
 
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body" style="overflow:auto">
-                            <ui:include src="../views/LoginView.xhtml">
-                                <ui:param name="id" value="modal"/>
-                                <ui:param name="title" value="#{title}"/>
-                            </ui:include>
-                        </div>
-                    </div>
+        <!--<div class="collapse navbar-collapse" id="divNav">-->
+        <!--<ul class="nav navbar-nav">-->
+        <!--<li>-->
+        <!--<a href="invoices/">Invoices</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+
+
+        <!--</div>-->
+        <!--</div>-->
+        <!--</nav>-->
+
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">DriverSystem</a>
                 </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Invoices</a></li>
+                        <li><a href="#">Other menu</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--In case user is not authenticated-->
+
+
+                        <h:panelGroup layout="block" id="notAuthenticatedHeader"
+                                      rendered="#{userBean.loggedinUser == null}" style="padding-top: 5px;">
+                            <!-- Button trigger modal -->
+                            <button class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                                Login
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body" style="overflow:auto">
+                                            <ui:include src="../views/LoginView.xhtml">
+                                                <ui:param name="id" value="modal"/>
+                                                <ui:param name="title" value="#{title}"/>
+                                            </ui:include>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup id="authenticatedHeader" style="padding-top: 5px;"
+                                      rendered="#{userBean.loggedinUser != null}">
+                            <!--TODO: Create nice menu-->
+                            <h:form id="logoutForm">
+                                <div class="pull-right">
+                                    <ul class="nav navbar-nav">
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><h:outputText
+                                                    value="#{userBean.loggedinUser.username}"/> <b
+                                                    class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href=" ">Home</a></li>
+                                                <li>
+                                                    <h:commandLink actionListener="#{userBean.logout}">Logout</h:commandLink>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </h:form>
+                        </h:panelGroup>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
             </div>
-        </h:panelGroup>
+            <!-- /.container-fluid -->
+        </nav>
 
 
-        <a href=" " class="text-muted main-logo">DriverSystem</a>
-        <h:form>
-            <h:panelGrid columns="2">
-                <span>Language:</span>
-                <h:selectOneMenu value="#{translator.language}" onchange="submit()">
-                    <f:selectItem itemValue="en" itemLabel="English" />
-                    <f:selectItem itemValue="nl" itemLabel="Nederlands" />
-                </h:selectOneMenu>
-            </h:panelGrid>
-        </h:form>
     </div>
 </ui:composition>

@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
+ * The Vehicle entity specifies the vehicle, so that it can be used to map movements to the vehicle.
+ *
  * Created by Niek on 14/03/14.
  * © Aidas 2014
  */

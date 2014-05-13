@@ -4,8 +4,11 @@ import aidas.userservice.dto.UserDto;
 import domain.dts.IDriverService;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.IOException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,9 +25,11 @@ public class LoginBean
 {
     private String username;
     private String password;
-    private boolean failed;
+    private boolean failed = false;
+
     @Inject
     private UserBean userBean;
+
     @Inject
     private IDriverService driverService;
 
@@ -58,14 +63,39 @@ public class LoginBean
         this.failed = failed;
     }
 
-    public void login()
+    public void login() throws IOException
     {
-        System.out.println("Authenticating " + username);
-        UserDto user = driverService.login(username, password);
-        this.failed = (user == null);
-        if(!failed)
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        try
         {
-            userBean.setLoggedinUser(user);
+            UserDto user = driverService.login(username, password);
+            this.failed = (user == null);
+            if (!failed)
+            {
+                userBean.setLoggedinUser(user);
+                context.redirect(userBean.getLoginRedirect());
+            }
+        } catch(Exception ex)
+        {
+            ex.printStackTrace();
+            this.failed = true;
         }
+    }
+
+    public void redirectIfLoggedIn()
+    {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+
+        try
+        {
+            if(this.userBean.getLoggedinUser() != null)
+            {
+                context.redirect(userBean.getLoginRedirect());
+            }
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }
