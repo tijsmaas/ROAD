@@ -20,9 +20,11 @@ public class CityRate
 
     public CityRate(){}
 
-    public CityRate(String cityId, Date addDate, String kilometerRate)
+    public CityRate(City city, Date addDate, String kilometerRate)
     {
-
+        id = new CityRateId();
+        id.setCity(city);
+        id.setAddDate(addDate);
         this.kilometerRate = kilometerRate;
     }
 

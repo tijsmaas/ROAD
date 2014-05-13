@@ -2,26 +2,27 @@ package road.movemententities.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Mitch on 13-5-2014.
  */
 @Embeddable
-public class CityRateId
+public class CityRateId implements Serializable
 {
     @Column(unique = false, nullable = true)
-    private String cityId;
+    private City city;
 
     @Column(unique = false, nullable = true)
     private Date addDate;
 
-    public String getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public Date getAddDate() {
