@@ -17,9 +17,6 @@ public class City implements MovementEntity<String> {
     @Column(unique = false, nullable = true)
     private String cityName;
 
-    @OneToMany(cascade = CascadeType.MERGE)
-    private List<Edge> edges;
-
     // Empty constructor for JPA
     public City() { }
 

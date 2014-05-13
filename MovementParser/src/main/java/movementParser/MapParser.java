@@ -67,10 +67,10 @@ public class MapParser {
             edges.add(edge);
         }
 
+        /**
+         * Lookup edges and lanes by their names.
+         */
         for (ConnectionType xmlConn : root.getValue().getConnection()) {
-            /**
-             * Lookup edges and lanes by their names
-             */
             String from_str = xmlConn.getFrom();
             String to_str = xmlConn.getTo();
             Integer fromLane_int = xmlConn.getFromLane().intValue();

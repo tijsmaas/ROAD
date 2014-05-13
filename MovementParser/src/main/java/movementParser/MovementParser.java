@@ -29,49 +29,37 @@ public class MovementParser {
         // foreach movement
         for (sumo.movements.jaxb.TimestepType timestep : root.getValue().getTimestep()) {
             for (Serializable a : timestep.getContent()) {
-                if (!(a instanceof JAXBElement)) {
-                    continue;
-                }
                 sumo.movements.jaxb.EdgeType xmlEdge = (sumo.movements.jaxb.EdgeType) ((JAXBElement) a).getValue();
-
-                // set datetime and timestep time of movement to now.
-                Movement movement = new Movement(Calendar.getInstance(), timestep.getTime());
-                // find the edge of the movement on our map.
-                Edge edge = (Edge) entityDAO.findById(Edge.class, xmlEdge.getId());
-                movement.setEdge(edge);
-                entityDAO.create(movement);
 
                 for (sumo.movements.jaxb.LaneType xmlLane : xmlEdge.getLane()) {
                     Lane lane = (Lane) entityDAO.findById(Lane.class, xmlLane.getId());
-                    movement.setLane(lane);
-
-                    List<MovementVehicle> movementVehicles = new ArrayList();
+                    // set datetime and timestep time of movement to now.
+                    Movement movement = new Movement(Calendar.getInstance(), timestep.getTime(), lane);
+                    entityDAO.create(movement);
+                    
+                    List<VehicleMovement> movementVehicles = new ArrayList();
 
                     for (Serializable b : xmlLane.getContent()) {
-                        if (!(b instanceof JAXBElement)) {
-                            continue;
-                        }
-
                         sumo.movements.jaxb.VehicleType xmlVehicle = (sumo.movements.jaxb.VehicleType) ((JAXBElement) b).getValue();
                         String licenseplate = xmlVehicle.getId();
-                        MovementVehicle movementVehicle = new MovementVehicle(
-                                movement, licenseplate + "_" + timestep.getTime(), xmlVehicle.getPos(), xmlVehicle.getSpeed());
-
+                        
                         // Get vehicle by its license plate (<vehicle id="license">) or create a vehicle
                         Vehicle vehicle = (Vehicle) entityDAO.findById(Vehicle.class, licenseplate);
                         if (vehicle == null) {
                             vehicle = new Vehicle(licenseplate);
                             entityDAO.create(vehicle);
                         }
-                        movementVehicle.setVehicle(vehicle);
-
-                        entityDAO.edit(movementVehicle);
-                        System.out.println("Vehicle " + movementVehicle.getMovementIdentifier());
+                        
+                        VehicleMovement movementVehicle = new VehicleMovement(
+                                movement, vehicle, xmlVehicle.getPos(), xmlVehicle.getSpeed());
+                        entityDAO.create(movementVehicle);
+                        vehicle.addVehicleMovement(movementVehicle);
                         movementVehicles.add(movementVehicle);
+                        entityDAO.edit(vehicle);
                     }
 
                     // Add all moving vehicles to the movement
-                    movement.setMovementVehicles(movementVehicles);
+                    movement.setVehicleMovements(movementVehicles);
                     entityDAO.edit(movement);
                 }
             }

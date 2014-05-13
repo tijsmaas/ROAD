@@ -18,6 +18,10 @@ import sumo.movements.jaxb.SumoNetstateType;
 
 public class Parser {
     
+    private static final String SUMOJAXBPACKAGE = "sumo.jaxb";
+    private static final String OSMJAXBPACKAGE = "osm.jaxb";
+    private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
+    
     @Inject
     private MapParser mapParser;
     
@@ -36,7 +40,7 @@ public class Parser {
      */
     public void parseSUMO(File map) throws SAXException {
         long startTime = System.nanoTime();
-        JAXBElement<NetType> root = (JAXBElement<NetType>) parse(map, "sumo.jaxb");
+        JAXBElement<NetType> root = (JAXBElement<NetType>) parse(map, SUMOJAXBPACKAGE);
         mapParser.parseMap(root);
         System.out.println("Parsed " + map.getName() + " in " + (System.nanoTime() - startTime) + "ns");
     }
@@ -50,7 +54,7 @@ public class Parser {
      */
     public void parseOSM(File map) {
         long startTime = System.nanoTime();
-        JAXBElement<OsmType> root = (JAXBElement<OsmType>) parse(map, "osm.jaxb");
+        JAXBElement<OsmType> root = (JAXBElement<OsmType>) parse(map, OSMJAXBPACKAGE);
         mapParser.parseCities(root);
         System.out.println("Parsed " + map.getName() + " in " + (System.nanoTime() - startTime) + "ns");
     }
@@ -62,7 +66,7 @@ public class Parser {
     public void parseChanges(File changes) {        
         long startTime = System.nanoTime();
         @SuppressWarnings("unchecked")
-        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) parse(changes, "sumo.movements.jaxb");
+        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
         movementParser.parseTimesteps(root);
         System.out.println("Parsed " + changes.getName() + " in " + (System.nanoTime() - startTime) + "ns");
     }
@@ -78,7 +82,7 @@ public class Parser {
         
         long startTime = System.nanoTime();
         @SuppressWarnings("unchecked")
-        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) parse(changes, "sumo.movements.jaxb");
+        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
         movementParser.parseTimesteps(root);
         System.out.println("Parsed changes in " + (System.nanoTime() - startTime) + "ns");
     }

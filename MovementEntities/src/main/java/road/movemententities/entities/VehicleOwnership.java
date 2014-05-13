@@ -28,6 +28,13 @@ public class VehicleOwnership implements MovementEntity<Integer>
     // Empty constructor for JPA
     public VehicleOwnership() { }
 
+    public VehicleOwnership(Vehicle vehicle, int userID, Calendar registrationdate, Calendar registrationExperationDate) {
+        this.vehicle = vehicle;
+        this.userID = userID;
+        this.registrationdate = registrationdate;
+        this.registrationExperationDate = registrationExperationDate;
+    }
+
     //region Properties
     public Integer getId()
     {

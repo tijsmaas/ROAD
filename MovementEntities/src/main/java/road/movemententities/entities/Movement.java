@@ -1,100 +1,58 @@
 package road.movemententities.entities;
 
-import javax.persistence.*;
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-/**
- * Created by Niek  on 4/03/14..
- * © Aidas 2014
- */
 @Entity
-public class Movement implements MovementEntity<Integer>
-{
+public class Movement implements MovementEntity<Integer> {
     @Id
     @GeneratedValue
     private int id;
 
     private Calendar movementDate;
-
-    @ManyToOne
-    private Lane lane;
-
-    @ManyToOne
-    private Edge edge;
-
-    @OneToMany
-    private List<MovementVehicle> movementVehicles;
     
     // timestep time
     private float time;
 
-    // Empty constructor for JPA
-    public Movement() { }
+    @ManyToOne
+    private Lane lane;
     
-    public Movement(Calendar movementDate, float time) {
+    @OneToMany
+    private List<VehicleMovement> vehicleMovements;
+
+    public Movement(Calendar movementDate, float time, Lane lane) {
         this.movementDate = movementDate;
         this.time = time;
+        this.lane = lane;
     }
 
-    //region Properties
-    public Integer getId()
-    {
+    @Override
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
-        this.id = id;
+    public Calendar getMovementDate() {
+        return movementDate;
     }
 
     public float getTime() {
         return time;
     }
 
-    public void setTime(float time) {
-        this.time = time;
-    }
-
-    public Calendar getMovementDate()
-    {
-        return movementDate;
-    }
-
-    public void setMovementDate(Calendar movementDate)
-    {
-        this.movementDate = movementDate;
-    }
-
-    public Lane getLane()
-    {
+    public Lane getLane() {
         return lane;
     }
 
-    public void setLane(Lane lane)
-    {
-        this.lane = lane;
+    public List<VehicleMovement> getVehicleMovements() {
+        return vehicleMovements;
     }
 
-    public Edge getEdge()
-    {
-        return edge;
+    public void setVehicleMovements(List<VehicleMovement> vehicleMovements) {
+        this.vehicleMovements = vehicleMovements;
     }
-
-    public void setEdge(Edge edge)
-    {
-        this.edge = edge;
-    }
-
-    public List<MovementVehicle> getMovementVehicles()
-    {
-        return movementVehicles;
-    }
-
-    public void setMovementVehicles(List<MovementVehicle> movementVehicles)
-    {
-        this.movementVehicles = movementVehicles;
-    }
-    
-    //endregion
 }
