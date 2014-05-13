@@ -23,13 +23,9 @@ import javax.ws.rs.core.UriInfo;
 @ApplicationScoped
 public class CarSimulator
 {
-    @Context
-    private UriInfo context;
     private CarClient carClient;
 
-    /**
-     * Creates a new instance of GenericResource
-     */
+
     public CarSimulator()
     {
 

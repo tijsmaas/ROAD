@@ -3,7 +3,7 @@ package road.movementmapper;
 import java.io.File;
 import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
-import movementParser.GenericParser;
+import road.movementparser.parser.GenericParser;
 import org.xml.sax.SAXException;
 import osm.jaxb.OsmType;
 import sumo.jaxb.NetType;

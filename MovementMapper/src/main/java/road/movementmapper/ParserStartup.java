@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import movementParser.MovementParser;
+import road.movementparser.parser.MovementParser;
 import org.xml.sax.SAXException;
 import test.TestSumoParser;
 
@@ -16,9 +16,9 @@ import test.TestSumoParser;
 @Startup
 public class ParserStartup {
     /* Initial map files */
-    private static final String INPUTOSMFILE = "/home/tijs/Development/java/ROAD/MovementParser/res/PTS-ESD-2.osm";
+    private static final String INPUTOSMFILE = "/home/tijs/Development/java/ROAD/road.movementparser.parser.MovementParser/res/PTS-ESD-2.osm";
     /* SUMO file should be generated from the osm file */
-    private static final String INPUTSUMOFILE = "/home/tijs/Development/java/ROAD/MovementParser/res/PTS-ESD-2.net.xml";    
+    private static final String INPUTSUMOFILE = "/home/tijs/Development/java/ROAD/road.movementparser.parser.MovementParser/res/PTS-ESD-2.net.xml";
     /* Path to directory with initial movements */
     private static final String DIR = "movements";
     

@@ -78,7 +78,7 @@ public class TestSumoParser {
      * @throws Exception
      */
     public void testParserQuantities() throws Exception {
-        File inputSUMO = new File("/home/tijs/Development/java/ROAD/MovementParser/res/PTS-ESD-2.net.xml");
+        File inputSUMO = new File("/home/tijs/Development/java/ROAD/road.movementparser.parser.MovementParser/res/PTS-ESD-2.net.xml");
 
         System.out.println("PARSING FILE TROUGH SINGLETON TEST");
         try {

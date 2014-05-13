@@ -36,5 +36,6 @@
         <module>PoliceDTS</module>
         <module>CarDTS</module>
         <module>MovementMapper</module>
+        <module>MovementSumo</module>
     </modules>
 </project>
