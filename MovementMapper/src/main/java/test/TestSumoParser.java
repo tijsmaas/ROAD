@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
@@ -14,10 +13,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
-import movementParser.Parser;
 //import static org.junit.Assert.assertTrue;
 import org.xml.sax.SAXException;
-import parser.dao.EntityDAO;
+import road.movemententityaccess.dao.EntityDAO;
+import road.movementmapper.MovementMapper;
 
 /**
  * This class exists pure for testing purposes. These tests should be converted
@@ -44,7 +43,7 @@ public class TestSumoParser {
      */
 
     @Inject
-    private Parser parser;
+    private MovementMapper mapper;
 
     //@PostConstruct
     public void setup() {
@@ -73,26 +72,17 @@ public class TestSumoParser {
         }
     }
 
-    private void assertEqualNumber(String assertname, int number1, int number2) throws Exception {
-        if (number1 != number2) {
-            throw new Exception("Error in assert " + assertname + " with equals " + number1 + " == " + number2);
-        }else{
-            System.out.println(assertname+"="+number1);
-        }
-    }
-
     /**
      * Test if all basic elements in SUMO are parsed to the database.
      *
      * @throws Exception
      */
-    //@Test
     public void testParserQuantities() throws Exception {
         File inputSUMO = new File("/home/tijs/Development/java/ROAD/MovementParser/res/PTS-ESD-2.net.xml");
 
         System.out.println("PARSING FILE TROUGH SINGLETON TEST");
         try {
-            parser.parseSUMO(inputSUMO);
+            mapper.parseSUMO(inputSUMO);
             emf.getCache().evictAll();
             System.out.println("DONE PARSING");
         } catch (SAXException ex) {
@@ -142,8 +132,19 @@ public class TestSumoParser {
             if(l.equals(lane)) {
                 System.out.println("Lanes and edges persist correctly");
             }
+        }    
+    }
+    
+    
+    /**
+     * Test helper method.
+     */
+    private void assertEqualNumber(String assertname, int number1, int number2) throws Exception {
+        if (number1 != number2) {
+            throw new Exception("Error in assert " + assertname + " with equals " + number1 + " == " + number2);
+        }else{
+            System.out.println(assertname+"="+number1);
         }
-        
     }
 
 }

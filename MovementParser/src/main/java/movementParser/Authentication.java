@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 
 
 public class Authentication {
-    
     private Properties props;
     
     @PostConstruct

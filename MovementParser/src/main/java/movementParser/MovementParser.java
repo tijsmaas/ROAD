@@ -1,5 +1,6 @@
 package movementParser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -7,17 +8,52 @@ import javax.xml.bind.JAXBElement;
 import java.io.Serializable;
 import java.util.Calendar;
 import road.movemententities.entities.*;
-import parser.dao.EntityDAO;
+import road.movemententityaccess.dao.EntityDAO;
 import sumo.movements.jaxb.SumoNetstateType;
 
 /**
  * The MovementParser reads movements and updates the database.
  */
 public class MovementParser {
+    /* Package name of generated movement classes */
+    private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
 
     @Inject
     private EntityDAO entityDAO;
+    
+    @Inject
+    private GenericParser genericParser;
+    
+    private int numberOfMovementParses = 0;
 
+    /**
+     * Parse movements from a file
+     * @param changes 
+     */
+    public void parseChanges(File changes) {        
+        long startTime = System.nanoTime();
+        @SuppressWarnings("unchecked")
+        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
+        parseTimesteps(root);
+        System.out.println("Parsed " + changes.getName() + " in " + (System.nanoTime() - startTime) + "ns");
+    }
+    
+    /**
+     * Parse movements from a string
+     * @param changes 
+     */
+    public void parseChanges(String changes, int sequencenr) {
+        if(numberOfMovementParses != sequencenr)
+            throw new IllegalArgumentException("Tried to add Movements with serial number "+sequencenr+", but counter was at "+numberOfMovementParses);
+        numberOfMovementParses++;
+        
+        long startTime = System.nanoTime();
+        @SuppressWarnings("unchecked")
+        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
+        parseTimesteps(root);
+        System.out.println("Parsed changes in " + (System.nanoTime() - startTime) + "ns");
+    }
+    
     /**
      * Parse all timesteps and all vehicle movements within them.
      */

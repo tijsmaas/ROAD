@@ -1,4 +1,4 @@
-package movementParser;
+package road.movementmapper;
 
 import road.movemententities.entities.*;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import javax.xml.bind.JAXBElement;
 import osm.jaxb.NodeType;
 import osm.jaxb.OsmType;
 import osm.jaxb.TagType;
-import parser.dao.EntityDAO;
+import road.movemententityaccess.dao.EntityDAO;
 import sumo.jaxb.ConnectionType;
 import sumo.jaxb.EdgeType;
 import sumo.jaxb.LaneType;
@@ -30,7 +30,8 @@ public class MapParser {
      * @param root The SUMO XML root element.
      */
     public void parseMap(JAXBElement<NetType> root) {
-        if (root == null) {
+        if (root == null) 
+        {
             throw new IllegalArgumentException();
         }
 
