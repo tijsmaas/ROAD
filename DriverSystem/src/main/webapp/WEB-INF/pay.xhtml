@@ -9,19 +9,21 @@
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
 
-        <f:view locale="#{translator.locale}">
-            <h:panelGroup layout="block" rendered="#{paymentBean.loadError}" styleClass="pill">
+            <h:panelGroup layout="block" rendered="#{paymentBean.loadError}" styleClass="pill pill-autosize">
                 <div class="alert alert-danger">
                     The invoice you tried to load is not valid.
                 </div>
             </h:panelGroup>
 
-            <h:panelGroup layout="block" rendered="#{paymentBean.loadError == false}">
+            <h:panelGroup layout="block" rendered="#{!paymentBean.loadError}" styleClass="pill pill-autosize">
+                <h4><h:outputText value="#{translator.getProperty('payForInvoice')}"/></h4>
 
+                <span><h:outputText value="#{translator.getProperty('amountDue')}"/>: <h:outputText value="#{paymentBean.amountToPay}"/></span>
+
+                <p:commandButton id="btnPay" styleClass="btn btn-primary" value="Pay invoice" actionListener="#{paymentBean.pay}"/>
             </h:panelGroup>
 
 
-        </f:view>
     </ui:define>
 
 

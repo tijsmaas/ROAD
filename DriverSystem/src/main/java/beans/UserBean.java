@@ -7,6 +7,7 @@
 package beans;
 
 import aidas.userservice.dto.UserDto;
+import domain.infoobjects.PaymentSession;
 import utils.Utlities;
 
 import javax.ejb.SessionBean;
@@ -29,6 +30,8 @@ public class UserBean implements Serializable
     private UserDto loggedinUser;
 
     private String loginRedirect = " ";
+    private PaymentSession paymentSession;
+
 
     public void setLoggedinUser(UserDto loggedinUser)
     {
@@ -72,5 +75,15 @@ public class UserBean implements Serializable
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setPaymentSession(PaymentSession session){
+        this.paymentSession = session;
+    }
+
+    public PaymentSession getAndClearPaymentSession(){
+        PaymentSession toReturn = this.paymentSession;
+        this.paymentSession = null;
+        return toReturn;
     }
 }
