@@ -208,3 +208,40 @@ body {
 
 
 /*Icons*/
+
+
+
+/*Loader div*/
+@-webkit-keyframes ajax-loader-rotate {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes ajax-loader-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes ajax-loader-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ajax-loader {
+    opacity: .8;
+    display: block;
+    border-radius: 50%;
+
+    font-size: 29px;
+    width: .25em;
+    height: .25em;
+
+    box-shadow:
+    0 -.4em       0 0 rgba(0,0,0,1),
+    -.28em -.28em 0 0 rgba(0,0,0,.75),
+    -.4em 0       0 0 rgba(0,0,0,.50),
+    -.28em .28em  0 0 rgba(0,0,0,.25)
+;
+
+    -webkit-animation: .85s ajax-loader-rotate steps(8) infinite;
+    -moz-animation: .85s ajax-loader-rotate steps(8) infinite;
+    animation: .85s ajax-loader-rotate steps(8) infinite;
+}

@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
+ * The VehicleOwnership class is used to specify the current and previous owner for a vehicle
+ *
  * Created by Niek on 14/03/14.
  * © Aidas 2014
  */
