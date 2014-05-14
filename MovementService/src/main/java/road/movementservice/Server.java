@@ -20,6 +20,7 @@ public class Server
     private LaneDAO laneDAO;
     private EdgeDAO edgeDAO;
     private ConnectionDAO connectionDAO;
+    private InvoiceDAO invoiceDAO;
 
     private DriverServer driverServer;
     private BillServer billServer;
@@ -50,11 +51,12 @@ public class Server
         this.laneDAO = new LaneDAOImpl(emf);
         this.connectionDAO = new ConnectionDAOImpl(emf);
         this.edgeDAO = new EdgeDAOImpl(emf);
+        this.invoiceDAO = new InvoiceDAOImpl(emf);
 
         this.driverServer = new DriverServer(this.userManager, this.laneDAO, this.connectionDAO, this.edgeDAO);
         this.driverServer.init();
 
-        this.billServer = new BillServer();
+        this.billServer = new BillServer(invoiceDAO, userManager);
         this.billServer.init();
 
         this.policeServer = new PoliceServer();

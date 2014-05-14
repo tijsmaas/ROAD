@@ -1,10 +1,12 @@
 package road.movemententityaccess.dao;
 
+import javafx.util.Pair;
 import road.movemententities.entities.VehicleMovement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -47,5 +49,16 @@ public class MovementDAOImpl implements MovementDAO
 
         List<VehicleMovement> resultList = query.getResultList();
         return resultList;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param dateRange The range of dates to get movements from
+     * @return
+     */
+    @Override
+    public Object getMovementsForVehicleInRange(Pair<Calendar, Calendar> dateRange)
+    {
+        Query uery = em.createQuery("select vhm from VehicleMovement vhm where vhm.movement.movementDate")
     }
 }
