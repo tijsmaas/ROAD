@@ -42,7 +42,7 @@ public class Server
         
         // Create a user for debugging.
         try {
-            this.userManager.register("admin", "admin123");
+            this.userManager.register("admin", "aidas123");
         } catch (UserSystemException e) {
             e.printStackTrace();
         }
