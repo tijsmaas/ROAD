@@ -62,7 +62,7 @@ public class UserManager implements IUserManager {
      * {@inheritDoc}
      */
     @Override
-    public UserDto login(String username, String password) throws UserSystemException {
+    public UserDto login(String username, String password) {
         UserEntity user = aidas.utils.Query.getSingleOrDefault(
                 this.em.createQuery("SELECT u FROM USERS u WHERE u.username = :username", UserEntity.class)
                     .setParameter("username", username));
@@ -71,14 +71,12 @@ public class UserManager implements IUserManager {
             if (user != null && user.getPassword().equals(Security.processPassword(password, username, user.getSalt()))) {
                 return UserConverter.toUserDto(user);
             } else {
-                throw new UserSystemException("The username and/or password you entered is incorrect.");
+                return null;
             }
         } catch (NoSuchAlgorithmException | NoSuchPaddingException 
                 | InvalidKeyException | IllegalBlockSizeException 
                 | BadPaddingException | InvalidKeySpecException ex) {
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
-            
-            throw new UserSystemException(ex.getMessage());
         }
     }
 

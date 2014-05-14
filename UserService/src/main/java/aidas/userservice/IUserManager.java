@@ -36,13 +36,9 @@ public interface IUserManager {
      * to verify his identity.
      * @param password the {@link aidas.userservice.entities.UserEntity#password} which the user has entered
      * to verify his identity. 
-     * @return the authenticated user.
-     * 
-     * @throws aidas.userservice.exceptions.UserSystemException when failed the 
-     * exception will be thrown containing a message with the details of the 
-     * failure.
+     * @return the authenticated user or null if the authentication failed.
      */
-    UserDto login(String username, String password) throws UserSystemException;
+    UserDto login(String username, String password);
     
     /**
      * Register a new user.
