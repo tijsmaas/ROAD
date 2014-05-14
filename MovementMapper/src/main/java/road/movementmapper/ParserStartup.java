@@ -64,7 +64,8 @@ public class ParserStartup {
         Calendar cal = Calendar.getInstance();
         for(int dd=7;dd<9;dd++) 
         {
-            cal.set(2011, 2, 9);
+            // Start at 0:00 on the parsing date
+            cal.set(2011, 2, 9, 0, 0, 0);
             movementParser.parseChanges(new File(MOVEMENTSDIR+"verplaatsingen_2011020"+dd+".xml"), cal);
         }
     }

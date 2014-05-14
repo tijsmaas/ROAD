@@ -8,7 +8,7 @@ import javax.xml.bind.JAXBElement;
 import java.io.Serializable;
 import java.util.Calendar;
 import road.movemententities.entities.*;
-import road.movemententityaccess.dao.EntityDAO;
+import road.movementmapper.dao.EntityDAO;
 import sumo.movements.jaxb.SumoNetstateType;
 
 /**
@@ -50,7 +50,11 @@ public class MovementParser {
         long startTime = System.nanoTime();
         @SuppressWarnings("unchecked")
         JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
-        parseTimesteps(root, Calendar.getInstance());
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);        
+        parseTimesteps(root, cal);
         System.out.println("Parsed changes in " + (System.nanoTime() - startTime) + "ns");
     }
     

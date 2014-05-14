@@ -10,10 +10,8 @@ public class Movement implements MovementEntity<Integer> {
     @GeneratedValue
     private int id;
 
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Calendar movementDate;
-    
-    // timestep time
-    private float time;
 
     @ManyToOne
     private Lane lane;
@@ -23,7 +21,7 @@ public class Movement implements MovementEntity<Integer> {
 
     public Movement(Calendar movementDate, float time, Lane lane) {
         this.movementDate = movementDate;
-        this.time = time;
+        this.movementDate.add(Calendar.SECOND, Math.round(time));
         this.lane = lane;
     }
 
@@ -36,10 +34,6 @@ public class Movement implements MovementEntity<Integer> {
 
     public Calendar getMovementDate() {
         return movementDate;
-    }
-
-    public float getTime() {
-        return time;
     }
 
     public Lane getLane() {
