@@ -7,8 +7,11 @@ import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import road.movemententities.entities.*;
 import road.movemententityaccess.dao.EntityDAO;
+import road.movementmapper.util.HttpClient;
 import sumo.movements.jaxb.SumoNetstateType;
 
 /**
@@ -31,11 +34,18 @@ public class MovementParser {
      * @param changes 
      */
     public void parseChanges(File changes, Calendar insertDate) {        
-        long startTime = System.nanoTime();
-        @SuppressWarnings("unchecked")
-        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
-        //parseTimesteps(root, insertDate);
-        System.out.println("Parsed " + changes.getName() + " in " + (System.nanoTime() - startTime) + "ns");
+        try {
+            long startTime = System.nanoTime();
+//            HttpClient httpClient = new HttpClient();
+//            httpClient.sendPost(changes, insertDate);
+            @SuppressWarnings("unchecked")
+            JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
+            parseTimesteps(root, insertDate);
+            
+            System.out.println("Parsed " + changes.getName() + " in " + (System.nanoTime() - startTime) + "ns");
+        } catch (Exception ex) {
+            Logger.getLogger(MovementParser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**

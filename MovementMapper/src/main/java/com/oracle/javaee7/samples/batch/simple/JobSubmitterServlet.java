@@ -41,10 +41,7 @@ package com.oracle.javaee7.samples.batch.simple;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Properties;
-
-import javax.batch.operations.JobOperator;
-import javax.batch.runtime.BatchRuntime;
+import java.util.Enumeration;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -62,7 +59,7 @@ public class JobSubmitterServlet extends HttpServlet {
     SampleDataHolderBean initializer; 
     
     @Inject
-    private JobSubmitterBean jobsubmitter;
+    private JobReceiverBean jobsubmitter;
 
     /**
      * Processes requests for both HTTP
@@ -78,105 +75,23 @@ public class JobSubmitterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter pw = response.getWriter();
+        Enumeration<String> x = request.getParameterNames();
+        pw.println("args:");
+        while(x.hasMoreElements())
+            pw.println(x.nextElement());
+        
+        String inputfile = request.getParameter("inputfile");
+        String insertdate = request.getParameter("basedate");
         try {
-            pw.println("<html>");
-            pw.println("<head>");
-            pw.println("<title>Servlet JobSubmitterServlet V2</title>");
-            pw.println("</head>");
-            pw.println("<body>");
-
-            pw.println("<p>To run this sample, first select a month from the drop down list and click 'Display Input Records' button</p>");
-
-            pw.println("<p>Once the input records are displayed, click the 'Calculate Payroll' button at the bottom of this page</p>");
-
-            String origSelectedMonthYear = request.getParameter("inputMonthYear");
-            String selectedMonthYear = origSelectedMonthYear == null
-                ? "JAN-2013" : origSelectedMonthYear;
-
-            displayInputRecords(pw, selectedMonthYear);
-            displayPayrollForm(pw, selectedMonthYear);
-            if (request.getParameter("calculatePayroll") != null) {
-                submitJobFromXML("PayrollJob", selectedMonthYear);
-                displayPayrollData(pw, selectedMonthYear);
-            }
-
-            pw.println("</body>");
-            pw.println("</html>");
+            pw.println(inputfile);
+            pw.println(insertdate);
+            jobsubmitter.startbatch(inputfile, insertdate);
+            pw.println("OK");
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
             pw.close();
         }
-    }
-
-    private void displayInputRecords(PrintWriter pw, String selectedMonthYear)
-        throws Exception {
-        String[] monthYear = initializer.getAllMonthYear();
-        pw.println("<form name=\"monthYearForm\">");
-        pw.println("<table border=\"yes\">");
-        pw.println("<tr><td colspan=\"2\">Input Records For");
-        pw.println("<select name=\"inputMonthYear\">");
-        for (String monYr : monthYear) {
-            pw.println("<option " + (monYr.equals(selectedMonthYear) ? "Selected" : " ")
-                    + " value=\"" + monYr +"\">" + monYr + "</option>");
-        }
-        pw.println("</select><input type=hidden name=\"inputMonthYear\" value=\"" + selectedMonthYear + "\">");
-        pw.println("</select><input type=submit name=\"DisplayInputRecords\" value=\"Display Input Records\"></td></tr>");
-        pw.println("<tr><td>MONTH-YEAR</td><td>EMP ID</td><td>Base Salary</td></tr>");
-        for (PayrollInputRecord r : initializer.getPayrollInputRecords(selectedMonthYear)) {
-            pw.println("<tr><td>" + selectedMonthYear + "</td>"
-                    + "<td>" + r.getId() + "</td>"
-                    + "<td>" + r.getBaseSalary() + "</td></tr>");
-        }
-
-        pw.println("</table >");
-        pw.println("</form >");
-    }
-
-    private void displayPayrollForm(PrintWriter pw, String monthYear) {
-        pw.println("<form>");
-        pw.println("<table>");
-        pw.println("<tr><td>Calculate Payroll for the month of: " + monthYear + "</td>");
-        pw.println("</select><input type=hidden name=\"inputMonthYear\" value=\"" + monthYear + "\">");
-        pw.println("<td><input type=\"submit\" name=\"calculatePayroll\" value=\"Calculate Payroll\"/></td></tr>");
-        pw.println("</table>");
-        pw.println("</form>");
-    }
-
-    private void displayPayrollData(PrintWriter pw, String monthYear) {
-        pw.println("<table>");
-        pw.println("<tr><td>Processed Payroll Records</td></tr>");
-        pw.println("<table border=\"yes\">");
-        pw.println("<tr><td>MONTH-YEAR</td><td>EMP ID</td>"
-                + "<td>Base Salary</td><td>Bonus</td><td>Tax</td>"
-                + "<td>Net</td>"
-                    + "</tr>");
-        for (PayrollRecord r : initializer.getPayrollRecords(monthYear)) {
-            pw.println("<tr><td>" + r.getMonthYear() + "</td>");
-            pw.println("<td>" + r.getEmpID() + "</td>");
-            pw.println("<td>" + r.getBase() + "</td>");
-            pw.println("<td>" + r.getBonus() + "</td>");
-            pw.println("<td>" + r.getTax() + "</td>");
-            pw.println("<td>" + r.getNet() + "</td></tr>");
-        }
-        pw.println("</table>");
-        pw.println("</table>");
-    }
-
-    private long submitJobFromXML(String jobName, String selectedMonthYear)
-            throws Exception {
-//        JobOperator jobOperator = BatchRuntime.getJobOperator();
-//
-//        Properties props = new Properties();
-//        props.setProperty("Month-Year", selectedMonthYear);
-//
-//        long executionID = jobOperator.start(jobName, props);
-//
-//        try { Thread.sleep(3000); } catch (Exception ex) {}
-//
-//        return executionID;
-    	jobsubmitter.startbatch();
-		return 0;
     }
     
     /**
@@ -208,14 +123,4 @@ public class JobSubmitterServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }
