@@ -7,15 +7,17 @@
     <class>road.movemententities.entities.Edge</class>
     <class>road.movemententities.entities.Lane</class>
     <class>road.movemententities.entities.Movement</class>
-    <class>road.movemententities.entities.MovementVehicle</class>
     <class>road.movemententities.entities.Vehicle</class>
     <class>road.movemententities.entities.VehicleOwnership</class>
     <class>road.movemententities.entities.City</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <class>road.movemententities.entities.CityDistance</class>
+    <class>road.movemententities.entities.Invoice</class>
+    <class>road.movemententities.entities.VehicleMovement</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
       <property name="hibernate.show_sql" value="true"/>
       <!--<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>-->
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//172.16.239.133:1521/aidas"/>-->

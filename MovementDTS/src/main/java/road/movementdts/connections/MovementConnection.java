@@ -9,6 +9,7 @@ import javax.naming.Context;
  */
 public abstract class MovementConnection
 {
+    public final static String ServerAddress = "localhost:1099";
     public final static String FactoryName = "roadFactory";
     public final static String BillSystemQueue = "billRequestQueue";
     public final static String CarSystemQueue = "carRequestQueue";

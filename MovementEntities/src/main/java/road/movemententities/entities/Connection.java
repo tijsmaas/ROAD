@@ -44,7 +44,10 @@ public class Connection implements MovementEntity<Integer>
     public Connection(Edge from, Edge to, Lane fromLane, Lane toLane, String direction, String state)
     {
         if (from == null || to == null || /* fromLane == null || toLane == null || */ direction == null || state == null)
-            throw new IllegalArgumentException("Connection::Required connection attributes are empty: "+(from == null)+(to == null)+(fromLane == null)+(toLane == null)+(direction == null)+(state == null));
+        {
+            throw new IllegalArgumentException("Connection::Required connection attributes are empty: " + (from == null) + (to == null) + (fromLane == null) + (toLane == null) + (direction == null) + (state == null));
+        }
+
         this.from = from;
         this.to = to;
         this.fromLane = fromLane;

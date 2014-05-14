@@ -36,7 +36,6 @@ public class DriverService implements IDriverService
     @Override
     public UserDto login(String username, String password)
     {
-        Long x = driverQueries.getLaneCount();
         UserDto result = driverQueries.authenticate(username, password);
         return result;
     }

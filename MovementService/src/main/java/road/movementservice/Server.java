@@ -3,6 +3,7 @@ package road.movementservice;
 import aidas.userservice.IUserManager;
 import aidas.userservice.UserManager;
 import aidas.userservice.exceptions.UserSystemException;
+
 import road.movemententityaccess.dao.*;
 import road.movementservice.servers.BillServer;
 import road.movementservice.servers.DriverServer;
@@ -29,12 +30,17 @@ public class Server
      */
     private IUserManager userManager;
 
+    /**
+     * this method is used to initialize all the different services.
+     */
     public void init()
     {
         EntityManagerFactory emfUserService = Persistence.createEntityManagerFactory("UserServicePU");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MovementPU");
 
         this.userManager = new UserManager(emfUserService);
+        
+        // Create a user for debugging.
         try {
             this.userManager.register("admin", "admin123");
         } catch (UserSystemException e) {

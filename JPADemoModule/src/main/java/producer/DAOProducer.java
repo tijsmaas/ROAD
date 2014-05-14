@@ -1,8 +1,7 @@
 package producer;
 
-import road.movemententityaccess.dao.EdgeDAO;
-import road.movemententityaccess.dao.EdgeDAOImpl;
 import qualifier.ProducerQualifier;
+import road.movemententityaccess.dao.EdgeDAO;
 
 import javax.enterprise.inject.Produces;
 
@@ -19,7 +18,7 @@ public class DAOProducer
     public EdgeDAO getEdgeDao(){
 
         //Create a new implementation of the edgeDAO, from now on we can @Inject the EdgeDAO
-        return new EdgeDAOImpl();
+        return null;
     }
 
 }

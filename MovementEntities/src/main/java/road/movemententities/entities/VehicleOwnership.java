@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
+ * The VehicleOwnership class is used to specify the current and previous owner for a vehicle
+ *
  * Created by Niek on 14/03/14.
  * © Aidas 2014
  */
@@ -27,6 +29,13 @@ public class VehicleOwnership implements MovementEntity<Integer>
 
     // Empty constructor for JPA
     public VehicleOwnership() { }
+
+    public VehicleOwnership(Vehicle vehicle, int userID, Calendar registrationdate, Calendar registrationExperationDate) {
+        this.vehicle = vehicle;
+        this.userID = userID;
+        this.registrationdate = registrationdate;
+        this.registrationExperationDate = registrationExperationDate;
+    }
 
     //region Properties
     public Integer getId()

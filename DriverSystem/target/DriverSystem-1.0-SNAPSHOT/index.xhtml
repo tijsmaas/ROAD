@@ -5,31 +5,19 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    <ui:param name="title" value="DriverSystem"/>
-    <ui:param name="url" value="/DriverSystem/"/>
+<ui:param name="title" value="DriverSystem"/>
+<ui:param name="url" value="/DriverSystem/"/>
 
-    <ui:define name="content">
-        <f:view locale="#{translator.locale}">
-
-
-            <h:panelGroup layout="block" rendered="#{sessionBean.authenticatedUser eq null}">
-                <div class="pill login-pill" id="loginPill">
-
-                    <ui:insert name="login">
-                        <ui:include src="WEB-INF/views/LoginView.xhtml">
-                            <ui:param name="id" value="main"/>
-                        </ui:include>
-                    </ui:insert>
-                </div>
+<ui:define name="content">
+    <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+    <f:view locale="#{translator.locale}">
 
 
-                <div class="pill login-pill" id="registerPill" style="display:none">
-                </div>
-
-            </h:panelGroup>
-
-        </f:view>
-    </ui:define>
+        <div class="pill login-pill" id="loginPill">
+            <h3>Logged in...</h3>
+        </div>
+    </f:view>
+</ui:define>
 
 
 </ui:composition>

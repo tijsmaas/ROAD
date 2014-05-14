@@ -1,6 +1,6 @@
 package road.movemententityaccess.dao;
 
-import road.movemententities.entities.Movement;
+import road.movemententities.entities.VehicleMovement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,12 +26,12 @@ public class MovementDAOImpl implements MovementDAO
      * @param movementID The ID of the movement
      */
     @Override
-    public Movement find(int movementID)
+    public VehicleMovement find(int movementID)
     {
         Query query = em.createQuery("Select movement from Movement movement where movement.id = :id");
         query.setParameter("id", movementID);
 
-        List<Movement> resultList = query.getResultList();
+        List<VehicleMovement> resultList = query.getResultList();
         return resultList.isEmpty() ? null : resultList.get(0);
     }
 
@@ -40,12 +40,12 @@ public class MovementDAOImpl implements MovementDAO
      * @param date movement date
      */
     @Override
-    public List<Movement> getMovementsByDate(Date date)
+    public List<VehicleMovement> getMovementsByDate(Date date)
     {
         Query query = em.createQuery("select movement from Movement movement where movement.movementDate = :date");
         query.setParameter("date", date);
 
-        List<Movement> resultList = query.getResultList();
+        List<VehicleMovement> resultList = query.getResultList();
         return resultList;
     }
 }

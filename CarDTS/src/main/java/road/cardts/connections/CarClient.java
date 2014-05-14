@@ -6,15 +6,15 @@ import road.movementdts.connections.MovementConnection;
 /**
  * Created by geh on 6-5-14.
  */
-public class CarClient
+public class CarClient extends ClientConnection implements ICarQuery
 {
     public CarClient()
     {
-
+        super(MovementConnection.ServerAddress, MovementConnection.FactoryName, MovementConnection.CarSystemQueue);
     }
 
-    public String addMovement(String apiKey, long sequence, String xml)
+    public boolean addMovement(String apiKey, long sequence, String xml)
     {
-        return null;
+        return this.remoteCall("addMovement", boolean.class, apiKey, sequence, xml);
     }
 }

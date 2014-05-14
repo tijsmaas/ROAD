@@ -12,6 +12,7 @@ import road.movemententityaccess.dao.LaneDAO;
 
 /**
  * Created by geh on 22-4-14.
+ * This is the Server side of the connection with the DriverSystem application (
  */
 public class DriverServer extends ServerConnection implements IDriverQuery
 {
@@ -41,6 +42,9 @@ public class DriverServer extends ServerConnection implements IDriverQuery
         this.edgeDAO = edgeDAO;
     }
 
+    /**
+     * This starts the server by calling initRpc() and start().
+     */
     public void init()
     {
         super.initRpc(IDriverQuery.class, this);

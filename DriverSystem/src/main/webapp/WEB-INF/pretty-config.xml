@@ -1,0 +1,19 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+
+    <url-mapping>
+        <pattern value="/login/"></pattern>
+        <view-id value="../login.xhtml"/>
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/pay/#{invoiceID}"></pattern>
+        <view-id value="../WEB-INF/pay.xhtml"/>
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/pay/"></pattern>
+        <view-id value="../WEB-INF/pay.xhtml"/>
+    </url-mapping>
+</pretty-config>
