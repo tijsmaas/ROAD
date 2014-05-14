@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='-48' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.62339420229232' lon='5.507579373043492'>
+    <tag k='addr:city' v='Veghel' />
+  </node>
+  <node id='-46' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.41839453971883' lon='5.75659042944133'>
+    <tag k='addr:city' v='Asten' />
+  </node>
+  <node id='-44' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.470924163297454' lon='5.712534627155558'>
+    <tag k='addr:city' v='Helmond' />
+  </node>
+  <node id='-42' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.40923546856869' lon='5.563766483205056'>
+    <tag k='addr:city' v='GeldropAanSnelweg' />
+  </node>
+  <node id='-40' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.42436685841109' lon='5.538226887677072'>
+    <tag k='addr:city' v='Geldrop' />
+  </node>
+  <node id='-38' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.45938874334981' lon='5.5599355438758575'>
+    <tag k='addr:city' v='Nuenen' />
+  </node>
+  <node id='-36' action='modify' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.43033839668948' lon='5.503748433714295'>
+    <tag k='addr:city' v='Geldropseweg' />
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='-34' action='modify' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.44665661977097' lon='5.500555984273297'>
+    <tag k='addr:city' v='Helmondseweg' />
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='-32' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.49796129980612' lon='5.475654878633513'>
+    <tag k='addr:city' v='Eckersrijt' />
+  </node>
+  <node id='-30' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.44745248152759' lon='5.425852667353945'>
+    <tag k='addr:city' v='Welschap' />
+  </node>
+  <node id='-28' action='modify' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.453023125427656' lon='5.486509206732906'>
+    <tag k='addr:city' v='Kennedylaan' />
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='-26' action='modify' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.45182947323879' lon='5.46543904042232'>
+    <tag k='addr:city' v='Boschdijk' />
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='-24' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.43511506543914' lon='5.452030752770128'>
+    <tag k='addr:city' v='Karel de Grotelaan' />
+  </node>
+  <node id='-22' action='modify' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.42436685841109' lon='5.483955247180107'>
+    <tag k='addr:city' v='Aasterweg' />
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='-20' action='modify' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.424764985242135' lon='5.492894105614902'>
+    <tag k='addr:city' v='Floraplein' />
+    <tag k='highway' v='traffic_signals' />
+  </node>
+  <node id='-18' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.404456094285734' lon='5.505025413490694'>
+    <tag k='addr:city' v='Leenderheide' />
+  </node>
+  <node id='-16' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.404456094285734' lon='5.477570348298111'>
+    <tag k='addr:city' v='LeenderheideWest' />
+  </node>
+  <node id='-14' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.404057790546894' lon='5.424575687577547'>
+    <tag k='addr:city' v='De Hogt' />
+  </node>
+  <node id='-12' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.367000378078444' lon='5.320501835801013'>
+    <tag k='addr:city' v='Eersel' />
+  </node>
+  <node id='-10' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.555163504635246' lon='5.129593359229339'>
+    <tag k='addr:city' v='Tilburg' />
+  </node>
+  <node id='-8' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.490805970781416' lon='5.428406626906743'>
+    <tag k='addr:city' v='WoenselNoord' />
+  </node>
+  <node id='-6' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.663016113094116' lon='5.3000701593786275'>
+    <tag k='addr:city' v='Den Bosch' />
+  </node>
+  <node id='-4' action='modify' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.444666904691175' lon='5.447561323552731'>
+    <tag k='addr:city' v='Evoluon' />
+  </node>
+  <node id='-2' timestamp='2011-02-04T13:16:43Z' visible='true' lat='51.48205904330231' lon='5.406697970707958'>
+    <tag k='addr:city' v='Batadorp' />
+  </node>
+  <way id='-118' timestamp='2011-02-04T16:10:51Z' visible='true'>
+    <nd ref='-48' />
+    <nd ref='-6' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-116' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-10' />
+    <nd ref='-6' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-114' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-16' />
+    <nd ref='-22' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-112' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-18' />
+    <nd ref='-20' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-110' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-40' />
+    <nd ref='-36' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-108' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-38' />
+    <nd ref='-40' />
+    <tag k='highway' v='tertiary' />
+  </way>
+  <way id='-106' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-16' />
+    <nd ref='-18' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-104' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-14' />
+    <nd ref='-16' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-102' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-18' />
+    <nd ref='-42' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-100' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-2' />
+    <nd ref='-8' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-98' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-8' />
+    <nd ref='-32' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-96' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-30' />
+    <nd ref='-14' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-94' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-4' />
+    <nd ref='-24' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-92' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-46' />
+    <nd ref='-42' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-90' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-44' />
+    <nd ref='-46' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-88' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-36' />
+    <nd ref='-34' />
+    <tag k='highway' v='tertiary' />
+  </way>
+  <way id='-86' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-20' />
+    <nd ref='-36' />
+    <tag k='highway' v='tertiary' />
+  </way>
+  <way id='-84' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-22' />
+    <nd ref='-20' />
+    <tag k='highway' v='tertiary' />
+  </way>
+  <way id='-82' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-24' />
+    <nd ref='-22' />
+    <tag k='highway' v='tertiary' />
+  </way>
+  <way id='-80' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-26' />
+    <nd ref='-4' />
+    <tag k='highway' v='tertiary' />
+  </way>
+  <way id='-78' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-28' />
+    <nd ref='-26' />
+    <tag k='highway' v='tertiary' />
+  </way>
+  <way id='-76' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-34' />
+    <nd ref='-28' />
+    <tag k='highway' v='tertiary' />
+  </way>
+  <way id='-74' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-38' />
+    <nd ref='-34' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-72' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-44' />
+    <nd ref='-38' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-70' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-48' />
+    <nd ref='-44' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-68' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-48' />
+    <nd ref='-32' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-66' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-32' />
+    <nd ref='-28' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-64' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-12' />
+    <nd ref='-14' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-62' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-6' />
+    <nd ref='-8' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-60' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-8' />
+    <nd ref='-26' />
+    <tag k='highway' v='secondary' />
+  </way>
+  <way id='-58' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-10' />
+    <nd ref='-12' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-56' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-2' />
+    <nd ref='-10' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-54' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-30' />
+    <nd ref='-2' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-52' timestamp='2011-02-04T13:16:43Z' visible='true'>
+    <nd ref='-4' />
+    <nd ref='-30' />
+    <tag k='highway' v='primary' />
+  </way>
+  <way id='-50' timestamp='2011-02-04T14:54:02Z' visible='true'>
+    <nd ref='-40' />
+    <nd ref='-42' />
+    <tag k='highway' v='secondary' />
+  </way>
+</osm>
