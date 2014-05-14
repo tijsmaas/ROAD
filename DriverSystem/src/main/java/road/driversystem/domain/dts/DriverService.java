@@ -8,17 +8,20 @@ package road.driversystem.domain.dts;
 
 import aidas.userservice.dto.UserDto;
 import road.driverdts.connections.DriverClient;
+import road.movementdtos.dtos.VehicleDto;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  *
  * @author Mitch
  */
 @Singleton @Startup
-public class DriverService
+public class DriverService implements Serializable
 {
     private DriverClient driverQueries;
 
@@ -38,5 +41,25 @@ public class DriverService
     {
         UserDto result = driverQueries.authenticate(username, password);
         return result;
+    }
+
+    /**
+     * Get the vehicles linked to the specified user.
+     * @param userId the identifier of the user.
+     * @return the vehicles linked to the specified user.
+     */
+    public List<VehicleDto> getVehicles(Integer userId) {
+        List<VehicleDto> result = driverQueries.getVehicles(userId);
+        return result;
+    }
+
+    /**
+     * Update the provided vehicle.
+     * @param vehicleDto the vehicle to be updated.
+     * @return if the function was successful.
+     */
+    public boolean updateVehicle(VehicleDto vehicleDto) {
+        Boolean result = driverQueries.updateVehicle(vehicleDto);
+        return result != null ? result.booleanValue() : false;
     }
 }

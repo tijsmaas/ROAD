@@ -19,6 +19,7 @@ public class Server
 {
     private LaneDAO laneDAO;
     private EdgeDAO edgeDAO;
+    private VehicleDAO vehicleDAO;
     private ConnectionDAO connectionDAO;
     private InvoiceDAO invoiceDAO;
     private MovementDAO movementDAO;
@@ -50,15 +51,16 @@ public class Server
         }
 
         this.laneDAO = new LaneDAOImpl(emf);
-        this.connectionDAO = new ConnectionDAOImpl(emf);
         this.edgeDAO = new EdgeDAOImpl(emf);
+        this.vehicleDAO = new VehicleDAOImpl(emf);
+        this.connectionDAO = new ConnectionDAOImpl(emf);
         this.invoiceDAO = new InvoiceDAOImpl(emf);
         this.movementDAO  = new MovementDAOImpl(emf);
 
-        this.driverServer = new DriverServer(this.userManager, this.laneDAO, this.connectionDAO, this.edgeDAO);
+        this.driverServer = new DriverServer(this.userManager, this.laneDAO, this.connectionDAO, this.edgeDAO, this.vehicleDAO);
         this.driverServer.init();
 
-        this.billServer = new BillServer(invoiceDAO, userManager, movementDAO);
+        this.billServer = new BillServer(this.invoiceDAO, this.userManager, this.movementDAO);
         this.billServer.init();
 
         this.policeServer = new PoliceServer();

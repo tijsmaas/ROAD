@@ -37,5 +37,6 @@
         <module>CarDTS</module>
         <module>MovementMapper</module>
         <module>MovementSumo</module>
+        <module>MovementDtos</module>
     </modules>
 </project>
