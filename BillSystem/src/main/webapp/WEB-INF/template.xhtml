@@ -11,24 +11,22 @@
     <h:outputScript library="bootstrap" name="bootstrap.js"/>
 </h:head>
 <h:body>
-    <div class="header">
-        <ui:insert name="header">
-            <ui:include src="includes/header.xhtml">
-                <ui:param name="url" value="#{url}"/>
-                <ui:param name="title" value="#{title}"/>
-            </ui:include>
-        </ui:insert>
-    </div>
-
-    <div class="container">
-
-        <div class="contentWrapper">
-            <ui:insert name="content">
-                Default Content
+        <div class="header">
+            <ui:insert name="header">
+                <ui:include src="includes/header.xhtml">
+                </ui:include>
             </ui:insert>
-
-
         </div>
-    </div>
+
+        <div class="container">
+
+            <div class="contentWrapper">
+                <ui:insert name="content">
+                    Default Content
+                </ui:insert>
+
+
+            </div>
+        </div>
 </h:body>
 </html>
