@@ -39,12 +39,19 @@
  */
 package com.oracle.javaee7.samples.batch.simple;
 
+import java.io.Serializable;
+import java.util.Calendar;
 import javax.batch.api.chunk.ItemProcessor;
 import javax.batch.runtime.BatchRuntime;
 import javax.batch.runtime.context.JobContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Properties;
+import javax.xml.bind.JAXBElement;
+import road.movemententities.entities.Lane;
+import road.movemententities.entities.Movement;
+import road.movementmapper.dao.EntityDAO;
+import sumo.movements.jaxb.TimestepType;
 
 @Named("SimpleItemProcessor")
 public class SimpleItemProcessor
@@ -52,26 +59,32 @@ public class SimpleItemProcessor
 
     @Inject
     private JobContext jobContext;
+    
+    @Inject
+    private EntityDAO entityDAO;
 
 
     public Object processItem(Object obj) throws Exception {
         Properties jobParameters = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
 
-        PayrollInputRecord inputRecord = (PayrollInputRecord) obj;
-        PayrollRecord payrollRecord = new PayrollRecord();
-        payrollRecord.setMonthYear((String) jobParameters.get("Month-Year"));
-
-        int base = inputRecord.getBaseSalary();
-        float tax = base * 27 / 100.0f;
-        float bonus = base * 15 / 100.0f;
-
-        payrollRecord.setEmpID(inputRecord.getId());
-        payrollRecord.setBase(base);
-        payrollRecord.setTax(tax);
-        payrollRecord.setBonus(bonus);
-        payrollRecord.setNet(base + bonus - tax);
+        Calendar basedate = (Calendar) jobParameters.get("basedate");
         
-        return payrollRecord;
+        TimestepType timestep = (TimestepType) obj;
+        
+        for (Serializable a : timestep.getContent()) {
+                if(a instanceof String) continue;
+                sumo.movements.jaxb.EdgeType xmlEdge = (sumo.movements.jaxb.EdgeType) ((JAXBElement) a).getValue();
+
+                for (sumo.movements.jaxb.LaneType xmlLane : xmlEdge.getLane()) {
+                    Lane lane = (Lane) entityDAO.findById(Lane.class, xmlLane.getId());
+                    // set datetime and timestep time of movement to now.
+                    Movement movement = new Movement(basedate, timestep.getTime(), lane);
+                    
+                    return movement;
+                }
+        }
+        
+        return null;
     }
     
 }
