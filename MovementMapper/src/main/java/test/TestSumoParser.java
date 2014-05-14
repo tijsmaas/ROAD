@@ -15,8 +15,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 //import static org.junit.Assert.assertTrue;
 import org.xml.sax.SAXException;
-import road.movemententityaccess.dao.EntityDAO;
 import road.movementmapper.MovementMapper;
+import road.movementmapper.dao.EntityDAO;
 
 /**
  * This class exists pure for testing purposes. These tests should be converted

@@ -24,11 +24,16 @@
     <dependencies>
         <dependency>
             <groupId>ROAD</groupId>
-            <artifactId>MovementParser</artifactId>
+            <artifactId>MovementSumo</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
-        
+        <dependency>
+            <groupId>ROAD</groupId>
+            <artifactId>MovementEntities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
