@@ -8,7 +8,7 @@ import javax.xml.bind.JAXBElement;
 import osm.jaxb.NodeType;
 import osm.jaxb.OsmType;
 import osm.jaxb.TagType;
-import road.movemententityaccess.dao.EntityDAO;
+import road.movementmapper.dao.EntityDAO;
 import sumo.jaxb.ConnectionType;
 import sumo.jaxb.EdgeType;
 import sumo.jaxb.LaneType;

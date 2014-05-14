@@ -54,15 +54,7 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     @Override
     public UserDto authenticate(String user, String password)
     {
-        UserDto userDto = null;
-
-        try {
-            userDto = this.userManager.login(user, password);
-        } catch (UserSystemException ex) {
-            ex.printStackTrace();
-        }
-
-        return userDto;
+        return this.userManager.login(user, password);
     }
 
     @Override

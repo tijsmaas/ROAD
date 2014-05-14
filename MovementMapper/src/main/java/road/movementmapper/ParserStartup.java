@@ -1,26 +1,27 @@
 package road.movementmapper;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.xml.sax.SAXException;
+import road.movementparser.injectable.MovementParser;
+import test.TestSumoParser;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import road.movementparser.parser.MovementParser;
-import org.xml.sax.SAXException;
-import test.TestSumoParser;
+import java.io.File;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@Singleton
 @Startup
+@Singleton
 public class ParserStartup {
     /* Initial map files */
     private static final String INPUTOSMFILE = "/home/tijs/Development/java/ROAD/road.movementparser.parser.MovementParser/res/PTS-ESD-2.osm";
     /* SUMO file should be generated from the osm file */
     private static final String INPUTSUMOFILE = "/home/tijs/Development/java/ROAD/road.movementparser.parser.MovementParser/res/PTS-ESD-2.net.xml";
     /* Path to directory with initial movements */
-    private static final String DIR = "movements";
+    private static final String MOVEMENTSDIR = "/home/tijs/Downloads/verpl_systeem/";
     
     @Inject
     private MovementMapper parser;
@@ -30,8 +31,10 @@ public class ParserStartup {
     
     @PostConstruct
     public void init() {
+    	System.out.println("Doing something....");
         initialiseMap();
-        parseNewMovements();
+        submitJobFromXML("PayrollJob", "JAN-2013");
+        //parseNewMovements();
     }
     
     public void initialiseMap() {
@@ -57,33 +60,36 @@ public class ParserStartup {
      */
     //@Schedule(minute = "*/3", hour = "*")
     public void parseNewMovements() {
-        System.out.println("[SCHEDULE] Parsing new movements in directory "+new File(DIR).getAbsolutePath());
-        File[] files = finder(DIR);
-        for(File file : files) {
-            System.out.println("Parsing file " + file.getName());
-            movementParser.parseChanges(file);
-            //System.out.println("Deleting file " + file.getName());
-            //file.delete();
+        System.out.println("[SCHEDULE] Parsing new movements in directory "+new File(MOVEMENTSDIR).getAbsolutePath());
+        Calendar cal = Calendar.getInstance();
+        for(int dd=7;dd<9;dd++) 
+        {
+            // Start at 0:00 on the parsing date
+            cal.set(2011, 2, 9, 0, 0, 0);
+            movementParser.parseChanges(new File(MOVEMENTSDIR+"verplaatsingen_2011020"+dd+".xml"), cal);
         }
     }
-
     
-    /**
-     * Helper function to find all XML files in a directory
-     * @param dirName
-     * @return 
-     */
-    private File[] finder(String dirName) {
-        File dir = new File(dirName);
-        if(!dir.isDirectory())
-            System.err.println("Cannot read movements directory");
+    private long submitJobFromXML(String jobName, String selectedMonthYear)
+             {
+    	new Thread(new Runnable(){
 
-        return dir.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String filename) {
-                return filename.endsWith(".xml");
-            }
-        });
+			@Override
+			public void run()
+			{
+				try
+				{
+					Thread.sleep(5000);
+					road.movementmapper.util.HttpClient httpClient = new road.movementmapper.util.HttpClient();
+					httpClient.sendPost();
+				} catch (Exception e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}}).start();
+    	
+        return -1;
     }
 
 }

@@ -1,5 +1,8 @@
 package road.movemententities.entities;
 
+import road.movemententities.entities.enumerations.ConnectionDirection;
+import road.movemententities.entities.enumerations.ConnectionState;
+
 import javax.persistence.*;
 
 /**

@@ -9,4 +9,6 @@ import aidas.userservice.dto.UserDto;
 public interface IBillQuery
 {
     UserDto authenticate(String user, String password);
+
+    Integer generateMonthlyInvoices();
 }

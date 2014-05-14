@@ -22,4 +22,10 @@ public class BillClient extends ClientConnection implements IBillQuery
     {
         return this.remoteCall("authenticate", UserDto.class, user, password);
     }
+
+    @Override
+    public Integer generateMonthlyInvoices()
+    {
+        return this.remoteCall("generateMonthlyInvoices", Integer.class);
+    }
 }

@@ -5,20 +5,17 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    <ui:param name="title" value="BillSystem"/>
-    <ui:param name="url" value="/billSystem/"/>
+<ui:param name="title" value="BillSystem"/>
+<ui:param name="url" value="/billsystem/"/>
 
-    <ui:define name="content">
+<ui:define name="content">
+    <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+
+
         <div class="pill login-pill" id="loginPill">
-
-            <ui:insert name="login">
-                <ui:include src="WEB-INF/views/LoginView.xhtml">
-                    <ui:param name="id" value="main"/>
-                    <ui:param name="title" value="BillSystem"/>
-                </ui:include>
-            </ui:insert>
+            <h3>Logged in...</h3>
         </div>
-    </ui:define>
+</ui:define>
 
 
 </ui:composition>

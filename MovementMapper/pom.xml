@@ -24,17 +24,16 @@
     <dependencies>
         <dependency>
             <groupId>ROAD</groupId>
-            <artifactId>MovementParser</artifactId>
+            <artifactId>MovementSumo</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>ROAD</groupId>
-            <artifactId>MovementEntityAccess</artifactId>
+            <artifactId>MovementEntities</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
-        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -47,6 +46,13 @@
             <version>2.1</version>
         </dependency>
         
+        <!-- To make http requests to its own servlet -->
+        <dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.0-alpha4</version>
+		</dependency>
+        
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -55,5 +61,28 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+    
+    
+    <build>
+        <finalName>MovementMapper</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     
 </project>
