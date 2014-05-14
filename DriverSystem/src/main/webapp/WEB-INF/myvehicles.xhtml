@@ -1,0 +1,44 @@
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+
+        <h:panelGroup layout="block" styleClass="pill pill-autosize">
+            <h4><h:outputText value="#{translator.getProperty('myVehicles')}"/></h4>
+
+            <h:dataTable value="#{contributeVehicleBean.vehicles}" var="vehicle" styleClass="table table-hover">
+                <h:column>
+                    <f:facet name="header"><h:outputText value="#{translator.getProperty('licencePlate')}"/></f:facet>
+                    #{vehicle.licensePlate}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Contribute to Traffic jam calculations</f:facet>
+                    <h:outputText value="#{vehicle.contributeGPSData}" rendered="#{!contributeVehicleBean.isVehicleEdit(vehicle)}" />
+                    <h:selectBooleanCheckbox value="#{vehicle.contributeGPSData}" rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}" />
+                </h:column>
+                <h:column>
+                    <h:form rendered="#{!contributeVehicleBean.isVehicleEdit(vehicle)}">
+                        <h:commandLink action="#{contributeVehicleBean.changeVehicleEdit(vehicle)}">
+                            <i class="fa fa-pencil blue"></i>
+                        </h:commandLink>
+                    </h:form>
+                    <h:form rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}">
+                        <h:commandLink action="#{contributeVehicleBean.saveEditVehicle}">
+                            <i class="fa fa-floppy-o blue"></i>
+                        </h:commandLink>
+                        <h:commandLink action="#{contributeVehicleBean.cancelEdit}">
+                            <i class="fa fa-ban red"></i>
+                        </h:commandLink>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>
+

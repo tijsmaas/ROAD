@@ -1,10 +1,16 @@
 package road.movemententityaccess.dao;
 
+import road.movementdtos.dtos.VehicleDto;
+import road.movemententities.converters.VehicleConverter;
 import road.movemententities.entities.Vehicle;
+import road.movemententities.entities.VehicleOwnership;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -39,9 +45,22 @@ public class VehicleDAOImpl implements VehicleDAO
      * @param userID The ID of the user
      */
     @Override
-    public List<Vehicle> getVehiclesFromUser(int userID)
+    public List<VehicleDto> getVehiclesFromUser(Integer userID)
     {
-        return null;
+        if (userID == null) {
+            return new ArrayList();
+        }
+
+        TypedQuery query = em.createQuery("SELECT v FROM Vehicle v WHERE :userId IN(v.vehicleOwners.userID)", Vehicle.class);
+        query.setParameter("userId", userID);
+
+        List<Vehicle> resultList = query.getResultList();
+        List<VehicleDto> returnList = new ArrayList();
+        for (Vehicle v : resultList) {
+            returnList.add(VehicleConverter.toVehicleDto(v));
+        }
+
+        return returnList;
     }
 
     /**
@@ -53,5 +72,30 @@ public class VehicleDAOImpl implements VehicleDAO
     public void changeVehicleOwnership(Vehicle vehicle, int userID)
     {
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean updateVehicle(VehicleDto vehicleDto) {
+        boolean successful = false;
+
+        try {
+            Vehicle vehicle = em.find(Vehicle.class, vehicleDto.getLicensePlate());
+            VehicleOwnership ownership = VehicleConverter.getCurrentVehicleOwner(vehicle.getVehicleOwners());
+
+            if (ownership != null) {
+                ownership.setContributeGPSData(vehicleDto.getContributeGPSData());
+            }
+
+            em.merge(vehicle);
+
+            successful = true;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return successful;
     }
 }
