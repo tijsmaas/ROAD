@@ -12,6 +12,7 @@ import sumo.movements.jaxb.SumoNetstateType;
 
 /**
  * The road.movementparser.parser.MovementParser reads movements and updates the database.
+ * And other things
  */
 public class MovementParser
 {
