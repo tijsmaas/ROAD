@@ -4,6 +4,8 @@
 
 package aidas.userservice.entities;
 
+import aidas.security.Security;
+import aidas.userservice.UserManager;
 import aidas.userservice.dto.Right;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,16 +53,16 @@ public class UserEntity implements Serializable {
     /**
      * The salt used to hash the {@link #password}.
      */
-    @Column(name="Salt", nullable=false)
+    @Column(name="Salt", length=Security.SALT_BYTE_SIZE, nullable=false)
     private byte[] salt;
     
     /**
      * The rights of the user.
      */
-    @ManyToMany
+    @ElementCollection(targetClass = Right.class)
     @JoinTable(name = "USER_RIGHTS", joinColumns = @JoinColumn(name = "UserId"))
     @Enumerated(EnumType.STRING)
-    @Column(name="RoleName")
+    @Column(name="RightName")
     private List<Right> rights;
     
     /**
@@ -68,8 +70,8 @@ public class UserEntity implements Serializable {
      */
     @ManyToMany
     @JoinTable(name="USER_ROLES",
-        joinColumns= {@JoinColumn(name="RoleId", referencedColumnName="id")},
-        inverseJoinColumns= {@JoinColumn(name="UserId", referencedColumnName="id")})
+        joinColumns = {@JoinColumn(name = "UserId", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "RoleId", referencedColumnName = "id")})
     private List<RoleEntity> roles;
     
     /**
@@ -91,7 +93,19 @@ public class UserEntity implements Serializable {
         this.password = password;
         this.salt = salt;
     }
-    
+
+    /**
+     * Get the {@link #id} of the {@link UserEntity}.
+     * @return the identifier of the user.
+     */
+    public int getId() { return this.id; }
+
+    /**
+     * Set the {@link #id} of the {@link UserEntity}.
+     * @param id the identifier of the user.
+     */
+    public void setId(int id) { this.id = id; }
+
     /**
      * Get the {@link #password} of the {@link UserEntity}.
      * Cannot be an empty {@link String}. 

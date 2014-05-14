@@ -70,7 +70,7 @@ public class SecurityTest {
         Assert.assertNotEquals(processedPassword4, processedPassword1);
         
         byte[] salt2 = Security.generateSalt();
-        // Chekc if the generated salts are not equal.
+        // Check if the generated salts are not equal.
         Assert.assertNotEquals(salt, salt2);
         
         String processedPassword5 = Security.processPassword(password, username, salt2);

@@ -32,11 +32,11 @@
             <artifactId>MovementParser</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>ROAD</groupId>
             <artifactId>UserService</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>ROAD</groupId>
             <artifactId>CarDTS</artifactId>

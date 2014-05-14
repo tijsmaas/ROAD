@@ -57,10 +57,9 @@ public class RoleEntity implements Serializable {
      * {@link UserEntity} is assigned to this role.
      */
     @ElementCollection(targetClass = Right.class)
-    @JoinTable(name="ROLE_RIGHTS",
-            joinColumns= {@JoinColumn(name="RightName", referencedColumnName="name")},
-            inverseJoinColumns= {@JoinColumn(name="RoleId", referencedColumnName="id")})
+    @JoinTable(name="ROLE_RIGHTS", joinColumns = @JoinColumn(name = "RoleId"))
     @Enumerated(EnumType.STRING)
+    @Column(name="RightName")
     private List<Right> rights;
     
     /**
