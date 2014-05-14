@@ -9,20 +9,19 @@
     <ui:param name="title" value="Car Simulator"/>
 
     <script type="text/javascript">
-        function sendEcho()
+        function simulation()
         {
             if ("WebSocket" in window)
             {
                 var ws = new WebSocket("localhost:8080/car/socket");
                 ws.onopen = function()
                 {
-                    ws.send($("#message").val());
+                    ws.send("start");
                 };
                 ws.onmessage = function (evt)
                 {
-                    alert("Message is received...");
                     var received_msg = evt.data;
-                    $("#showmessage").html(received_msg);
+                    $("#show").append(received_msg + "<br />");
                 };
                 ws.onclose = function()
                 {
@@ -43,12 +42,15 @@
             <c:choose>
                 <c:when test="#{carBean.file != null}">
                     Simulation file has been uploaded, ready to run the simulation!
+                    <button class="btn" onclick="simulation">Start simulation</button>
+
                 </c:when>
                 <c:otherwise>
                     Simulation file has not yet been uploaded. Go to the setup page first to upload a simulation file.
                 </c:otherwise>
             </c:choose>
         </div>
+        <div class="pill login-pill" id="show"></div>
     </ui:define>
 
 </ui:composition>

@@ -2,6 +2,12 @@
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
-
-
+    <url-mapping>
+        <pattern value="/setup/"></pattern>
+        <view-id value="../setup.xhtml" />
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/simulation/" />
+        <view-id value="../simulation.xhtml" />
+    </url-mapping>
 </pretty-config>

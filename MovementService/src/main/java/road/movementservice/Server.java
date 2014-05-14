@@ -6,24 +6,23 @@ import aidas.userservice.exceptions.UserSystemException;
 
 import road.movemententityaccess.dao.*;
 import road.movementservice.servers.BillServer;
+import road.movementservice.servers.CarServer;
 import road.movementservice.servers.DriverServer;
 import road.movementservice.servers.PoliceServer;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.net.URL;
 
 /**
  * Created by geh on 8-5-14.
  */
 public class Server
 {
-    private LaneDAO laneDAO;
-    private EdgeDAO edgeDAO;
-    private ConnectionDAO connectionDAO;
-
     private DriverServer driverServer;
     private BillServer billServer;
     private PoliceServer policeServer;
+    private CarServer carServer;
 
     /**
      * The user manager which is used to process all authentication requests.
@@ -41,17 +40,16 @@ public class Server
         this.userManager = new UserManager(emfUserService);
         
         // Create a user for debugging.
-        try {
+        try
+        {
             this.userManager.register("admin", "admin123");
-        } catch (UserSystemException e) {
+        }
+        catch (UserSystemException e)
+        {
             e.printStackTrace();
         }
 
-        this.laneDAO = new LaneDAOImpl(emf);
-        this.connectionDAO = new ConnectionDAOImpl(emf);
-        this.edgeDAO = new EdgeDAOImpl(emf);
-
-        this.driverServer = new DriverServer(this.userManager, this.laneDAO, this.connectionDAO, this.edgeDAO);
+        this.driverServer = new DriverServer(null, new LaneDAOImpl(emf), new ConnectionDAOImpl(emf), new EdgeDAOImpl(emf));
         this.driverServer.init();
 
         this.billServer = new BillServer();
@@ -59,5 +57,8 @@ public class Server
 
         this.policeServer = new PoliceServer();
         this.policeServer.init();
+
+        this.carServer = new CarServer(new EntityDAOImpl(emf));
+        this.carServer.init();
     }
 }

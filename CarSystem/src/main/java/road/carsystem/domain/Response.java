@@ -5,4 +5,7 @@ package road.carsystem.domain;
  */
 public class Response
 {
+    public String status;
+    public Integer VEHICLE_ID;
+    public String cause;
 }

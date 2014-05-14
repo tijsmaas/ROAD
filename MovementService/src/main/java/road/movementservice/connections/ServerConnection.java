@@ -28,19 +28,19 @@ public abstract class ServerConnection <T> implements ConnectionListener
         this.methods = new ConcurrentHashMap<>();
         for(Method method : type.getMethods())
         {
-            List<Object> parameters = new ArrayList<Object>();
+            List<Class> parameters = new ArrayList<Class>();
             for(Class par : method.getParameterTypes())
             {
                 try
                 {
-                    parameters.add(par.newInstance());
+                    parameters.add(par);
                 }
                 catch(Exception ex)
                 {
                     ex.printStackTrace();
                 }
             }
-            String name = RequestHelper.getUniqueName(method.getName(), parameters.toArray());
+            String name = RequestHelper.getUniqueName(method.getName(), parameters);
             this.methods.put(name, method);
         }
     }

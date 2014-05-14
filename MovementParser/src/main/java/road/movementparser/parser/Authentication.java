@@ -14,11 +14,11 @@ public class Authentication
 {
     private Properties props;
 
-    public Authentication()
+    public Authentication(String authFilePath)
     {
         props = new Properties();
-        URL url = this.getClass().getResource("/authentication.ini");
-        System.out.println("url: "+url.getPath());
+        URL url = this.getClass().getResource(authFilePath);
+        System.out.println("url: " + url.getPath());
 
         try
         {
