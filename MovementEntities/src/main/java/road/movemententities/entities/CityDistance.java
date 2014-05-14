@@ -1,10 +1,6 @@
 package road.movemententities.entities;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class CityDistance implements MovementEntity<Integer> {
@@ -13,7 +9,7 @@ public class CityDistance implements MovementEntity<Integer> {
     private int id;
     
     @ManyToOne
-    private Invoice invoice;
+    private VehicleInvoice vehicleInvoice;
     
     @ManyToOne
     private City city;
@@ -27,8 +23,8 @@ public class CityDistance implements MovementEntity<Integer> {
     public CityDistance() {
     }
 
-    public Invoice getInvoice() {
-        return invoice;
+    public VehicleInvoice getVehicleInvoice() {
+        return vehicleInvoice;
     }
 
     public City getCity() {

@@ -3,6 +3,7 @@ package road.movemententities.entities;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * The VehicleOwnership class is used to specify the current and previous owner for a vehicle
@@ -26,6 +27,9 @@ public class VehicleOwnership implements MovementEntity<Integer>
     private Calendar registrationdate;
 
     private Calendar registrationExperationDate;
+
+    @OneToMany(mappedBy = "id")
+    private List<VehicleInvoice> vehicleInvoices;
 
     // Empty constructor for JPA
     public VehicleOwnership() { }

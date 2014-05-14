@@ -1,12 +1,8 @@
 package road.movemententities.entities;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Movement implements MovementEntity<Integer> {
@@ -30,6 +26,8 @@ public class Movement implements MovementEntity<Integer> {
         this.time = time;
         this.lane = lane;
     }
+
+    public Movement(){};
 
     @Override
     public Integer getId() {

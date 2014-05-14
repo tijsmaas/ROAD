@@ -1,5 +1,7 @@
 package road.movemententities.entities;
 
+import road.movemententities.entities.enumerations.EdgeFunction;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

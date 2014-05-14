@@ -1,4 +1,4 @@
-package road.movemententities.entities;
+package road.movemententities.entities.enumerations;
 
 public enum EdgeFunction {
 

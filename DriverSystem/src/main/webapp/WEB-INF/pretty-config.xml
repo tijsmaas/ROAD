@@ -16,4 +16,5 @@
         <pattern value="/pay/"></pattern>
         <view-id value="../WEB-INF/pay.xhtml"/>
     </url-mapping>
+
 </pretty-config>

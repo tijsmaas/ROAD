@@ -8,14 +8,15 @@
     <class>road.movemententities.entities.CityRate</class>
     <class>road.movemententities.entities.CityRateId</class>
     <class>road.movemententities.entities.Connection</class>
-    <class>road.movemententities.entities.ConnectionDirection</class>
-    <class>road.movemententities.entities.ConnectionState</class>
+    <class>road.movemententities.entities.enumerations.ConnectionDirection</class>
+    <class>road.movemententities.entities.enumerations.ConnectionState</class>
     <class>road.movemententities.entities.Edge</class>
-    <class>road.movemententities.entities.EdgeFunction</class>
+    <class>road.movemententities.entities.enumerations.EdgeFunction</class>
     <class>road.movemententities.entities.Invoice</class>
     <class>road.movemententities.entities.Lane</class>
     <class>road.movemententities.entities.Movement</class>
     <class>road.movemententities.entities.Vehicle</class>
+    <class>road.movemententities.entities.VehicleInvoice</class>
     <class>road.movemententities.entities.VehicleMovement</class>
     <class>road.movemententities.entities.VehicleOwnership</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
