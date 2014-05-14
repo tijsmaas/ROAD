@@ -47,7 +47,7 @@ public class MovementParser
      * Parse movements from a string
      * @param changes 
      */
-    public void parseChanges(String changes, int sequencenr)
+    public void parseChanges(String changes, long sequencenr)
     {
         if(numberOfMovementParses != sequencenr)
         {

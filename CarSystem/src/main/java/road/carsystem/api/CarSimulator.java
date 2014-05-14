@@ -5,7 +5,9 @@
  */
 package road.carsystem.api;
 
+import com.thoughtworks.xstream.XStream;
 import road.cardts.connections.CarClient;
+import road.carsystem.domain.Response;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -14,6 +16,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import javax.xml.bind.JAXBContext;
+import java.io.Serializable;
 
 /**
  * REST Web Service
@@ -21,10 +25,10 @@ import javax.ws.rs.core.UriInfo;
  * @author tijs
  */
 @ApplicationScoped
-public class CarSimulator
+public class CarSimulator implements Serializable
 {
     private CarClient carClient;
-
+    private XStream xStream;
 
     public CarSimulator()
     {
@@ -34,47 +38,37 @@ public class CarSimulator
     @PostConstruct
     private void init()
     {
+        this.xStream = new XStream();
+        this.xStream.alias("response", Response.class);
+
         this.carClient = new CarClient();
         this.carClient.start();
     }
 
     /**
-     * Retrieves representation of an instance of movementParser.GenericResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET @Produces({MediaType.APPLICATION_XML})
-    public String getXml()
-    {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                    + "<response status=\"error\" cause=\"No movements have been sent\"/>"
-                    + "</xml>";
-    }
-
-    /**
-     * POST method for adding movements
+     * method for adding movements
      *
      * @param api_key The api key, as a header parameter (autorisatiecode)
      * @param sequenceNumber The sequence number of the movements file
      * @param movements The xml movements
-     * @return an HTTP response according to the PTS-SEI study guide.
+     * @return a boolean to notify of the success or failure of the operation
      */
-    @POST @Produces({MediaType.APPLICATION_XML}) @Consumes({MediaType.APPLICATION_XML})
-    public String putXml(@HeaderParam("api_key") String api_key, @HeaderParam("serial_number") int sequenceNumber, String movements)
+    public boolean putXml(String api_key, int sequenceNumber, String movements)
     {
-        if(this.carClient.addMovement(api_key, sequenceNumber, movements))
+        String result = this.carClient.addMovement(api_key, sequenceNumber, movements);
+        Response response = (Response)this.xStream.fromXML(result);
+
+        switch(response.status)
         {
-            System.out.println("API KEY ACCEPTED");
-            return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                    + "<response status=\"ok\" VEHICLE_ID=\"2\"/>\n"
-                    + "</xml>";
-        }
-        else
-        {
-            System.out.println("API Key not valid");
-            return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                    + "<response status=\"error\" cause=\"" + new NotAuthorizedException("API Key not valid").getLocalizedMessage() + "\"/>"
-                    + "</xml>";
+            case "ok":
+                System.out.println("Successfully added movement for vehicle with id " + response.VEHICLE_ID);
+                return true;
+            case "error":
+                System.out.println("API Key not valid");
+                return false;
+            default:
+                System.out.println("Unrecognizable response status");
+                return false;
         }
     }
 }

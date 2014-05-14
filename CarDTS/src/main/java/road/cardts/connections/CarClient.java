@@ -13,8 +13,8 @@ public class CarClient extends ClientConnection implements ICarQuery
         super(MovementConnection.ServerAddress, MovementConnection.FactoryName, MovementConnection.CarSystemQueue);
     }
 
-    public boolean addMovement(String apiKey, long sequence, String xml)
+    public String addMovement(String apiKey, long sequence, String xml)
     {
-        return this.remoteCall("addMovement", boolean.class, apiKey, sequence, xml);
+        return this.remoteCall("addMovement", String.class, apiKey, sequence, xml);
     }
 }

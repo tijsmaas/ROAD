@@ -12,11 +12,12 @@
             <h3>Car Simulator - Setup</h3>
 
             <h:form enctype="multipart/form-data">
-                <p:messages showDetail="true"/>
                 <p:fileUpload value="#{carBean.file}" mode="simple"/>
+                <br />
                 <p:commandButton value="Submit" ajax="false" actionListener="#{carBean.upload}"/>
+                <br /><br />
+                <p:messages showDetail="true"/>
             </h:form>
-
         </div>
     </ui:define>
 
