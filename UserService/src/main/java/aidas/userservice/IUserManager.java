@@ -26,17 +26,17 @@ public interface IUserManager {
      * exception will be thrown containing a message with the details of the 
      * failure.
      * 
-     * @see verifyRight
+     * Also see {@link #verifyRight(String, aidas.userservice.dto.Right)}.
      */
     void demandRight(String authId, Right right) throws UserSystemException;
     
     /**
      * Login to the system by verifying the identity of the user.
-     * @param username the {@link UserDto.username} which the user has entered 
+     * @param username the {@link aidas.userservice.entities.UserEntity#username} which the user has entered
      * to verify his identity.
-     * @param password the {@link UserDto.password} which the user has entered 
+     * @param password the {@link aidas.userservice.entities.UserEntity#password} which the user has entered
      * to verify his identity. 
-     * @return null if the verification failed. Otherwise return the user.
+     * @return the authenticated user.
      * 
      * @throws aidas.userservice.exceptions.UserSystemException when failed the 
      * exception will be thrown containing a message with the details of the 
@@ -46,8 +46,8 @@ public interface IUserManager {
     
     /**
      * Register a new user.
-     * @param username the {@link UserDto.username} of the user.
-     * @param password the {@link UserDto.password} of the user.
+     * @param username the {@link aidas.userservice.entities.UserEntity#username} of the user.
+     * @param password the {@link aidas.userservice.entities.UserEntity#password} of the user.
      * 
      * @throws aidas.userservice.exceptions.UserSystemException when failed the 
      * exception will be thrown containing a message with the details of the 
@@ -60,10 +60,10 @@ public interface IUserManager {
      * @param username the username of the user.
      * @param right the right which is expected of the current {@link UserDto}.
      * @return true if the user has the provided {@link Right} assigned to the 
-     * user itself or provided by a {@link RoleDto} to which the {@link UserDto} 
+     * user itself or provided by a {@link aidas.userservice.dto.RoleDto} to which the {@link UserDto}
      * is assigned. Otherwise false.
      * 
-     * @see demandRight
+     * Also see {@link #demandRight(String, aidas.userservice.dto.Right)}.
      */
     boolean verifyRight(String username, Right right);
 }

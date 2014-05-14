@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="UserServicePU" transaction-type="JTA">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+<persistence-unit name="UserServicePU" transaction-type="JTA">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <jta-data-source>jdbc/ROADUser</jta-data-source>
     <class>aidas.userservice.entities.RoleEntity</class>
     <class>aidas.userservice.entities.UserEntity</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:ORCL"/>
-      <property name="javax.persistence.jdbc.password" value="aidas123"/>
-      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
-      <property name="javax.persistence.jdbc.user" value="C##AIDAS"/>
-      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+        <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+        <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+        <property name="hibernate.hbm2ddl.auto" value="update"/>
+        <property name="hibernate.show_sql" value="true"/>
+        <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
-  </persistence-unit>
+</persistence-unit>
 </persistence>

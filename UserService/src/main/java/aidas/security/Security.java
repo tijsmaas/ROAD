@@ -26,7 +26,7 @@ public class Security {
     /**
      * The number of bytes used for the salt size.
      */
-    private static final int SALT_BYTE_SIZE = 256;
+    public static final int SALT_BYTE_SIZE = 256;
     
     /**
      * The number of iterations done when hashing the password. (creates a slower hash)

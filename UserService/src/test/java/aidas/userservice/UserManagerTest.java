@@ -4,14 +4,18 @@
 
 package aidas.userservice;
 
-import javax.inject.Inject;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.testng.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import javax.ejb.embeddable.EJBContainer;
+import javax.naming.Context;
+import javax.naming.NameClassPair;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  * This class provides the tests for the functions in the {@link UserManager} 
@@ -19,24 +23,29 @@ import org.testng.annotations.Test;
  * 
  * @author Geert
  */
-public class UserManagerTest extends Arquillian {
-    
-    @Inject
+public class UserManagerTest {
+
     private IUserManager um;
-    
-    @Deployment
-    public static Archive<?> createDeployment() {
-        Archive<?> archive = ShrinkWrap.create(WebArchive.class, "UserManagerTest.war")
-                .addPackage("aidas.utils")
-                .addPackage("aidas.security")
-                .addPackage("aidas.userservice")
-                .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-        
-        System.out.println(archive.toString(true));
-        return archive;
+
+    private EntityManagerFactory emf;
+
+    /**
+     * Function which is called before any test cases are tested.
+     */
+    @BeforeClass
+    public void beforeClass() {
+        //this.emf = Persistence.createEntityManagerFactory("UserServicePU");
+        //this.um = new UserManager(emf);
     }
-    
+
+    /**
+     * Function which is called after all test cases are tested.
+     */
+    @AfterClass
+    public void afterClass() {
+        //this.emf.close();
+    }
+
     /**
      * Test the {@link UserManager#register(java.lang.String, java.lang.String)}
      * function.
@@ -46,6 +55,6 @@ public class UserManagerTest extends Arquillian {
      */
     @Test
     public void testRegister() throws Exception {
-        this.um.login("admin", "admin");
+        //this.um.register("admin", "admin");
     }
 }
