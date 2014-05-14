@@ -2,6 +2,7 @@ package road.movemententities.entities;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ public class Movement implements MovementEntity<Integer> {
     private int id;
 
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Calendar movementDate;
+    private Date movementDateTime;
 
     @ManyToOne
     private Lane lane;
@@ -20,8 +21,11 @@ public class Movement implements MovementEntity<Integer> {
     private List<VehicleMovement> vehicleMovements;
 
     public Movement(Calendar movementDate, float time, Lane lane) {
-        this.movementDate = movementDate;
-        this.movementDate.add(Calendar.SECOND, Math.round(time));
+        Calendar resultDateTime = (Calendar)movementDate.clone();
+        System.out.println("Before add: " + resultDateTime.getTime());
+        resultDateTime.add(Calendar.SECOND, Math.round(time));
+        System.out.println("After addding " + Math.round(time) + " seconds " + resultDateTime.getTime());
+        this.movementDateTime = resultDateTime.getTime();
         this.lane = lane;
     }
 
@@ -32,8 +36,8 @@ public class Movement implements MovementEntity<Integer> {
         return id;
     }
 
-    public Calendar getMovementDate() {
-        return movementDate;
+    public Date getMovementDateTime() {
+        return movementDateTime;
     }
 
     public Lane getLane() {
