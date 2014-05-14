@@ -58,3 +58,6 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
+## Target files ##
+**/target
+

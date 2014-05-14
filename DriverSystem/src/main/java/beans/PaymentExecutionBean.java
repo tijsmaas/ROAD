@@ -28,7 +28,7 @@ public class PaymentExecutionBean
     @Inject
     private UserBean userSession;
 
-    private boolean failed;
+    private boolean failed = true;
     private String invoiceID;
 
     public boolean isFailed()
