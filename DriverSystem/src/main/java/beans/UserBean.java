@@ -7,6 +7,7 @@
 package beans;
 
 import aidas.userservice.dto.UserDto;
+import com.ocpsoft.pretty.PrettyContext;
 import domain.infoobjects.PaymentSession;
 import utils.Utlities;
 
@@ -67,7 +68,7 @@ public class UserBean implements Serializable
         if(this.loggedinUser == null){
             try
             {
-                this.loginRedirect = Utlities.getContextRoot();
+                this.loginRedirect = PrettyContext.getCurrentInstance().getRequestURL().toURL();
                 context.redirect(Utlities.getContextRoot() + "/login/");
 
             } catch (IOException e)

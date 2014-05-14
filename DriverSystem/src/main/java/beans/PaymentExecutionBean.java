@@ -60,7 +60,6 @@ public class PaymentExecutionBean
         //Fail when the authorization was unsuccessful
         if(!success)
         {
-            failed = true;
             return;
         }
 
@@ -74,7 +73,6 @@ public class PaymentExecutionBean
         //Validate the session, check the timestamps (max of 10 minutes) and validate the invoiceID
         if(session == null || session.getCreatedDate().before(expired) || !session.getInvoiceID().equals(invoiceID))
         {
-            failed = true;
             return;
         }
 
@@ -101,9 +99,8 @@ public class PaymentExecutionBean
             //If the state of the resultingPayment is approved, set failed to false.
             if(resultingPayment.getState().equals("approved")){
                 this.failed = false;
-            } else {
-                this.failed = true;
             }
+
         } catch(PayPalRESTException ex){
             ex.printStackTrace();
             this.failed = true;

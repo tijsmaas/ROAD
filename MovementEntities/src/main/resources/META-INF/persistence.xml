@@ -3,17 +3,22 @@
   <persistence-unit name="MovementPU" transaction-type="JTA">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <jta-data-source>jdbc/ROAD</jta-data-source>
+    <class>road.movemententities.entities.City</class>
+    <class>road.movemententities.entities.CityDistance</class>
+    <class>road.movemententities.entities.CityRate</class>
+    <class>road.movemententities.entities.CityRateId</class>
     <class>road.movemententities.entities.Connection</class>
+    <class>road.movemententities.entities.ConnectionDirection</class>
+    <class>road.movemententities.entities.ConnectionState</class>
     <class>road.movemententities.entities.Edge</class>
+    <class>road.movemententities.entities.EdgeFunction</class>
+    <class>road.movemententities.entities.Invoice</class>
     <class>road.movemententities.entities.Lane</class>
     <class>road.movemententities.entities.Movement</class>
     <class>road.movemententities.entities.Vehicle</class>
-    <class>road.movemententities.entities.VehicleOwnership</class>
-    <class>road.movemententities.entities.City</class>
-    <class>road.movemententities.entities.CityDistance</class>
-    <class>road.movemententities.entities.Invoice</class>
     <class>road.movemententities.entities.VehicleMovement</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <class>road.movemententities.entities.VehicleOwnership</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
