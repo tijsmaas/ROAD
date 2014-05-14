@@ -2,6 +2,7 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.VehicleMovement;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,4 +25,12 @@ public interface MovementDAO
      * @return List of found movements
      */
     List<VehicleMovement> getMovementsByDate(Date date);
+
+    /**
+     * Get the movements in a date range
+     * @param startDate The starting date
+     * @param endDate The end date
+     * @return
+     */
+    List<VehicleMovement> getMovementsForVehicleInRange(Calendar startDate, Calendar endDate);
 }

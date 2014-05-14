@@ -17,6 +17,7 @@ import javax.ejb.Singleton;
 public class BillService
 {
     private BillClient billClient;
+    private boolean didSchedule = false;
 
     @PostConstruct
     private void init()
@@ -27,16 +28,24 @@ public class BillService
 
 
     @Schedule(second = "*/3", minute = "*", hour = "*", info = "Generate monthly invoices")
+    //@Schedule(month="*", info="Generate monthly invoices")
     public void generateMonthlyInvoice(Timer t)
     {
         this.generateMonthlyInvoices();
-        // TODO invoice query
-
     }
 
 
     public void generateMonthlyInvoices()
     {
-
+        if(!didSchedule)
+        {
+            try
+            {
+                billClient.generateMonthlyInvoices();
+                this.didSchedule = true;
+            } catch(Exception ex){
+                this.didSchedule = false;
+            }
+        }
     }
 }
