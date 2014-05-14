@@ -3,11 +3,7 @@ package road.movementmapper;
 import java.io.File;
 import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
-<<<<<<< HEAD
-import road.movementparser.parser.GenericParser;
-=======
 import road.movementparser.injectable.GenericParser;
->>>>>>> billsystem
 import org.xml.sax.SAXException;
 import osm.jaxb.OsmType;
 import sumo.jaxb.NetType;
