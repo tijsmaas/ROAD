@@ -66,18 +66,19 @@ public class UserManager implements IUserManager {
         UserEntity user = aidas.utils.Query.getSingleOrDefault(
                 this.em.createQuery("SELECT u FROM USERS u WHERE u.username = :username", UserEntity.class)
                     .setParameter("username", username));
+        UserDto userDto = null;
 
         try {
             if (user != null && user.getPassword().equals(Security.processPassword(password, username, user.getSalt()))) {
-                return UserConverter.toUserDto(user);
-            } else {
-                return null;
+                userDto = UserConverter.toUserDto(user);
             }
         } catch (NoSuchAlgorithmException | NoSuchPaddingException 
                 | InvalidKeyException | IllegalBlockSizeException 
                 | BadPaddingException | InvalidKeySpecException ex) {
             Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        return userDto;
     }
 
     /**
