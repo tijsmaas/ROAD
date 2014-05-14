@@ -73,7 +73,7 @@ public class LoginBean
             if (!failed)
             {
                 userBean.setLoggedinUser(user);
-                context.redirect(userBean.getLoginRedirect());
+                context.redirect(utils.Utlities.getHostnameAndContext() + userBean.getLoginRedirect());
             }
         } catch(Exception ex)
         {

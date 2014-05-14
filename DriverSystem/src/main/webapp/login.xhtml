@@ -10,7 +10,6 @@
 
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{loginBean.redirectIfLoggedIn}"/>
-        <f:view locale="#{translator.locale}">
 
 
             <h:panelGroup layout="block" rendered="#{sessionBean.authenticatedUser eq null}">
@@ -28,7 +27,6 @@
 
             </h:panelGroup>
 
-        </f:view>
     </ui:define>
 
 
