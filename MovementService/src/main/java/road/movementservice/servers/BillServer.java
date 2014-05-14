@@ -27,4 +27,10 @@ public class BillServer extends ServerConnection implements IBillQuery
     {
         return new UserDto(1, user + " @ bill system");
     }
+
+    @Override
+    public Integer generateMonthlyInvoices()
+    {
+        return 300;
+    }
 }

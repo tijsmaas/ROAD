@@ -8,6 +8,7 @@ package road.driversystem.domain.dts;
 
 import aidas.userservice.dto.UserDto;
 import road.driverdts.connections.DriverClient;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -17,7 +18,7 @@ import javax.ejb.Startup;
  * @author Mitch
  */
 @Singleton @Startup
-public class DriverService implements IDriverService
+public class DriverService
 {
     private DriverClient driverQueries;
 
@@ -33,7 +34,6 @@ public class DriverService implements IDriverService
         this.driverQueries.start();
     }
 
-    @Override
     public UserDto login(String username, String password)
     {
         UserDto result = driverQueries.authenticate(username, password);

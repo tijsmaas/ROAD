@@ -1,16 +1,13 @@
 package road.movementmapper;
 
-import java.io.File;
-import javax.inject.Inject;
-import javax.xml.bind.JAXBElement;
-<<<<<<< HEAD
-import road.movementparser.parser.GenericParser;
-=======
-import road.movementparser.injectable.GenericParser;
->>>>>>> billsystem
 import org.xml.sax.SAXException;
 import osm.jaxb.OsmType;
+import road.movementparser.injectable.GenericParser;
 import sumo.jaxb.NetType;
+
+import javax.inject.Inject;
+import javax.xml.bind.JAXBElement;
+import java.io.File;
 
 public class MovementMapper {
     private static final String SUMOJAXBPACKAGE = "sumo.jaxb";

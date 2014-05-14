@@ -1,7 +1,7 @@
 package road.driversystem.beans;
 
 import aidas.userservice.dto.UserDto;
-import road.driversystem.domain.dts.IDriverService;
+import road.driversystem.domain.dts.DriverService;
 import road.driversystem.utils.Utlities;
 
 import javax.enterprise.context.RequestScoped;
@@ -32,7 +32,7 @@ public class LoginBean
     private UserBean userBean;
 
     @Inject
-    private IDriverService driverService;
+    private DriverService driverService;
 
     public void setUsername(String username)
     {

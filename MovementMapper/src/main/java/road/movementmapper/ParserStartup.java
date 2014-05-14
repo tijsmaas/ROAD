@@ -1,28 +1,17 @@
 package road.movementmapper;
 
-import java.io.File;
-import java.util.Calendar;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
-import javax.batch.operations.JobOperator;
-import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.JobExecution;
-import javax.ejb.Startup;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-<<<<<<< HEAD
-import road.movementparser.parser.MovementParser;
-=======
-import javax.ejb.Singleton;
-
->>>>>>> billsystem
 import org.xml.sax.SAXException;
-
 import road.movementparser.injectable.MovementParser;
 import test.TestSumoParser;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.inject.Inject;
+import java.io.File;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Startup
 @Singleton
