@@ -4,15 +4,17 @@ package road.movementservice.servers;
 
 import aidas.userservice.IUserManager;
 import aidas.userservice.dto.UserDto;
-import aidas.utils.DateHelper;
-import javafx.util.Pair;
 import road.billdts.connections.IBillQuery;
 import road.movementdts.connections.MovementConnection;
+import road.movementdts.helpers.DateHelper;
+import road.movementdts.helpers.Pair;
+import road.movemententities.entities.VehicleMovement;
 import road.movemententityaccess.dao.InvoiceDAO;
 import road.movemententityaccess.dao.MovementDAO;
 import road.movementservice.connections.ServerConnection;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by geh on 11-4-14.
@@ -50,8 +52,12 @@ public class BillServer extends ServerConnection implements IBillQuery
     @Override
     public Integer generateMonthlyInvoices()
     {
-        Pair<Date, Date> invoiceDateRange = DateHelper.getDateRange();
+        Pair<Calendar, Calendar> invoiceDateRange = DateHelper.getDateRange();
 
+        System.out.println("Executing query");
+        List<VehicleMovement> movements = movementDAO.getMovementsForVehicleInRange(invoiceDateRange.getFirst(), invoiceDateRange.getSecond());
+
+        System.out.println(movements.size());
         return null;
     }
 

@@ -1,11 +1,11 @@
 package road.movemententityaccess.dao;
 
-import javafx.util.Pair;
 import road.movemententities.entities.VehicleMovement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -44,21 +44,22 @@ public class MovementDAOImpl implements MovementDAO
     @Override
     public List<VehicleMovement> getMovementsByDate(Date date)
     {
-        Query query = em.createQuery("select movement from Movement movement where movement.movementDate = :date");
+        Query query = em.createQuery("select movement from Movement movement where movement.movementDateTime = :date");
         query.setParameter("date", date);
 
         List<VehicleMovement> resultList = query.getResultList();
         return resultList;
     }
 
-    /**
-     * {@inheritDoc}
-     * @param dateRange The range of dates to get movements from
-     * @return
-     */
     @Override
-    public Object getMovementsForVehicleInRange(Pair<Calendar, Calendar> dateRange)
+    public List<VehicleMovement> getMovementsForVehicleInRange(Calendar startDate, Calendar endDate)
     {
-        Query uery = em.createQuery("select vhm from VehicleMovement vhm where vhm.movement.movementDate")
-    }
+        Query query = em.createQuery("select vhm from VehicleMovement vhm where vhm.movement.movementDateTime >= :startDate and vhm.movement.movementDateTime <= :endDate");
+        query.setParameter("startDate", startDate, TemporalType.TIMESTAMP);
+        query.setParameter("endDate", endDate, TemporalType.TIMESTAMP);
+
+        List<VehicleMovement> resultList = query.getResultList();
+        return resultList;    }
+
+
 }
