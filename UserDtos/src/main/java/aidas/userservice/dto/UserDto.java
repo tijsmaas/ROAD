@@ -19,7 +19,12 @@ public class UserDto {
      * The username of the user. Cannot be an empty {@link String}.
      */
     private String username;
-    
+
+    /**
+     * Creates a new instance of the {@link UserDto} class.
+     */
+    public UserDto() {}
+
     /**
      * Creates a new instance of the {@link UserDto} class.
      * @param id the identifier of the user.
