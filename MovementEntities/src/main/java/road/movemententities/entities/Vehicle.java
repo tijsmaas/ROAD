@@ -16,7 +16,6 @@ public class Vehicle implements MovementEntity
     @Id @GeneratedValue
     private int id;
 
-    @Column(unique = true)
     private String carTrackerID;
 
     @Column(unique = true)
@@ -44,7 +43,7 @@ public class Vehicle implements MovementEntity
     }
 
 
-    
+
 
     //region Properties
 
