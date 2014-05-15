@@ -11,9 +11,14 @@ import road.movementdts.helpers.Pair;
 import road.movemententities.entities.VehicleMovement;
 import road.movemententityaccess.dao.InvoiceDAO;
 import road.movemententityaccess.dao.MovementDAO;
+import road.movemententities.entities.City;
+import road.movemententities.entities.CityRate;
 import road.movementservice.connections.ServerConnection;
 
 import java.util.Calendar;
+import java.util.List;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,6 +55,18 @@ public class BillServer extends ServerConnection implements IBillQuery
     }
 
     @Override
+    public boolean adjustKilometerRate(City city, Date addDate, String price)
+    {
+        new CityRate(city, addDate, price);
+        return true;
+    }
+
+    @Override
+    public List<City> getCities() {
+        return null;
+    }
+
+    @Override
     public Integer generateMonthlyInvoices()
     {
         Pair<Calendar, Calendar> invoiceDateRange = DateHelper.getDateRange();
@@ -60,7 +77,4 @@ public class BillServer extends ServerConnection implements IBillQuery
         System.out.println(movements.size());
         return null;
     }
-
-
-
 }
