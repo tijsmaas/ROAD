@@ -47,8 +47,6 @@ public abstract class ClientConnection
         Pair<String, Object[]> pair = new Pair(uniqueName, parameters);
         byte[] rawRequest = this.connection.serializer.serializeBytes(pair);
         byte[] rawReply = this.connection.send(rawRequest);
-        //String rawRequest = this.connection.serializer.serialize(pair);
-        //String rawReply = this.connection.send(rawRequest);
         T reply = this.connection.serializer.deSerialize(rawReply, returnType);
         return reply;
     }

@@ -14,7 +14,7 @@ public class DriverClient extends ClientConnection implements IDriverQuery
 {
     public DriverClient()
     {
-        super("localhost:1099", MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
+        super(MovementConnection.ServerAddress, MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
     }
 
     @Override

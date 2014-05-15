@@ -5,4 +5,6 @@ package road.carsystem.domain;
  */
 public class SocketResponse
 {
+    public String message;
+    public TimeStep timeStep;
 }

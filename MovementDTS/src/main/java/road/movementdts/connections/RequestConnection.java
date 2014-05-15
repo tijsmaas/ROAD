@@ -51,28 +51,6 @@ public class RequestConnection extends MovementConnection
         }
     }
 
-    public String send(String rawRequest)
-    {
-        String rawReply = "";
-        try
-        {
-            TextMessage request = this.session.createTextMessage(rawRequest);
-            request.setJMSReplyTo(this.listenTo);
-            this.producer.send(request);
-
-            TextMessage reply = (TextMessage)this.consumer.receive(2000);
-            rawReply = reply.getText();
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-        finally
-        {
-            return rawReply;
-        }
-    }
-
     public byte[] send(byte[] rawRequest)
     {
         byte[] rawReply = new byte[0];
