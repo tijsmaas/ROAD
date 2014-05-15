@@ -17,7 +17,7 @@ import java.util.List;
  * This sends a request to JobSubmitterServlet so that we can start Batch 
  */
 public class HttpClient {
-    private final String URL = "http://localhost:8080/movementmapper";
+    private final String URL = "http://localhost:8080/movementmapper/";
 
     // HTTP POST request
     public void sendPost(final File file, final Calendar basedate) throws Exception {    	

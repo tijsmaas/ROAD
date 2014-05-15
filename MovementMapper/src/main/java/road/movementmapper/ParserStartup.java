@@ -1,5 +1,16 @@
 package road.movementmapper;
 
+import org.xml.sax.SAXException;
+import road.movemententities.entities.*;
+import road.movemententities.entities.enumerations.PaymentStatus;
+import road.movementmapper.dao.EntityDAO;
+import road.movementmapper.dao.MovementsDAO;
+import road.movementparser.injectable.MovementParser;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.inject.Inject;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,25 +19,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.Startup;
-import javax.inject.Inject;
-import javax.ejb.Singleton;
-
-import org.xml.sax.SAXException;
-import road.movemententities.entities.City;
-import road.movemententities.entities.CityDistance;
-import road.movemententities.entities.Invoice;
-import road.movemententities.entities.Vehicle;
-import road.movemententities.entities.VehicleInvoice;
-import road.movemententities.entities.VehicleOwnership;
-import road.movemententities.entities.enumerations.PaymentStatus;
-import road.movementmapper.dao.EntityDAO;
-import road.movementmapper.dao.MovementsDAO;
-
-import road.movementparser.injectable.MovementParser;
-import test.TestSumoParser;
 
 @Startup
 @Singleton
@@ -76,7 +68,7 @@ public class ParserStartup
             System.out.println("[PARSERSERVICE] Finished parsing initial map");
         } catch (SAXException ex)
         {
-            Logger.getLogger(TestSumoParser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
 

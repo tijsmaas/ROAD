@@ -4,32 +4,20 @@ import aidas.userservice.UserManager;
 import aidas.userservice.dto.UserDto;
 import aidas.userservice.entities.UserEntity;
 import aidas.userservice.exceptions.UserSystemException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import road.movemententities.entities.Lane;
+import road.movemententities.entities.Vehicle;
+import road.movemententities.entities.VehicleOwnership;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.Query;
-import road.movemententities.entities.Lane;
-import road.movemententities.entities.Vehicle;
-import road.movemententities.entities.VehicleOwnership;
+import javax.persistence.*;
+import java.io.*;
+import java.net.URL;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * MovementsDAOImpl is needed by the movements parser. This class caches all
@@ -56,6 +44,13 @@ public class MovementsDAOImpl implements MovementsDAO
     private List<Vehicle> vehicles;
     
     private Iterator<String> itLicensePlates;
+
+    @PersistenceUnit(unitName = "UserServicePU")
+    private EntityManagerFactory emf;
+
+    private UserManager userManager;
+
+    private UserEntity userEntity;
     
     public MovementsDAOImpl()
     {
@@ -98,12 +93,6 @@ public class MovementsDAOImpl implements MovementsDAO
         return null;
     }
 
-    @PersistenceUnit(unitName = "UserServicePU")
-    private EntityManagerFactory emf;
-     
-    private UserManager userManager;
-    
-    private UserEntity userEntity;
     
     /**
      * Get a vehicle by cartracker id from the cached list, if the vehicle does
@@ -131,35 +120,42 @@ public class MovementsDAOImpl implements MovementsDAO
         /* Vehicle does not exist, lets create a new one */
         if (returnVehicle == null)
         {
-            /* Also create a vehicle ownership */
-            GregorianCalendar registerdate = new GregorianCalendar();
-            registerdate.add(Calendar.YEAR, -3);
-            VehicleOwnership vehicleOwnership = new VehicleOwnership();
-            vehicleOwnership.setContributeGPSData(true);
-            vehicleOwnership.setRegistrationdate((GregorianCalendar) registerdate.clone());
-            vehicleOwnership.setRegistrationExperationDate(null);
             try
             {
-                // create new user with incrementing name
-                userManager = new UserManager(emf);
-                UserDto user = userManager.register("user"+USER_ID+++"name", "aidas123");
-                vehicleOwnership.setUserID(user.getId());
-            } catch (UserSystemException ex)
-            {
+            /* Also create a vehicle ownership */
+                GregorianCalendar registerdate = new GregorianCalendar();
+                registerdate.add(Calendar.YEAR, -3);
+                VehicleOwnership vehicleOwnership = new VehicleOwnership();
+                vehicleOwnership.setContributeGPSData(true);
+                vehicleOwnership.setRegistrationdate((GregorianCalendar) registerdate.clone());
+                vehicleOwnership.setRegistrationExperationDate(null);
+                try
+                {
+                    // create new user with incrementing name
+                    userManager = new UserManager(emf);
+                    UserDto user = userManager.register("user" + USER_ID++ + "name", "aidas123");
+                    vehicleOwnership.setUserID(user.getId());
+                } catch (UserSystemException ex)
+                {
+                    Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                // create car
+                returnVehicle = new Vehicle(cartrackerID);
+                returnVehicle.setLicensePlate(itLicensePlates.next());
+                List<VehicleOwnership> owners = new ArrayList();
+                owners.add(vehicleOwnership);
+                returnVehicle.setVehicleOwners(owners);
+                em.persist(returnVehicle);
+
+                vehicleOwnership.setVehicle(returnVehicle);
+                em.persist(vehicleOwnership);
+                Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.WARNING, "Created new vehicle with ID" + cartrackerID);
+
+                this.vehicles.add(returnVehicle);
+            } catch(Exception ex){
                 Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            // create car
-            returnVehicle = new Vehicle(cartrackerID);
-            returnVehicle.setLicensePlate(itLicensePlates.next());
-            List<VehicleOwnership> owners = new ArrayList();
-            owners.add(vehicleOwnership);
-            returnVehicle.setVehicleOwners(owners);
-            vehicles.add(returnVehicle);
-            em.persist(returnVehicle);
-            
-            vehicleOwnership.setVehicle(returnVehicle);
-            em.persist(vehicleOwnership);
             
         }
 
