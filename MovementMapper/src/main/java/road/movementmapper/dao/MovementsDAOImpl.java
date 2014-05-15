@@ -1,7 +1,8 @@
 package road.movementmapper.dao;
 
-import java.util.Iterator;
-import java.util.List;
+import road.movemententities.entities.Lane;
+import road.movemententities.entities.Vehicle;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.enterprise.context.Dependent;
@@ -9,8 +10,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import road.movemententities.entities.Lane;
-import road.movemententities.entities.Vehicle;
+import java.util.Iterator;
+import java.util.List;
 
 @Dependent
 @Named
@@ -25,7 +26,7 @@ public class MovementsDAOImpl implements MovementsDAO
     private List<Vehicle> vehicles;
 
     public MovementsDAOImpl() {}
-    
+
     @PostConstruct
     public void init()
     {

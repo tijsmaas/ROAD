@@ -7,7 +7,6 @@ import javax.ejb.Schedule;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
 import javax.ejb.Singleton;
-import road.movemententities.entities.Invoice;
 
 /**
  * Created by Niek on 14/05/14.

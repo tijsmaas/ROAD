@@ -11,14 +11,15 @@ import java.util.List;
  * © Aidas 2014
  */
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"carTrackerID", "licensePlate"})})
 public class Vehicle implements MovementEntity
 {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private int id;
 
     private String carTrackerID;
 
-    @Column(unique = true)
     private String licensePlate;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -41,9 +42,6 @@ public class Vehicle implements MovementEntity
     {
         this.carTrackerID = carTracker;
     }
-
-
-
 
     //region Properties
 
@@ -96,4 +94,31 @@ public class Vehicle implements MovementEntity
     {
         this.licensePlate = licensePlate;
     }
+
+    public VehicleOwnership getCurrentOwner()
+    {
+        VehicleOwnership owner = null;
+        for (VehicleOwnership ownership : this.getVehicleOwners())
+        {
+            if (ownership.getRegistrationExperationDate() == null)
+            {
+                owner = ownership;
+                break;
+            }
+        }
+
+        return owner;
+    }
+
+    public String getCarTrackerID()
+    {
+        return carTrackerID;
+    }
+
+    public void setCarTrackerID(String carTrackerID)
+    {
+        this.carTrackerID = carTrackerID;
+    }
+
+
 }

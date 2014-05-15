@@ -38,4 +38,5 @@ public interface VehicleDAO
      * @return if the function was successful.
      */
     Boolean updateVehicle(VehicleDto vehicleDto);
+
 }

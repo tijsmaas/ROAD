@@ -1,12 +1,5 @@
 package road.movementmapper.util;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import org.apache.http.HttpEntity;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -14,11 +7,17 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 /**
  * This sends a request to JobSubmitterServlet so that we can start Batch 
  */
 public class HttpClient {
-    private final String URL = "http://localhost:8080/MovementMapper";
+    private final String URL = "http://localhost:8080/movementmapper";
 
     // HTTP POST request
     public void sendPost(final File file, final Calendar basedate) throws Exception {    	
