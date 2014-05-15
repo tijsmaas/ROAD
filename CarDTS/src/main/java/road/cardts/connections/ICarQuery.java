@@ -7,5 +7,5 @@ import java.util.Calendar;
  */
 public interface ICarQuery
 {
-    boolean addMovement(String apiKey, long sequence, String xml);
+    String addMovement(String apiKey, Long sequence, String xml);
 }

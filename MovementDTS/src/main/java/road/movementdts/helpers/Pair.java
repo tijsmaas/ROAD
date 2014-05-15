@@ -8,6 +8,11 @@ public class Pair<U, V>
     private U first;
     private V second;
 
+    public Pair()
+    {
+
+    }
+
     public Pair(Class<U> uClass, Class<V> vClass)
     {
 

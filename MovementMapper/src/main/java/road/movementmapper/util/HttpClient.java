@@ -1,9 +1,11 @@
 package road.movementmapper.util;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import org.apache.http.HttpEntity;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -12,33 +14,46 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-public class HttpClient
-{
-	private final String URL = "http://localhost:8080/MovementMapper/";
- 
-	// HTTP POST request
-	public void sendPost() throws Exception
-	{
-		DefaultHttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(URL);
+/**
+ * This sends a request to JobSubmitterServlet so that we can start Batch 
+ */
+public class HttpClient {
+    private final String URL = "http://localhost:8080/MovementMapper";
 
-		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-		urlParameters.add(new BasicNameValuePair("inputMonthYear", "JAN-2013"));
-		urlParameters.add(new BasicNameValuePair("calculatePayroll", "Calculate Payroll"));
-		post.setEntity(new UrlEncodedFormEntity(urlParameters));
-		HttpResponse response = client.execute(post);
-		System.out.println("\nSending 'POST' request to URL : " + URL);
-		System.out.println("Post parameters : " + post.getEntity());
-		System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+    // HTTP POST request
+    public void sendPost(final File file, final Calendar basedate) throws Exception {    	
+    	new Thread(new Runnable() {
 
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            @Override
+            public void run() {
+                try {
+                    // prevent calling too early (The servlet has to initialize)
+                    Thread.sleep(10000);
+                    System.out.println("Sending batch request [3]");
 
-		StringBuffer result = new StringBuffer();
-		String line = "";
-		while ((line = rd.readLine()) != null)
-		{
-			result.append(line);
-		}
-	}
+                    DefaultHttpClient client = new DefaultHttpClient();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy|HH:mm:ss");
+                    String formattedDate = sdf.format(basedate.getTime());
+                    HttpPost post = new HttpPost(URL);
+
+                    // Request parameters and other properties.
+                    List<NameValuePair> params = new ArrayList<>(2);
+                    params.add(new BasicNameValuePair("inputfile", file.getName()));
+                    params.add(new BasicNameValuePair("basedate", formattedDate));
+                    post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                    
+                    HttpResponse response = client.execute(post);
+                    
+                    System.out.println("\nSending 'POST' request to URL : " + URL);
+                    System.out.println("Post parameters : " + post.getEntity());
+                    System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
 
 }

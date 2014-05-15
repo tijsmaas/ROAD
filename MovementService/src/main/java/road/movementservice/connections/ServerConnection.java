@@ -28,32 +28,32 @@ public abstract class ServerConnection <T> implements ConnectionListener
         this.methods = new ConcurrentHashMap<>();
         for(Method method : type.getMethods())
         {
-            List<Object> parameters = new ArrayList<Object>();
+            List<Class> parameters = new ArrayList<Class>();
             for(Class par : method.getParameterTypes())
             {
                 try
                 {
-                    parameters.add(par.newInstance());
+                    parameters.add(par);
                 }
                 catch(Exception ex)
                 {
                     ex.printStackTrace();
                 }
             }
-            String name = RequestHelper.getUniqueName(method.getName(), parameters.toArray());
+            String name = RequestHelper.getUniqueName(method.getName(), parameters);
             this.methods.put(name, method);
         }
     }
 
     @Override
-    public String receive(Pair<String, ArrayList<Object>> request)
+    public byte[] receive(Pair<String, Object[]> request)
     {
-        String rawResult = "";
+        byte[] rawResult = new byte[0];
         try
         {
             Method method = this.methods.get(request.getFirst());
-            Object result = method.invoke(this.instance, request.getSecond().toArray());
-            rawResult = this.connection.serializer.serialize(method.getReturnType().cast(result));
+            Object result = method.invoke(this.instance, request.getSecond());
+            rawResult = this.connection.serializer.serializeBytes(method.getReturnType().cast(result));
         }
         catch(Exception ex)
         {

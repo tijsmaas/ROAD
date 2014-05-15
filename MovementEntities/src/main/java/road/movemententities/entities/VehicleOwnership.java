@@ -24,6 +24,11 @@ public class VehicleOwnership implements MovementEntity<Integer>
     //TODO: Make a connection to the user? by id?
     private int userID;
 
+    /**
+     * Specifies if the user wants the car movements to be used in the traffic jam calculations.
+     */
+    private boolean contributeGPSData;
+
     private Calendar registrationdate;
 
     private Calendar registrationExperationDate;
@@ -91,5 +96,9 @@ public class VehicleOwnership implements MovementEntity<Integer>
     {
         this.registrationExperationDate = registrationExperationDate;
     }
+
+    public boolean getContributeGPSData() { return contributeGPSData; }
+
+    public void setContributeGPSData(boolean contributeGPSData) { this.contributeGPSData = contributeGPSData; }
     //endregion
 }

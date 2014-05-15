@@ -4,11 +4,15 @@ import aidas.userservice.IUserManager;
 import aidas.userservice.dto.UserDto;
 import aidas.userservice.exceptions.UserSystemException;
 import road.driverdts.connections.IDriverQuery;
+import road.movementdtos.dtos.VehicleDto;
 import road.movementdts.connections.MovementConnection;
+import road.movemententityaccess.dao.VehicleDAO;
 import road.movementservice.connections.ServerConnection;
 import road.movemententityaccess.dao.ConnectionDAO;
 import road.movemententityaccess.dao.EdgeDAO;
 import road.movemententityaccess.dao.LaneDAO;
+
+import java.util.List;
 
 /**
  * Created by geh on 22-4-14.
@@ -18,6 +22,7 @@ public class DriverServer extends ServerConnection implements IDriverQuery
 {
     private EdgeDAO edgeDAO;
     private LaneDAO laneDAO;
+    private VehicleDAO vehicleDAO;
     private ConnectionDAO connectionDAO;
 
     /**
@@ -31,8 +36,9 @@ public class DriverServer extends ServerConnection implements IDriverQuery
      * @param laneDAO the lane dao.
      * @param connectionDAO the connection dao.
      * @param edgeDAO the edge dao.
+     * @param vehicleDAO the vehicle dao.
      */
-    public DriverServer(IUserManager userManager, LaneDAO laneDAO, ConnectionDAO connectionDAO, EdgeDAO edgeDAO)
+    public DriverServer(IUserManager userManager, LaneDAO laneDAO, ConnectionDAO connectionDAO, EdgeDAO edgeDAO, VehicleDAO vehicleDAO)
     {
         super(MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
 
@@ -40,6 +46,7 @@ public class DriverServer extends ServerConnection implements IDriverQuery
         this.laneDAO = laneDAO;
         this.connectionDAO = connectionDAO;
         this.edgeDAO = edgeDAO;
+        this.vehicleDAO = vehicleDAO;
     }
 
     /**
@@ -68,4 +75,16 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     {
         return this.edgeDAO.count();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<VehicleDto> getVehicles(Integer userId) { return this.vehicleDAO.getVehiclesFromUser(userId); }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean updateVehicle(VehicleDto vehicleDto) { return this.vehicleDAO.updateVehicle(vehicleDto); }
 }

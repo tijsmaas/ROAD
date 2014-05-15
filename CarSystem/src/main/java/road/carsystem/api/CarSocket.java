@@ -11,14 +11,13 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by geh on 7-4-14.
  */
-@Stateless
-@ServerEndpoint("/socket")
+@Stateless @ServerEndpoint("/socket")
 public class CarSocket
 {
-    private static final String apiKey = "11ff";
+    public static final String apiKey = "11ff";
 
     @Inject
-    private CarSimulator simulator;
+    private CarBean carBean;
     private ConcurrentHashMap<String, LinkedList<Session>> sessions = new ConcurrentHashMap();
 
     @OnOpen
@@ -30,34 +29,22 @@ public class CarSocket
     @OnError
     public void error(Session session, Throwable error)
     {
-        try
-        {
-            this.removeSession(CarSocket.apiKey, session);
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
+        this.removeSession(CarSocket.apiKey, session);
     }
 
     @OnMessage
     public void onMessage(Session session, String msg)
     {
-
+        if("start".equals(msg))
+        {
+            this.carBean.start(session);
+        }
     }
 
     @OnClose
     public void close(Session session, CloseReason reason)
     {
-        try
-        {
-            this.removeSession(CarSocket.apiKey, session);
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
-        }
+        this.removeSession(CarSocket.apiKey, session);
     }
 
     public void addSession(String name, Session session)

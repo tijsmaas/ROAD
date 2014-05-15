@@ -60,17 +60,32 @@ public class RequestConnection extends MovementConnection
             request.setJMSReplyTo(this.listenTo);
             this.producer.send(request);
 
-            int tries = 0;
-            TextMessage reply = null;
-            while(reply == null && tries < 3)
-            {
-                reply = (TextMessage)this.consumer.receive(5000);
-                tries++;
-            }
-            if(reply != null)
-            {
-                rawReply = reply.getText();
-            }
+            TextMessage reply = (TextMessage)this.consumer.receive(2000);
+            rawReply = reply.getText();
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return rawReply;
+        }
+    }
+
+    public byte[] send(byte[] rawRequest)
+    {
+        byte[] rawReply = new byte[0];
+        try
+        {
+            BytesMessage request = this.session.createBytesMessage();
+            request.writeBytes(rawRequest);
+            request.setJMSReplyTo(this.listenTo);
+            this.producer.send(request);
+
+            BytesMessage reply = (BytesMessage)this.consumer.receive();
+            rawReply = new byte[(int)reply.getBodyLength()];
+            reply.readBytes(rawReply);
         }
         catch(Exception ex)
         {

@@ -39,40 +39,62 @@
  */
 package com.oracle.javaee7.samples.batch.simple;
 
+import java.io.File;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.Properties;
-import java.util.Set;
 import javax.batch.api.chunk.AbstractItemReader;
 import javax.batch.runtime.BatchRuntime;
 import javax.batch.runtime.context.JobContext;
-import javax.ejb.EJB;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.naming.InitialContext;
+import javax.xml.bind.JAXBElement;
+import road.movementparser.injectable.GenericParser;
+import sumo.movements.jaxb.SumoNetstateType;
+import sumo.movements.jaxb.TimestepType;
 
+@Dependent
 @Named("SimpleItemReader")
-public class SimpleItemReader
-    extends AbstractItemReader {
+public class SimpleItemReader extends AbstractItemReader
+{
+    /* Package name of generated movement classes */
 
-    @EJB
-    private SampleDataHolderBean dataBean;
+    private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
 
     @Inject
     private JobContext jobContext;
 
-    Iterator<PayrollInputRecord> payrollInputRecords;
+    @Inject
+    private GenericParser jaxbparser;
 
-    public void open(Serializable e) throws Exception {
+    Iterator<TimestepType> timestepIterator;
+
+    public SimpleItemReader()
+    {
+    }
+
+    @Override
+    public void open(Serializable e) throws Exception
+    {
         Properties jobParameters = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
-        Set<PayrollInputRecord> records = dataBean.getPayrollInputRecords(
-                (String) jobParameters.get("Month-Year"));
-        payrollInputRecords = records.iterator();
+        String filename = jobParameters.getProperty("inputfile");
+        System.out.println("Opening file "+filename);
+        File inputfile = getResourceFile(filename); 
+        JAXBElement<SumoNetstateType> root = jaxbparser.parse(inputfile, SUMOMOVEMENTSJAXBPACKAGE);
+        timestepIterator = root.getValue().getTimestep().iterator();
     }
 
-    public Object readItem() throws Exception {
-        System.out.println("Batch read!!");
-        return payrollInputRecords.hasNext() ? payrollInputRecords.next() : null;
+    @Override
+    public Object readItem() throws Exception
+    {
+        return timestepIterator.hasNext() ? timestepIterator.next() : null;
     }
-    
+    private File getResourceFile(String filename) {
+        URL url = this.getClass().getResource("/"+filename);
+        System.out.println("url: "+url.getPath());
+        return new File(url.getFile());
+    }
+
 }

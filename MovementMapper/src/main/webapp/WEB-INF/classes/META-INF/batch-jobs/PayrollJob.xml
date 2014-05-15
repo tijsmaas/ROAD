@@ -41,11 +41,15 @@
 
 -->
 <job id="payroll" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
-    <step id="process">
-        <chunk item-count="1">
+    <step id="process" next="cleanup">
+        <chunk item-count="100">
             <reader ref="SimpleItemReader"></reader> 
             <processor ref="SimpleItemProcessor"></processor>
             <writer ref="SimpleItemWriter"></writer> 
-        </chunk>
+        </chunk>        
+    </step>
+    <step id="cleanup">
+        <batchlet ref="CleanupBatchlet"></batchlet>
+        <end on="COMPLETED"/>
     </step>
 </job>

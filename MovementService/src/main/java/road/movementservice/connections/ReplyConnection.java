@@ -44,12 +44,14 @@ public class ReplyConnection extends MovementConnection implements MessageListen
     {
         try
         {
-            TextMessage textMessage = (TextMessage)message;
-            Pair<String, ArrayList<Object>> pair = this.serializer.deSerialize(textMessage.getText(), Pair.class);
-            String rawReply = this.listener.receive(pair);
+            BytesMessage bytesMessage = (BytesMessage)message;
+            byte[] bytes = new byte[(int)bytesMessage.getBodyLength()];
+            bytesMessage.readBytes(bytes);
+            Pair<String, Object[]> pair = this.serializer.deSerialize(bytes, Pair.class);
 
-            TextMessage reply = this.session.   createTextMessage();
-            reply.setText(rawReply);
+            byte[] rawReply = this.listener.receive(pair);
+            BytesMessage reply = this.session.createBytesMessage();
+            reply.writeBytes(rawReply);
             this.producer.send(message.getJMSReplyTo(), reply);
         }
         catch(Exception ex)

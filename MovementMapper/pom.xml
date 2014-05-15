@@ -24,11 +24,22 @@
     <dependencies>
         <dependency>
             <groupId>ROAD</groupId>
-            <artifactId>MovementParser</artifactId>
+            <artifactId>MovementSumo</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
-        
+        <dependency>
+            <groupId>ROAD</groupId>
+            <artifactId>MovementEntities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -43,10 +54,10 @@
         
         <!-- To make http requests to its own servlet -->
         <dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.0-alpha4</version>
-		</dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.0-alpha4</version>
+        </dependency>
         
         <!-- Hibernate -->
         <dependency>

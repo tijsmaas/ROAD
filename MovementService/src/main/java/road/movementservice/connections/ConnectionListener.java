@@ -8,5 +8,5 @@ import java.util.ArrayList;
  */
 public interface ConnectionListener
 {
-    public String receive(Pair<String,ArrayList<Object>> request);
+    public byte[] receive(Pair<String,Object[]> request);
 }

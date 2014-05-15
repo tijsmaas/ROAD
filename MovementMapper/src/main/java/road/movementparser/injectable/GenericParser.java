@@ -1,10 +1,10 @@
 package road.movementparser.injectable;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
@@ -30,8 +30,8 @@ public class GenericParser {
              */
             jc = JAXBContext.newInstance(classpath);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
-            return (JAXBElement) unmarshaller.unmarshal(
-                    new BufferedReader(new FileReader(file)));
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            return (JAXBElement) unmarshaller.unmarshal(bis);
         } catch (JAXBException | OutOfMemoryError | FileNotFoundException e) {
             System.err.println("Parsing of " + file.getName() + " failed");
             e.printStackTrace();
