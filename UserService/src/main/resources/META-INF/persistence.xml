@@ -9,9 +9,8 @@
     <properties>
         <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
         <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
-        <property name="hibernate.hbm2ddl.auto" value="update"/>
+        <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
         <property name="hibernate.show_sql" value="true"/>
-        <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
 </persistence-unit>
 </persistence>
