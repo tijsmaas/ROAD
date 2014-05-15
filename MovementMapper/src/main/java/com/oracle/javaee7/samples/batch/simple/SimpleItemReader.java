@@ -43,11 +43,9 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Properties;
-import java.util.Set;
 import javax.batch.api.chunk.AbstractItemReader;
 import javax.batch.runtime.BatchRuntime;
 import javax.batch.runtime.context.JobContext;
-import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -58,31 +56,39 @@ import sumo.movements.jaxb.TimestepType;
 
 @Dependent
 @Named("SimpleItemReader")
-public class SimpleItemReader extends AbstractItemReader {
+public class SimpleItemReader extends AbstractItemReader
+{
     /* Package name of generated movement classes */
+
     private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
 
     @Inject
     private JobContext jobContext;
-    
+
     @Inject
     private GenericParser jaxbparser;
-    
+
     Iterator<TimestepType> timestepIterator;
 
-    public SimpleItemReader() {}
-    
+    public SimpleItemReader()
+    {
+    }
+
     @Override
-    public void open(Serializable e) throws Exception {
+    public void open(Serializable e) throws Exception
+    {
         Properties jobParameters = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
-        String filepath = jobParameters.getProperty("inputfile");
-        JAXBElement<SumoNetstateType> root = jaxbparser.parse(new File(filepath), SUMOMOVEMENTSJAXBPACKAGE);
+        String filename = jobParameters.getProperty("inputfile");
+        System.out.println("Opening file "+filename);
+        File inputfile = new File(filename); 
+        JAXBElement<SumoNetstateType> root = jaxbparser.parse(inputfile, SUMOMOVEMENTSJAXBPACKAGE);
         timestepIterator = root.getValue().getTimestep().iterator();
     }
 
     @Override
-    public Object readItem() throws Exception {
+    public Object readItem() throws Exception
+    {
         return timestepIterator.hasNext() ? timestepIterator.next() : null;
     }
-    
+
 }

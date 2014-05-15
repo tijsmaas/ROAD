@@ -16,12 +16,18 @@ public class JobReceiverBean {
 
     public void startbatch(String movements, String insertDate) {
         {
+            ////////////////////// TODO FIX ////////////////////////////////////
+            //movements="/home/tijs/Downloads/verpl_systeem/verplaatsingen_20110209_small.xml";
+            //movements="/home/tijs/Dropbox/S6Project/PTS ESD/SUMO-OSM files/generated files Tijs/movement_vehicle_gen_t0.xml";
+            Properties props = new Properties();
+            props.setProperty("inputfile", movements);
+            props.setProperty("insertdate", insertDate);
+            //insertDate
+            ////////////////////////////////////////////////////////////////////
             try {
                 JobOperator jobOperator = BatchRuntime.getJobOperator();
 
-                Properties props = new Properties();
-                props.setProperty("inputfile", movements);
-                props.setProperty("insertdate", insertDate);
+                
                 for (String job : jobOperator.getJobNames()) {
                     System.out.println("EXISTING JOB: " + job);
                 }
@@ -29,7 +35,7 @@ public class JobReceiverBean {
                 System.out.println("Starting batch via servlet");
                 long executionID = jobOperator.start(JOBNAME, props);
 
-                Thread.sleep(3000);
+                Thread.sleep(300);
 
                 System.out.println("Job with ID " + executionID + " started");
                 JobExecution jobExec = jobOperator.getJobExecution(executionID);
