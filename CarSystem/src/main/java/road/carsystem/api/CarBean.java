@@ -7,6 +7,7 @@ import sumo.movements.jaxb.TimestepType;
 
 import javax.annotation.Resource;
 import javax.ejb.Timeout;
+import javax.ejb.Timer;
 import javax.ejb.TimerService;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -25,7 +26,6 @@ public class CarBean implements Serializable
 {
     @Resource
     private TimerService timerService;
-
     @Inject
     private CarSimulator simulator;
     private UploadedFile file;
