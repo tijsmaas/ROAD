@@ -27,8 +27,8 @@ public class BillService
     }
 
 
-    @Schedule(second = "*/3", minute = "*", hour = "*", info = "Generate monthly invoices")
-    //@Schedule(month="*", info="Generate monthly invoices")
+    //@Schedule(second = "*/3", minute = "*", hour = "*", info = "Generate monthly invoices")
+    @Schedule(month="*", info="Generate monthly invoices")
     public void generateMonthlyInvoice(Timer t)
     {
         this.generateMonthlyInvoices();
@@ -37,15 +37,6 @@ public class BillService
 
     public void generateMonthlyInvoices()
     {
-        if(!didSchedule)
-        {
-            try
-            {
-                billClient.generateMonthlyInvoices();
-                this.didSchedule = true;
-            } catch(Exception ex){
-                this.didSchedule = false;
-            }
-        }
+        billClient.generateMonthlyInvoices();
     }
 }
