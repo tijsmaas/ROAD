@@ -52,6 +52,9 @@ public class CarSimulator implements Serializable
         this.xStream = new XStream();
         this.xStream.setMode(XStream.NO_REFERENCES);
         this.xStream.alias("response", Response.class);
+        this.xStream.useAttributeFor(Response.class, "status");
+        this.xStream.useAttributeFor(Response.class, "VEHICLE_ID");
+        this.xStream.useAttributeFor(Response.class, "cause");
         this.xStream.alias("sumo-netstate", Netstate.class);
         this.xStream.alias("timestep", TimeStep.class);
         this.xStream.useAttributeFor(TimeStep.class, "time");

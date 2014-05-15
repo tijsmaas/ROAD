@@ -43,7 +43,9 @@ public class CarServer extends ServerConnection implements ICarQuery
     {
         if(this.authentication.checkApiKey(apiKey))
         {
-            this.movementParser.parseChanges(xml, sequence);
+            this.movementParser.parseChanges(xml, sequence.intValue());
+            return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                   + "<response status=\"ok\" VEHICLE_ID=\"2\"/></xml>";
         }
         else
         {
@@ -53,7 +55,5 @@ public class CarServer extends ServerConnection implements ICarQuery
                     + "\"/>"
                     + "</xml>";
         }
-
-        return "";
     }
 }

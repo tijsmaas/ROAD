@@ -51,15 +51,8 @@ public class ReplyConnection extends MovementConnection implements MessageListen
 
             byte[] rawReply = this.listener.receive(pair);
             BytesMessage reply = this.session.createBytesMessage();
-
-
-            //TextMessage textMessage = (TextMessage)message;
-            //Pair<String, ArrayList<Object>> pair = this.serializer.deSerialize(textMessage.getText(), Pair.class);
-            //String rawReply = this.listener.receive(pair);
-
-            //TextMessage reply = this.session.createTextMessage();
-            //reply.setText(rawReply);
-            //this.producer.send(message.getJMSReplyTo(), reply);
+            reply.writeBytes(rawReply);
+            this.producer.send(message.getJMSReplyTo(), reply);
         }
         catch(Exception ex)
         {

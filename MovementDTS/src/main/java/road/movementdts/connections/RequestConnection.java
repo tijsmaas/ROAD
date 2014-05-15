@@ -60,8 +60,7 @@ public class RequestConnection extends MovementConnection
             request.setJMSReplyTo(this.listenTo);
             this.producer.send(request);
 
-            int tries = 0;
-            TextMessage reply = (TextMessage)this.consumer.receive();
+            TextMessage reply = (TextMessage)this.consumer.receive(2000);
             rawReply = reply.getText();
         }
         catch(Exception ex)
