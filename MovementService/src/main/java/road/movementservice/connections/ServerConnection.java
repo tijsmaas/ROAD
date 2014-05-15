@@ -48,7 +48,7 @@ public abstract class ServerConnection <T> implements ConnectionListener
     @Override
     public String receive(Pair<String, ArrayList<Object>> request)
     {
-        String rawResult = "";
+            String rawResult = "";
         try
         {
             Method method = this.methods.get(request.getFirst());
