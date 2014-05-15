@@ -3,6 +3,7 @@ package road.movemententities.entities;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -19,13 +20,13 @@ public class Vehicle implements MovementEntity
     @Id
     private String licensePlate;    
     
-    @OneToMany
+    @OneToMany(fetch=FetchType.LAZY)
     private List<VehicleMovement> movements = new ArrayList();
     
-    @OneToMany
+    @OneToMany(fetch=FetchType.LAZY)
     private List<Invoice> invoices = new ArrayList();
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.LAZY)
     private List<VehicleOwnership> vehicleOwners = new ArrayList();
     
     private boolean isStolen = false;

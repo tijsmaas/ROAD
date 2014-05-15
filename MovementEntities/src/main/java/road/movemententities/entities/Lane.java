@@ -12,7 +12,7 @@ public class Lane implements MovementEntity<String>
     @Id
     private String laneIdentifier;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private Edge edge;
 
     @Column(name = "LaneIndex")

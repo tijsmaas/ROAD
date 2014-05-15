@@ -55,9 +55,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class JobSubmitterServlet extends HttpServlet {
     
-    @EJB
-    SampleDataHolderBean initializer; 
-    
     @Inject
     private JobReceiverBean jobsubmitter;
 
