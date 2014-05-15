@@ -14,12 +14,12 @@ import java.util.List;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"carTrackerID", "licensePlate"})})
 public class Vehicle implements MovementEntity
 {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private int id;
 
     private String carTrackerID;
 
+    @Column(unique = true)
     private String licensePlate;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -42,6 +42,9 @@ public class Vehicle implements MovementEntity
     {
         this.carTrackerID = carTracker;
     }
+
+
+
 
     //region Properties
 
@@ -85,9 +88,10 @@ public class Vehicle implements MovementEntity
         return licensePlate;
     }
 
-    public String getId()
+    @Override
+    public Object getId()
     {
-        return licensePlate;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void setLicensePlate(String licensePlate)
@@ -109,6 +113,7 @@ public class Vehicle implements MovementEntity
 
         return owner;
     }
+
 
     public String getCarTrackerID()
     {
