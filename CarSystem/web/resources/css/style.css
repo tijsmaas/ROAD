@@ -49,6 +49,13 @@ body {
     max-height: 100%;
 }
 
+.pill-scroll{
+    max-height:45vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
