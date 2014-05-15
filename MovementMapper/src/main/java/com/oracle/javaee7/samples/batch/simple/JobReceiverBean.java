@@ -16,12 +16,13 @@ public class JobReceiverBean {
 
     public void startbatch(String movements, String insertDate) {
         {
+            if(movements == null || insertDate == null) return;
             ////////////////////// TODO FIX ////////////////////////////////////
-            //movements="/home/tijs/Downloads/verpl_systeem/verplaatsingen_20110209_small.xml";
+//            movements="/home/tijs/Downloads/verpl_systeem/verplaatsingen_20110209_small.xml";
             //movements="/home/tijs/Dropbox/S6Project/PTS ESD/SUMO-OSM files/generated files Tijs/movement_vehicle_gen_t0.xml";
             Properties props = new Properties();
             props.setProperty("inputfile", movements);
-            props.setProperty("insertdate", insertDate);
+            props.setProperty("basedate", insertDate);
             //insertDate
             ////////////////////////////////////////////////////////////////////
             try {

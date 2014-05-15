@@ -87,7 +87,7 @@ public class SimpleItemProcessor
 
         
         Calendar basedate = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-/yyyy|HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy|HH:mm:ss");
         basedate.setTime(sdf.parse((String)jobParameters.get("basedate")));
 
         TimestepType timestep = (TimestepType) obj;

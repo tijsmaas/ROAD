@@ -27,15 +27,14 @@ public class HttpClient {
             @Override
             public void run() {
                 try {
-                    // prevent calling too early
-                    Thread.sleep(1000);
+                    // prevent calling too early (The servlet has to initialize)
+                    Thread.sleep(10000);
                     System.out.println("Sending batch request [3]");
 
                     DefaultHttpClient client = new DefaultHttpClient();
                     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy|HH:mm:ss");
-                    String formattedDate = sdf.format(basedate);
-                    String urlAndParams = URL + "?inputfile=" + file.getAbsolutePath() + "&basedate=" +formattedDate;
-                    HttpPost post = new HttpPost(urlAndParams);
+                    String formattedDate = sdf.format(basedate.getTime());
+                    HttpPost post = new HttpPost(URL);
 
                     // Request parameters and other properties.
                     List<NameValuePair> params = new ArrayList<>(2);
@@ -45,7 +44,7 @@ public class HttpClient {
                     
                     HttpResponse response = client.execute(post);
                     
-                    System.out.println("\nSending 'POST' request to URL : " + urlAndParams);
+                    System.out.println("\nSending 'POST' request to URL : " + URL);
                     System.out.println("Post parameters : " + post.getEntity());
                     System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
                 } catch (Exception e) {
