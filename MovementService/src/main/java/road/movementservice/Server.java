@@ -3,7 +3,6 @@ package road.movementservice;
 import aidas.userservice.IUserManager;
 import aidas.userservice.UserManager;
 import aidas.userservice.exceptions.UserSystemException;
-
 import road.movemententityaccess.dao.*;
 import road.movementservice.servers.BillServer;
 import road.movementservice.servers.CarServer;
@@ -12,14 +11,12 @@ import road.movementservice.servers.PoliceServer;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.net.URL;
 
 /**
  * Created by geh on 8-5-14.
  */
 public class Server
 {
-<<<<<<< HEAD
     private LaneDAO laneDAO;
     private EdgeDAO edgeDAO;
     private VehicleDAO vehicleDAO;
@@ -27,8 +24,6 @@ public class Server
     private InvoiceDAO invoiceDAO;
     private MovementDAO movementDAO;
 
-=======
->>>>>>> nog een commit, deze keer met de spullen van de vorige keer, das wel beter.
     private DriverServer driverServer;
     private BillServer billServer;
     private PoliceServer policeServer;
@@ -50,7 +45,6 @@ public class Server
         this.userManager = new UserManager(emfUserService);
         
         // Create a user for debugging.
-<<<<<<< HEAD
         try {
             this.userManager.register("admin", "aidas123");
         } catch (UserSystemException e) {
