@@ -65,7 +65,7 @@ public class VehicleDAOImpl implements VehicleDAO
             return new ArrayList();
         }
 
-        TypedQuery query = em.createQuery("SELECT v FROM Vehicle v WHERE :userId IN(v.vehicleOwners.userID)", Vehicle.class);
+        TypedQuery query = em.createQuery("SELECT vo.vehicle FROM VehicleOwnership vo WHERE vo.userID = :userId AND vo.registrationExperationDate IS NULL", Vehicle.class);
         query.setParameter("userId", userID);
 
         List<Vehicle> resultList = query.getResultList();
@@ -96,7 +96,7 @@ public class VehicleDAOImpl implements VehicleDAO
         boolean successful = false;
 
         try {
-            Vehicle vehicle = em.find(Vehicle.class, vehicleDto.getLicensePlate());
+            Vehicle vehicle = this.findByLicensePlate(vehicleDto.getLicensePlate());
             VehicleOwnership ownership = VehicleConverter.getCurrentVehicleOwner(vehicle.getVehicleOwners());
 
             if (ownership != null) {

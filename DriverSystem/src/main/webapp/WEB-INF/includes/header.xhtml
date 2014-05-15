@@ -75,6 +75,9 @@
                                             <ul class="dropdown-menu">
                                                 <li><a href=" ">Home</a></li>
                                                 <li>
+                                                    <a href="profile/"><h:outputText value="#{translator.getProperty('profile')}" /></a>
+                                                </li>
+                                                <li>
                                                     <h:commandLink
                                                             actionListener="#{userBean.logout}">Logout</h:commandLink>
                                                 </li>

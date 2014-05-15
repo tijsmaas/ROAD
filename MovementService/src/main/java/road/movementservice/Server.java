@@ -85,7 +85,8 @@ public class Server
     private void fillDatabase(EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
 
-        Vehicle v = new Vehicle("AA-12-BB");
+        Vehicle v = new Vehicle();
+        v.setLicensePlate("AA-12-BB");
         VehicleOwnership vo = new VehicleOwnership(v, 1, new GregorianCalendar(), null);
 
         em.persist(v);

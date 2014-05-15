@@ -18,9 +18,12 @@
                     #{vehicle.licensePlate}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Contribute to Traffic jam calculations</f:facet>
+                    <f:facet name="header"><h:outputText value="#{translator.getProperty('contributeTraficJam')}" /></f:facet>
                     <h:outputText value="#{vehicle.contributeGPSData}" rendered="#{!contributeVehicleBean.isVehicleEdit(vehicle)}" />
-                    <h:selectBooleanCheckbox value="#{vehicle.contributeGPSData}" rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}" />
+                    <h:form rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}">
+                        <!-- TODO: Fix the checkbox. This checkbox doesn't edit the value in the bean. -->
+                        <h:selectBooleanCheckbox value="#{contributeVehicleBean.curEditVehicleContributeGPS}" />
+                    </h:form>
                 </h:column>
                 <h:column>
                     <h:form rendered="#{!contributeVehicleBean.isVehicleEdit(vehicle)}">
@@ -32,7 +35,7 @@
                         <h:commandLink action="#{contributeVehicleBean.saveEditVehicle}">
                             <i class="fa fa-floppy-o blue"></i>
                         </h:commandLink>
-                        <h:commandLink action="#{contributeVehicleBean.cancelEdit}">
+                        <h:commandLink action="#{contributeVehicleBean.changeVehicleEdit(null)}">
                             <i class="fa fa-ban red"></i>
                         </h:commandLink>
                     </h:form>

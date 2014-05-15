@@ -20,4 +20,8 @@
         <pattern value="/myvehicles/"></pattern>
         <view-id value="../WEB-INF/myvehicles.xhtml"/>
     </url-mapping>
+    <url-mapping>
+        <pattern value="/profile/"></pattern>
+        <view-id value="../WEB-INF/profile.xhtml"/>
+    </url-mapping>
 </pretty-config>
