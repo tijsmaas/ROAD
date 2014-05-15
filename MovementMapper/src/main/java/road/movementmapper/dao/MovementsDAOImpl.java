@@ -1,5 +1,9 @@
 package road.movementmapper.dao;
 
+import aidas.userservice.UserManager;
+import aidas.userservice.dto.UserDto;
+import aidas.userservice.entities.UserEntity;
+import aidas.userservice.exceptions.UserSystemException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +23,9 @@ import javax.ejb.Singleton;
 import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import road.movemententities.entities.Lane;
 import road.movemententities.entities.Vehicle;
@@ -92,7 +98,12 @@ public class MovementsDAOImpl implements MovementsDAO
         return null;
     }
 
+    @PersistenceUnit(unitName = "UserServicePU")
+    private EntityManagerFactory emf;
+     
+    private UserManager userManager;
     
+    private UserEntity userEntity;
     
     /**
      * Get a vehicle by cartracker id from the cached list, if the vehicle does
@@ -116,19 +127,28 @@ public class MovementsDAOImpl implements MovementsDAO
                 break;
             }
         }
-
+        
+        /* Vehicle does not exist, lets create a new one */
         if (returnVehicle == null)
         {
-            /* Vehicle does not exist, lets create a new one */
             /* Also create a vehicle ownership */
             GregorianCalendar registerdate = new GregorianCalendar();
             registerdate.add(Calendar.YEAR, -3);
             VehicleOwnership vehicleOwnership = new VehicleOwnership();
             vehicleOwnership.setContributeGPSData(true);
-            vehicleOwnership.setRegistrationdate(registerdate);
+            vehicleOwnership.setRegistrationdate((GregorianCalendar) registerdate.clone());
             vehicleOwnership.setRegistrationExperationDate(null);
-            // create user by incrementing user id
-            vehicleOwnership.setUserID(USER_ID++);
+            try
+            {
+                // create new user with incrementing name
+                userManager = new UserManager(emf);
+                UserDto user = userManager.register("user"+USER_ID+++"name", "aidas123");
+                vehicleOwnership.setUserID(user.getId());
+            } catch (UserSystemException ex)
+            {
+                Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             // create car
             returnVehicle = new Vehicle(cartrackerID);
             returnVehicle.setLicensePlate(itLicensePlates.next());
