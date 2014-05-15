@@ -116,10 +116,10 @@ public class SimpleItemProcessor
                         if (b instanceof String) continue;
 
                         sumo.movements.jaxb.VehicleType xmlVehicle = (sumo.movements.jaxb.VehicleType) ((JAXBElement) b).getValue();
-                        String licenseplate = xmlVehicle.getId();
+                        String cartrackerID = xmlVehicle.getId();
 
                         // Get vehicle by its license plate (<vehicle id="license">) or create a vehicle
-                        Vehicle vehicle = movementsDAO.getOrCreateVehicleById(licenseplate);
+                        Vehicle vehicle = movementsDAO.getOrCreateVehicleById(cartrackerID);
 
                         VehicleMovement movementVehicle = new VehicleMovement(
                                 movement, vehicle, xmlVehicle.getPos(), xmlVehicle.getSpeed());

@@ -5,6 +5,7 @@ function simulation()
         var ws = new WebSocket("ws://localhost:8080/car/socket");
         ws.onopen = function()
         {
+            $("#btnSim").prop( "disabled", true );
             ws.send("start");
         };
         ws.onmessage = function (evt)

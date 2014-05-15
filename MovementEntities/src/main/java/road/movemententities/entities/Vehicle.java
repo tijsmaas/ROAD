@@ -11,6 +11,7 @@ import java.util.List;
  * © Aidas 2014
  */
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"carTrackerID", "licensePlate"})})
 public class Vehicle implements MovementEntity
 {
     @Id @GeneratedValue
@@ -87,13 +88,42 @@ public class Vehicle implements MovementEntity
         return licensePlate;
     }
 
-    public String getId()
+    @Override
+    public Object getId()
     {
-        return licensePlate;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void setLicensePlate(String licensePlate)
     {
         this.licensePlate = licensePlate;
     }
+
+    public VehicleOwnership getCurrentOwner()
+    {
+        VehicleOwnership owner = null;
+        for (VehicleOwnership ownership : this.getVehicleOwners())
+        {
+            if (ownership.getRegistrationExperationDate() == null)
+            {
+                owner = ownership;
+                break;
+            }
+        }
+
+        return owner;
+    }
+
+
+    public String getCarTrackerID()
+    {
+        return carTrackerID;
+    }
+
+    public void setCarTrackerID(String carTrackerID)
+    {
+        this.carTrackerID = carTrackerID;
+    }
+
+
 }

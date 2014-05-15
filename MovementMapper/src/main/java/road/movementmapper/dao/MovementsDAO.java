@@ -16,5 +16,5 @@ import road.movemententities.entities.Vehicle;
 public interface MovementsDAO
 {
     Lane getLaneById(String laneId);
-    Vehicle getOrCreateVehicleById(String licensePlate);
+    Vehicle getOrCreateVehicleById(String cartrackerID);
 }

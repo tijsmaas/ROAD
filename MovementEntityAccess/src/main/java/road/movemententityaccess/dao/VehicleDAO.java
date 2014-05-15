@@ -17,6 +17,13 @@ public interface VehicleDAO
      * @return The found vehicle
      */
     Vehicle findByLicensePlate(String licensePlate);
+    
+    /**
+     * Find a vehicle by it's license plate
+     * @param cartrackerId The cartracker id of the vehicle
+     * @return The found vehicle
+     */
+    Vehicle findByCartracker(String cartrackerId);
 
     /**
      * Get a list of all the vehicles currently belonging to a user
@@ -38,4 +45,5 @@ public interface VehicleDAO
      * @return if the function was successful.
      */
     Boolean updateVehicle(VehicleDto vehicleDto);
+
 }
