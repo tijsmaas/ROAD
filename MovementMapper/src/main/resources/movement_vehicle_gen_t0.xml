@@ -29,7 +29,9 @@
     <timestep time="1.00">
         <edge id="-114">
             <lane id="-114_0">
-                <vehicle id="t0" pos="6.54" speed="1.44"/>
+                <vehicle id="t1" pos="6.54" speed="1.44"/>
+                <vehicle id="t2" pos="6.54" speed="1.44"/>
+                <vehicle id="t3" pos="6.54" speed="1.44"/>
             </lane>
             <lane id="-114_1"/>
         </edge>

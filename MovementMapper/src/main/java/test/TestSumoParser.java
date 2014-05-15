@@ -28,7 +28,7 @@ import road.movementmapper.dao.EntityDAO;
 @Singleton
 public class TestSumoParser {
 
-    @PersistenceUnit
+    @PersistenceUnit(unitName = "MovementPU")
     EntityManagerFactory emf;
 
     @PersistenceContext(unitName = "MovementPU")
