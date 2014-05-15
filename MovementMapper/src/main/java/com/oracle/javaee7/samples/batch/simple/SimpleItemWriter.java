@@ -40,34 +40,52 @@
 package com.oracle.javaee7.samples.batch.simple;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 import javax.batch.api.chunk.AbstractItemWriter;
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.naming.InitialContext;
+import road.movemententities.entities.Movement;
+import road.movemententities.entities.Vehicle;
+import road.movemententities.entities.VehicleMovement;
+import road.movementmapper.dao.EntityDAO;
 
 @Named("SimpleItemWriter")
 public class SimpleItemWriter
-    extends AbstractItemWriter {
-    
-    @EJB
-    private SampleDataHolderBean bean;
+        extends AbstractItemWriter
+{
+
+    @Inject
+    private EntityDAO entityDAO;
 
     @Override
-    public void open(Serializable checkpoint) throws Exception {
+    public void open(Serializable checkpoint) throws Exception
+    {
         super.open(checkpoint);
-        try {
-            InitialContext ctx = new InitialContext();
-            bean = (SampleDataHolderBean) ctx.lookup("java:global/payroll/SampleDataHolderBean");
-        } catch (Exception ex) {
-            //
-        }
     }
 
-    public void writeItems(List list) throws Exception {
-        for (Object obj : list) {
-            bean.addPayrollRecord((PayrollRecord) obj);
+    @Override
+    public void writeItems(List list) throws Exception
+    {
+        for (Object chunk_list : list)
+        {
+            for (Object obj : (List) chunk_list)
+            {
+                Movement newMovement = (Movement) obj;
+
+                entityDAO.create(newMovement);
+                Iterator<VehicleMovement> it = newMovement.getVehicleMovements().iterator();
+                while (it.hasNext())
+                {
+                    VehicleMovement movementVehicle = it.next();
+                    entityDAO.create(movementVehicle);
+                    Vehicle vehicle = movementVehicle.getVehicles();
+                    vehicle.addVehicleMovement(movementVehicle);
+                    entityDAO.edit(vehicle);
+                }
+            }
         }
+        System.out.println("parsed and written chunk of timesteps");
     }
-    
+
 }

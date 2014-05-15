@@ -22,9 +22,7 @@ public class Movement implements MovementEntity<Integer> {
 
     public Movement(Calendar movementDate, float time, Lane lane) {
         Calendar resultDateTime = (Calendar)movementDate.clone();
-        System.out.println("Before add: " + resultDateTime.getTime());
         resultDateTime.add(Calendar.SECOND, Math.round(time));
-        System.out.println("After addding " + Math.round(time) + " seconds " + resultDateTime.getTime());
         this.movementDateTime = resultDateTime.getTime();
         this.lane = lane;
     }
