@@ -1,0 +1,24 @@
+<ui:composition template="WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ui:param name="title" value="BillSystem"/>
+    <ui:param name="url" value="/billSystem/"/>
+
+    <ui:define name="content">
+        <h:panelGroup>
+            <h:form>
+                <h:selectOneMenu value="#{priceBean.city}">
+                    <f:selectItems value="#{priceBean.cities}" />
+                </h:selectOneMenu>
+                <h:inputText value="#{priceBean.price}"/>
+                <h:commandButton value="Submit" actionListener="#{priceBean.adjustRate()}"/>
+            </h:form>
+        </h:panelGroup>
+    </ui:define>
+
+
+</ui:composition>
