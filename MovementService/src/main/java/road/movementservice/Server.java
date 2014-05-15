@@ -3,14 +3,19 @@ package road.movementservice;
 import aidas.userservice.IUserManager;
 import aidas.userservice.UserManager;
 import aidas.userservice.exceptions.UserSystemException;
+
+import road.movemententities.entities.Vehicle;
+import road.movemententities.entities.VehicleOwnership;
 import road.movemententityaccess.dao.*;
 import road.movementservice.servers.BillServer;
 import road.movementservice.servers.CarServer;
 import road.movementservice.servers.DriverServer;
 import road.movementservice.servers.PoliceServer;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.GregorianCalendar;
 
 /**
  * Created by geh on 8-5-14.
@@ -69,5 +74,21 @@ public class Server
 
         this.carServer = new CarServer(new EntityDAOImpl(emf));
         this.carServer.init();
+
+        this.fillDatabase(emf);
+    }
+
+    /**
+     * Function to fill the database with test data.
+     * @param emf the entity manager factory used for getting the {@link EntityManager}.
+     */
+    private void fillDatabase(EntityManagerFactory emf) {
+        EntityManager em = emf.createEntityManager();
+
+        Vehicle v = new Vehicle("AA-12-BB");
+        VehicleOwnership vo = new VehicleOwnership(v, 1, new GregorianCalendar(), null);
+
+        em.persist(v);
+        em.persist(vo);
     }
 }
