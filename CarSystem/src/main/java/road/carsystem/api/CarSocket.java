@@ -35,9 +35,9 @@ public class CarSocket
     @OnMessage
     public void onMessage(Session session, String msg)
     {
-        if(msg == "start")
+        if("start".equals(msg))
         {
-            this.carBean.runSimulation(session);
+            this.carBean.start(session);
         }
     }
 

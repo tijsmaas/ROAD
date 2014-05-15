@@ -39,7 +39,7 @@ public class CarServer extends ServerConnection implements ICarQuery
     }
 
     @Override
-    public String addMovement(String apiKey, long sequence, String xml)
+    public String addMovement(String apiKey, Long sequence, String xml)
     {
         if(this.authentication.checkApiKey(apiKey))
         {

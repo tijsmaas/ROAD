@@ -19,10 +19,13 @@ public class Start
     {
         if(Start.server == null)
         {
-            try {
+            try
+            {
                 Start.server = new Server();
                 Start.server.init();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Logger.getLogger(Start.class.getName()).log(Level.SEVERE, "Failed to start the MovementService", ex);
                 throw new RuntimeException("Stopping MovementService due to an error");
             }
