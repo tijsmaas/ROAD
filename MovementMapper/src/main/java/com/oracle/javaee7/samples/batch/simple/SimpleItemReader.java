@@ -41,6 +41,7 @@ package com.oracle.javaee7.samples.batch.simple;
 
 import java.io.File;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.Properties;
 import javax.batch.api.chunk.AbstractItemReader;
@@ -80,7 +81,7 @@ public class SimpleItemReader extends AbstractItemReader
         Properties jobParameters = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
         String filename = jobParameters.getProperty("inputfile");
         System.out.println("Opening file "+filename);
-        File inputfile = new File(filename); 
+        File inputfile = getResourceFile(filename); 
         JAXBElement<SumoNetstateType> root = jaxbparser.parse(inputfile, SUMOMOVEMENTSJAXBPACKAGE);
         timestepIterator = root.getValue().getTimestep().iterator();
     }
@@ -89,6 +90,11 @@ public class SimpleItemReader extends AbstractItemReader
     public Object readItem() throws Exception
     {
         return timestepIterator.hasNext() ? timestepIterator.next() : null;
+    }
+    private File getResourceFile(String filename) {
+        URL url = this.getClass().getResource("/"+filename);
+        System.out.println("url: "+url.getPath());
+        return new File(url.getFile());
     }
 
 }
