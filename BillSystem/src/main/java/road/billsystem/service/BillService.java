@@ -7,6 +7,7 @@ import javax.ejb.Schedule;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
 import javax.ejb.Singleton;
+import road.movemententities.entities.Invoice;
 
 /**
  * Created by Niek on 14/05/14.
@@ -25,7 +26,6 @@ public class BillService
         this.billClient = new BillClient();
         billClient.start();
     }
-
 
     //@Schedule(second = "*/3", minute = "*", hour = "*", info = "Generate monthly invoices")
     @Schedule(month="*", info="Generate monthly invoices")
