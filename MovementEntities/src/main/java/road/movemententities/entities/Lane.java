@@ -63,4 +63,8 @@ public class Lane implements MovementEntity<String>
     {
         this.length = length;
     }
+
+    public Edge getEdge(){
+        return this.edge;
+    }
 }

@@ -85,4 +85,9 @@ public class VehicleMovement implements MovementEntity<Integer>
     {
         this.speed = speed;
     }
+
+    public Movement getMovement()
+    {
+        return movement;
+    }
 }

@@ -50,15 +50,15 @@ public class BillServer extends ServerConnection implements IBillQuery
     }
 
     @Override
-    public Integer generateMonthlyInvoices()
+    public Integer generateMonthlyInvoices(Integer month, Integer year)
     {
-        Pair<Calendar, Calendar> invoiceDateRange = DateHelper.getDateRange();
+        Pair<Calendar, Calendar> invoiceDateRange = DateHelper.getDateRange(month, year);
 
+        List<VehicleMovement> vehicleMovements = movementDAO.getMovementsForVehicleInRange(invoiceDateRange.getFirst(), invoiceDateRange.getSecond());
+        invoiceDAO.generate(vehicleMovements);
         System.out.println("Executing query");
-        List<VehicleMovement> movements = movementDAO.getMovementsForVehicleInRange(invoiceDateRange.getFirst(), invoiceDateRange.getSecond());
 
-        System.out.println(movements.size());
-        return null;
+        return 0;
     }
 
 

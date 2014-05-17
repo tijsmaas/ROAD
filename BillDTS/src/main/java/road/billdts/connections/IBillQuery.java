@@ -10,5 +10,5 @@ public interface IBillQuery
 {
     UserDto authenticate(String user, String password);
 
-    Integer generateMonthlyInvoices();
+    Integer generateMonthlyInvoices(Integer month, Integer year);
 }

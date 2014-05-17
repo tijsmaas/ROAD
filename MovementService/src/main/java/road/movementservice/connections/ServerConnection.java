@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by geh on 10-4-14.
  */
-public abstract class ServerConnection <T> implements ConnectionListener
+public abstract class ServerConnection<T> implements ConnectionListener
 {
     private ReplyConnection connection;
     private ConcurrentHashMap<String, Method> methods;
@@ -26,16 +26,15 @@ public abstract class ServerConnection <T> implements ConnectionListener
     {
         this.instance = instance;
         this.methods = new ConcurrentHashMap<>();
-        for(Method method : type.getMethods())
+        for (Method method : type.getMethods())
         {
             List<Class> parameters = new ArrayList<Class>();
-            for(Class par : method.getParameterTypes())
+            for (Class par : method.getParameterTypes())
             {
                 try
                 {
                     parameters.add(par);
-                }
-                catch(Exception ex)
+                } catch (Exception ex)
                 {
                     ex.printStackTrace();
                 }
@@ -52,14 +51,16 @@ public abstract class ServerConnection <T> implements ConnectionListener
         try
         {
             Method method = this.methods.get(request.getFirst());
+            if (method == null)
+            {
+                throw new Exception("Method to invoke could not be found.");
+            }
             Object result = method.invoke(this.instance, request.getSecond());
             rawResult = this.connection.serializer.serializeBytes(method.getReturnType().cast(result));
-        }
-        catch(Exception ex)
+        } catch (Exception ex)
         {
             ex.printStackTrace();
-        }
-        finally
+        } finally
         {
             return rawResult;
         }

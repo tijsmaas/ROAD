@@ -56,7 +56,7 @@ public class MovementDAOImpl implements MovementDAO
     @Override
     public List<VehicleMovement> getMovementsForVehicleInRange(Calendar startDate, Calendar endDate)
     {
-        Query query = em.createQuery("select vhm from VehicleMovement vhm where vhm.movement.movementDateTime >= :startDate and vhm.movement.movementDateTime <= :endDate group by vhm.vehicleOwnership");
+        Query query = em.createQuery("select vhm from VehicleMovement vhm where vhm.movement.movementDateTime >= :startDate and vhm.movement.movementDateTime <= :endDate");
         query.setParameter("startDate", startDate, TemporalType.TIMESTAMP);
         query.setParameter("endDate", endDate, TemporalType.TIMESTAMP);
 

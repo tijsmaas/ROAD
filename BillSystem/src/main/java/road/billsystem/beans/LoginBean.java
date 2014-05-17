@@ -1,7 +1,7 @@
 package road.billsystem.beans;
 
 import aidas.userservice.dto.UserDto;
-import road.billsystem.dts.BillService;
+import road.billsystem.service.BillService;
 import road.billsystem.utils.Utilities;
 
 import javax.enterprise.context.RequestScoped;
