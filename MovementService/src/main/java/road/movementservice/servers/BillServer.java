@@ -9,16 +9,15 @@ import road.movementdts.connections.MovementConnection;
 import road.movementdts.helpers.DateHelper;
 import road.movementdts.helpers.Pair;
 import road.movemententities.entities.VehicleMovement;
+import road.movemententityaccess.dao.CityDAO;
 import road.movemententityaccess.dao.InvoiceDAO;
 import road.movemententityaccess.dao.MovementDAO;
 import road.movemententities.entities.City;
 import road.movemententities.entities.CityRate;
 import road.movementservice.connections.ServerConnection;
 
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,15 +27,17 @@ public class BillServer extends ServerConnection implements IBillQuery
 {
     private InvoiceDAO invoiceDAO;
     private MovementDAO movementDAO;
+    private CityDAO cityDAO;
     private IUserManager userManager;
 
-    public BillServer(InvoiceDAO invoiceDAO, IUserManager userManager, MovementDAO movementDAO)
+    public BillServer(InvoiceDAO invoiceDAO, IUserManager userManager, MovementDAO movementDAO, CityDAO cityDAO)
     {
         super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
 
         this.invoiceDAO = invoiceDAO;
         this.userManager = userManager;
         this.movementDAO = movementDAO;
+        this.cityDAO = cityDAO;
     }
 
     /**
@@ -57,13 +58,12 @@ public class BillServer extends ServerConnection implements IBillQuery
     @Override
     public boolean adjustKilometerRate(City city, Date addDate, String price)
     {
-        new CityRate(city, addDate, price);
-        return true;
+        return cityDAO.adjustKilometerRate(city, addDate, price);
     }
 
     @Override
     public List<City> getCities() {
-        return null;
+        return cityDAO.findAll();
     }
 
     @Override
@@ -77,4 +77,6 @@ public class BillServer extends ServerConnection implements IBillQuery
         System.out.println(movements.size());
         return null;
     }
+
+
 }

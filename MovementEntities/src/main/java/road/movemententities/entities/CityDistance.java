@@ -23,6 +23,18 @@ public class CityDistance implements MovementEntity<Integer> {
     public CityDistance() {
     }
 
+    public CityDistance(City city, double distance, double km_prijs)
+    {
+        this.city = city;
+        this.distance = distance;
+        this.km_prijs = km_prijs;
+    }
+
+    public void setVehicleInvoice(VehicleInvoice vehicleInvoice)
+    {
+        this.vehicleInvoice = vehicleInvoice;
+    }
+    
     public VehicleInvoice getVehicleInvoice() {
         return vehicleInvoice;
     }

@@ -5,7 +5,6 @@ import road.movementdts.helpers.Pair;
 import road.movementdts.serializers.Serializer;
 import javax.jms.*;
 import javax.naming.InitialContext;
-import java.util.ArrayList;
 
 /**
  * Created by geh on 10-4-14.

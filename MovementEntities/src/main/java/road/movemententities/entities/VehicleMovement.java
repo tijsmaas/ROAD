@@ -15,25 +15,36 @@ public class VehicleMovement implements MovementEntity<Integer>
 
     @ManyToOne
     Movement movement;
-    
+
     /* The moving vehicle */
     @ManyToOne
-    Vehicle vehicle;
-    
+    VehicleOwnership vehicleOwnership;
+
     /* Vehicle position and speed */
     private float position;
     private float speed;
 
     // Empty constructor for JPA
-    public VehicleMovement() { }
+    public VehicleMovement()
+    {
+    }
 
-    public VehicleMovement(Movement movement, Vehicle vehicle, float position, float speed) {
+    public VehicleMovement(Movement movement, Vehicle vehicle, float position, float speed)
+    {
         this.movement = movement;
-        this.vehicle = vehicle;
+        this.vehicleOwnership = vehicle.getCurrentOwner();
         this.position = position;
         this.speed = speed;
     }
-    
+
+    public VehicleMovement(Movement movement, VehicleOwnership vehicleOwnership, float position, float speed)
+    {
+        this.movement = movement;
+        this.vehicleOwnership = vehicleOwnership;
+        this.position = position;
+        this.speed = speed;
+    }
+
     //region Properties
     public Integer getId()
     {
@@ -45,27 +56,33 @@ public class VehicleMovement implements MovementEntity<Integer>
         this.id = id;
     }
 
-    public Vehicle getVehicles() {
-        return vehicle;
+    public VehicleOwnership getVehicleOwnership()
+    {
+        return this.vehicleOwnership;
     }
 
-    public void setVehicle(Vehicle movementVehicles) {
-        this.vehicle = movementVehicles;
+    public void setVehicle(VehicleOwnership vehicleOwnership)
+    {
+        this.vehicleOwnership = vehicleOwnership;
     }
 
-    public float getPosition() {
+    public float getPosition()
+    {
         return position;
     }
 
-    public void setPosition(float position) {
+    public void setPosition(float position)
+    {
         this.position = position;
     }
 
-    public float getSpeed() {
+    public float getSpeed()
+    {
         return speed;
     }
 
-    public void setSpeed(float speed) {
+    public void setSpeed(float speed)
+    {
         this.speed = speed;
     }
 }

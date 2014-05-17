@@ -1,42 +1,50 @@
 package road.movemententities.entities;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  * The Vehicle entity specifies the vehicle, so that it can be used to map movements to the vehicle.
- *
+ * <p/>
  * Created by Niek on 14/03/14.
  * © Aidas 2014
  */
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"carTrackerID", "licensePlate"})})
 public class Vehicle implements MovementEntity
 {
-    
-    @Id
-    private String licensePlate;    
-    
-    @OneToMany(fetch=FetchType.LAZY)
+    @Id @GeneratedValue
+    private int id;
+
+    private String carTrackerID;
+
+    @Column(unique = true)
+    private String licensePlate;
+
+    @OneToMany(fetch = FetchType.LAZY)
     private List<VehicleMovement> movements = new ArrayList();
-    
-    @OneToMany(fetch=FetchType.LAZY)
+
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Invoice> invoices = new ArrayList();
 
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<VehicleOwnership> vehicleOwners = new ArrayList();
-    
-    private boolean isStolen = false;
-    
-    // Empty constructor for JPA
-    public Vehicle() { }
 
-    public Vehicle(String licensePlate) {
-        this.licensePlate = licensePlate;
+    private boolean isStolen = false;
+
+    // Empty constructor for JPA
+    public Vehicle()
+    {
     }
+
+    public Vehicle(String carTracker)
+    {
+        this.carTrackerID = carTracker;
+    }
+
+
+
 
     //region Properties
 
@@ -49,12 +57,12 @@ public class Vehicle implements MovementEntity
     {
         this.movements.add(movement);
     }
-    
+
     public List<VehicleOwnership> getVehicleOwners()
     {
         return vehicleOwners;
     }
-    
+
     public void addVehicleOwner(VehicleOwnership vehicleOwner)
     {
         this.vehicleOwners.add(vehicleOwner);
@@ -79,14 +87,43 @@ public class Vehicle implements MovementEntity
     {
         return licensePlate;
     }
-    
-    public String getId()
+
+    @Override
+    public Object getId()
     {
-        return licensePlate;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void setLicensePlate(String licensePlate)
     {
         this.licensePlate = licensePlate;
     }
+
+    public VehicleOwnership getCurrentOwner()
+    {
+        VehicleOwnership owner = null;
+        for (VehicleOwnership ownership : this.getVehicleOwners())
+        {
+            if (ownership.getRegistrationExperationDate() == null)
+            {
+                owner = ownership;
+                break;
+            }
+        }
+
+        return owner;
+    }
+
+
+    public String getCarTrackerID()
+    {
+        return carTrackerID;
+    }
+
+    public void setCarTrackerID(String carTrackerID)
+    {
+        this.carTrackerID = carTrackerID;
+    }
+
+
 }

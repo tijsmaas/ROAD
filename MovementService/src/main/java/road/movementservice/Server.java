@@ -24,6 +24,7 @@ public class Server
 {
     private LaneDAO laneDAO;
     private EdgeDAO edgeDAO;
+    private CityDAO cityDAO;
     private VehicleDAO vehicleDAO;
     private ConnectionDAO connectionDAO;
     private InvoiceDAO invoiceDAO;
@@ -58,6 +59,7 @@ public class Server
 
         this.laneDAO = new LaneDAOImpl(emf);
         this.edgeDAO = new EdgeDAOImpl(emf);
+        this.cityDAO = new CityDAOImpl(emf);
         this.vehicleDAO = new VehicleDAOImpl(emf);
         this.connectionDAO = new ConnectionDAOImpl(emf);
         this.invoiceDAO = new InvoiceDAOImpl(emf);
@@ -66,7 +68,7 @@ public class Server
         this.driverServer = new DriverServer(this.userManager, this.laneDAO, this.connectionDAO, this.edgeDAO, this.vehicleDAO);
         this.driverServer.init();
 
-        this.billServer = new BillServer(this.invoiceDAO, this.userManager, this.movementDAO);
+        this.billServer = new BillServer(this.invoiceDAO, this.userManager, this.movementDAO, cityDAO);
         this.billServer.init();
 
         this.policeServer = new PoliceServer();
@@ -85,7 +87,8 @@ public class Server
     private void fillDatabase(EntityManagerFactory emf) {
         EntityManager em = emf.createEntityManager();
 
-        Vehicle v = new Vehicle("AA-12-BB");
+        Vehicle v = new Vehicle();
+        v.setLicensePlate("AA-12-BB");
         VehicleOwnership vo = new VehicleOwnership(v, 1, new GregorianCalendar(), null);
 
         em.persist(v);

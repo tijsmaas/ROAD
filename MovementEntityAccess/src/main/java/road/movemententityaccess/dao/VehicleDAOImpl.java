@@ -10,7 +10,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -38,7 +37,22 @@ public class VehicleDAOImpl implements VehicleDAO
         query.setParameter("licensePlate", licensePlate);
 
         List<Vehicle> resultList = query.getResultList();
-        return resultList.isEmpty() ? null : resultList.get(0);    }
+        return resultList.isEmpty() ? null : resultList.get(0);    
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @param cartrackerId The cartracker id of the vehicle
+     */
+    @Override
+    public Vehicle findByCartracker(String cartrackerId)
+    {
+        Query query = em.createQuery("Select vehicle from Vehicle vehicle where vehicle.carTrackerID = :cartrackerId");
+        query.setParameter("cartrackerId", cartrackerId);
+
+        List<Vehicle> resultList = query.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);    
+    }
 
     /**
      * {@inheritDoc}
@@ -51,7 +65,7 @@ public class VehicleDAOImpl implements VehicleDAO
             return new ArrayList();
         }
 
-        TypedQuery query = em.createQuery("SELECT v FROM Vehicle v WHERE :userId IN(v.vehicleOwners.userID)", Vehicle.class);
+        TypedQuery query = em.createQuery("SELECT vo.vehicle FROM VehicleOwnership vo WHERE vo.userID = :userId AND vo.registrationExperationDate IS NULL", Vehicle.class);
         query.setParameter("userId", userID);
 
         List<Vehicle> resultList = query.getResultList();
@@ -82,7 +96,7 @@ public class VehicleDAOImpl implements VehicleDAO
         boolean successful = false;
 
         try {
-            Vehicle vehicle = em.find(Vehicle.class, vehicleDto.getLicensePlate());
+            Vehicle vehicle = this.findByLicensePlate(vehicleDto.getLicensePlate());
             VehicleOwnership ownership = VehicleConverter.getCurrentVehicleOwner(vehicle.getVehicleOwners());
 
             if (ownership != null) {
@@ -98,4 +112,5 @@ public class VehicleDAOImpl implements VehicleDAO
 
         return successful;
     }
+
 }

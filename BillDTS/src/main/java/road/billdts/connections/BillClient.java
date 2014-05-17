@@ -5,6 +5,7 @@ package road.billdts.connections;
         import road.movementdts.connections.MovementConnection;
         import road.movemententities.entities.City;
 
+        import java.util.ArrayList;
         import java.util.Date;
         import java.util.List;
 
@@ -35,7 +36,7 @@ public class BillClient extends ClientConnection implements IBillQuery
 
     @Override
     public List<City> getCities() {
-        return this.remoteCall("getCities", List.class);
+        return this.remoteCall("getCities", ArrayList.class);
     }
 
     @Override

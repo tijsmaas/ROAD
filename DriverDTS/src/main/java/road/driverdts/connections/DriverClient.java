@@ -5,6 +5,7 @@ import road.movementdtos.dtos.VehicleDto;
 import road.movementdts.connections.ClientConnection;
 import road.movementdts.connections.MovementConnection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ public class DriverClient extends ClientConnection implements IDriverQuery
 {
     public DriverClient()
     {
-        super("localhost:1099", MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
+        super(MovementConnection.ServerAddress, MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class DriverClient extends ClientConnection implements IDriverQuery
      */
     @Override
     public List<VehicleDto> getVehicles(Integer userId) {
-        return this.remoteCall("getVehicles", List.class, userId);
+        return this.remoteCall("getVehicles", ArrayList.class, userId);
     }
 
     /**

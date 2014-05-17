@@ -1,0 +1,86 @@
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+
+        <h:panelGroup layout="block" styleClass="pill pill-autosize">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4>Change your password</h4>
+                    <h:form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="changePasswordOld" class="col-sm-6 control-label">Current password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="changePasswordOld" placeholder="Current password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="changePasswordNew1" class="col-sm-6 control-label">New password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="changePasswordNew1" placeholder="New password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="changePasswordNew2" class="col-sm-8 control-label">Confirm new password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="changePasswordNew2" placeholder="Confirm new password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Change password</button>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-xs-6">
+                    <h4>Change your details</h4>
+                    <h:form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="fullName" class="col-sm-4 control-label">Full name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="fullName" placeholder="Full name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="street" class="col-sm-4 control-label">Street</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="street" placeholder="Street" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="houseNumber" class="col-sm-5 control-label">House number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="houseNumber" placeholder="House number" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="postalCode" class="col-sm-4 control-label">Postal code</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="postalCode" placeholder="Postal code" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="col-sm-4 control-label">City</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="city" placeholder="City" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-10">
+                                <button type="submit" class="btn btn-primary">Change details</button>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>
+
