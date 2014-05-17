@@ -3,15 +3,21 @@ package road.movemententities.entities;
 import road.movemententities.entities.enumerations.PaymentStatus;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Invoice implements MovementEntity<Integer> {
+public class Invoice implements MovementEntity<Integer>, Serializable
+{
 
     @Id
     @GeneratedValue
     private int invoiceID;
+
+    @Id
+    private int userID;
 
     @Temporal(TemporalType.DATE)
     private Date generationDate;
@@ -30,6 +36,14 @@ public class Invoice implements MovementEntity<Integer> {
     private PaymentStatus paymentStatus;
 
     public Invoice() {}
+
+    public Invoice(Date generationDate, Date startDate, Date endDate, int userID){
+        this.generationDate = generationDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.paymentStatus = PaymentStatus.NOT_PAYED;
+        this.userID = userID;
+    }
 
     public List<VehicleInvoice> getVehicleInvoices()
     {
@@ -89,6 +103,14 @@ public class Invoice implements MovementEntity<Integer> {
     public void setGenerationDate(Date generationDate)
     {
         this.generationDate = generationDate;
+    }
+
+    public void addVehicleInvoie(VehicleInvoice vehicleInvoice){
+        if(this.vehicleInvoices == null){
+            this.vehicleInvoices = new ArrayList<>();
+        }
+
+        this.vehicleInvoices.add(vehicleInvoice);
     }
 
     @Override

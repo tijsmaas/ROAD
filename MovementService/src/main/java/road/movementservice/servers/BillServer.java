@@ -13,6 +13,7 @@ import road.movemententityaccess.dao.InvoiceDAO;
 import road.movemententityaccess.dao.MovementDAO;
 import road.movementservice.connections.ServerConnection;
 
+import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.List;
 
@@ -50,13 +51,15 @@ public class BillServer extends ServerConnection implements IBillQuery
     }
 
     @Override
+    @Transactional
     public Integer generateMonthlyInvoices(Integer month, Integer year)
     {
         Pair<Calendar, Calendar> invoiceDateRange = DateHelper.getDateRange(month, year);
 
         List<VehicleMovement> vehicleMovements = movementDAO.getMovementsForVehicleInRange(invoiceDateRange.getFirst(), invoiceDateRange.getSecond());
-        invoiceDAO.generate(vehicleMovements);
-        System.out.println("Executing query");
+        invoiceDAO.generate(vehicleMovements, invoiceDateRange.getFirst().getTime(), invoiceDateRange.getSecond().getTime());
+
+
 
         return 0;
     }
