@@ -20,7 +20,8 @@
                         <div class="col-sm-9">
                             <h:selectOneMenu id="citySelect" value="#{priceBean.city}"
                                              styleClass="form-control">
-                                <f:selectItems value="#{priceBean.cities}" />
+                                <f:selectItems value="#{priceBean.cities}" var="city"
+                                               itemLabel="#{city.cityName}" itemValue="#{city}" />
                             </h:selectOneMenu>
                         </div>
                     </div>

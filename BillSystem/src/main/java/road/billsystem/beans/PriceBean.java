@@ -1,6 +1,6 @@
 package road.billsystem.beans;
 
-import road.billsystem.dts.BillService;
+import road.billsystem.service.BillService;
 import road.movemententities.entities.City;
 
 import javax.annotation.PostConstruct;
