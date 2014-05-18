@@ -23,11 +23,6 @@ public class VehicleDto {
 
     /**
      * Create a new instance of the {@link VehicleDto} class.
-     */
-    public VehicleDto() {}
-
-    /**
-     * Create a new instance of the {@link VehicleDto} class.
      * @param licensePlate the licence plate of the vehicle.
      * @param contributeGPSData if the vehicle movements are used in the traffic jam calculations.
      */

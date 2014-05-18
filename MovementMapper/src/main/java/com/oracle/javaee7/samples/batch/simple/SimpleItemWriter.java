@@ -39,17 +39,16 @@
  */
 package com.oracle.javaee7.samples.batch.simple;
 
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+import javax.batch.api.chunk.AbstractItemWriter;
+import javax.inject.Inject;
+import javax.inject.Named;
 import road.movemententities.entities.Movement;
 import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleMovement;
 import road.movementmapper.dao.EntityDAO;
-
-import javax.batch.api.chunk.AbstractItemWriter;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
 
 @Named("SimpleItemWriter")
 public class SimpleItemWriter
@@ -80,7 +79,7 @@ public class SimpleItemWriter
                 {
                     VehicleMovement movementVehicle = it.next();
                     entityDAO.create(movementVehicle);
-                    Vehicle vehicle = movementVehicle.getVehicleOwnership().getVehicle();
+                    Vehicle vehicle = movementVehicle.getVehicles();
                     vehicle.addVehicleMovement(movementVehicle);
                     entityDAO.edit(vehicle);
                 }

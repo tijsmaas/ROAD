@@ -9,12 +9,16 @@ import road.movementdts.connections.MovementConnection;
 import road.movementdts.helpers.DateHelper;
 import road.movementdts.helpers.Pair;
 import road.movemententities.entities.VehicleMovement;
+import road.movemententityaccess.dao.CityDAO;
 import road.movemententityaccess.dao.InvoiceDAO;
 import road.movemententityaccess.dao.MovementDAO;
+import road.movemententities.entities.City;
+import road.movemententities.entities.CityRate;
 import road.movementservice.connections.ServerConnection;
 import road.movementservice.mapper.DtoMapper;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,16 +30,18 @@ public class BillServer extends ServerConnection implements IBillQuery
 {
     private InvoiceDAO invoiceDAO;
     private MovementDAO movementDAO;
+    private CityDAO cityDAO;
     private IUserManager userManager;
     private DtoMapper dtoMapper;
 
-    public BillServer(InvoiceDAO invoiceDAO, IUserManager userManager, MovementDAO movementDAO, DtoMapper dtoMapper)
+    public BillServer(InvoiceDAO invoiceDAO, IUserManager userManager, MovementDAO movementDAO, CityDAO cityDAO, DtoMapper dtoMapper)
     {
         super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
 
         this.invoiceDAO = invoiceDAO;
         this.userManager = userManager;
         this.movementDAO = movementDAO;
+        this.cityDAO = cityDAO;
         this.dtoMapper = dtoMapper;
     }
 
@@ -52,6 +58,17 @@ public class BillServer extends ServerConnection implements IBillQuery
     public UserDto authenticate(String user, String password)
     {
         return new UserDto(1, user + " @ bill system");
+    }
+
+    @Override
+    public boolean adjustKilometerRate(City city, Date addDate, String price)
+    {
+        return cityDAO.adjustKilometerRate(city, addDate, price);
+    }
+
+    @Override
+    public List<City> getCities() {
+        return cityDAO.findAll();
     }
 
     @Override

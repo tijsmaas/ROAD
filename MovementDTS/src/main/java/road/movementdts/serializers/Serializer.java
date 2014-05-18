@@ -4,7 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.gson.Gson;
-import java.io.ByteArrayOutputStream;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 
 /**
  * Created by geh on 4-4-14.
@@ -23,7 +23,7 @@ public class Serializer
 
     public <T> byte[] serializeBytes(T obj)
     {
-        Output output = new Output(new ByteArrayOutputStream());
+        Output output = new Output(new ByteOutputStream());
         this.kryo.writeObject(output, obj);
         output.close();
 

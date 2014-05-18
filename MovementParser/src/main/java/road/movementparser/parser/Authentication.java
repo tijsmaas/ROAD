@@ -23,6 +23,7 @@ public class Authentication
         try
         {
             props.load(new FileInputStream(new File(url.getFile())));
+            //props.load(new FileInputStream("/resources/authentication.ini"));
         }
         catch (FileNotFoundException ex)
         {

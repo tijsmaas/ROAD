@@ -85,7 +85,7 @@ public class UserManager implements IUserManager {
      * {@inheritDoc}
      */
     @Override
-    public UserDto register(String username, String password) throws UserSystemException {
+    public void register(String username, String password) throws UserSystemException {
         if (username == null || username.isEmpty() || username.length() > 28) {
             throw new UserSystemException("The username is mandatory and can have a maximum length of 28 characters.");
         } else if (password == null || password.isEmpty() || password.length() < 8 || password.length() > 4000) {
@@ -95,10 +95,8 @@ public class UserManager implements IUserManager {
         try {
             byte[] salt = Security.generateSalt();
             String processedPassword = Security.processPassword(password, username, salt);
-            UserEntity newuser = new UserEntity(username, processedPassword, salt);
-            this.em.persist(newuser);
-            UserDto userdto = new UserDto(newuser.getId(), newuser.getUsername());
-            return userdto;
+            
+            this.em.persist(new UserEntity(username, processedPassword, salt));
         } catch (NoSuchAlgorithmException | NoSuchPaddingException 
                 | InvalidKeyException | IllegalBlockSizeException 
                 | BadPaddingException | InvalidKeySpecException ex) {
