@@ -8,6 +8,7 @@ import java.math.MathContext;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.Query;
 
 /**
  * Created by Niek on 17/05/14.
@@ -97,46 +98,56 @@ public class InvoiceGenerator
     private void createOrUpdateInvoice(VehicleOwnership vehicleOwnership, List<VehicleMovement> vehicleMovements)
     {
         VehicleInvoice vehicleInvoice = new VehicleInvoice(vehicleOwnership);
-
-        List<CityDistance> cityDistances = new ArrayList<>();
-
         Double subTotal = 0.0;
-
-        //TODO: DO NOT HARDCODE KM_RATE
-        Double km_rate = 0.20;
-
+        /**
+         * README.
+         * TODO: Replace km_rate with city.getKMRate() when km rates work!
+         */
+        double km_rate = 20.0;
+        
+        double totalMetersDriven = 0.0;
+        Lane prevLane = null;
         Invoice invoice = this.getOrCreateInvoice(vehicleOwnership);
-
-        int metersDriven = 0;
+        Map<City, CityDistance> cityDistances = new HashMap<>();
+        
         for (VehicleMovement vehicleMovement : vehicleMovements)
         {
-            City from = vehicleMovement.getMovement().getLane().getEdge().getFrom();
-            City to = vehicleMovement.getMovement().getLane().getEdge().getTo();
-
-            //TODO: Calculate the average rate based on BOTH cities
-            //TODO: vehicleMovement.getPosition() doesn't translate to meters.
-            double meters = vehicleMovement.getPosition();
-
-            //Add the meters traveled and the km_rate to a new CityDistance object
-            CityDistance cityDistance = new CityDistance(to, meters, km_rate);
-
-            em.merge(cityDistance);
-
-            cityDistances.add(new CityDistance(to, meters, km_rate));
-
-            //Calculate the extra cost
-            double addRange = meters * (km_rate / 10);
-
-            //Add the extra cost to the subtotal
-            subTotal += addRange;
-
-            //keep a count of the meters driven (for debugging purposes)
-            metersDriven += meters;
+            // If the vehicle is on an other lane, then the kilometers on the previous lane have been driven.
+            Lane currentLane = vehicleMovement.getMovement().getLane();
+            if(prevLane != currentLane)
+            {
+                int metersDriven = (prevLane == null) ? 0 : Math.round(prevLane.getLength());
+                totalMetersDriven += metersDriven;
+                
+                // Lookup the city in which the lane is, this can be null
+                City city = this.getCityByLane(prevLane);
+                
+                if(city != null) {
+                    CityDistance cityDistance = cityDistances.get(city);
+                    // add to subtotal
+                    subTotal += metersDriven * (km_rate / 10);
+                    
+                    // Check if we have driven here before or not
+                    if(cityDistance == null) 
+                    {
+                        cityDistance = new CityDistance(city, metersDriven, km_rate);
+                        cityDistances.put(city, cityDistance);
+                        em.merge(cityDistance);
+                    }else{
+                        //Add the meters traveled and the km_rate to a new CityDistance object
+                        cityDistance.addDistance(metersDriven);
+                        em.persist(cityDistance);
+                    }
+                }
+                
+                // We are driving on the next lane now
+                prevLane = currentLane;
+            }
         }
+        
+        logger.log(Level.INFO, "User : " + vehicleOwnership.getUserID() + " has driven " + totalMetersDriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
 
-        logger.log(Level.INFO, "User : " + vehicleOwnership.getUserID() + " has driven " + metersDriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
-
-        vehicleInvoice.setMovementList(cityDistances);
+        vehicleInvoice.setMovementList((List<CityDistance>) cityDistances.values());
 
         //Set the subtotal of the vehicleInvoice to the calculated subtotal
         vehicleInvoice.setSubTotal(new BigDecimal(subTotal, MathContext.DECIMAL64));
@@ -148,8 +159,32 @@ public class InvoiceGenerator
         invoice.addVehicleInvoie(vehicleInvoice);
 
         logger.log(Level.INFO, "Added vehicle invoice to invoice with ID " + invoice.getInvoiceID());
-            em.merge(invoice);
+        em.merge(invoice);
+    }
+    
+    /**
+     * Get the city in which the lane is located.
+     * @param lane
+     * @return the city
+     */
+    private City getCityByLane(Lane lane) {
+        Query query = em.createQuery("select count(city) from City city");
+        List<City> cities = query.getResultList();
+        for(City city : cities) 
+        {
+            /**
+             * Check if lane matches city
+             * Lane id = ":-23_2_0"
+             * City id = "-23"
+             */
+            if(lane.getId().startsWith(":"+city.getCityId()))
+            {
+                return city;
+            }
         }
+        return null;
+    }
+    
 
     /**
      * Creates a new invoice when there's no invoice for the current user, returns the existing invoice for the current user if we already created one
@@ -175,6 +210,11 @@ public class InvoiceGenerator
 
     public Collection<Invoice> getInvoices(){
         return this.userInvoices.values();
+    }
+
+    private double calculateTotalPrice(Collection<CityDistance> values)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
