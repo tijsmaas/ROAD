@@ -118,4 +118,59 @@ public class UserManager implements IUserManager {
                 .setParameter("right", right)
                 .getFirstResult() == 0;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String changePassword(int id, String oldPassword, String newPassword, String newPasswordValidate) {
+        if (newPassword == null || newPassword.isEmpty() || newPasswordValidate == null || newPasswordValidate.isEmpty()) {
+            return "Your new password cannot be left empty.";
+        } else if (!newPassword.equals(newPasswordValidate)) {
+            return "The entered passwords are not the same.";
+        } else if (oldPassword == null || oldPassword.isEmpty()) {
+            return "Please enter you password.";
+        }
+
+        UserEntity user = this.em.find(UserEntity.class, id);
+
+        try {
+            if (user == null) {
+                return "Unknown user.";
+            } else if (!user.getPassword().equals(Security.processPassword(oldPassword, user.getUsername(), user.getSalt()))) {
+                return "The entered password is incorrect.";
+            }
+
+            user.setPassword(Security.processPassword(newPassword, user.getUsername(), user.getSalt()));
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException
+                | InvalidKeyException | IllegalBlockSizeException
+                | BadPaddingException | InvalidKeySpecException ex) {
+            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+
+            return "Internal server error.";
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean changeDetails(int id, String name, String street, String houseNumber, String postalCode, String city) {
+        UserEntity user = this.em.find(UserEntity.class, id);
+
+        if (user == null) {
+            return false;
+        }
+
+        user.setName(name);
+        user.setStreet(street);
+        user.setHouseNumber(houseNumber);
+        user.setPostalCode(postalCode);
+        user.setCity(city);
+        this.em.persist(user);
+
+        return true;
+    }
 }

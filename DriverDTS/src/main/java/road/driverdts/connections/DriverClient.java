@@ -71,4 +71,22 @@ public class DriverClient extends ClientConnection implements IDriverQuery
     {
         return this.remoteCall("getInvoiceDetails", InvoiceDto.class, invoiceID);
     }
+
+    @Override
+    public String changePassword(Integer id, String oldPassword, String newPassword, String newPasswordValidate) {
+        if (id == null) {
+            throw new IllegalArgumentException("DriverClient.changePassword: id cannot be null.");
+        }
+
+        return this.remoteCall("changePassword", String.class, id, oldPassword, newPassword, newPasswordValidate);
+    }
+
+    @Override
+    public Boolean changeDetails(Integer id, String name, String street, String houseNumber, String postalCode, String city) {
+        if (id == null) {
+            throw new IllegalArgumentException("DriverClient.changePassword: id cannot be null.");
+        }
+
+        return this.remoteCall("changeDetails", Boolean.class, id, name, street, houseNumber, postalCode, city);
+    }
 }

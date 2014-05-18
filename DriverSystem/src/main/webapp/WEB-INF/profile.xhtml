@@ -2,6 +2,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
@@ -13,68 +14,88 @@
             <div class="row">
                 <div class="col-xs-6">
                     <h4>Change your password</h4>
-                    <h:form class="form-horizontal" role="form">
+
+                    <h:form id="passwordForm" class="form-horizontal" role="form">
+                        <c:panelGroup layout="block" styleClass="alert alert-success"
+                                      rendered="#{profileBean.passwordSuccessful}">
+                            Successfully changed your password
+                        </c:panelGroup>
+                        <c:panelGroup layout="block" styleClass="alert alert-danger"
+                                      rendered="#{profileBean.passwordErrorMessage != null}">
+                            <h:outputText value="#{profileBean.passwordErrorMessage}"></h:outputText>
+                        </c:panelGroup>
+
                         <div class="form-group">
-                            <label for="changePasswordOld" class="col-sm-6 control-label">Current password</label>
+                            <p:outputLabel for="changePasswordOld" styleClass="col-sm-6 control-label" value="Current password"/>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="changePasswordOld" placeholder="Current password" />
+                                <p:password id="changePasswordOld" value="#{profileBean.oldPassword}" placeholder="Current password" styleClass="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="changePasswordNew1" class="col-sm-6 control-label">New password</label>
+                            <p:outputLabel for="changePasswordNew1" styleClass="col-sm-6 control-label" value="New password"/>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="changePasswordNew1" placeholder="New password" />
+                                <p:password id="changePasswordNew1" value="#{profileBean.newPassword1}" placeholder="New password" styleClass="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="changePasswordNew2" class="col-sm-8 control-label">Confirm new password</label>
+                            <p:outputLabel for="changePasswordNew2" styleClass="col-sm-8 control-label" value="Confirm new password"/>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="changePasswordNew2" placeholder="Confirm new password" />
+                                <p:password id="changePasswordNew2" value="#{profileBean.newPassword2}" placeholder="Confirm new password" styleClass="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-4 col-sm-10">
-                                <button type="submit" class="btn btn-primary">Change password</button>
+                                <p:commandButton value="Change password" styleClass="btn btn-success" update="passwordForm" actionListener="#{profileBean.changePassword}"/>
                             </div>
                         </div>
                     </h:form>
                 </div>
                 <div class="col-xs-6">
                     <h4>Change your details</h4>
-                    <h:form class="form-horizontal" role="form">
+
+                    <h:form id="detailsForm" class="form-horizontal" role="form">
+                        <c:panelGroup layout="block" styleClass="alert alert-success"
+                                      rendered="#{profileBean.detailsSuccessful}">
+                            Successfully changed your details
+                        </c:panelGroup>
+                        <c:panelGroup layout="block" styleClass="alert alert-danger"
+                                      rendered="#{profileBean.detailErrorMessage != null}">
+                            <h:outputText value="#{profileBean.detailErrorMessage}"></h:outputText>
+                        </c:panelGroup>
+
                         <div class="form-group">
                             <label for="fullName" class="col-sm-4 control-label">Full name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="fullName" placeholder="Full name" />
+                                <p:inputText id="fullName" value="#{profileBean.fullName}" placeholder="Full name" styleClass="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="street" class="col-sm-4 control-label">Street</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="street" placeholder="Street" />
+                                <p:inputText id="street" value="#{profileBean.street}" placeholder="Street" styleClass="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="houseNumber" class="col-sm-5 control-label">House number</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="houseNumber" placeholder="House number" />
+                                <p:inputText id="houseNumber" value="#{profileBean.houseNumber}" placeholder="House number" styleClass="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="postalCode" class="col-sm-4 control-label">Postal code</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="postalCode" placeholder="Postal code" />
+                                <p:inputText id="postalCode" value="#{profileBean.postalCode}" placeholder="Postal code" styleClass="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="city" class="col-sm-4 control-label">City</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="city" placeholder="City" />
+                                <p:inputText id="city" value="#{profileBean.city}" placeholder="City" styleClass="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-10">
-                                <button type="submit" class="btn btn-primary">Change details</button>
+                                <p:commandButton value="Change details" styleClass="btn btn-success" update="detailsForm" actionListener="#{profileBean.changeDetails}"/>
                             </div>
                         </div>
                     </h:form>
