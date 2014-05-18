@@ -51,16 +51,14 @@ public abstract class ServerConnection<T> implements ConnectionListener
         try
         {
             Method method = this.methods.get(request.getFirst());
-            if (method == null)
-            {
-                throw new Exception("Method to invoke could not be found.");
-            }
             Object result = method.invoke(this.instance, request.getSecond());
             rawResult = this.connection.serializer.serializeBytes(method.getReturnType().cast(result));
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             ex.printStackTrace();
-        } finally
+        }
+        finally
         {
             return rawResult;
         }

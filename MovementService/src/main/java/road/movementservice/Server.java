@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.GregorianCalendar;
+import java.util.Map;
 
 /**
  * Created by geh on 8-5-14.
@@ -47,12 +48,18 @@ public class Server
         EntityManagerFactory emfUserService = Persistence.createEntityManagerFactory("UserServicePU");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MovementPU");
 
+        Map props = emf.getProperties();
+
+
         this.userManager = new UserManager(emfUserService);
         
         // Create a user for debugging.
-        try {
+        try
+        {
             this.userManager.register("admin", "aidas123");
-        } catch (UserSystemException e) {
+        }
+        catch (UserSystemException e)
+        {
             e.printStackTrace();
         }
 
@@ -82,7 +89,8 @@ public class Server
      * Function to fill the database with test data.
      * @param emf the entity manager factory used for getting the {@link EntityManager}.
      */
-    private void fillDatabase(EntityManagerFactory emf) {
+    private void fillDatabase(EntityManagerFactory emf)
+    {
         EntityManager em = emf.createEntityManager();
 
         Vehicle v = new Vehicle();

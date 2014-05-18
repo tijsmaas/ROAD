@@ -58,7 +58,7 @@ public class BillServer extends ServerConnection implements IBillQuery
         invoiceDAO.generate(vehicleMovements);
         System.out.println("Executing query");
 
-        return 0;
+        return new Integer(42734);
     }
 
 

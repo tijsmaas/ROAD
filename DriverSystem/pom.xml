@@ -10,9 +10,6 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>DriverSystem</artifactId>
-    <packaging>war</packaging>
-
-    <name>DriverSystem</name>
     
     <dependencies>
         <dependency>
@@ -46,7 +43,6 @@
             <groupId>ROAD</groupId>
             <artifactId>MovementDtos</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

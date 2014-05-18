@@ -7,50 +7,35 @@
         <groupId>ROAD</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    
-    <packaging>war</packaging>
-    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ROAD</groupId>
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>MovementMapper</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>MovementMapper</name>
-    
-    <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     
     <dependencies>
         <dependency>
             <groupId>ROAD</groupId>
             <artifactId>MovementSumo</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>ROAD</groupId>
             <artifactId>MovementEntities</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
             <version>3.1</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>ROAD</groupId>
             <artifactId>UserService</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax.xml</groupId>
@@ -75,7 +60,7 @@
     </dependencies>
     
     
-    <build>
+    <!--<build>
         <finalName>MovementMapper</finalName>
         <plugins>
             <plugin>
@@ -95,6 +80,6 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
     
 </project>

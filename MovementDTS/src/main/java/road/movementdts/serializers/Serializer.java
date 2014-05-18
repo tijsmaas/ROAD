@@ -24,7 +24,7 @@ public class Serializer
     public <T> byte[] serializeBytes(T obj)
     {
         Output output = new Output(new ByteArrayOutputStream());
-        this.kryo.writeObject(output, obj);
+        this.kryo.writeClassAndObject(output, obj);
         output.close();
 
         return output.getBuffer();
@@ -32,7 +32,7 @@ public class Serializer
 
     public <T> T deSerialize(byte[] raw, Class<T> type)
     {
-        T object = kryo.readObjectOrNull(new Input(raw), type);
+        T object = (T)kryo.readClassAndObject(new Input(raw));
         return object;
     }
 

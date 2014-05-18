@@ -55,6 +55,27 @@ body {
     overflow-y: scroll;
 }
 
+.superawesome{
+    position:absolute;
+    display: none;
+    font-weight: bolder;
+    font-family: "Comic Sans MS";
+    font-size: 90px;
+    background-color: transparent;
+}
+
+.superawesomeBoss{
+    position:relative;
+    overflow:hidden;
+    top:0px;
+    left:0px;
+}
+
+.superawesomeMain{
+    position:absolute;
+    top:0px;
+    left:0px;
+}
 
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
