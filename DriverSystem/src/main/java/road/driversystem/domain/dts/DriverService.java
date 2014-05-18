@@ -8,6 +8,7 @@ package road.driversystem.domain.dts;
 
 import aidas.userservice.dto.UserDto;
 import road.driverdts.connections.DriverClient;
+import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
 
 import javax.annotation.PostConstruct;
@@ -61,5 +62,9 @@ public class DriverService implements Serializable
     public boolean updateVehicle(VehicleDto vehicleDto) {
         Boolean result = driverQueries.updateVehicle(vehicleDto);
         return result != null ? result.booleanValue() : false;
+    }
+
+    public List<InvoiceDto> getUserInvoices(int userID){
+        return driverQueries.getUserInvoices(userID);
     }
 }

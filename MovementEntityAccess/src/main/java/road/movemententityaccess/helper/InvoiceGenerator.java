@@ -96,6 +96,11 @@ public class InvoiceGenerator
 
             //TODO: Calculate the average rate
             double meters = vehicleMovement.getPosition();
+            CityDistance cityDistance = new CityDistance(to, meters, km_rate);
+
+            logger.log(Level.INFO, "Adding new CityDistance");
+            em.merge(cityDistance);
+
             cityDistances.add(new CityDistance(to, meters, km_rate));
 
             double addRange = meters * (km_rate / 10);
@@ -110,8 +115,8 @@ public class InvoiceGenerator
         invoice.addVehicleInvoie(vehicleInvoice);
 
         logger.log(Level.INFO, "Added vehicle invoice to invoice with ID " + invoice.getInvoiceID());
-        em.merge(invoice);
-    }
+            em.merge(invoice);
+        }
 
     private Invoice getOrCreateInvoice(VehicleOwnership vehicleOwnership)
     {
