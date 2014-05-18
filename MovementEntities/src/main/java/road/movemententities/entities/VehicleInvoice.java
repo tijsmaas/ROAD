@@ -11,7 +11,8 @@ import java.util.List;
 @Entity
 public class VehicleInvoice implements MovementEntity<Integer>
 {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private int id;
 
     @ManyToOne
@@ -24,6 +25,16 @@ public class VehicleInvoice implements MovementEntity<Integer>
 
     @OneToMany
     private List<CityDistance> movementList;
+
+
+    public VehicleInvoice()
+    {
+    }
+
+    public VehicleInvoice(VehicleOwnership ownership)
+    {
+        this.ownership = ownership;
+    }
 
     @Override
     public Integer getId()

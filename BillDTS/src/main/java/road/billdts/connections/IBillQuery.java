@@ -18,5 +18,5 @@ public interface IBillQuery
 
     List<City> getCities();
 
-    Integer generateMonthlyInvoices();
+    Integer generateMonthlyInvoices(Integer month, Integer year);
 }

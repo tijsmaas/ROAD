@@ -21,7 +21,6 @@ public class VehicleOwnership implements MovementEntity<Integer>
     @ManyToOne(cascade = {CascadeType.ALL})
     private Vehicle vehicle;
 
-    //TODO: Make a connection to the user? by id?
     private int userID;
 
     /**

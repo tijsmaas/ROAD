@@ -1,12 +1,14 @@
 package road.billsystem.service;
 
+import aidas.userservice.dto.UserDto;
 import road.billdts.connections.BillClient;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
+import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
-import javax.ejb.Singleton;
+import java.util.Calendar;
 
 /**
  * Created by Niek on 14/05/14.
@@ -30,12 +32,23 @@ public class BillService
     @Schedule(month="*", info="Generate monthly invoices")
     public void generateMonthlyInvoice(Timer t)
     {
-        this.generateMonthlyInvoices();
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        this.generateMonthlyInvoices(month, year);
     }
 
 
-    public void generateMonthlyInvoices()
+    public int generateMonthlyInvoices(int month, int year)
     {
-        billClient.generateMonthlyInvoices();
+        Object result = billClient.generateMonthlyInvoices(month, year);
+        System.out.println("result: " + result);
+        return 0;
     }
+
+    public UserDto login(String username, String password)
+    {
+        return billClient.authenticate(username, password);
+    }
+
 }

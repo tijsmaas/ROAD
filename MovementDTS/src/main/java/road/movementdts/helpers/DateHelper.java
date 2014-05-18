@@ -11,11 +11,11 @@ import java.util.GregorianCalendar;
  */
 public class DateHelper
 {
-    public static Pair<Calendar, Calendar> getDateRange() {
+    public static Pair<Calendar, Calendar> getDateRange(int month, int year) {
         Calendar begining, end;
 
         {
-            Calendar calendar = getCalendarForNow();
+            Calendar calendar = getCalendarForNow(month, year);
             calendar.set(Calendar.DAY_OF_MONTH,
                     calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
             setTimeToBeginningOfDay(calendar);
@@ -23,7 +23,7 @@ public class DateHelper
         }
 
         {
-            Calendar calendar = getCalendarForNow();
+            Calendar calendar = getCalendarForNow(month, year);
             calendar.set(Calendar.DAY_OF_MONTH,
                     calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
             setTimeToEndofDay(calendar);
@@ -33,9 +33,12 @@ public class DateHelper
         return new Pair<>(begining, end);
     }
 
-    private static Calendar getCalendarForNow() {
+    private static Calendar getCalendarForNow(int month, int year) {
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(new Date());
+
+        calendar.set(Calendar.MONTH, month -1);
+        calendar.set(Calendar.YEAR, year);
         return calendar;
     }
 

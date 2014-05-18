@@ -1,0 +1,57 @@
+<ui:composition template="../template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ui:param name="title" value="BillSystem"/>
+    <ui:param name="url" value="/billsystem/"/>
+
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+
+
+        <div class="pill">
+            <h:form>
+                <h3>Manual Invoice generation page</h3>
+
+                <label>Month</label>
+                <h:selectOneMenu id="monthSelector" value="#{invoiceBean.selectedMonth}">
+                    <f:selectItem id="month1" itemLabel="January" itemValue="1"/>
+                    <f:selectItem id="month2" itemLabel="February" itemValue="2"/>
+                    <f:selectItem id="month3" itemLabel="March" itemValue="3"/>
+                    <f:selectItem id="month4" itemLabel="April" itemValue="4"/>
+                    <f:selectItem id="month5" itemLabel="May" itemValue="5"/>
+                    <f:selectItem id="month6" itemLabel="June" itemValue="6"/>
+                    <f:selectItem id="month7" itemLabel="July" itemValue="7"/>
+                    <f:selectItem id="month8" itemLabel="August" itemValue="8"/>
+                    <f:selectItem id="month9" itemLabel="September" itemValue="9"/>
+                    <f:selectItem id="month10" itemLabel="October" itemValue="10"/>
+                    <f:selectItem id="month11" itemLabel="November" itemValue="11"/>
+                    <f:selectItem id="month12" itemLabel="December" itemValue="12"/>
+                </h:selectOneMenu>
+
+                <label>Year</label>
+                <h:selectOneMenu id="yearSelector" value="#{invoiceBean.selectedYear}">
+                    <f:selectItem id="year1" itemLabel="2014" itemValue="2014"/>
+                    <f:selectItem id="year2" itemLabel="2013" itemValue="2013"/>
+                    <f:selectItem id="year3" itemLabel="2012" itemValue="2012"/>
+                    <f:selectItem id="year4" itemLabel="2011" itemValue="2011"/>
+                </h:selectOneMenu>
+
+                <h:commandButton id="btnExecute" styleClass="btn btn-primary"
+                                 actionListener="#{invoiceBean.manualGeneration}" value="Generate invoices"/>
+            </h:form>
+
+            <h:panelGroup layout="block" rendered="#{invoiceBean.done}">
+                <div class="alert alert-success">
+                    <h:outputText value="#{invoiceBean.numberGenerated}"/> invoices generated.
+                </div>
+            </h:panelGroup>
+        </div>
+    </ui:define>
+
+
+</ui:composition>
+
