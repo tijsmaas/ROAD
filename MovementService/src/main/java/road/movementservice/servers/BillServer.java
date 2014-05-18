@@ -5,6 +5,7 @@ package road.movementservice.servers;
 import aidas.userservice.IUserManager;
 import aidas.userservice.dto.UserDto;
 import road.billdts.connections.IBillQuery;
+import road.movementdtos.dtos.CityDto;
 import road.movementdts.connections.MovementConnection;
 import road.movementdts.helpers.DateHelper;
 import road.movementdts.helpers.Pair;
@@ -12,8 +13,6 @@ import road.movemententities.entities.VehicleMovement;
 import road.movemententityaccess.dao.CityDAO;
 import road.movemententityaccess.dao.InvoiceDAO;
 import road.movemententityaccess.dao.MovementDAO;
-import road.movemententities.entities.City;
-import road.movemententities.entities.CityRate;
 import road.movementservice.connections.ServerConnection;
 import road.movementservice.mapper.DtoMapper;
 
@@ -59,13 +58,13 @@ public class BillServer extends ServerConnection implements IBillQuery
     }
 
     @Override
-    public boolean adjustKilometerRate(City city, Date addDate, String price)
+    public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
     {
         return cityDAO.adjustKilometerRate(city, addDate, price);
     }
 
     @Override
-    public List<City> getCities() {
+    public List<CityDto> getCities() {
         return cityDAO.findAll();
     }
 

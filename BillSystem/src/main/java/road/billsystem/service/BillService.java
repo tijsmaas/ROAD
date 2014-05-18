@@ -2,7 +2,7 @@ package road.billsystem.service;
 
 import aidas.userservice.dto.UserDto;
 import road.billdts.connections.BillClient;
-import road.movemententities.entities.City;
+import road.movementdtos.dtos.CityDto;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
@@ -56,12 +56,12 @@ public class BillService implements Serializable
         return billClient.authenticate(username, password);
     }
 
-    public boolean adjustKilometerRate(City city, Date addDate, String price)
+    public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
     {
         return billClient.adjustKilometerRate(city, addDate, price);
     }
 
-    public List<City> getCities() {
+    public List<CityDto> getCities() {
         return billClient.getCities();
     }
 

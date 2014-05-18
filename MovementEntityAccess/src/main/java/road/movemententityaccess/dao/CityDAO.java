@@ -1,7 +1,6 @@
 package road.movemententityaccess.dao;
 
-import road.movemententities.entities.City;
-import road.movemententities.entities.Edge;
+import road.movementdtos.dtos.CityDto;
 
 import java.util.Date;
 import java.util.List;
@@ -20,10 +19,10 @@ public interface CityDAO
      * @param cityIdentifier The sumo City Identifier
      * @return The found City object
      */
-    City find(String cityIdentifier);
+    CityDto find(String cityIdentifier);
 
-    List<City> findAll();
+    List<CityDto> findAll();
 
-    boolean adjustKilometerRate(City city, Date addDate, String price);
+    boolean adjustKilometerRate(CityDto city, Date addDate, String price);
 
 }

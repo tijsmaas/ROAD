@@ -1,9 +1,9 @@
 package road.billdts.connections;
 
         import aidas.userservice.dto.UserDto;
+        import road.movementdtos.dtos.CityDto;
         import road.movementdts.connections.ClientConnection;
         import road.movementdts.connections.MovementConnection;
-        import road.movemententities.entities.City;
 
         import java.util.ArrayList;
         import java.util.Date;
@@ -29,13 +29,13 @@ public class BillClient extends ClientConnection implements IBillQuery
     }
 
     @Override
-    public boolean adjustKilometerRate(City city, Date addDate, String price)
+    public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
     {
         return this.remoteCall("adjustKilometerRate", boolean.class, city, addDate, price);
     }
 
     @Override
-    public List<City> getCities() {
+    public List<CityDto> getCities() {
         return this.remoteCall("getCities", ArrayList.class);
     }
 
