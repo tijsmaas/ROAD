@@ -32,7 +32,7 @@ public class VehicleOwnership implements MovementEntity<Integer>
 
     private Calendar registrationExperationDate;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany
     private List<VehicleInvoice> vehicleInvoices;
 
     // Empty constructor for JPA

@@ -1,5 +1,6 @@
 package road.movemententityaccess.dao;
 
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movemententities.entities.Invoice;
 import road.movemententities.entities.VehicleMovement;
 
@@ -15,4 +16,8 @@ public interface InvoiceDAO
     public int generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate);
 
     public List<Invoice> getInvoicesForUser(int userID);
+
+    public Invoice getInvoice(int invoiceID);
+
+    public boolean updateInvoicePaymentstatus(int invoiceID, PaymentStatus dtoPaymentStatus);
 }

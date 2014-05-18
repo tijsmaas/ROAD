@@ -60,6 +60,16 @@ public class Invoice implements MovementEntity<Integer>, Serializable
         return invoiceID;
     }
 
+    public int getUserID()
+    {
+        return userID;
+    }
+
+    public void setUserID(int userID)
+    {
+        this.userID = userID;
+    }
+
     public Date getStartDate()
     {
         return startDate;

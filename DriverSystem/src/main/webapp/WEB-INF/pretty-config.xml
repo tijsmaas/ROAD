@@ -24,4 +24,8 @@
         <pattern value="/profile/"></pattern>
         <view-id value="../WEB-INF/profile.xhtml"/>
     </url-mapping>
+    <url-mapping>
+        <pattern value="/invoices/"></pattern>
+        <view-id value="../WEB-INF/invoices.xhtml"/>
+    </url-mapping>
 </pretty-config>

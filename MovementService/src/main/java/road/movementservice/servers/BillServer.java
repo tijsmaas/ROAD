@@ -15,8 +15,8 @@ import road.movemententityaccess.dao.MovementDAO;
 import road.movemententities.entities.City;
 import road.movemententities.entities.CityRate;
 import road.movementservice.connections.ServerConnection;
+import road.movementservice.mapper.DtoMapper;
 
-import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,8 +30,9 @@ public class BillServer extends ServerConnection implements IBillQuery
     private MovementDAO movementDAO;
     private CityDAO cityDAO;
     private IUserManager userManager;
+    private DtoMapper dtoMapper;
 
-    public BillServer(InvoiceDAO invoiceDAO, IUserManager userManager, MovementDAO movementDAO, CityDAO cityDAO)
+    public BillServer(InvoiceDAO invoiceDAO, IUserManager userManager, MovementDAO movementDAO, CityDAO cityDAO, DtoMapper dtoMapper)
     {
         super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
 
@@ -39,6 +40,7 @@ public class BillServer extends ServerConnection implements IBillQuery
         this.userManager = userManager;
         this.movementDAO = movementDAO;
         this.cityDAO = cityDAO;
+        this.dtoMapper = dtoMapper;
     }
 
     /**
@@ -68,17 +70,15 @@ public class BillServer extends ServerConnection implements IBillQuery
     }
 
     @Override
-    @Transactional
     public Integer generateMonthlyInvoices(Integer month, Integer year)
     {
+
         Pair<Calendar, Calendar> invoiceDateRange = DateHelper.getDateRange(month, year);
 
         List<VehicleMovement> vehicleMovements = movementDAO.getMovementsForVehicleInRange(invoiceDateRange.getFirst(), invoiceDateRange.getSecond());
-        invoiceDAO.generate(vehicleMovements, invoiceDateRange.getFirst().getTime(), invoiceDateRange.getSecond().getTime());
+        int amountCreated = invoiceDAO.generate(vehicleMovements, invoiceDateRange.getFirst().getTime(), invoiceDateRange.getSecond().getTime());
 
-
-
-        return 0;
+        return amountCreated;
     }
 
 
