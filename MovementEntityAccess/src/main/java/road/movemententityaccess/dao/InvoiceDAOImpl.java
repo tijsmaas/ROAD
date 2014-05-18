@@ -41,7 +41,7 @@ public class InvoiceDAOImpl implements InvoiceDAO
     @Override
     public List<Invoice> getInvoicesForUser(int userID)
     {
-        Query query = em.createQuery("select invoice from Invoice invoice where invoice.userID = :userID");
+        Query query = em.createQuery("select invoice from Invoice invoice where invoice.userID = :userID order by invoice.paymentStatus asc");
         query.setParameter("userID", userID);
 
         return query.getResultList();

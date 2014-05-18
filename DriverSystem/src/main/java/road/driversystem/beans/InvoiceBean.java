@@ -37,4 +37,8 @@ public class InvoiceBean
     {
         return this.userInvoices;
     }
+
+    public int getInvoiceLength(){
+        return this.userInvoices.size();
+    }
 }

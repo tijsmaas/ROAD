@@ -4,6 +4,7 @@ import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public class InvoiceDto
     private List<VehicleInvoiceDto> vehicleInvoices;
     private PaymentStatus paymentStatus;
     private BigDecimal total;
+    private int month;
+    private int year;
 
     public InvoiceDto()
     {
@@ -35,6 +38,11 @@ public class InvoiceDto
         this.endDate = endDate;
         this.paymentStatus = PaymentStatus.values()[paymentStatus];
         this.total =  total.setScale(2, RoundingMode.CEILING);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDate);
+        this.year = cal.get(Calendar.YEAR);
+        this.month = cal.get(Calendar.MONTH) + 1; //We add the plus one because for some reason months start at 0 instead of 1.
 
     }
 
@@ -116,6 +124,26 @@ public class InvoiceDto
     public void setTotal(BigDecimal total)
     {
         this.total = total;
+    }
+
+    public int getMonth()
+    {
+        return month;
+    }
+
+    public void setMonth(int month)
+    {
+        this.month = month;
+    }
+
+    public int getYear()
+    {
+        return year;
+    }
+
+    public void setYear(int year)
+    {
+        this.year = year;
     }
 }
 

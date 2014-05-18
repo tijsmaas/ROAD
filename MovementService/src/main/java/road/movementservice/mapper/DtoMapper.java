@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The Dto Mapper contains functions for mapping Entity objects to Dto objects
+ *
+ *
+ * TODO: Look for a way to implement a Java alternative to automapper
+ *
  * Created by Niek on 18/05/14.
  * © Aidas 2014
  */
@@ -20,16 +25,18 @@ public class DtoMapper
 
     /**
      * Map an Invoice object to a simple invoiceDTO, not containing any of the child relations
+     *
      * @param invoice the invoice to map
      * @return simple InvoiceDTO
      */
     public InvoiceDto mapSimple(Invoice invoice)
     {
-        if(invoice == null){
+        if (invoice == null)
+        {
             return null;
         }
         BigDecimal total = new BigDecimal("0");
-        for (VehicleInvoice vehicleInvoice :invoice.getVehicleInvoices())
+        for (VehicleInvoice vehicleInvoice : invoice.getVehicleInvoices())
         {
             total = total.add(vehicleInvoice.getSubTotal());
         }
@@ -40,16 +47,18 @@ public class DtoMapper
 
     /**
      * Map a VehicleInvoice to a simple version of the VehicleInvoiceDTO, not containing the list of cityMovements
+     *
      * @param vehicleInvoice the vehicleInvoice to map
      * @return The VehicleInvoiceDto object
      */
     public VehicleInvoiceDto mapSimple(VehicleInvoice vehicleInvoice)
     {
-        return new VehicleInvoiceDto(vehicleInvoice.getId(), this.map(vehicleInvoice.getOwnership().getVehicle()), vehicleInvoice.getSubTotal());
+        return new VehicleInvoiceDto(vehicleInvoice.getId(), this.map(vehicleInvoice.getOwnership().getVehicle()), vehicleInvoice.getSubTotal(), vehicleInvoice.getMetersDriven());
     }
 
     /**
      * Maps a Vehicle to a VehicleDTO
+     *
      * @param vehicle The Vehicle object to map
      * @return The Vehicle Dto object
      */
@@ -61,12 +70,14 @@ public class DtoMapper
 
     /**
      * Map an Invoice to a Dto, containing all the invoice details.
+     *
      * @param invoice The invoice to map
      * @return The Invoice Dto containing the children (like vehicleMovements)
      */
     public InvoiceDto map(Invoice invoice)
     {
-        if(invoice == null){
+        if (invoice == null)
+        {
             return null;
         }
 

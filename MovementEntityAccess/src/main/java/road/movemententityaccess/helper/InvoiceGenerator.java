@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Class for generating invoices on the given
+ *
  * Created by Niek on 17/05/14.
  * © Aidas 2014
  */
@@ -140,6 +142,8 @@ public class InvoiceGenerator
 
         //Set the subtotal of the vehicleInvoice to the calculated subtotal
         vehicleInvoice.setSubTotal(new BigDecimal(subTotal, MathContext.DECIMAL64));
+
+        vehicleInvoice.setMetersDriven(metersDriven);
 
         //Set the invoice to the vehicle invoice
         vehicleInvoice.setInvoice(invoice);

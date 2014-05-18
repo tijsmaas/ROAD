@@ -15,9 +15,13 @@
             <div class="tableContainer">
                 <!--TODO: Create repeater for invoices-->
 
+
+                <h:panelGroup layout="block" styleClass="alert alert-info" rendered="#{fn:length(invoiceBean.userInvoices) lt 1}">
+                    There are currently no invoices linked to your account.
+                </h:panelGroup>
                 <ui:repeat value="#{invoiceBean.userInvoices}" var="invoice">
                     <div class="pill">
-                        <h4>Invoice ##{invoice.invoiceID} from #{invoice.startDate} to #{invoice.endDate}</h4>
+                        <h4>Invoice ##{invoice.invoiceID} for #{invoice.month} / #{invoice.year}</h4>
                         <h:outputLabel value="Total amount: €#{invoice.total.toString()}"/>
 
                         <h:panelGroup layout="block" rendered="#{invoice.paymentStatus == 'NOT_PAID'}">

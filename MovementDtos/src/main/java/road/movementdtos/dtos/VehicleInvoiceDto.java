@@ -12,13 +12,18 @@ public class VehicleInvoiceDto
     private int vehicleInvoiceID;
     private VehicleDto vehicle;
     private BigDecimal subTotal;
+    private double kilometersDriven;
     private List<CityMovementDto> cityMovements;
 
-    public VehicleInvoiceDto(int vehicleInvoiceID, VehicleDto vehicleDto, BigDecimal subTotal)
+    public VehicleInvoiceDto(int vehicleInvoiceID, VehicleDto vehicleDto, BigDecimal subTotal, int metersDriven)
     {
         this.vehicleInvoiceID = vehicleInvoiceID;
         this.vehicle  = vehicleDto;
         this.subTotal = subTotal;
+        this.kilometersDriven = metersDriven / 100;
+        this.kilometersDriven = kilometersDriven * 100;
+        this.kilometersDriven = Math.round(kilometersDriven);
+        this.kilometersDriven = kilometersDriven / 100;
     }
 
     public VehicleInvoiceDto(){};
@@ -62,5 +67,15 @@ public class VehicleInvoiceDto
     public void setCityMovements(List<CityMovementDto> cityMovements)
     {
         this.cityMovements = cityMovements;
+    }
+
+    public double getKilometersDriven()
+    {
+        return kilometersDriven;
+    }
+
+    public void setKilometersDriven(double kilometersDriven)
+    {
+        this.kilometersDriven = kilometersDriven;
     }
 }
