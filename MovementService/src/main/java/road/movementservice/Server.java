@@ -25,6 +25,7 @@ public class Server
 {
     private LaneDAO laneDAO;
     private EdgeDAO edgeDAO;
+    private CityDAO cityDAO;
     private VehicleDAO vehicleDAO;
     private ConnectionDAO connectionDAO;
     private InvoiceDAO invoiceDAO;
@@ -62,6 +63,7 @@ public class Server
         this.dtoMapper = new DtoMapper();
         this.laneDAO = new LaneDAOImpl(emf);
         this.edgeDAO = new EdgeDAOImpl(emf);
+        this.cityDAO = new CityDAOImpl(emf);
         this.vehicleDAO = new VehicleDAOImpl(emf);
         this.connectionDAO = new ConnectionDAOImpl(emf);
         this.invoiceDAO = new InvoiceDAOImpl(emf);
@@ -70,7 +72,7 @@ public class Server
         this.driverServer = new DriverServer(this.userManager, this.laneDAO, this.connectionDAO, this.edgeDAO, this.vehicleDAO, this.invoiceDAO, this.dtoMapper);
         this.driverServer.init();
 
-        this.billServer = new BillServer(this.invoiceDAO, this.userManager, this.movementDAO, this.dtoMapper);
+        this.billServer = new BillServer(this.invoiceDAO, this.userManager, this.movementDAO, this.cityDAO, this.dtoMapper);
         this.billServer.init();
 
         this.policeServer = new PoliceServer();
