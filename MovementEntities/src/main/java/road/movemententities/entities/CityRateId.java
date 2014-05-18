@@ -7,11 +7,13 @@ import java.util.Date;
 /**
  * Created by Mitch on 13-5-2014.
  */
+@Embeddable
 public class CityRateId implements Serializable
 {
     @ManyToOne
     private City city;
 
+    @Column(unique = false, nullable = true)
     @Temporal(TemporalType.DATE)
     private Date addDate;
 

@@ -1,49 +1,39 @@
 package road.movemententities.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
  * Created by Mitch on 12-5-2014.
  */
 @Entity
-@IdClass(value=CityRateId.class)
 public class CityRate
 {
-    @Id
-    private City city;
+    @EmbeddedId
+    @Column(unique = false, nullable = true)
+    CityRateId id;
 
-    @Id
-    private Date addDate;
-
+    @Column(unique = false, nullable = true)
     private String kilometerRate;
 
     public CityRate(){}
 
     public CityRate(City city, Date addDate, String kilometerRate)
     {
-        /*id = new CityRateId();
+        id = new CityRateId();
         id.setCity(city);
-        id.setAddDate(addDate);*/
-        this.city = city;
-        this.addDate = addDate;
+        id.setAddDate(addDate);
         this.kilometerRate = kilometerRate;
     }
 
-    public City getCity() {
-        return city;
+    public CityRateId getId() {
+        return id;
     }
 
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public Date getAddDate() {
-        return addDate;
-    }
-
-    public void setAddDate(Date addDate) {
-        this.addDate = addDate;
+    public void setId(CityRateId id) {
+        this.id = id;
     }
 
     public String getKilometerRate() {

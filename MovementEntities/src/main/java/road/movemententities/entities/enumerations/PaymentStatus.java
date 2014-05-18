@@ -6,7 +6,7 @@ package road.movemententities.entities.enumerations;
  */
 public enum PaymentStatus
 {
-    NOT_PAYED,
+    NOT_PAID,
     SUCCESSFUL,
     PENDING
 }

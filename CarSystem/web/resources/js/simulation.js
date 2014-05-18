@@ -5,12 +5,18 @@ function simulation()
         var ws = new WebSocket("ws://localhost:8080/car/socket");
         ws.onopen = function()
         {
+            $("#btnSim").prop( "disabled", true );
             ws.send("start");
         };
         ws.onmessage = function (evt)
         {
-            var received_msg = evt.data;
-            $("#show").append(received_msg + "<br />");
+            var response = $.parseJSON(evt.data);
+            var vehicle = response.timeStep.edges[0].lanes[0].vehicles[0];
+            $("#show").append("Vehicle with id " + vehicle.id +
+                              " with position  " + vehicle.pos +
+                              " and speed " + vehicle.speed  +
+                              " @" + response.timeStep.time + "<br />");
+            $("#message").html(response.message);
         };
         ws.onclose = function()
         {

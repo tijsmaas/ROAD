@@ -6,7 +6,7 @@ package road.movementdtos.dtos.enumerations;
  */
 public enum PaymentStatus
 {
-    NOT_PAYED,
+    NOT_PAID,
     SUCCESSFUL,
     PENDING
 }

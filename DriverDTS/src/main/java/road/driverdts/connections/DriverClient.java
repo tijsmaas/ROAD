@@ -67,8 +67,8 @@ public class DriverClient extends ClientConnection implements IDriverQuery
     }
 
     @Override
-    public InvoiceDto viewInvoiceDetails(Integer invoiceID)
+    public InvoiceDto getInvoiceDetails(Integer invoiceID)
     {
-        return this.remoteCall("viewInvoiceDetails", InvoiceDto.class, invoiceID);
+        return this.remoteCall("getInvoiceDetails", InvoiceDto.class, invoiceID);
     }
 }

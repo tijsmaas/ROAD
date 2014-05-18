@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Class for generating invoices on the given
+ *
  * Created by Niek on 17/05/14.
  * © Aidas 2014
  */
@@ -27,6 +29,7 @@ public class InvoiceGenerator
 
     private Map<Integer, Invoice> userInvoices = new HashMap<>();
 
+
     public InvoiceGenerator(List<VehicleMovement> monthlyMovements, EntityManager em, Date startDate, Date endDate)
     {
         this.monthlyMovements = monthlyMovements;
@@ -38,9 +41,11 @@ public class InvoiceGenerator
 
     }
 
+    /**
+     * Start the generation of invoices
+     */
     public void generate()
     {
-        System.out.println("starting generation");
         logger.log(Level.INFO, "Starting invoice generation");
         try
         {
@@ -55,11 +60,18 @@ public class InvoiceGenerator
         }
     }
 
+    /**
+     * Couple the vehicleMovements to car ownerships
+     * @param monthlyMovements List of monthlymovements
+     * @return A map containing a vehicle ownership and it's movements
+     */
     private Map<VehicleOwnership, List<VehicleMovement>> getVehicleOwnershipMovements(List<VehicleMovement> monthlyMovements)
     {
         Map<VehicleOwnership, List<VehicleMovement>> vehicleOwnershipMovements = new HashMap<>();
+
         for (VehicleMovement vehicleMovement : this.monthlyMovements)
         {
+            //Check if the map already contains the current ownership, if so add to that
             if (vehicleOwnershipMovements.containsKey(vehicleMovement.getVehicleOwnership()))
             {
                 List<VehicleMovement> ownerMovements = vehicleOwnershipMovements.get(vehicleMovement.getVehicleOwnership());
@@ -68,6 +80,7 @@ public class InvoiceGenerator
                 vehicleMovement.getMovement();
             } else
             {
+                //If the ownership doesn't exist, create a new one.
                 List<VehicleMovement> vehicleMovements = new ArrayList<>();
                 vehicleMovements.add(vehicleMovement);
 
@@ -78,6 +91,11 @@ public class InvoiceGenerator
         return vehicleOwnershipMovements;
     }
 
+    /**
+     * Create a new invoice, or update the existing one if a vehicleOwnership belongs to a user we already created an invoice for
+     * @param vehicleOwnership The VehicleOwnership of the current invoice to generate
+     * @param vehicleMovements The movemets of the ownership
+     */
     private void createOrUpdateInvoice(VehicleOwnership vehicleOwnership, List<VehicleMovement> vehicleMovements)
     {
         VehicleInvoice vehicleInvoice = new VehicleInvoice(vehicleOwnership);
@@ -85,30 +103,49 @@ public class InvoiceGenerator
         List<CityDistance> cityDistances = new ArrayList<>();
 
         Double subTotal = 0.0;
+
+        //TODO: DO NOT HARDCODE KM_RATE
         Double km_rate = 0.20;
 
         Invoice invoice = this.getOrCreateInvoice(vehicleOwnership);
 
+        int metersDriven = 0;
         for (VehicleMovement vehicleMovement : vehicleMovements)
         {
             City from = vehicleMovement.getMovement().getLane().getEdge().getFrom();
             City to = vehicleMovement.getMovement().getLane().getEdge().getTo();
 
-            //TODO: Calculate the average rate
+            //TODO: Calculate the average rate based on BOTH cities
+            //TODO: vehicleMovement.getPosition() doesn't translate to meters.
             double meters = vehicleMovement.getPosition();
+
+            //Add the meters traveled and the km_rate to a new CityDistance object
             CityDistance cityDistance = new CityDistance(to, meters, km_rate);
 
-            logger.log(Level.INFO, "Adding new CityDistance");
             em.merge(cityDistance);
 
             cityDistances.add(new CityDistance(to, meters, km_rate));
 
+            //Calculate the extra cost
             double addRange = meters * (km_rate / 10);
+
+            //Add the extra cost to the subtotal
             subTotal += addRange;
+
+            //keep a count of the meters driven (for debugging purposes)
+            metersDriven += meters;
         }
 
+        logger.log(Level.INFO, "User : " + vehicleOwnership.getUserID() + " has driven " + metersDriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
+
         vehicleInvoice.setMovementList(cityDistances);
+
+        //Set the subtotal of the vehicleInvoice to the calculated subtotal
         vehicleInvoice.setSubTotal(new BigDecimal(subTotal, MathContext.DECIMAL64));
+
+        vehicleInvoice.setMetersDriven(metersDriven);
+
+        //Set the invoice to the vehicle invoice
         vehicleInvoice.setInvoice(invoice);
 
         em.persist(vehicleInvoice);
@@ -118,6 +155,11 @@ public class InvoiceGenerator
             em.merge(invoice);
         }
 
+    /**
+     * Creates a new invoice when there's no invoice for the current user, returns the existing invoice for the current user if we already created one
+     * @param vehicleOwnership The VehicleOwnership of the current invoice to generate
+     * @return the new or existing invoice
+     */
     private Invoice getOrCreateInvoice(VehicleOwnership vehicleOwnership)
     {
         if (this.userInvoices.containsKey(vehicleOwnership.getUserID()))

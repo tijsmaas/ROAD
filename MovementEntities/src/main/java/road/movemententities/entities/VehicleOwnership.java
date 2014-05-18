@@ -12,6 +12,7 @@ import java.util.List;
  * © Aidas 2014
  */
 @Entity
+@Table(name = "VHOS")
 public class VehicleOwnership implements MovementEntity<Integer>
 {
     @Id

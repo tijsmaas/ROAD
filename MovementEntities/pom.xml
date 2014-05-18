@@ -7,8 +7,8 @@
         <groupId>ROAD</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>MovementEntities</artifactId>
 
     <dependencies>
@@ -17,16 +17,13 @@
             <artifactId>MovementDtos</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
         <!-- for JPA, use hibernate-entitymanager instead of hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.4.Final</version>
         </dependency>
-
         <!-- optional -->
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-osgi</artifactId>
@@ -58,5 +55,4 @@
             <version>4.3.4.Final</version>
         </dependency>
     </dependencies>
-
 </project>

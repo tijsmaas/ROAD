@@ -5,21 +5,18 @@
  */
 package road.carsystem.api;
 
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.primefaces.model.UploadedFile;
 import road.cardts.connections.CarClient;
 import road.carsystem.domain.*;
-import sumo.movements.jaxb.EdgeType;
-import sumo.movements.jaxb.LaneType;
-import sumo.movements.jaxb.TimestepType;
-import sumo.movements.jaxb.VehicleType;
+import road.movementdts.helpers.Pair;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
 import javax.ejb.Timeout;
 import javax.ejb.TimerService;
-import javax.faces.bean.ApplicationScoped;
 import javax.websocket.Session;
 import java.io.Serializable;
 import java.util.List;
@@ -35,6 +32,7 @@ public class CarSimulator implements Serializable
     @Resource
     private TimerService timerService;
     private XStream xStream;
+    private Gson gson;
 
     private CarClient carClient;
     private Session session;
@@ -71,6 +69,8 @@ public class CarSimulator implements Serializable
         this.xStream.addImplicitCollection(Edge.class, "lanes");
         this.xStream.addImplicitCollection(Lane.class, "vehicles");
 
+        this.gson = new Gson();
+
         this.carClient = new CarClient();
         this.carClient.start();
     }
@@ -98,24 +98,24 @@ public class CarSimulator implements Serializable
     @Timeout
     private void sendTimeStep()
     {
-        TimeStep type = this.timeSteps.get(this.sequence);
+        TimeStep step = this.timeSteps.get(this.sequence);
+        SocketResponse response = new SocketResponse();
+        response.timeStep = step;
 
-        if(this.putXml(CarSocket.apiKey, this.sequence, this.xStream.toXML(new Netstate(type))))
+        if(this.sendMovement(CarSocket.apiKey, this.sequence, step))
         {
-            this.session.getAsyncRemote().sendText(
-                    "Successfully sent movement. Sequence number " + this.sequence + " of " + this.timeSteps.size()
-            );
+            response.message = "Successfully sent movement. Sequence number " + this.sequence + " of " + this.timeSteps.size();
         }
         else
         {
-            this.session.getAsyncRemote().sendText(
-                    "Failed to send movement! Sequence number " + this.sequence + " of " + this.timeSteps.size()
-            );
+            response.message = "Failed to send movement! Sequence number " + this.sequence + " of " + this.timeSteps.size();
         }
+
+        this.session.getAsyncRemote().sendText(this.gson.toJson(response));
 
         if(this.sequence + 1 < this.timeSteps.size())
         {
-            this.setTimer((int)(this.timeSteps.get(sequence + 1).time - type.time));
+            this.setTimer((int)(this.timeSteps.get(sequence + 1).time - step.time));
             this.sequence++;
         }
     }
@@ -125,25 +125,33 @@ public class CarSimulator implements Serializable
      *
      * @param api_key The api key, as a header parameter (autorisatiecode)
      * @param sequenceNumber The sequence number of the movements file
-     * @param movements The xml movements
+     * @param step A single timestep with the relevant movements to be pushed
      * @return a boolean to notify of the success or failure of the operation
      */
-    public boolean putXml(String api_key, int sequenceNumber, String movements)
+    public Boolean sendMovement(String api_key, int sequenceNumber, TimeStep step)
     {
-        String result = this.carClient.addMovement(api_key, (long)sequenceNumber, movements);
+        String xmlMovement = this.xStream.toXML(new Netstate(step));
+        String result = this.carClient.addMovement(api_key, (long)sequenceNumber, xmlMovement);
+
+        Boolean success = false;
         Response response = (Response)this.xStream.fromXML(result);
+        String status;
 
         switch(response.status)
         {
             case "ok":
-                System.out.println("Successfully added movement for vehicle with id " + response.VEHICLE_ID);
-                return true;
+                status = "Successfully added movement for vehicle with id " + response.VEHICLE_ID;
+                success = true;
+                break;
             case "error":
-                System.out.println("API Key not valid");
-                return false;
+                status = "API Key not valid";
+                break;
             default:
-                System.out.println("Unrecognizable response status");
-                return false;
+                status = "Unrecognizable response status";
+                break;
         }
+
+        System.out.println(status);
+        return success;
     }
 }

@@ -8,20 +8,50 @@
 
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+        <h:panelGroup layout="block" rendered="#{paymentBean.loadError}" styleClass="pill pill-autosize">
+            <div class="alert alert-danger">
+                The invoice you tried to load is not valid.
+            </div>
+        </h:panelGroup>
 
-            <h:panelGroup layout="block" rendered="#{paymentBean.loadError}" styleClass="pill pill-autosize">
-                <div class="alert alert-danger">
-                    The invoice you tried to load is not valid.
+
+        <h:panelGroup layout="block" rendered="#{!paymentBean.loadError}" styleClass="pill">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Invoice ##{paymentBean.invoice.invoiceID} from #{paymentBean.invoice.month} / #{paymentBean.invoice.year}</h3>
                 </div>
-            </h:panelGroup>
-
-            <h:panelGroup layout="block" rendered="#{!paymentBean.loadError}" styleClass="pill pill-autosize">
-                <h4><h:outputText value="#{translator.getProperty('payForInvoice')}"/></h4>
-
-                <span><h:outputText value="#{translator.getProperty('amountDue')}"/>: <h:outputText value="#{paymentBean.amountToPay}"/></span>
-
-                <p:commandButton id="btnPay" styleClass="btn btn-primary" value="Pay invoice" actionListener="#{paymentBean.pay}"/>
-            </h:panelGroup>
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>License plate</th>
+                        <th>Subtotal</th>
+                        <th>Driven</th>
+                        <th>View MDetails</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ui:repeat value="#{paymentBean.invoice.vehicleInvoices}" var="vehicleInvoice">
+                        <tr>
+                            <td>#{vehicleInvoice.vehicle.licensePlate}</td>
+                            <td>€#{vehicleInvoice.subTotal}</td>
+                            <td>#{vehicleInvoice.kilometersDriven}km</td>
+                            <!--TODO: Implement movement details-->
+                            <td>To be implemented</td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                <div class="panel-footer">
+                    <label>Total: €#{paymentBean.invoice.total}</label>
+                    <div>
+                        <p:commandButton id="btnPay" styleClass="btn btn-primary" value="Pay invoice"
+                                         actionListener="#{paymentBean.pay}"/>
+                    </div>
+                </div>
+            </div>
+        </h:panelGroup>
 
 
     </ui:define>

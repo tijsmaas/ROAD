@@ -28,7 +28,7 @@ public class InvoiceDAOImpl implements InvoiceDAO
     public int generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate)
     {
 
-        em.getTransaction().begin();
+            em.getTransaction().begin();
         InvoiceGenerator invoiceGenerator = new InvoiceGenerator(vehicleMovements, this.em, startDate, endDate);
         invoiceGenerator.generate();
 
@@ -41,7 +41,7 @@ public class InvoiceDAOImpl implements InvoiceDAO
     @Override
     public List<Invoice> getInvoicesForUser(int userID)
     {
-        Query query = em.createQuery("select invoice from Invoice invoice where invoice.userID = :userID");
+        Query query = em.createQuery("select invoice from Invoice invoice where invoice.userID = :userID order by invoice.paymentStatus asc");
         query.setParameter("userID", userID);
 
         return query.getResultList();
@@ -50,7 +50,12 @@ public class InvoiceDAOImpl implements InvoiceDAO
     @Override
     public Invoice getInvoice(int invoiceID)
     {
-        return em.find(Invoice.class, invoiceID);
+        Query query = em.createQuery("select invoice from Invoice invoice where invoice.invoiceID = :id");
+        query.setParameter("id", invoiceID);
+
+        List<Invoice> invoices = query.getResultList();
+
+        return invoices.isEmpty() ? null : invoices.get(0);
     }
 
     @Override

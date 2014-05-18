@@ -17,7 +17,7 @@
             <c:choose>
                 <c:when test="#{carBean.file != null}">
                     Simulation file has been uploaded, ready to run the simulation!
-                    <button class="btn" onclick="simulation()">Start simulation</button>
+                    <button id="btnSim" class="btn" onclick="simulation()">Start simulation</button>
 
                 </c:when>
                 <c:otherwise>
@@ -25,7 +25,8 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <div class="pill pill-autosize" id="show"></div>
+        <div class="pill pill-autosize" id="message"></div>
+        <div class="pill pill-scroll" id="show"></div>
     </ui:define>
 
 </ui:composition>

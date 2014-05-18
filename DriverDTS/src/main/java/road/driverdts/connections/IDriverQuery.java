@@ -36,6 +36,6 @@ public interface IDriverQuery
 
     Boolean updateInvoicePaymentStatus(Integer invoiceID, PaymentStatus paymentStatus);
 
-    InvoiceDto viewInvoiceDetails(Integer invoiceID);
+    InvoiceDto getInvoiceDetails(Integer invoiceID);
 
 }

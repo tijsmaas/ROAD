@@ -23,6 +23,8 @@ public class VehicleInvoice implements MovementEntity<Integer>
 
     private BigDecimal subTotal;
 
+    private int metersDriven;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<CityDistance> movementList;
 
@@ -80,5 +82,15 @@ public class VehicleInvoice implements MovementEntity<Integer>
     public void setMovementList(List<CityDistance> movementList)
     {
         this.movementList = movementList;
+    }
+
+    public int getMetersDriven()
+    {
+        return metersDriven;
+    }
+
+    public void setMetersDriven(int metersDriven)
+    {
+        this.metersDriven = metersDriven;
     }
 }

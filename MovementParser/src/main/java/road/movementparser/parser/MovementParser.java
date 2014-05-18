@@ -1,18 +1,14 @@
 package road.movementparser.parser;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import road.movemententities.entities.*;
 import road.movemententityaccess.dao.EntityDAO;
-import sumo.movements.jaxb.SumoNetstateType;
+import sumo.movements.jaxb.*;
 
 /**
  * The road.movementparser.parser.MovementParser reads movements and updates the database.
@@ -26,11 +22,11 @@ public class MovementParser
     /* Package name of generated movement classes */
 
     private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
-    private int missed = 0;
 
     private EntityDAO entityDAO;
     private GenericParser genericParser;
 
+    private int missed = 0;
     private int numberOfMovementParses = 0;
 
     public MovementParser(EntityDAO entityDAO, GenericParser genericParser)
@@ -51,9 +47,11 @@ public class MovementParser
             System.out.println("Tried to add Movements with serial number " + sequencenr + ", but counter was at " + numberOfMovementParses);
             this.missed++;
         }
+        
         numberOfMovementParses++;
 
         long startTime = System.nanoTime();
+
         @SuppressWarnings("unchecked")
         JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
 
@@ -77,16 +75,18 @@ public class MovementParser
         }
 
         // foreach movement
-        for (sumo.movements.jaxb.TimestepType timestep : root.getValue().getTimestep())
+        for (TimestepType timestep : root.getValue().getTimestep())
         {
             for (Serializable a : timestep.getContent())
             {
-
                 if (a instanceof String)
+                {
                     continue;
-                sumo.movements.jaxb.EdgeType xmlEdge = (sumo.movements.jaxb.EdgeType) ((JAXBElement) a).getValue();
+                }
 
-                for (sumo.movements.jaxb.LaneType xmlLane : xmlEdge.getLane())
+                EdgeType xmlEdge = (EdgeType)((JAXBElement)a).getValue();
+
+                for (LaneType xmlLane : xmlEdge.getLane())
                 {
                     Lane lane = (Lane) entityDAO.findById(Lane.class, xmlLane.getId());
                     // set datetime and timestep time of movement to now.
@@ -98,20 +98,22 @@ public class MovementParser
                     for (Serializable b : xmlLane.getContent())
                     {
                         if (b instanceof String)
+                        {
                             continue;
-                        sumo.movements.jaxb.VehicleType xmlVehicle = (sumo.movements.jaxb.VehicleType) ((JAXBElement) b).getValue();
+                        }
+
+                        VehicleType xmlVehicle = (VehicleType) ((JAXBElement) b).getValue();
                         String licenseplate = xmlVehicle.getId();
 
                         // Get vehicle by its license plate (<vehicle id="license">) or create a vehicle
-                        Vehicle vehicle = (Vehicle) entityDAO.findById(Vehicle.class, licenseplate);
+                        Vehicle vehicle = (Vehicle)entityDAO.findById(Vehicle.class, licenseplate);
                         if (vehicle == null)
                         {
                             vehicle = new Vehicle(licenseplate);
                             entityDAO.create(vehicle);
                         }
 
-                        VehicleMovement movementVehicle = new VehicleMovement(
-                                movement, vehicle, xmlVehicle.getPos(), xmlVehicle.getSpeed());
+                        VehicleMovement movementVehicle = new VehicleMovement(movement, vehicle, xmlVehicle.getPos(), xmlVehicle.getSpeed());
                         entityDAO.create(movementVehicle);
                         vehicle.addVehicleMovement(movementVehicle);
                         movementVehicles.add(movementVehicle);

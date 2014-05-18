@@ -13,7 +13,7 @@
 
 
         <div class="pill">
-            <h:form>
+            <h:form id="invoiceForm">
                 <h3>Manual Invoice generation page</h3>
 
                 <label>Month</label>
@@ -41,11 +41,12 @@
                 </h:selectOneMenu>
 
                 <h:commandButton id="btnExecute" styleClass="btn btn-primary"
-                                 actionListener="#{invoiceBean.manualGeneration}" value="Generate invoices"/>
+                                 actionListener="#{invoiceBean.manualGeneration}" value="Generate invoices" />
             </h:form>
 
             <h:panelGroup layout="block" rendered="#{invoiceBean.done}">
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
                     <h:outputText value="#{invoiceBean.numberGenerated}"/> invoices generated.
                 </div>
             </h:panelGroup>

@@ -4,8 +4,12 @@ import com.paypal.api.payments.*;
 import com.paypal.core.rest.APIContext;
 import com.paypal.core.rest.OAuthTokenCredential;
 import com.paypal.core.rest.PayPalRESTException;
+import road.driversystem.domain.dts.DriverService;
 import road.driversystem.domain.infoobjects.PaymentSession;
 import road.driversystem.utils.Utlities;
+import road.movementdtos.dtos.InvoiceDto;
+import road.movementdtos.dtos.VehicleInvoiceDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
@@ -15,6 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,31 +38,27 @@ public class PaymentBean
     private final String secret = "EPj6MBAi7BYQL8gsjbhOZS4e3KnjaKN6L7HoFk5_sSDT7qVb4qqW1AlNm5Ni";
     private String accessToken;
 
-
-
-
     @Inject
     private UserBean userSession;
 
+    @Inject
+    private DriverService service;
+
     private boolean loadError = false;
 
-    private String currentInvoiceID;
+    private int currentInvoiceID;
 
-    private BigDecimal amountToPay;
+    private InvoiceDto invoice;
+
 
     public boolean isLoadError()
     {
         return loadError;
     }
 
-    public String getCurrentInvoiceID()
+    public int getCurrentInvoiceID()
     {
         return currentInvoiceID;
-    }
-
-    public BigDecimal getAmountToPay()
-    {
-        return amountToPay;
     }
 
     @PostConstruct
@@ -65,12 +66,19 @@ public class PaymentBean
     {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
-            String requestedInvoiceID = context.getRequestParameterMap().get("invoiceID");
+        String requestedInvoiceID = context.getRequestParameterMap().get("invoiceID");
         if (requestedInvoiceID.isEmpty() || requestedInvoiceID == null)
         {
             this.loadError = true;
-        } else {
-            this.currentInvoiceID = requestedInvoiceID;
+        } else
+        {
+            this.currentInvoiceID = Integer.parseInt(requestedInvoiceID);
+            this.invoice = service.getInvoiceWithDetails(this.currentInvoiceID);
+
+            if (this.invoice == null || this.invoice.getUserID() != this.userSession.getLoggedinUser().getId() || this.invoice.getPaymentStatus() == PaymentStatus.SUCCESSFUL)
+            {
+                this.loadError = true;
+            }
         }
 
         //TODO: Query for the invoices (after Tijs is finished with invoice functionality)
@@ -83,16 +91,10 @@ public class PaymentBean
         {
             //Request the AccessToken to paypal api
             this.accessToken = new OAuthTokenCredential(clientID, secret, sdkConfig).getAccessToken();
-
-            String s = "ja";
-
         } catch (PayPalRESTException e)
         {
-            this.loadError =true;
+            this.loadError = true;
         }
-
-        this.amountToPay = new BigDecimal("50");
-
     }
 
     /**
@@ -109,7 +111,8 @@ public class PaymentBean
         String baseURl = Utlities.getHostnameAndContext();
 
         //Validate the API access token
-        if(this.accessToken != null){
+        if (this.accessToken != null)
+        {
 
             //Create the API context based on the access token
             APIContext payContext = new APIContext(this.accessToken);
@@ -124,21 +127,30 @@ public class PaymentBean
             //Create an amount in euros and set the total
             Amount amount = new Amount();
             amount.setCurrency("EUR");
-            //TODO: Set the total amount to the total of the invoice
-            amount.setTotal("50");
 
 
 
             //Create a PayPal transaction
             Transaction payTransaction = new Transaction();
-            payTransaction.setDescription("Invoice payment");
+            payTransaction.setDescription("Invoice #" + this.invoice.getInvoiceID());
 
             ItemList itemList = new ItemList();
             List<Item> itemsInList = new ArrayList<>();
 
-            //TODO: Set the total to the total of the invoice
             //Create an Item (the invoice should be used for this)
-            itemsInList.add(new Item("1", "Account Driving invoice " + this.currentInvoiceID, "50", "EUR"));
+            BigDecimal total = new BigDecimal("0");
+
+            for (VehicleInvoiceDto vehicleInvoiceDto : this.invoice.getVehicleInvoices())
+            {
+                BigDecimal subTotal = vehicleInvoiceDto.getSubTotal().setScale(2, RoundingMode.CEILING);
+
+                total = total.add(subTotal);
+                itemsInList.add(new Item("1", "Account driving for vehicle " + vehicleInvoiceDto.getVehicle().getLicensePlate(), subTotal.toString(), "EUR"));
+            }
+            total = total.setScale(2, RoundingMode.CEILING);
+            amount.setTotal(total.toString());
+
+
             itemList.setItems(itemsInList);
             payTransaction.setItemList(itemList);
 
@@ -156,11 +168,13 @@ public class PaymentBean
 
             //Create the redirect URLs, set the invoice ID and an easy identifier for the success of the payment
             RedirectUrls redirectUrls = new RedirectUrls();
-            redirectUrls.setCancelUrl(baseURl + "/processPayment.xhtml?invoiceID="+ this.currentInvoiceID +"&success=false");
-            redirectUrls.setReturnUrl(baseURl + "/processPayment.xhtml?invoiceID=" + this.currentInvoiceID + "&success=true");
+            redirectUrls.setCancelUrl(baseURl + "/processPayment.xhtml?invoiceID=" + this.invoice.getInvoiceID() + "&success=false");
+            redirectUrls.setReturnUrl(baseURl + "/processPayment.xhtml?invoiceID=" + this.invoice.getInvoiceID() + "&success=true");
             payment.setRedirectUrls(redirectUrls);
 
             payment.setTransactions(transactions);
+
+
 
             try
             {
@@ -168,7 +182,7 @@ public class PaymentBean
                 Payment createdPayment = payment.create(payContext);
 
                 //Create a payment session object, containing the Payment ID, payer ID and current invoice
-                PaymentSession paySession = new PaymentSession(accessToken, createdPayment.getId(), createdPayment.getPayer().getPayerInfo().getPayerId(), this.getCurrentInvoiceID());
+                PaymentSession paySession = new PaymentSession(accessToken, createdPayment.getId(), createdPayment.getPayer().getPayerInfo().getPayerId(), this.invoice);
 
                 //Set the PaymentSession in the user session
                 userSession.setPaymentSession(paySession);
@@ -177,17 +191,19 @@ public class PaymentBean
                 Links approvalLink = null;
 
                 //Find the link for the approval
-                for (Links link :links)
+                for (Links link : links)
                 {
-                    if(link.getRel().equals("approval_url")){
+                    if (link.getRel().equals("approval_url"))
+                    {
                         approvalLink = link;
                         break;
                     }
                 }
 
-                if(approvalLink != null){
+                if (approvalLink != null)
+                {
                     //Redirect the user to the PayPal approval page
-                   context.redirect(approvalLink.getHref());
+                    context.redirect(approvalLink.getHref());
                 }
 
             } catch (PayPalRESTException | IOException e)
@@ -197,5 +213,10 @@ public class PaymentBean
             }
 
         }
+    }
+
+    public InvoiceDto getInvoice()
+    {
+        return invoice;
     }
 }
