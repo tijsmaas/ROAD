@@ -42,14 +42,12 @@
             <artifactId>jaxb-api</artifactId>
             <version>2.1</version>
         </dependency>
-        
         <!-- To make http requests to its own servlet -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.0-alpha4</version>
         </dependency>
-        
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
