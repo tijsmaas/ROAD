@@ -49,7 +49,7 @@ public interface IUserManager {
      * exception will be thrown containing a message with the details of the 
      * failure.
      */
-    UserDto register(String username, String password) throws UserSystemException;
+    void register(String username, String password) throws UserSystemException;
     
     /**
      * Check if the current {@link UserDto} has the provided right.

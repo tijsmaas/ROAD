@@ -21,7 +21,6 @@ public class VehicleOwnership implements MovementEntity<Integer>
     @ManyToOne(cascade = {CascadeType.ALL})
     private Vehicle vehicle;
 
-    //TODO: Make a connection to the user? by id?
     private int userID;
 
     /**
@@ -33,7 +32,7 @@ public class VehicleOwnership implements MovementEntity<Integer>
 
     private Calendar registrationExperationDate;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany
     private List<VehicleInvoice> vehicleInvoices;
 
     // Empty constructor for JPA

@@ -1,7 +1,9 @@
 package road.driverdts.connections;
 
 import aidas.userservice.dto.UserDto;
+import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.ClientConnection;
 import road.movementdts.connections.MovementConnection;
 
@@ -50,5 +52,23 @@ public class DriverClient extends ClientConnection implements IDriverQuery
     @Override
     public Boolean updateVehicle(VehicleDto vehicleDto) {
         return this.remoteCall("updateVehicle", Boolean.class, vehicleDto);
+    }
+
+    @Override
+    public List<InvoiceDto> getUserInvoices(Integer userID)
+    {
+        return this.remoteCall("getUserInvoices", ArrayList.class, userID);
+    }
+
+    @Override
+    public Boolean updateInvoicePaymentStatus(Integer invoiceID, PaymentStatus paymentStatus)
+    {
+        return this.remoteCall("updateInvoicePaymentStatus", Boolean.class, invoiceID, paymentStatus);
+    }
+
+    @Override
+    public InvoiceDto getInvoiceDetails(Integer invoiceID)
+    {
+        return this.remoteCall("getInvoiceDetails", InvoiceDto.class, invoiceID);
     }
 }

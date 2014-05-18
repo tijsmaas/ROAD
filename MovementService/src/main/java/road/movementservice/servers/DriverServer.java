@@ -2,17 +2,20 @@ package road.movementservice.servers;
 
 import aidas.userservice.IUserManager;
 import aidas.userservice.dto.UserDto;
-import aidas.userservice.exceptions.UserSystemException;
 import road.driverdts.connections.IDriverQuery;
+import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.MovementConnection;
-import road.movemententityaccess.dao.VehicleDAO;
+import road.movemententities.entities.Invoice;
+import road.movemententityaccess.dao.*;
 import road.movementservice.connections.ServerConnection;
-import road.movemententityaccess.dao.ConnectionDAO;
-import road.movemententityaccess.dao.EdgeDAO;
-import road.movemententityaccess.dao.LaneDAO;
+import road.movementservice.mapper.DtoMapper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by geh on 22-4-14.
@@ -24,6 +27,8 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     private LaneDAO laneDAO;
     private VehicleDAO vehicleDAO;
     private ConnectionDAO connectionDAO;
+    private InvoiceDAO invoiceDAO;
+    private DtoMapper dtoMapper;
 
     /**
      * The user manager which is used to process all authentication requests.
@@ -37,8 +42,9 @@ public class DriverServer extends ServerConnection implements IDriverQuery
      * @param connectionDAO the connection dao.
      * @param edgeDAO the edge dao.
      * @param vehicleDAO the vehicle dao.
+     * @param mapper the instance of the DTO mapper
      */
-    public DriverServer(IUserManager userManager, LaneDAO laneDAO, ConnectionDAO connectionDAO, EdgeDAO edgeDAO, VehicleDAO vehicleDAO)
+    public DriverServer(IUserManager userManager, LaneDAO laneDAO, ConnectionDAO connectionDAO, EdgeDAO edgeDAO, VehicleDAO vehicleDAO, InvoiceDAO invoiceDAO, DtoMapper mapper)
     {
         super(MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
 
@@ -47,6 +53,8 @@ public class DriverServer extends ServerConnection implements IDriverQuery
         this.connectionDAO = connectionDAO;
         this.edgeDAO = edgeDAO;
         this.vehicleDAO = vehicleDAO;
+        this.dtoMapper = mapper;
+        this.invoiceDAO = invoiceDAO;
     }
 
     /**
@@ -87,4 +95,35 @@ public class DriverServer extends ServerConnection implements IDriverQuery
      */
     @Override
     public Boolean updateVehicle(VehicleDto vehicleDto) { return this.vehicleDAO.updateVehicle(vehicleDto); }
+
+    @Override
+    public List<InvoiceDto> getUserInvoices(Integer userID)
+    {
+        List<Invoice> userInvoices = invoiceDAO.getInvoicesForUser(userID);
+
+
+        List<InvoiceDto> simpleInvoiceDtos = new ArrayList<>();
+        for (Invoice invoice :userInvoices)
+        {
+            simpleInvoiceDtos.add(dtoMapper.mapSimple(invoice));
+        }
+
+        return simpleInvoiceDtos;
+    }
+
+    @Override
+    public Boolean updateInvoicePaymentStatus(Integer invoiceID, PaymentStatus paymentStatus)
+    {
+        Boolean result =  invoiceDAO.updateInvoicePaymentstatus(invoiceID, paymentStatus);
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Returning update sttus result as " + result);
+        return result;
+    }
+
+    @Override
+    public InvoiceDto getInvoiceDetails(Integer invoiceID)
+    {
+        Invoice foundInvoice = invoiceDAO.getInvoice(invoiceID);
+
+        return dtoMapper.map(foundInvoice);
+    }
 }

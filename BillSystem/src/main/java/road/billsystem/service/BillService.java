@@ -2,13 +2,18 @@ package road.billsystem.service;
 
 import aidas.userservice.dto.UserDto;
 import road.billdts.connections.BillClient;
+import road.movemententities.entities.City;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
+import javax.enterprise.context.ApplicationScoped;
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Niek on 14/05/14.
@@ -16,7 +21,7 @@ import java.util.Calendar;
  */
 @Singleton
 @Startup
-public class BillService
+public class BillService implements Serializable
 {
     private BillClient billClient;
     private boolean didSchedule = false;
@@ -41,14 +46,23 @@ public class BillService
 
     public int generateMonthlyInvoices(int month, int year)
     {
-        Object result = billClient.generateMonthlyInvoices(month, year);
+        Integer result = billClient.generateMonthlyInvoices(month, year);
         System.out.println("result: " + result);
-        return 0;
+        return result;
     }
 
     public UserDto login(String username, String password)
     {
         return billClient.authenticate(username, password);
+    }
+
+    public boolean adjustKilometerRate(City city, Date addDate, String price)
+    {
+        return billClient.adjustKilometerRate(city, addDate, price);
+    }
+
+    public List<City> getCities() {
+        return billClient.getCities();
     }
 
 }

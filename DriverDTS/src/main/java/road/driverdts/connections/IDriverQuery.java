@@ -1,7 +1,9 @@
 package road.driverdts.connections;
 
 import aidas.userservice.dto.UserDto;
+import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import java.util.List;
 
@@ -29,4 +31,11 @@ public interface IDriverQuery
      * @return if the function was successful.
      */
     Boolean updateVehicle(VehicleDto vehicleDto);
+
+    List<InvoiceDto> getUserInvoices(Integer userID);
+
+    Boolean updateInvoicePaymentStatus(Integer invoiceID, PaymentStatus paymentStatus);
+
+    InvoiceDto getInvoiceDetails(Integer invoiceID);
+
 }
