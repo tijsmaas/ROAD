@@ -14,6 +14,8 @@ import road.movementservice.mapper.DtoMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by geh on 22-4-14.
@@ -112,13 +114,13 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     @Override
     public Boolean updateInvoicePaymentStatus(Integer invoiceID, PaymentStatus paymentStatus)
     {
-        road.movemententities.entities.enumerations.PaymentStatus.valueOf(paymentStatus.toString());
-
-        return invoiceDAO.updateInvoicePaymentstatus(invoiceID, paymentStatus);
+        Boolean result =  invoiceDAO.updateInvoicePaymentstatus(invoiceID, paymentStatus);
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Returning update sttus result as " + result);
+        return result;
     }
 
     @Override
-    public InvoiceDto viewInvoiceDetails(Integer invoiceID)
+    public InvoiceDto getInvoiceDetails(Integer invoiceID)
     {
         Invoice foundInvoice = invoiceDAO.getInvoice(invoiceID);
 

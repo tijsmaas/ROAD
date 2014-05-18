@@ -25,10 +25,13 @@ public class DtoMapper
      */
     public InvoiceDto mapSimple(Invoice invoice)
     {
+        if(invoice == null){
+            return null;
+        }
         BigDecimal total = new BigDecimal("0");
         for (VehicleInvoice vehicleInvoice :invoice.getVehicleInvoices())
         {
-            total.add(vehicleInvoice.getSubTotal());
+            total = total.add(vehicleInvoice.getSubTotal());
         }
 
         InvoiceDto invoiceDto = new InvoiceDto(invoice.getInvoiceID(), invoice.getUserID(), invoice.getGenerationDate(), invoice.getStartDate(), invoice.getEndDate(), invoice.getPaymentStatus().ordinal(), total);
@@ -63,6 +66,10 @@ public class DtoMapper
      */
     public InvoiceDto map(Invoice invoice)
     {
+        if(invoice == null){
+            return null;
+        }
+
         InvoiceDto invoiceDto = this.mapSimple(invoice);
 
         List<VehicleInvoiceDto> vehicleInvoiceList = new ArrayList<>();

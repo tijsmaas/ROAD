@@ -3,6 +3,7 @@ package road.movementdtos.dtos;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class InvoiceDto
         this.startDate = startDate;
         this.endDate = endDate;
         this.paymentStatus = PaymentStatus.values()[paymentStatus];
-        this.total = total;
+        this.total =  total.setScale(2, RoundingMode.CEILING);
+
     }
 
     public int getInvoiceID()

@@ -10,6 +10,7 @@ import aidas.userservice.dto.UserDto;
 import road.driverdts.connections.DriverClient;
 import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -66,5 +67,20 @@ public class DriverService implements Serializable
 
     public List<InvoiceDto> getUserInvoices(int userID){
         return driverQueries.getUserInvoices(userID);
+    }
+
+    public InvoiceDto getInvoiceWithDetails(int invoiceID){
+        try
+        {
+            return driverQueries.getInvoiceDetails(invoiceID);
+        } catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean updateInvoiceStatus(int invoiceID, PaymentStatus newStatus)
+    {
+        return driverQueries.updateInvoicePaymentStatus(invoiceID, newStatus);
     }
 }

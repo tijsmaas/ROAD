@@ -16,6 +16,8 @@ import road.movementservice.mapper.DtoMapper;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by geh on 11-4-14.
@@ -59,8 +61,9 @@ public class BillServer extends ServerConnection implements IBillQuery
         Pair<Calendar, Calendar> invoiceDateRange = DateHelper.getDateRange(month, year);
 
         List<VehicleMovement> vehicleMovements = movementDAO.getMovementsForVehicleInRange(invoiceDateRange.getFirst(), invoiceDateRange.getSecond());
-        int amountCreated = invoiceDAO.generate(vehicleMovements, invoiceDateRange.getFirst().getTime(), invoiceDateRange.getSecond().getTime());
+        Integer amountCreated = Integer.valueOf(invoiceDAO.generate(vehicleMovements, invoiceDateRange.getFirst().getTime(), invoiceDateRange.getSecond().getTime()));
 
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Created " + amountCreated + " invoices");
         return amountCreated;
     }
 

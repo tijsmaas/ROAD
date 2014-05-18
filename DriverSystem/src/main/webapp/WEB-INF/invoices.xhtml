@@ -12,16 +12,27 @@
         <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
         <f:view locale="#{translator.locale}">
 
-            <div class="pill">
-                <div class="tableContainer">
-                    <!--TODO: Create repeater for invoices-->
-                    <ui:repeat value="#{invoiceBean.userInvoices}" var="invoice">
-                        <div class="tableItem">
-                            <h:outputLabel value="#{invoice.total.toString()}"/>
-                            <h:link value="Pay invoice" outcome="pay/#{invoice.invoiceID}"/>
-                        </div>
-                    </ui:repeat>
-                </div>
+            <div class="tableContainer">
+                <!--TODO: Create repeater for invoices-->
+
+                <ui:repeat value="#{invoiceBean.userInvoices}" var="invoice">
+                    <div class="pill">
+                        <h4>Invoice ##{invoice.invoiceID} from #{invoice.startDate} to #{invoice.endDate}</h4>
+                        <h:outputLabel value="Total amount: €#{invoice.total.toString()}"/>
+
+                        <h:panelGroup layout="block" rendered="#{invoice.paymentStatus == 'NOT_PAID'}">
+                            <div class="alert alert-danger">
+                                Your invoice has not been paid for yet. PAY NOW.
+
+                                <a class="btn btn-primary" href="pay/#{invoice.invoiceID}">Pay now</a>
+                            </div>
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" styleClass="alert alert-success" rendered="#{invoice.paymentStatus == 'SUCCESSFUL'}">
+                            Yay! You've already paid for this invoice.
+                        </h:panelGroup>
+                    </div>
+                </ui:repeat>
             </div>
 
         </f:view>

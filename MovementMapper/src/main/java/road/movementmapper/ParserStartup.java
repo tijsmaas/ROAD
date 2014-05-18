@@ -187,7 +187,7 @@ public class ParserStartup
         Invoice invoice = new Invoice();
         invoice.setStartDate(startdate.getTime());
         invoice.setEndDate(enddate.getTime());
-        invoice.setPaymentStatus(PaymentStatus.NOT_PAYED);
+        invoice.setPaymentStatus(PaymentStatus.NOT_PAID);
         invoice.setGenerationDate(gendate.getTime());
         entityDAO.create(invoice);
     }

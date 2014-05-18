@@ -8,20 +8,31 @@
 
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+        <h:panelGroup layout="block" rendered="#{paymentBean.loadError}" styleClass="pill pill-autosize">
+            <div class="alert alert-danger">
+                The invoice you tried to load is not valid.
+            </div>
+        </h:panelGroup>
 
-            <h:panelGroup layout="block" rendered="#{paymentBean.loadError}" styleClass="pill pill-autosize">
-                <div class="alert alert-danger">
-                    The invoice you tried to load is not valid.
-                </div>
-            </h:panelGroup>
 
-            <h:panelGroup layout="block" rendered="#{!paymentBean.loadError}" styleClass="pill pill-autosize">
-                <h4><h:outputText value="#{translator.getProperty('payForInvoice')}"/></h4>
+        <h:panelGroup layout="block" rendered="#{!paymentBean.loadError}" styleClass="pill">
+            <h4><h:outputText value="#{translator.getProperty('payForInvoice')}"/></h4>
 
-                <span><h:outputText value="#{translator.getProperty('amountDue')}"/>: <h:outputText value="#{paymentBean.amountToPay}"/></span>
+            <ui:insert name="login">
+                <ui:include src="views/invoiceDetails.xhtml">
+                    <ui:param name="id" value="main"/>
+                    <ui:param name="invoice" value="#{paymentBean.invoice}"/>
+                </ui:include>
+            </ui:insert>
 
-                <p:commandButton id="btnPay" styleClass="btn btn-primary" value="Pay invoice" actionListener="#{paymentBean.pay}"/>
-            </h:panelGroup>
+            <span><h:outputText value="#{translator.getProperty('amountDue')}"/>: <h:outputText
+                    value="€#{paymentBean.invoice.total}"/></span>
+
+            <div>
+                <p:commandButton id="btnPay" styleClass="btn btn-primary" value="Pay invoice"
+                                 actionListener="#{paymentBean.pay}"/>
+            </div>
+        </h:panelGroup>
 
 
     </ui:define>

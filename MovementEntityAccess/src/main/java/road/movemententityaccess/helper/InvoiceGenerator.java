@@ -58,6 +58,7 @@ public class InvoiceGenerator
     private Map<VehicleOwnership, List<VehicleMovement>> getVehicleOwnershipMovements(List<VehicleMovement> monthlyMovements)
     {
         Map<VehicleOwnership, List<VehicleMovement>> vehicleOwnershipMovements = new HashMap<>();
+
         for (VehicleMovement vehicleMovement : this.monthlyMovements)
         {
             if (vehicleOwnershipMovements.containsKey(vehicleMovement.getVehicleOwnership()))
@@ -89,6 +90,7 @@ public class InvoiceGenerator
 
         Invoice invoice = this.getOrCreateInvoice(vehicleOwnership);
 
+        int metersDriven = 0;
         for (VehicleMovement vehicleMovement : vehicleMovements)
         {
             City from = vehicleMovement.getMovement().getLane().getEdge().getFrom();
@@ -98,14 +100,15 @@ public class InvoiceGenerator
             double meters = vehicleMovement.getPosition();
             CityDistance cityDistance = new CityDistance(to, meters, km_rate);
 
-            logger.log(Level.INFO, "Adding new CityDistance");
             em.merge(cityDistance);
 
             cityDistances.add(new CityDistance(to, meters, km_rate));
 
             double addRange = meters * (km_rate / 10);
             subTotal += addRange;
+            metersDriven += meters;
         }
+        logger.log(Level.INFO, "User : " + vehicleOwnership.getUserID() + " has driven " + metersDriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
 
         vehicleInvoice.setMovementList(cityDistances);
         vehicleInvoice.setSubTotal(new BigDecimal(subTotal, MathContext.DECIMAL64));

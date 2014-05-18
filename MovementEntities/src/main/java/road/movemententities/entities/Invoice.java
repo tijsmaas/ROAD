@@ -41,7 +41,7 @@ public class Invoice implements MovementEntity<Integer>, Serializable
         this.generationDate = generationDate;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.paymentStatus = PaymentStatus.NOT_PAYED;
+        this.paymentStatus = PaymentStatus.NOT_PAID;
         this.userID = userID;
     }
 

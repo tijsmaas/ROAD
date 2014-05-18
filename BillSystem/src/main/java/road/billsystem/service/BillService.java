@@ -41,9 +41,9 @@ public class BillService
 
     public int generateMonthlyInvoices(int month, int year)
     {
-        Object result = billClient.generateMonthlyInvoices(month, year);
+        Integer result = billClient.generateMonthlyInvoices(month, year);
         System.out.println("result: " + result);
-        return 0;
+        return result;
     }
 
     public UserDto login(String username, String password)

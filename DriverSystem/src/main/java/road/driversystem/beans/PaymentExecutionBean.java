@@ -4,7 +4,9 @@ import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.PaymentExecution;
 import com.paypal.core.rest.APIContext;
 import com.paypal.core.rest.PayPalRESTException;
+import road.driversystem.domain.dts.DriverService;
 import road.driversystem.domain.infoobjects.PaymentSession;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -28,15 +30,18 @@ public class PaymentExecutionBean
     @Inject
     private UserBean userSession;
 
+    @Inject
+    private DriverService driverService;
+
     private boolean failed = true;
-    private String invoiceID;
+    private int invoiceID;
 
     public boolean isFailed()
     {
         return failed;
     }
 
-    public String getInvoiceID()
+    public int getInvoiceID()
     {
         return invoiceID;
     }
@@ -46,11 +51,12 @@ public class PaymentExecutionBean
      * The execution of the payment will be handled in this method
      */
     @PostConstruct
-    public void initExecution(){
+    public void initExecution()
+    {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
         //Set the invoice ID
-        this.invoiceID = context.getRequestParameterMap().get("invoiceID");
+        this.invoiceID = Integer.parseInt(context.getRequestParameterMap().get("invoiceID"));
         boolean success = Boolean.parseBoolean(context.getRequestParameterMap().get("success"));
 
         //Get the PayerID from the paypal response
@@ -58,7 +64,7 @@ public class PaymentExecutionBean
 
 
         //Fail when the authorization was unsuccessful
-        if(!success)
+        if (!success)
         {
             return;
         }
@@ -71,7 +77,7 @@ public class PaymentExecutionBean
         PaymentSession session = userSession.getAndClearPaymentSession();
 
         //Validate the session, check the timestamps (max of 10 minutes) and validate the invoiceID
-        if(session == null || session.getCreatedDate().before(expired) || !session.getInvoiceID().equals(invoiceID))
+        if (session == null || session.getCreatedDate().before(expired) || session.getInvoice().getInvoiceID() != invoiceID)
         {
             return;
         }
@@ -79,7 +85,8 @@ public class PaymentExecutionBean
         Map<String, String> sdkConfig = new HashMap<String, String>();
         sdkConfig.put("mode", "sandbox");
 
-        try {
+        try
+        {
 
             //Create the APIContext using the AccessToken from the session
             APIContext apiContext = new APIContext(session.getAccesstoken());
@@ -97,11 +104,15 @@ public class PaymentExecutionBean
 
 
             //If the state of the resultingPayment is approved, set failed to false.
-            if(resultingPayment.getState().equals("approved")){
+            if (resultingPayment.getState().equals("approved"))
+            {
+                boolean statusUpdate = driverService.updateInvoiceStatus(this.invoiceID, PaymentStatus.SUCCESSFUL);
                 this.failed = false;
+
             }
 
-        } catch(PayPalRESTException ex){
+        } catch (PayPalRESTException ex)
+        {
             ex.printStackTrace();
             this.failed = true;
         }
