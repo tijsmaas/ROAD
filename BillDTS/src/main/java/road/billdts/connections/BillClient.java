@@ -26,6 +26,8 @@ public class BillClient extends ClientConnection implements IBillQuery
     @Override
     public Integer generateMonthlyInvoices(Integer month, Integer year)
     {
-        return this.remoteCall("generateMonthlyInvoices", Integer.class, month, year);
+        Object result = this.remoteCall("generateMonthlyInvoices", Integer.class, month, year);
+        System.out.println("Remote call result = " + result);
+        return (Integer)result;
     }
 }

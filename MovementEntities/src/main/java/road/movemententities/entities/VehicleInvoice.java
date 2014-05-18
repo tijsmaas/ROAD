@@ -23,7 +23,7 @@ public class VehicleInvoice implements MovementEntity<Integer>
 
     private BigDecimal subTotal;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<CityDistance> movementList;
 
 

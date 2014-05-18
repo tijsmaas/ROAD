@@ -29,7 +29,7 @@
                                 </h:selectOneMenu>
                             </h:form>
                         </li>
-                        <li><a href="pay/123">Invoices</a></li>
+                        <li><a href="invoices/">My Invoices</a></li>
                         <li><a href="myvehicles/"><h:outputText value="#{translator.getProperty('myVehicles')}"/></a></li>
                         <li><a href="#">Other menu</a></li>
                     </ul>
@@ -64,7 +64,6 @@
 
                         <h:panelGroup id="authenticatedHeader" style="padding-top: 5px;"
                                       rendered="#{userBean.loggedinUser != null}">
-                            <!--TODO: Create nice menu-->
                             <h:form id="logoutForm">
                                 <div class="pull-right">
                                     <ul class="nav navbar-nav">

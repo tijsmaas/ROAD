@@ -63,7 +63,12 @@ public class BillServer extends ServerConnection implements IBillQuery
         List<VehicleMovement> vehicleMovements = movementDAO.getMovementsForVehicleInRange(invoiceDateRange.getFirst(), invoiceDateRange.getSecond());
         Integer amountCreated = Integer.valueOf(invoiceDAO.generate(vehicleMovements, invoiceDateRange.getFirst().getTime(), invoiceDateRange.getSecond().getTime()));
 
-        return 0;
+<<<<<<< HEAD
+        return new Integer(42734);
+=======
+        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Created " + amountCreated + " invoices");
+        return amountCreated;
+>>>>>>> 2fbd4aa4cd9aa5c459018b7ac7b088513a6702a3
     }
 
 

@@ -1,5 +1,7 @@
 package road.driversystem.domain.infoobjects;
 
+import road.movementdtos.dtos.InvoiceDto;
+
 import java.util.Date;
 
 /**
@@ -12,14 +14,15 @@ public class PaymentSession
     private String accesstoken;
     private String paymentID;
     private String payerID;
-    private String invoiceID;
+    private InvoiceDto invoice;
     private Date createdDate;
 
-    public PaymentSession(String accesstoken, String paymentID, String payerID, String invoiceID){
+    public PaymentSession(String accesstoken, String paymentID, String payerID, InvoiceDto invoice)
+    {
         this.accesstoken = accesstoken;
         this.paymentID = paymentID;
         this.payerID = payerID;
-        this.invoiceID = invoiceID;
+        this.invoice = invoice;
         this.createdDate = new Date();
     }
 
@@ -43,8 +46,8 @@ public class PaymentSession
         return createdDate;
     }
 
-    public String getInvoiceID()
+    public InvoiceDto getInvoice()
     {
-        return invoiceID;
+        return invoice;
     }
 }
