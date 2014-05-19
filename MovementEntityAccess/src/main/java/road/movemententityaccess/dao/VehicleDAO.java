@@ -1,6 +1,5 @@
 package road.movemententityaccess.dao;
 
-import road.movementdtos.dtos.VehicleDto;
 import road.movemententities.entities.Vehicle;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public interface VehicleDAO
      * @param userID The ID of the user
      * @return List of owned vehicles
      */
-    List<VehicleDto> getVehiclesFromUser(Integer userID);
+    List<Vehicle> getVehiclesFromUser(Integer userID);
 
     /**
      * Change the owner of a certain vehicle
@@ -41,9 +40,10 @@ public interface VehicleDAO
 
     /**
      * Update the provided vehicle.
-     * @param vehicleDto the vehicle to be updated.
+     * @param licencePlate the licence plate of the vehicle to be updated.
+     * @param contributeGPSData if the vehicle will (not) contribute it's GPS data for traffic jam calculations.
      * @return if the function was successful.
      */
-    Boolean updateVehicle(VehicleDto vehicleDto);
+    Boolean updateVehicle(String licencePlate, Boolean contributeGPSData);
 
 }

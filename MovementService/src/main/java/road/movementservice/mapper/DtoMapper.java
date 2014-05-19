@@ -64,8 +64,33 @@ public class DtoMapper
      */
     public VehicleDto map(Vehicle vehicle)
     {
-        //TODO: Contribute GPS data in vehicle object
-        return new VehicleDto(vehicle.getLicensePlate(), true);
+        VehicleOwnership currentOwer = null;
+        for (VehicleOwnership vo : vehicle.getVehicleOwners()) {
+            if (vo.getRegistrationExperationDate() == null) {
+                currentOwer = vo;
+                break;
+            }
+        }
+
+        boolean contributeGPSData = currentOwer != null ? currentOwer.getContributeGPSData() : false;
+
+        return new VehicleDto(vehicle.getLicensePlate(), contributeGPSData);
+    }
+
+    /**
+     * Maps a collection of Vehicle to a VehicleDTO
+     *
+     * @param vehicles The Vehicle objects to map
+     * @return The Vehicle Dto objects
+     */
+    public List<VehicleDto> map(List<Vehicle> vehicles)
+    {
+        List<VehicleDto> returnList = new ArrayList<>();
+        for (Vehicle v : vehicles) {
+            returnList.add(this.map(v));
+        }
+
+        return returnList;
     }
 
     /**
@@ -127,5 +152,4 @@ public class DtoMapper
 
         return returnList;
     }
-
 }

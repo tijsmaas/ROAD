@@ -1,7 +1,5 @@
 package road.movemententityaccess.dao;
 
-import road.movementdtos.dtos.VehicleDto;
-import road.movemententities.converters.VehicleConverter;
 import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleOwnership;
 
@@ -59,7 +57,7 @@ public class VehicleDAOImpl implements VehicleDAO
      * @param userID The ID of the user
      */
     @Override
-    public List<VehicleDto> getVehiclesFromUser(Integer userID)
+    public List<Vehicle> getVehiclesFromUser(Integer userID)
     {
         if (userID == null) {
             return new ArrayList();
@@ -68,13 +66,7 @@ public class VehicleDAOImpl implements VehicleDAO
         TypedQuery query = em.createQuery("SELECT vo.vehicle FROM VehicleOwnership vo WHERE vo.userID = :userId AND vo.registrationExperationDate IS NULL", Vehicle.class);
         query.setParameter("userId", userID);
 
-        List<Vehicle> resultList = query.getResultList();
-        List<VehicleDto> returnList = new ArrayList();
-        for (Vehicle v : resultList) {
-            returnList.add(VehicleConverter.toVehicleDto(v));
-        }
-
-        return returnList;
+        return query.getResultList();
     }
 
     /**
@@ -92,15 +84,21 @@ public class VehicleDAOImpl implements VehicleDAO
      * {@inheritDoc}
      */
     @Override
-    public Boolean updateVehicle(VehicleDto vehicleDto) {
+    public Boolean updateVehicle(String licencePlate, Boolean contributeGPSData) {
         boolean successful = false;
 
         try {
-            Vehicle vehicle = this.findByLicensePlate(vehicleDto.getLicensePlate());
-            VehicleOwnership ownership = VehicleConverter.getCurrentVehicleOwner(vehicle.getVehicleOwners());
+            Vehicle vehicle = this.findByLicensePlate(licencePlate);
+            VehicleOwnership ownership = null;
+            for (VehicleOwnership vo : vehicle.getVehicleOwners()) {
+                if (vo.getRegistrationExperationDate() == null) {
+                    ownership = vo;
+                    break;
+                }
+            }
 
             if (ownership != null) {
-                ownership.setContributeGPSData(vehicleDto.getContributeGPSData());
+                ownership.setContributeGPSData(contributeGPSData);
             }
 
             em.merge(vehicle);
@@ -112,5 +110,4 @@ public class VehicleDAOImpl implements VehicleDAO
 
         return successful;
     }
-
 }

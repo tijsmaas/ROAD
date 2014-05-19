@@ -122,7 +122,7 @@ public class ContributeVehicleBean implements Serializable
         if (this.curEditVehicle != null)
         {
             this.curEditVehicle.setContributeGPSData(this.curEditVehicleContributeGPS);
-            this.driverService.updateVehicle(this.curEditVehicle);
+            this.driverService.updateVehicle(this.curEditVehicle.getLicensePlate(), this.curEditVehicle.getContributeGPSData());
         }
 
         this.changeVehicleEdit(null);

@@ -59,11 +59,12 @@ public class DriverService implements Serializable
 
     /**
      * Update the provided vehicle.
-     * @param vehicleDto the vehicle to be updated.
+     * @param licencePlate the licence plate of the vehicle to be updated.
+     * @param contributeGPSData if the vehicle will (not) contribute it's GPS data for traffic jam calculations.
      * @return if the function was successful.
      */
-    public boolean updateVehicle(VehicleDto vehicleDto) {
-        Boolean result = driverQueries.updateVehicle(vehicleDto);
+    public boolean updateVehicle(String licencePlate, Boolean contributeGPSData) {
+        Boolean result = driverQueries.updateVehicle(licencePlate, contributeGPSData);
         return result != null ? result.booleanValue() : false;
     }
 

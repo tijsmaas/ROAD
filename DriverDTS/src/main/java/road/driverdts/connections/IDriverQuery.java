@@ -27,10 +27,11 @@ public interface IDriverQuery
 
     /**
      * Update the provided vehicle.
-     * @param vehicleDto the vehicle to be updated.
+     * @param licencePlate the licence plate of the vehicle to be updated.
+     * @param contributeGPSData if the vehicle will (not) contribute it's GPS data for traffic jam calculations.
      * @return if the function was successful.
      */
-    Boolean updateVehicle(VehicleDto vehicleDto);
+    Boolean updateVehicle(String licencePlate, Boolean contributeGPSData);
 
     List<InvoiceDto> getUserInvoices(Integer userID);
 

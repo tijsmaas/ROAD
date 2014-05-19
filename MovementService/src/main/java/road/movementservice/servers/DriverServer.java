@@ -88,13 +88,19 @@ public class DriverServer extends ServerConnection implements IDriverQuery
      * {@inheritDoc}
      */
     @Override
-    public List<VehicleDto> getVehicles(Integer userId) { return this.vehicleDAO.getVehiclesFromUser(userId); }
+    public List<VehicleDto> getVehicles(Integer userId)
+    {
+        return this.dtoMapper.map(this.vehicleDAO.getVehiclesFromUser(userId));
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Boolean updateVehicle(VehicleDto vehicleDto) { return this.vehicleDAO.updateVehicle(vehicleDto); }
+    public Boolean updateVehicle(String licencePlate, Boolean contributeGPSData)
+    {
+        return this.vehicleDAO.updateVehicle(licencePlate, contributeGPSData);
+    }
 
     @Override
     public List<InvoiceDto> getUserInvoices(Integer userID)

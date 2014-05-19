@@ -50,8 +50,8 @@ public class DriverClient extends ClientConnection implements IDriverQuery
      * {@inheritDoc}
      */
     @Override
-    public Boolean updateVehicle(VehicleDto vehicleDto) {
-        return this.remoteCall("updateVehicle", Boolean.class, vehicleDto);
+    public Boolean updateVehicle(String licencePlate, Boolean contributeGPSData) {
+        return this.remoteCall("updateVehicle", Boolean.class, licencePlate, contributeGPSData);
     }
 
     @Override
