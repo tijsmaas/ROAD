@@ -47,7 +47,7 @@ public abstract class ServerConnection<T> implements ConnectionListener
     @Override
     public byte[] receive(Pair<String, Object[]> request)
     {
-        byte[] rawResult = new byte[0];
+        byte[] rawResult = new byte[1];
         try
         {
             Method method = this.methods.get(request.getFirst());
@@ -57,10 +57,12 @@ public abstract class ServerConnection<T> implements ConnectionListener
             }
             Object result = method.invoke(this.instance, request.getSecond());
             rawResult = this.connection.serializer.serializeBytes(method.getReturnType().cast(result));
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             ex.printStackTrace();
-        } finally
+        }
+        finally
         {
             return rawResult;
         }

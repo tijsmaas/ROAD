@@ -22,7 +22,8 @@ import java.util.List;
  */
 @SessionScoped
 @Named("contributeVehicleBean")
-public class ContributeVehicleBean implements Serializable {
+public class ContributeVehicleBean implements Serializable
+{
 
     @Inject
     private UserBean userSession;
@@ -43,7 +44,7 @@ public class ContributeVehicleBean implements Serializable {
     /**
      * The value indicating if the {@link #curEditVehicle} has the contribute GPS selected or not.
      */
-    private Boolean curEditVehicleContributeGPS;
+    private boolean curEditVehicleContributeGPS;
 
     /**
      * Create a new instance of the {@link ContributeVehicleBean} bean.
@@ -51,7 +52,8 @@ public class ContributeVehicleBean implements Serializable {
     public ContributeVehicleBean() { }
 
     @PostConstruct
-    public void initContributeCarBean() {
+    public void initContributeCarBean()
+    {
         this.vehicles = driverService.getVehicles(this.userSession.getLoggedinUser().getId());
     }
 
@@ -59,7 +61,8 @@ public class ContributeVehicleBean implements Serializable {
      * Get the vehicles of the current user.
      * @return the vehicles.
      */
-    public List<VehicleDto> getVehicles() {
+    public List<VehicleDto> getVehicles()
+    {
         return this.vehicles;
     }
 
@@ -68,7 +71,8 @@ public class ContributeVehicleBean implements Serializable {
      * @param vehicle the vehicle to check.
      * @return true if the provided vehicle is being edited, otherwise false.
      */
-    public boolean isVehicleEdit(VehicleDto vehicle) {
+    public boolean isVehicleEdit(VehicleDto vehicle)
+    {
         return this.curEditVehicle == vehicle;
     }
 
@@ -76,7 +80,8 @@ public class ContributeVehicleBean implements Serializable {
      * Change the vehicle which is being edited.
      * @param vehicle the vehicle to be edited or null if none is to be selected.
      */
-    public void changeVehicleEdit(VehicleDto vehicle) {
+    public void changeVehicleEdit(VehicleDto vehicle)
+    {
         this.curEditVehicle = vehicle;
         this.curEditVehicleContributeGPS =  vehicle != null ? vehicle.getContributeGPSData() : null;
     }
@@ -85,23 +90,27 @@ public class ContributeVehicleBean implements Serializable {
      * Get if the current edit vehicle will contribute its GPS data.
      * @return if the current edit vehicle will contribute its GPS data.
      */
-    public boolean isCurEditVehicleContributeGPS() {
-        return this.curEditVehicleContributeGPS != null ? this.curEditVehicleContributeGPS.booleanValue() : false;
+    public boolean isCurEditVehicleContributeGPS()
+    {
+        return this.curEditVehicleContributeGPS;
     }
 
     /**
      * Set if the current edit vehicle will contribute its GPS data.
      * @param vehicleContributeGPS if the current edit vehicle will contribute its GPS data.
      */
-    public void setCurEditVehicleContributeGPS(Boolean vehicleContributeGPS) {
+    public void setCurEditVehicleContributeGPS(boolean vehicleContributeGPS)
+    {
         this.curEditVehicleContributeGPS = vehicleContributeGPS;
     }
 
     /**
      * Save the {@link #curEditVehicle}.
      */
-    public void saveEditVehicle() {
-        if (this.curEditVehicle != null) {
+    public void saveEditVehicle()
+    {
+        if (this.curEditVehicle != null)
+        {
             this.curEditVehicle.setContributeGPSData(this.curEditVehicleContributeGPS);
             this.driverService.updateVehicle(this.curEditVehicle);
         }
