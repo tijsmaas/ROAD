@@ -63,7 +63,10 @@ public class CityDAOImpl implements CityDAO
     {
         try
         {
+            CityRate cityRate = new CityRate(city, addDate, price);
             em.persist(new CityRate(city, addDate, price));
+            city.addCityRate(cityRate);
+            em.merge(city);
             return true;
         }
         catch(Exception ex)

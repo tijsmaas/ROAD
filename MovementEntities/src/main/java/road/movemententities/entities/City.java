@@ -17,11 +17,31 @@ public class City implements MovementEntity<String> {
     @Column(unique = false, nullable = true)
     private String cityName;
 
+    @Column(unique = false, nullable = true)
+    @OneToMany
+    private List<CityRate> cityRates;
+
     // Empty constructor for JPA
     public City() { }
 
     public City(String cityId) {
         this.cityId = cityId;
+    }
+
+    public List<CityRate> getCityRates() {
+        return cityRates;
+    }
+
+    public CityRate getCurrentRate()
+    {
+        CityRate currentRate = null;
+        for (CityRate c : cityRates) {
+            if(currentRate == null || c.getId().getAddDate().after(currentRate.getId().getAddDate()))
+            {
+                currentRate = c;
+            }
+        }
+        return currentRate;
     }
 
     public City(String cityId, String cityName) {
@@ -39,6 +59,11 @@ public class City implements MovementEntity<String> {
 
     public String getId() {
         return cityId;
+    }
+
+    public void addCityRate(CityRate cityRate)
+    {
+        cityRates.add(cityRate);
     }
 
 }

@@ -6,14 +6,19 @@ package road.movementdtos.dtos;
 public class CityDto {
     private String cityId;
     private String cityName;
+    private String currentRate;
+
+    public CityDto() {
+    }
 
     public CityDto(String cityId) {
         this.cityId = cityId;
     }
 
-    public CityDto(String cityId, String cityName) {
+    public CityDto(String cityId, String cityName, String currentRate) {
         this.cityId = cityId;
         this.cityName = cityName;
+        this.currentRate = currentRate;
     }
 
     public String getCityId() {
@@ -26,5 +31,10 @@ public class CityDto {
 
     public String getId() {
         return cityId;
+    }
+
+    public String getCurrentRate()
+    {
+        return currentRate;
     }
 }

@@ -5,6 +5,7 @@ import road.movementdtos.dtos.CityDto;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,25 +24,15 @@ import java.util.List;
  * @author Mitch
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class PriceBean implements Serializable
 {
-    private CityDto city;
     private String price;
-    private  List<CityDto> cities;
     @Inject
     private BillService billService;
 
     public List<CityDto> getCities() {
-        return cities;
-    }
-
-    public CityDto getCity() {
-        return city;
-    }
-
-    public void setCity(CityDto city) {
-        this.city = city;
+        return billService.getCities();
     }
 
     public String getPrice() {
@@ -52,13 +43,7 @@ public class PriceBean implements Serializable
         this.price = price;
     }
 
-    @PostConstruct
-    public void init()
-    {
-        cities = billService.getCities();
-    }
-
-    public String adjustRate()
+    public String adjustRate(CityDto city)
     {
         if(price.matches("\\d+[,.]\\d{2}"))
         {

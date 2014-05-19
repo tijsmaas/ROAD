@@ -101,7 +101,7 @@ public class DtoMapper
      * @return the converted city entity.
      */
     public CityDto toCityDto(City city) {
-        return new CityDto(city.getCityId(), city.getCityName());
+        return new CityDto(city.getCityId(), city.getCityName(), city.getCurrentRate() == null ? null : city.getCurrentRate().getKilometerRate());
     }
 
     /**
