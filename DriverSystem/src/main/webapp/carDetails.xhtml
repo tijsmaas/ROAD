@@ -1,0 +1,102 @@
+<ui:composition template="WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ui:param name="title" value="BillSystem"/>
+    <ui:param name="url" value="/billSystem/"/>
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <div class="pill">
+                <p:tabView>
+                    <p:tab title="Voertuig en APK">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="txtKenteken" styleClass="col-sm-3 control-label"
+                                           value="#{msg['Kenteken']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtKenteken" value="#{carBean.getDetail('Kenteken')}" />
+                            </div>
+                            <p:outputLabel for="txtVoertuigsoort" styleClass="col-sm-3 control-label"
+                                           value="#{msg['Voertuigsoort']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtVoertuigsoort" value="#{carBean.getDetail('Voertuigsoort')}" />
+                            </div>
+                            <p:outputLabel for="txtMerk" styleClass="col-sm-3 control-label"
+                                           value="#{msg['Merk']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtMerk" value="#{carBean.getDetail('Merk')}" />
+                            </div>
+                            <p:outputLabel for="txtHandelsbenaming" styleClass="col-sm-3 control-label"
+                                           value="#{msg['Handelsbenaming']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtHandelsbenaming" value="#{carBean.getDetail('Handelsbenaming')}" />
+                            </div>
+                            <p:outputLabel for="txtHoofdbrandstof" styleClass="col-sm-3 control-label"
+                                           value="#{msg['Hoofdbrandstof']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtHoofdbrandstof" value="#{carBean.getDetail('Hoofdbrandstof')}" />
+                            </div>
+                            <p:outputLabel for="txtVervaldatumAPK" styleClass="col-sm-3 control-label"
+                                           value="#{msg['VervaldatumAPK']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtVervaldatumAPK" value="#{carBean.getDetail('VervaldatumAPK')}" />
+                            </div>
+                            <p:outputLabel for="txtDatumaanvangtenaamstelling" styleClass="col-sm-3 control-label"
+                                           value="#{msg['Datumaanvangtenaamstelling']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtDatumaanvangtenaamstelling" value="#{carBean.getDetail('Datumaanvangtenaamstelling')}" />
+                            </div>
+                            <p:outputLabel for="txtBPM" styleClass="col-sm-3 control-label"
+                                           value="#{msg['BPM']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtBPM" value="#{carBean.getDetail('BPM')}" />
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Eigenschappen">
+                        <h:outputText value="#{msg['']}" />
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="txtBPM" styleClass="col-sm-3 control-label"
+                                           value="#{msg['BPM']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtBPM" value="#{carBean.getDetail('BPM')}" />
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Historie">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="txtBPM" styleClass="col-sm-3 control-label"
+                                           value="#{msg['BPM']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtBPM" value="#{carBean.getDetail('BPM')}" />
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Milieu en verbruik">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="txtBPM" styleClass="col-sm-3 control-label"
+                                           value="#{msg['BPM']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtBPM" value="#{carBean.getDetail('BPM')}" />
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Kosten en belasting">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="txtBPM" styleClass="col-sm-3 control-label"
+                                           value="#{msg['BPM']}:"/>
+                            <div class="col-sm-9">
+                                <h:outputText id="txtBPM" value="#{carBean.getDetail('BPM')}" />
+                            </div>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+
+
+</ui:composition>

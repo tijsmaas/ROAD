@@ -1,11 +1,10 @@
 package road.movementservice.mapper;
 
+import road.movementdtos.dtos.CityDto;
 import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
 import road.movementdtos.dtos.VehicleInvoiceDto;
-import road.movemententities.entities.Invoice;
-import road.movemententities.entities.Vehicle;
-import road.movemententities.entities.VehicleInvoice;
+import road.movemententities.entities.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -93,6 +92,40 @@ public class DtoMapper
         invoiceDto.setVehicleInvoices(vehicleInvoiceList);
 
         return invoiceDto;
+    }
+
+    /**
+     *
+     * Convert the {@link road.movemententities.entities.City} to a {@link road.movementdtos.dtos.CityDto} class.
+     * @param city the city entity to convert.
+     * @return the converted city entity.
+     */
+    public CityDto toCityDto(City city) {
+        return new CityDto(city.getCityId(), city.getCityName());
+    }
+
+    /**
+     *
+     * Convert the {@link road.movemententities.entities.City} to a {@link road.movementdtos.dtos.CityDto} class.
+     * @param city the city entity to convert.
+     * @return the converted city entity.
+     */
+    public City toCity(CityDto city) {
+        return new City(city.getCityId(), city.getCityName());
+    }
+
+    /**
+     *  Convert the {@link road.movemententities.entities.City} list to a {@link road.movementdtos.dtos.CityDto} class list
+     * @param cityList the list of cities.
+     * @return the converted city list
+     */
+    public List<CityDto> toCityDtoList(List<City> cityList) {
+        List<CityDto> returnList = new ArrayList<>();
+        for (City c : cityList) {
+            returnList.add(toCityDto(c));
+        }
+
+        return returnList;
     }
 
 }
