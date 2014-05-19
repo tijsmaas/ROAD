@@ -107,7 +107,11 @@ public class PaymentExecutionBean
             if (resultingPayment.getState().equals("approved"))
             {
                 boolean statusUpdate = driverService.updateInvoiceStatus(this.invoiceID, PaymentStatus.SUCCESSFUL);
-                this.failed = false;
+
+                if(statusUpdate)
+                {
+                    this.failed = false;
+                }
 
             }
 

@@ -19,8 +19,8 @@ public class CityDistanceDto
     {
         this.id = id;
         this.cityName = cityName;
-        this.drivenKM = driven;
-        this.km_prijs = km_prijs;
+        this.drivenKM = (double) Math.round(driven * 100) / 100;
+        this.km_prijs = (double) Math.round(km_prijs * 100) / 100;
 
         this.totalCost = this.drivenKM * this.km_prijs;
         this.totalCost = (double) Math.round(this.totalCost * 100) / 100;

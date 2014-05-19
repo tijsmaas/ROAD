@@ -106,8 +106,7 @@ public class InvoiceGenerator
          * README.
          * TODO: Replace km_rate with city.getKMRate() when km rates work!
          */
-        double km_rate = 0.20;
-        
+
         double totalkilometersdriven = 0;
         Lane prevLane = null;
         Invoice invoice = this.getOrCreateInvoice(vehicleOwnership);
@@ -132,6 +131,14 @@ public class InvoiceGenerator
                 }
                 
                 if(city != null) {
+                    double km_rate = 0.10;
+                    CityRate currentRate = city.getCurrentRate();
+                    if(currentRate != null){
+                        String kmRateAsRetardedString = currentRate.getKilometerRate();
+
+                        km_rate = Double.parseDouble(kmRateAsRetardedString); //Ik ga raven tot de grond gaat beven als dit fout gaat
+                    }
+                    String kmRateAsRetardedString = city.getCurrentRate().getKilometerRate();
                     CityDistance cityDistance = cityDistances.get(city);
                     // add to subtotal
                     totalkilometersdriven += kilometersDriven;

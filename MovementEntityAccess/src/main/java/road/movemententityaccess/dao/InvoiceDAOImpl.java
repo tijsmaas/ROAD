@@ -82,7 +82,7 @@ public class InvoiceDAOImpl implements InvoiceDAO
     @Override
     public List<CityDistance> getCityDistancesForVehicleInvoice(int vehicleInvoiceID)
     {
-        Query query = em.createQuery("select cityDistance from CityDistance cityDistance where cityDistance.vehicleInvoice.id = :vehicleInvoiceID order by cityDistance.id");
+        Query query = em.createQuery("select cityDistance from CityDistance cityDistance where cityDistance.vehicleInvoice.id = :vehicleInvoiceID order by cityDistance.movementDate");
         query.setParameter("vehicleInvoiceID", vehicleInvoiceID);
 
         return query.getResultList();

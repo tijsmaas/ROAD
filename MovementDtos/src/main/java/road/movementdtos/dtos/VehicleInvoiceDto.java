@@ -1,6 +1,7 @@
 package road.movementdtos.dtos;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class VehicleInvoiceDto
     {
         this.id = id;
         this.vehicle  = vehicleDto;
-        this.subTotal = subTotal;
+        this.subTotal = subTotal.setScale(2, RoundingMode.CEILING);
         this.kilometersDriven = metersDriven / 1000;
         this.kilometersDriven = Math.round(this.kilometersDriven * 100) / 100;
     }
