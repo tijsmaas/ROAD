@@ -39,7 +39,7 @@ public class CityDAOImpl implements CityDAO
     @Override
     public City find(String cityIdentifier)
     {
-        Query query = em.createQuery("select city from City city where city.cityIdentifier = :cityID");
+        Query query = em.createQuery("select city from City city where city.cityId = :cityID");
         query.setParameter("cityID", cityIdentifier);
 
         List<City> resultList = query.getResultList();

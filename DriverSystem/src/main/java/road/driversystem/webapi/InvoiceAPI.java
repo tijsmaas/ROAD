@@ -1,12 +1,10 @@
 package road.driversystem.webapi;
 
-import road.driversystem.domain.infoobjects.SimpleObject;
 import road.driversystem.service.DriverService;
 import road.movementdtos.dtos.CityDistanceDto;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,27 +26,7 @@ public class InvoiceAPI
         try
         {
             List<CityDistanceDto> distanances = driverService.getCityMovements(vehicleInvoiceID);
-            CityDistanceDto[] array = new CityDistanceDto[distanances.size()];
-
-            List<SimpleObject> simpleObjects = new ArrayList<>();
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            simpleObjects.add(new SimpleObject());
-            array = distanances.toArray(array);
-
-            return  distanances;
+            return distanances;
         } catch(Exception ex){
             ex.printStackTrace();
         }
