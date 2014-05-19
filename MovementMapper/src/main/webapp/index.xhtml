@@ -1,0 +1,23 @@
+<ui:composition template="WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+        <div class="pill login-pill" id="loginPill">
+            <h3>Parse movements file</h3>
+            <form action="startjob" method="post">
+                <table>
+                    <tr><td><label for="basedate">Date of movements(dd-MM-yyyy|HH:mm:ss): </label></td><td><input type="text"  name="basedate" value="11-02-2014|11:11:11" /></td></tr>
+                    <tr><td><label for="basedate">File with movements: </label></td><td><input type="text"  name="inputfile" value="movement_vehicle_gen_t0.xml" /></td></tr>
+                    <tr><td></td><td><input type="submit" value="Send" /></td></tr>
+                </table>
+            </form>
+        </div>
+    </ui:define>
+
+</ui:composition>
+
