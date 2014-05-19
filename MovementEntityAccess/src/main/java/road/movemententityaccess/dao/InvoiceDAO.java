@@ -1,8 +1,8 @@
 package road.movemententityaccess.dao;
 
-import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movemententities.entities.Invoice;
 import road.movemententities.entities.VehicleMovement;
+import road.movemententities.entities.enumerations.PaymentStatus;
 
 import java.util.Date;
 import java.util.List;

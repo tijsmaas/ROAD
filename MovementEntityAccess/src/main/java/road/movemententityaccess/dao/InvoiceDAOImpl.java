@@ -59,12 +59,12 @@ public class InvoiceDAOImpl implements InvoiceDAO
     }
 
     @Override
-    public boolean updateInvoicePaymentstatus(int invoiceID, road.movementdtos.dtos.enumerations.PaymentStatus dtoPaymentStatus)
+    public boolean updateInvoicePaymentstatus(int invoiceID, PaymentStatus entityPaymentStatus)
     {
         em.getTransaction().begin();
-        PaymentStatus entityPaymentStatus = road.movemententities.entities.enumerations.PaymentStatus.values()[dtoPaymentStatus.ordinal()];
 
         Invoice invoice = this.getInvoice(invoiceID);
+
 
         if(invoice == null){
             throw new IllegalArgumentException("No invoice with given ID exists in the database");

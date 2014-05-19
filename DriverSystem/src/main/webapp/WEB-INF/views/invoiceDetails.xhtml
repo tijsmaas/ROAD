@@ -31,7 +31,8 @@
 
                         <!--TODO: Implement movement details-->
                         <td>
-                            <a href="#" onclick="showVehicleInvoiceDetails(#{vehicleInvoice.id}); return false;">View details</a>
+                            <a href="javascript:void(0)"
+                               onclick="showVehicleInvoiceDetails(#{vehicleInvoice.id}); return false;">View details</a>
                         </td>
                     </tr>
                 </ui:repeat>
@@ -39,8 +40,64 @@
             </table>
             <h:panelGroup layout="block" styleClass="panel-footer">
                 <label>Total: €#{invoice.total}</label>
-
             </h:panelGroup>
         </div>
     </h:panelGroup>
+
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="detailModalLabel">Modal title</h4>
+                </div>
+                <div id="modalbody" class="modal-body">
+                    <div class="well">
+                        <table class="table" style="display:none">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>City</th>
+                                <th>Driven</th>
+                                <th>Cost</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>04-04-2011</td>
+                                <td>Helmond</td>
+                                <td>100km</td>
+                                <td>€3000</td>
+                            </tr>
+                            <tr>
+                                <td>04-04-2011</td>
+                                <td>Helmond</td>
+                                <td>100km</td>
+                                <td>€3000</td>
+                            </tr>
+                            <tr>
+                                <td>04-04-2011</td>
+                                <td>Helmond</td>
+                                <td>100km</td>
+                                <td>€3000</td>
+                            </tr>
+                            <tr>
+                                <td>04-04-2011</td>
+                                <td>Helmond</td>
+                                <td>100km</td>
+                                <td>€3000</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </ui:composition>

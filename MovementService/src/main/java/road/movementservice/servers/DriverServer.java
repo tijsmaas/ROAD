@@ -120,7 +120,8 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     @Override
     public Boolean updateInvoicePaymentStatus(Integer invoiceID, PaymentStatus paymentStatus)
     {
-        Boolean result =  invoiceDAO.updateInvoicePaymentstatus(invoiceID, paymentStatus);
+        road.movemententities.entities.enumerations.PaymentStatus entityPaymentStatus = road.movemententities.entities.enumerations.PaymentStatus.values()[paymentStatus.ordinal()];
+        Boolean result =  invoiceDAO.updateInvoicePaymentstatus(invoiceID, entityPaymentStatus);
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Returning update sttus result as " + result);
         return result;
     }
