@@ -3,12 +3,12 @@ package road.movemententityaccess.helper;
 import road.movemententities.entities.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.Query;
 
 /**
  * Class for generating invoices on the given
@@ -120,9 +120,16 @@ public class InvoiceGenerator
             {
                 int metersDriven = (prevLane == null) ? 0 : Math.round(prevLane.getLength());
                 totalMetersDriven += metersDriven;
-                
+
+                City city = null;
+
                 // Lookup the city in which the lane is, this can be null
-                City city = this.getCityByLane(prevLane);
+                if(prevLane!= null)
+                {
+                    city = this.getCityByLane(prevLane);
+                } else if(currentLane != null){
+                    city = this.getCityByLane(currentLane);
+                }
                 
                 if(city != null) {
                     CityDistance cityDistance = cityDistances.get(city);
@@ -132,13 +139,13 @@ public class InvoiceGenerator
                     // Check if we have driven here before or not
                     if(cityDistance == null) 
                     {
+                        //Add the meters traveled and the km_rate to a new CityDistance object
                         cityDistance = new CityDistance(city, metersDriven, km_rate);
                         cityDistances.put(city, cityDistance);
                         em.merge(cityDistance);
                     }else{
-                        //Add the meters traveled and the km_rate to a new CityDistance object
                         cityDistance.addDistance(metersDriven);
-                        em.persist(cityDistance);
+                        em.merge(cityDistance);
                     }
                 }
                 
@@ -149,7 +156,7 @@ public class InvoiceGenerator
         
         logger.log(Level.INFO, "User : " + vehicleOwnership.getUserID() + " has driven " + totalMetersDriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
 
-        vehicleInvoice.setMovementList((List<CityDistance>) cityDistances.values());
+        vehicleInvoice.setMovementList(new ArrayList<CityDistance>(cityDistances.values()));
 
         //Set the subtotal of the vehicleInvoice to the calculated subtotal
         vehicleInvoice.setSubTotal(new BigDecimal(subTotal, MathContext.DECIMAL64));
@@ -172,21 +179,16 @@ public class InvoiceGenerator
      * @return the city
      */
     private City getCityByLane(Lane lane) {
-        Query query = em.createQuery("select count(city) from City city");
+        String laneID = lane.getId();
+        String[] laneIDs = laneID.split("\\_");
+        laneID = laneIDs[0];
+        laneID = laneID.startsWith(":") ? laneID.substring(1) : laneID;
+
+        Query query = em.createQuery("select city from City city where city.cityId like :laneID");
+        query.setParameter("laneID", laneID+"%");
+
         List<City> cities = query.getResultList();
-        for(City city : cities) 
-        {
-            /**
-             * Check if lane matches city
-             * Lane id = ":-23_2_0"
-             * City id = "-23"
-             */
-            if(lane.getId().startsWith(":"+city.getCityId()))
-            {
-                return city;
-            }
-        }
-        return null;
+        return cities.size() != 1 ? null : cities.get(0);
     }
     
 
