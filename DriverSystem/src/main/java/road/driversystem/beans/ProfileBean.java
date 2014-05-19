@@ -5,11 +5,10 @@
 package road.driversystem.beans;
 
 import aidas.userservice.dto.UserDto;
-import road.driversystem.domain.dts.DriverService;
+import road.driversystem.service.DriverService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;

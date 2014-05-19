@@ -1,6 +1,6 @@
 package road.driversystem.beans;
 
-import road.driversystem.domain.dts.DriverService;
+import road.driversystem.service.DriverService;
 import road.movementdtos.dtos.InvoiceDto;
 
 import javax.annotation.PostConstruct;

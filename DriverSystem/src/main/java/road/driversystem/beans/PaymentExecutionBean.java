@@ -4,7 +4,7 @@ import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.PaymentExecution;
 import com.paypal.core.rest.APIContext;
 import com.paypal.core.rest.PayPalRESTException;
-import road.driversystem.domain.dts.DriverService;
+import road.driversystem.service.DriverService;
 import road.driversystem.domain.infoobjects.PaymentSession;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 

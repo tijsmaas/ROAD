@@ -1,7 +1,5 @@
 package road.movemententityaccess.dao;
 
-import road.movementdtos.dtos.CityDto;
-import road.movemententities.converters.CityConverter;
 import road.movemententities.entities.City;
 import road.movemententities.entities.CityRate;
 import road.movemententities.entities.Vehicle;
@@ -39,21 +37,7 @@ public class CityDAOImpl implements CityDAO
      * @return the found City object.
      */
     @Override
-    public CityDto find(String cityIdentifier)
-    {
-        Query query = em.createQuery("select city from City city where city.cityIdentifier = :cityID");
-        query.setParameter("cityID", cityIdentifier);
-
-        List<City> resultList = query.getResultList();
-        return resultList.isEmpty() ? null : CityConverter.toCityDto(resultList.get(0));
-    }
-
-    /**
-     * {@inheritDoc}
-     * @param cityIdentifier The sumo City Identifier
-     * @return the found City object.
-     */
-    public City get(String cityIdentifier)
+    public City find(String cityIdentifier)
     {
         Query query = em.createQuery("select city from City city where city.cityIdentifier = :cityID");
         query.setParameter("cityID", cityIdentifier);
@@ -66,24 +50,20 @@ public class CityDAOImpl implements CityDAO
      * @return the found City object.
      */
     @Override
-    public List<CityDto> findAll()
+    public List<City> findAll()
     {
         Query query = em.createQuery("select city from City city");
 
         List<City> resultList = query.getResultList();
-        List<CityDto> returnList = new ArrayList();
-        for (City c : resultList) {
-            returnList.add(CityConverter.toCityDto(c));
-        }
-        return returnList;
+        return resultList;
     }
 
     @Override
-    public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
+    public boolean adjustKilometerRate(City city, Date addDate, String price)
     {
         try
         {
-            em.persist(new CityRate(get(city.getCityId()), addDate, price));
+            em.persist(new CityRate(city, addDate, price));
             return true;
         }
         catch(Exception ex)
