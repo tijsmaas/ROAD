@@ -3,10 +3,12 @@ package road.movementservice.servers;
 import aidas.userservice.IUserManager;
 import aidas.userservice.dto.UserDto;
 import road.driverdts.connections.IDriverQuery;
+import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.MovementConnection;
+import road.movemententities.entities.CityDistance;
 import road.movemententities.entities.Invoice;
 import road.movemententityaccess.dao.*;
 import road.movementservice.connections.ServerConnection;
@@ -132,6 +134,25 @@ public class DriverServer extends ServerConnection implements IDriverQuery
         Invoice foundInvoice = invoiceDAO.getInvoice(invoiceID);
 
         return dtoMapper.map(foundInvoice);
+    }
+
+    /**
+     * #{@inheritDoc}
+     * @param vehicleInvoiceID the ID of the vehicleInvoice
+     * @return
+     */
+    @Override
+    public List<CityDistanceDto> getCityDistances(Integer vehicleInvoiceID)
+    {
+        List<CityDistance> cityDistances = this.invoiceDAO.getCityDistancesForVehicleInvoice(vehicleInvoiceID);
+
+        List<CityDistanceDto> cityDistanceDtos = new ArrayList<>();
+        for (CityDistance cityDistance : cityDistances)
+        {
+            cityDistanceDtos.add(this.dtoMapper.map(cityDistance));
+        }
+
+        return cityDistanceDtos;
     }
 
     /**

@@ -1,5 +1,7 @@
 package road.movementdtos.dtos;
 
+import java.util.Date;
+
 /**
  * Created by Niek on 18/05/14.
  * © Aidas 2014
@@ -8,28 +10,29 @@ public class CityDistanceDto
 {
     private int id;
     private String cityName;
-    private double driven;
     private double drivenKM;
     private double km_prijs;
     private double totalCost;
+    private Date movementDate;
 
-    public CityDistanceDto(int id, String cityName, double driven, double km_prijs)
+    public CityDistanceDto(int id, String cityName, double driven, double km_prijs, Date movementdate)
     {
         this.id = id;
         this.cityName = cityName;
-        this.driven = driven;
+        this.drivenKM = driven;
         this.km_prijs = km_prijs;
-
-        double drivenKM = this.driven / 1000;
-        drivenKM = (double) Math.round(drivenKM * 100) / 100;
-        this.drivenKM = drivenKM;
 
         this.totalCost = this.drivenKM * this.km_prijs;
         this.totalCost = (double) Math.round(this.totalCost * 100) / 100;
+        this.movementDate = movementdate;
 
     }
 
-    public CityDistanceDto(){};
+    public CityDistanceDto()
+    {
+    }
+
+    ;
 
     public int getId()
     {
@@ -49,16 +52,6 @@ public class CityDistanceDto
     public void setCityName(String cityName)
     {
         this.cityName = cityName;
-    }
-
-    public double getDriven()
-    {
-        return driven;
-    }
-
-    public void setDriven(double driven)
-    {
-        this.driven = driven;
     }
 
     public double getDrivenKM()
@@ -89,5 +82,15 @@ public class CityDistanceDto
     public void setTotalCost(double totalCost)
     {
         this.totalCost = totalCost;
+    }
+
+    public Date getMovementDate()
+    {
+        return movementDate;
+    }
+
+    public void setMovementDate(Date movementDate)
+    {
+        this.movementDate = movementDate;
     }
 }

@@ -1,5 +1,6 @@
 package road.movemententityaccess.dao;
 
+import road.movemententities.entities.CityDistance;
 import road.movemententities.entities.Invoice;
 import road.movemententities.entities.VehicleMovement;
 import road.movemententities.entities.enumerations.PaymentStatus;
@@ -20,4 +21,6 @@ public interface InvoiceDAO
     public Invoice getInvoice(int invoiceID);
 
     public boolean updateInvoicePaymentstatus(int invoiceID, PaymentStatus dtoPaymentStatus);
+
+    public List<CityDistance> getCityDistancesForVehicleInvoice(int vehicleInvoiceID);
 }

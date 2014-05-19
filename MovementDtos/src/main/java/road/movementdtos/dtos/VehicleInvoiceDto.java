@@ -20,10 +20,8 @@ public class VehicleInvoiceDto
         this.id = id;
         this.vehicle  = vehicleDto;
         this.subTotal = subTotal;
-        this.kilometersDriven = metersDriven / 100;
-        this.kilometersDriven = kilometersDriven * 100;
-        this.kilometersDriven = Math.round(kilometersDriven);
-        this.kilometersDriven = kilometersDriven / 100;
+        this.kilometersDriven = metersDriven / 1000;
+        this.kilometersDriven = Math.round(this.kilometersDriven * 100) / 100;
     }
 
     public VehicleInvoiceDto(){};

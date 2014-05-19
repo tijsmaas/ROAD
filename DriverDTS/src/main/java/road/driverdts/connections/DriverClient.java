@@ -1,6 +1,7 @@
 package road.driverdts.connections;
 
 import aidas.userservice.dto.UserDto;
+import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
@@ -70,6 +71,15 @@ public class DriverClient extends ClientConnection implements IDriverQuery
     public InvoiceDto getInvoiceDetails(Integer invoiceID)
     {
         return this.remoteCall("getInvoiceDetails", InvoiceDto.class, invoiceID);
+    }
+
+    @Override
+    public List<CityDistanceDto> getCityDistances(Integer vehicleInvoiceID)
+    {
+        if(vehicleInvoiceID == null){
+            throw new IllegalArgumentException("vehicleInvoiceID was null");
+        }
+        return this.remoteCall("getCityDistances", ArrayList.class, vehicleInvoiceID);
     }
 
     @Override

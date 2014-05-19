@@ -17,7 +17,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,14 +99,7 @@ public class DriverService implements Serializable
      */
     public List<CityDistanceDto> getCityMovements(int vehicleInvoiceID){
         //TODO: Implement this method
-        List<CityDistanceDto> cityMovements = new ArrayList<>();
-        cityMovements.add(new CityDistanceDto(1, "Eindhoven", 300, 0.16));
-        cityMovements.add(new CityDistanceDto(2, "Helmond", 3200, 0.18));
-        cityMovements.add(new CityDistanceDto(3, "Tilburg", 9000, 0.19));
-        cityMovements.add(new CityDistanceDto(4, "Veldhoven", 1200, 0.12));
-
-
-        return cityMovements;
+        return this.driverQueries.getCityDistances(vehicleInvoiceID);
     }
 
     /**

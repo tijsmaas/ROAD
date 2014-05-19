@@ -1,6 +1,7 @@
 package road.movemententities.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class CityDistance implements MovementEntity<Integer> {
@@ -13,6 +14,9 @@ public class CityDistance implements MovementEntity<Integer> {
     
     @ManyToOne
     private City city;
+
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date movementDate;
     
     /* Driven distance in KM */
     private double distance;
@@ -23,11 +27,12 @@ public class CityDistance implements MovementEntity<Integer> {
     public CityDistance() {
     }
 
-    public CityDistance(City city, double distance, double km_prijs)
+    public CityDistance(City city, double distance, double km_prijs, Date movementDate)
     {
         this.city = city;
         this.distance = distance;
         this.km_prijs = km_prijs;
+        this.movementDate = movementDate;
     }
 
     public void setVehicleInvoice(VehicleInvoice vehicleInvoice)
@@ -56,8 +61,13 @@ public class CityDistance implements MovementEntity<Integer> {
         return this.id;
     }
 
-    public void addDistance(int metersDriven)
+    public void addDistance(double metersDriven)
     {
         this.distance += metersDriven;
+    }
+
+    public Date getMovementDate()
+    {
+        return movementDate;
     }
 }

@@ -1,5 +1,6 @@
 package road.movemententityaccess.dao;
 
+import road.movemententities.entities.CityDistance;
 import road.movemententities.entities.Invoice;
 import road.movemententities.entities.VehicleMovement;
 import road.movemententities.entities.enumerations.PaymentStatus;
@@ -76,5 +77,14 @@ public class InvoiceDAOImpl implements InvoiceDAO
         em.getTransaction().commit();
         return true;
 
+    }
+
+    @Override
+    public List<CityDistance> getCityDistancesForVehicleInvoice(int vehicleInvoiceID)
+    {
+        Query query = em.createQuery("select cityDistance from CityDistance cityDistance where cityDistance.vehicleInvoice.id = :vehicleInvoiceID order by cityDistance.id");
+        query.setParameter("vehicleInvoiceID", vehicleInvoiceID);
+
+        return query.getResultList();
     }
 }

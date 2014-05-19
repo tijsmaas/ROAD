@@ -100,14 +100,15 @@ public class InvoiceGenerator
     private void createOrUpdateInvoice(VehicleOwnership vehicleOwnership, List<VehicleMovement> vehicleMovements)
     {
         VehicleInvoice vehicleInvoice = new VehicleInvoice(vehicleOwnership);
+        em.persist(vehicleInvoice);
         Double subTotal = 0.0;
         /**
          * README.
          * TODO: Replace km_rate with city.getKMRate() when km rates work!
          */
-        double km_rate = 20.0;
+        double km_rate = 0.20;
         
-        int totalMetersDriven = 0;
+        double totalkilometersdriven = 0;
         Lane prevLane = null;
         Invoice invoice = this.getOrCreateInvoice(vehicleOwnership);
         Map<City, CityDistance> cityDistances = new HashMap<>();
@@ -118,8 +119,7 @@ public class InvoiceGenerator
             Lane currentLane = vehicleMovement.getMovement().getLane();
             if(prevLane != currentLane)
             {
-                int metersDriven = (prevLane == null) ? 0 : Math.round(prevLane.getLength());
-                totalMetersDriven += metersDriven;
+                double kilometersDriven = (prevLane == null) ? 0.0 : prevLane.getLength();
 
                 City city = null;
 
@@ -134,18 +134,19 @@ public class InvoiceGenerator
                 if(city != null) {
                     CityDistance cityDistance = cityDistances.get(city);
                     // add to subtotal
-                    subTotal += metersDriven * (km_rate / 10);
+                    totalkilometersdriven += kilometersDriven;
+                    subTotal += kilometersDriven * (km_rate);
                     
                     // Check if we have driven here before or not
                     if(cityDistance == null) 
                     {
                         //Add the meters traveled and the km_rate to a new CityDistance object
-                        cityDistance = new CityDistance(city, metersDriven, km_rate);
+                        Date movementDate = vehicleMovement.getMovement().getMovementDateTime();
+                        cityDistance = new CityDistance(city, kilometersDriven, km_rate, movementDate);
+                        cityDistance.setVehicleInvoice(vehicleInvoice);
                         cityDistances.put(city, cityDistance);
-                        em.merge(cityDistance);
                     }else{
-                        cityDistance.addDistance(metersDriven);
-                        em.merge(cityDistance);
+                        cityDistance.addDistance(kilometersDriven);
                     }
                 }
                 
@@ -154,19 +155,22 @@ public class InvoiceGenerator
             }
         }
         
-        logger.log(Level.INFO, "User : " + vehicleOwnership.getUserID() + " has driven " + totalMetersDriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
+        logger.log(Level.INFO, "User : " + vehicleOwnership.getUserID() + " has driven " + totalkilometersdriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
 
         vehicleInvoice.setMovementList(new ArrayList<CityDistance>(cityDistances.values()));
 
         //Set the subtotal of the vehicleInvoice to the calculated subtotal
         vehicleInvoice.setSubTotal(new BigDecimal(subTotal, MathContext.DECIMAL64));
 
+        //Set total meters
+        double totalMeters = totalkilometersdriven * 1000;
+        int totalMetersDriven = (int)Math.round(totalMeters);
         vehicleInvoice.setMetersDriven(totalMetersDriven);
 
         //Set the invoice to the vehicle invoice
         vehicleInvoice.setInvoice(invoice);
 
-        em.persist(vehicleInvoice);
+        em.merge(vehicleInvoice);
         invoice.addVehicleInvoie(vehicleInvoice);
 
         logger.log(Level.INFO, "Added vehicle invoice to invoice with ID " + invoice.getInvoiceID());

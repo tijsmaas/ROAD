@@ -1,9 +1,6 @@
 package road.movementservice.mapper;
 
-import road.movementdtos.dtos.CityDto;
-import road.movementdtos.dtos.InvoiceDto;
-import road.movementdtos.dtos.VehicleDto;
-import road.movementdtos.dtos.VehicleInvoiceDto;
+import road.movementdtos.dtos.*;
 import road.movemententities.entities.*;
 
 import java.math.BigDecimal;
@@ -43,6 +40,11 @@ public class DtoMapper
         InvoiceDto invoiceDto = new InvoiceDto(invoice.getInvoiceID(), invoice.getUserID(), invoice.getGenerationDate(), invoice.getStartDate(), invoice.getEndDate(), invoice.getPaymentStatus().ordinal(), total);
 
         return invoiceDto;
+    }
+
+    public CityDistanceDto map(CityDistance cityDistance)
+    {
+        return new CityDistanceDto(cityDistance.getId(), cityDistance.getCity().getCityName(), cityDistance.getDistance(), cityDistance.getKm_prijs(), cityDistance.getMovementDate());
     }
 
     /**
