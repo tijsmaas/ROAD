@@ -31,11 +31,6 @@ public class ParserStartup
     /* SUMO file should be generated from the osm file */
     private static final String INPUTSUMOFILE = "PTS-ESD-2.net.xml";
 
-    /* Path to directory with initial movements */
-//    private static final String MOVEMENTSDIR = "/home/tijs/Downloads/verpl_systeem/";
-    /* SUMO movements file, containing the vehicle movements over time */
-    private static final String MOVEMENTSSMALLFILE = "movement_vehicle_gen_t0.xml";//"verplaatsingen_20110209_small.xml";
-
     @Inject
     private MovementMapper mapParser;
 
@@ -46,9 +41,6 @@ public class ParserStartup
     public void init()
     {
         initialiseMap();
-//        generateTestUsers();
-        parseNewMovements();
-//        generateTestData();
     }
 
     /**
@@ -77,29 +69,6 @@ public class ParserStartup
         URL url = this.getClass().getResource("/" + filename);
         System.out.println("url: " + url.getPath());
         return new File(url.getFile());
-    }
-
-    /**
-     * Parse all xml movement files in directory DIR When parsing completed,
-     * delete the files
-     */
-    //@Schedule(minute = "*/3", hour = "*")
-    public void parseNewMovements()
-    {
-        System.out.println("[PARSERSERVICE] Parsing movements...");
-//        CODE TO LOAD INITIAL MOVEMENTS (TOO HEAVY FOR NOW)
-//        System.out.println("[SCHEDULE] Parsing new movements in directory "+new File(MOVEMENTSDIR).getAbsolutePath());
-//        Calendar cal = Calendar.getInstance();
-//        for(int dd=7;dd<7;dd++) 
-//        {
-//            cal.set(2011, 2, 9);
-//            movementParser.parseChanges(new File(MOVEMENTSDIR+"verplaatsingen_2011020"+dd+".xml"), cal);
-//        }
-//      
-        // Set parsing time to midnight
-        Calendar cal = Calendar.getInstance();
-        cal.set(2011, 2, 9, 0, 0, 0);
-        movementParser.parseChanges(new File(MOVEMENTSSMALLFILE), cal);
     }
 
     @Inject
