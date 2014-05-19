@@ -39,29 +39,26 @@
  */
 package com.oracle.javaee7.samples.batch.simple;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.batch.api.chunk.ItemProcessor;
-import javax.batch.runtime.BatchRuntime;
-import javax.batch.runtime.context.JobContext;
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import java.util.Properties;
-import javax.enterprise.context.Dependent;
-
-import javax.xml.bind.JAXBElement;
-
 import road.movemententities.entities.Lane;
 import road.movemententities.entities.Movement;
 import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleMovement;
 import road.movementmapper.dao.MovementsDAO;
 import sumo.movements.jaxb.TimestepType;
+
+import javax.batch.api.chunk.ItemProcessor;
+import javax.batch.runtime.BatchRuntime;
+import javax.batch.runtime.context.JobContext;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.xml.bind.JAXBElement;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Properties;
 
 @Dependent
 @Named("SimpleItemProcessor")
@@ -74,9 +71,11 @@ public class SimpleItemProcessor
 
     @Inject
     private MovementsDAO movementsDAO;
-    
-    public SimpleItemProcessor() {}
-    
+
+    public SimpleItemProcessor()
+    {
+    }
+
     /**
      * Parse all timesteps and all vehicle movements within them.
      */
@@ -85,53 +84,59 @@ public class SimpleItemProcessor
         long startTime = System.nanoTime();
         Properties jobParameters = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
 
-        
+
         Calendar basedate = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy|HH:mm:ss");
-        basedate.setTime(sdf.parse((String)jobParameters.get("basedate")));
+        basedate.setTime(sdf.parse((String) jobParameters.get("basedate")));
 
         TimestepType timestep = (TimestepType) obj;
-        
-        System.out.println("processing timestep "+timestep.getTime());
+
+        System.out.println("processing timestep " + timestep.getTime());
         List<Movement> movementsChunk = new ArrayList();
 
         for (Serializable a : timestep.getContent())
         {
             // The xml parser parses whitespace strings, this is a workaround
-            if (a instanceof String) continue;
-                
-                sumo.movements.jaxb.EdgeType xmlEdge = (sumo.movements.jaxb.EdgeType) ((JAXBElement) a).getValue();
+            if (a instanceof String)
+            {
+                continue;
+            }
 
-                for (sumo.movements.jaxb.LaneType xmlLane : xmlEdge.getLane())
+            sumo.movements.jaxb.EdgeType xmlEdge = (sumo.movements.jaxb.EdgeType) ((JAXBElement) a).getValue();
+
+            for (sumo.movements.jaxb.LaneType xmlLane : xmlEdge.getLane())
+            {
+                Lane lane = movementsDAO.getLaneById(xmlLane.getId());
+                // set datetime and timestep time of movement to now.
+                Movement movement = new Movement(basedate, timestep.getTime(), lane);
+
+
+                List<VehicleMovement> movementVehicles = new ArrayList();
+
+                for (Serializable b : xmlLane.getContent())
                 {
-                    Lane lane = movementsDAO.getLaneById(xmlLane.getId());
-                    // set datetime and timestep time of movement to now.
-                    Movement movement = new Movement(basedate, timestep.getTime(), lane);
-                    
-
-                    List<VehicleMovement> movementVehicles = new ArrayList();
-
-                    for (Serializable b : xmlLane.getContent())
+                    if (b instanceof String)
                     {
-                        if (b instanceof String) continue;
-
-                        sumo.movements.jaxb.VehicleType xmlVehicle = (sumo.movements.jaxb.VehicleType) ((JAXBElement) b).getValue();
-                        String cartrackerID = xmlVehicle.getId();
-
-                        // Get vehicle by its license plate (<vehicle id="license">) or create a vehicle
-                        Vehicle vehicle = movementsDAO.getOrCreateVehicleById(cartrackerID);
-
-                        VehicleMovement movementVehicle = new VehicleMovement(
-                                movement, vehicle, xmlVehicle.getPos(), xmlVehicle.getSpeed());
-                        
-                        // write for each vehicle
-                        movementVehicles.add(movementVehicle);                        
+                        continue;
                     }
 
-                    // Add all moving vehicles to the movement
-                    movement.setVehicleMovements(movementVehicles);
-                    movementsChunk.add(movement);
+                    sumo.movements.jaxb.VehicleType xmlVehicle = (sumo.movements.jaxb.VehicleType) ((JAXBElement) b).getValue();
+                    String cartrackerID = xmlVehicle.getId();
+
+                    // Get vehicle by its license plate (<vehicle id="license">) or create a vehicle
+                    Vehicle vehicle = movementsDAO.getOrCreateVehicleById(cartrackerID);
+
+                    VehicleMovement movementVehicle = new VehicleMovement(
+                            movement, vehicle, xmlVehicle.getPos(), xmlVehicle.getSpeed());
+
+                    // write for each vehicle
+                    movementVehicles.add(movementVehicle);
                 }
+
+                // Add all moving vehicles to the movement
+                movement.setVehicleMovements(movementVehicles);
+                movementsChunk.add(movement);
+            }
         }
         System.out.println("Processed in " + (System.nanoTime() - startTime) + "ns");
 

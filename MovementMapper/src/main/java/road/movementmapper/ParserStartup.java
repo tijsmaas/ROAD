@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 public class ParserStartup
 {
     /* Initial map files */
-
     private static final String INPUTOSMFILE = "PTS-ESD-2.osm";
 
     /* SUMO file should be generated from the osm file */
@@ -70,6 +69,4 @@ public class ParserStartup
 
     @Inject
     private MovementsDAO movementsDAO;
-
-
 }

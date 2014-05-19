@@ -1,17 +1,21 @@
 package road.movementparser.injectable;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import javax.xml.bind.JAXBElement;
-import java.io.Serializable;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import road.movemententities.entities.*;
+import road.movemententities.entities.Lane;
+import road.movemententities.entities.Movement;
+import road.movemententities.entities.Vehicle;
+import road.movemententities.entities.VehicleMovement;
 import road.movementmapper.dao.EntityDAO;
 import sumo.movements.jaxb.SumoNetstateType;
+
+import javax.inject.Inject;
+import javax.xml.bind.JAXBElement;
+import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The MovementParser reads movements and updates the database.
@@ -19,7 +23,6 @@ import sumo.movements.jaxb.SumoNetstateType;
 public class MovementParser
 {
     /* Package name of generated movement classes */
-
     private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
 
     @Inject
@@ -44,7 +47,8 @@ public class MovementParser
             JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
             parseTimesteps(root, insertDate);
             System.out.println("Parsed " + changes.getName() + " in " + (System.nanoTime() - startTime) + "ns");
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             Logger.getLogger(MovementParser.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,13 +56,16 @@ public class MovementParser
 
     /**
      * Parse movements from a string
-     * 
+     *
      * @param changes
      */
     public void parseChanges(String changes, int sequencenr)
     {
         if (numberOfMovementParses != sequencenr)
+        {
             throw new IllegalArgumentException("Tried to add Movements with serial number " + sequencenr + ", but counter was at " + numberOfMovementParses);
+        }
+
         numberOfMovementParses++;
 
         long startTime = System.nanoTime();
@@ -89,9 +96,12 @@ public class MovementParser
         {
             for (Serializable a : timestep.getContent())
             {
-                
+
                 if (a instanceof String)
+                {
                     continue;
+                }
+
                 sumo.movements.jaxb.EdgeType xmlEdge = (sumo.movements.jaxb.EdgeType) ((JAXBElement) a).getValue();
 
                 for (sumo.movements.jaxb.LaneType xmlLane : xmlEdge.getLane())
@@ -106,7 +116,9 @@ public class MovementParser
                     for (Serializable b : xmlLane.getContent())
                     {
                         if (b instanceof String)
+                        {
                             continue;
+                        }
                         sumo.movements.jaxb.VehicleType xmlVehicle = (sumo.movements.jaxb.VehicleType) ((JAXBElement) b).getValue();
                         String licenseplate = xmlVehicle.getId();
 
@@ -118,8 +130,7 @@ public class MovementParser
                             entityDAO.create(vehicle);
                         }
 
-                        VehicleMovement movementVehicle = new VehicleMovement(
-                                movement, vehicle, xmlVehicle.getPos(), xmlVehicle.getSpeed());
+                        VehicleMovement movementVehicle = new VehicleMovement(movement, vehicle, xmlVehicle.getPos(), xmlVehicle.getSpeed());
                         entityDAO.create(movementVehicle);
                         vehicle.addVehicleMovement(movementVehicle);
                         movementVehicles.add(movementVehicle);

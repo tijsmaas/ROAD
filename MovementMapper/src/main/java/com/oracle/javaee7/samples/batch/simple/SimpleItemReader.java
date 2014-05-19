@@ -60,7 +60,6 @@ import sumo.movements.jaxb.TimestepType;
 public class SimpleItemReader extends AbstractItemReader
 {
     /* Package name of generated movement classes */
-
     private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
 
     @Inject
@@ -92,7 +91,8 @@ public class SimpleItemReader extends AbstractItemReader
         return timestepIterator.hasNext() ? timestepIterator.next() : null;
     }
     
-    private File getResourceFile(String filename) {
+    private File getResourceFile(String filename)
+    {
         URL url = this.getClass().getResource("/"+filename);
         System.out.println("url: "+url.getPath());
         return new File(url.getFile());

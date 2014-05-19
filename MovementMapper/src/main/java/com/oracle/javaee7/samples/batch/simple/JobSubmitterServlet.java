@@ -39,22 +39,20 @@
  */
 package com.oracle.javaee7.samples.batch.simple;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
 
 /**
- *
  * @author makannan
  */
-public class JobSubmitterServlet extends HttpServlet {
-    
+public class JobSubmitterServlet extends HttpServlet
+{
     @Inject
     private JobReceiverBean jobsubmitter;
 
@@ -63,46 +61,54 @@ public class JobSubmitterServlet extends HttpServlet {
      * <code>GET</code> and
      * <code>POST</code> methods.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter pw = response.getWriter();
         Enumeration<String> x = request.getParameterNames();
         pw.println("args:");
-        while(x.hasMoreElements())
+        while (x.hasMoreElements())
+        {
             pw.println(x.nextElement());
-        
+        }
+
         String inputfile = request.getParameter("inputfile");
         String insertdate = request.getParameter("basedate");
-        try {
+        try
+        {
             pw.println(inputfile);
             pw.println(insertdate);
             jobsubmitter.startbatch(inputfile, insertdate);
             pw.println("OK");
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             throw new ServletException(ex);
-        } finally {
+        }
+        finally
+        {
             pw.close();
         }
     }
-    
+
     /**
      * Handles the HTTP
      * <code>GET</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -110,14 +116,14 @@ public class JobSubmitterServlet extends HttpServlet {
      * Handles the HTTP
      * <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param request  servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws IOException      if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 }

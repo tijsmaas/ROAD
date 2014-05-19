@@ -6,11 +6,9 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Dependent
-@Named("CleanupBatchlet")
+@Dependent @Named("CleanupBatchlet")
 public class CleanupBatchlet extends AbstractBatchlet
 {
-
     @PersistenceContext(unitName = "MovementPU")
     private EntityManager em;
 

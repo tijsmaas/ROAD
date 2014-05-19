@@ -135,7 +135,8 @@ public class MovementsDAOImpl implements MovementsDAO
                     userManager = new UserManager(emf);
                     UserDto user = userManager.register("user" + USER_ID++ + "name", "aidas123");
                     vehicleOwnership.setUserID(user.getId());
-                } catch (UserSystemException ex)
+                }
+                catch (UserSystemException ex)
                 {
                     Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -153,7 +154,9 @@ public class MovementsDAOImpl implements MovementsDAO
                 Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.WARNING, "Created new vehicle with ID" + cartrackerID);
 
                 this.vehicles.add(returnVehicle);
-            } catch(Exception ex){
+            }
+            catch(Exception ex)
+            {
                 Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
             
@@ -172,25 +175,33 @@ public class MovementsDAOImpl implements MovementsDAO
         try
         {
             in = new BufferedReader(new InputStreamReader(new FileInputStream(licenseplatefile)));
-        } catch (FileNotFoundException ex)
+        }
+        catch (FileNotFoundException ex)
         {
             Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         List<String> licensePlates = new ArrayList();
         String line;
+
         try
         {
-            while((line = in.readLine()) != null) {
+            while((line = in.readLine()) != null)
+            {
                 licensePlates.add(line);
             }
-        } catch (IOException ex)
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }
+        finally
+        {
             try
             {
                 in.close();
-            } catch (IOException ex)
+            }
+            catch (IOException ex)
             {
                 Logger.getLogger(MovementsDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
             }

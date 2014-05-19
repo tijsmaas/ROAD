@@ -52,10 +52,8 @@ import java.util.Iterator;
 import java.util.List;
 
 @Named("SimpleItemWriter")
-public class SimpleItemWriter
-        extends AbstractItemWriter
+public class SimpleItemWriter extends AbstractItemWriter
 {
-
     @Inject
     private EntityDAO entityDAO;
 
