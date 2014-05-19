@@ -53,7 +53,7 @@ public class RequestConnection extends MovementConnection
 
     public byte[] send(byte[] rawRequest)
     {
-        byte[] rawReply = new byte[0];
+        byte[] rawReply = new byte[1];
         try
         {
             BytesMessage request = this.session.createBytesMessage();

@@ -126,4 +126,28 @@ public class DriverServer extends ServerConnection implements IDriverQuery
 
         return dtoMapper.map(foundInvoice);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String changePassword(Integer id, String oldPassword, String newPassword, String newPasswordValidate) {
+        if (id == null) {
+            throw new IllegalArgumentException("DriverServer.changePassword: id cannot be null.");
+        }
+
+        return this.userManager.changePassword(id.intValue(), oldPassword, newPassword, newPasswordValidate);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean changeDetails(Integer id, String name, String street, String houseNumber, String postalCode, String city) {
+        if (id == null) {
+            throw new IllegalArgumentException("DriverServer.changeDetails: id cannot be null.");
+        }
+
+        return this.userManager.changeDetails(id.intValue(), name, street, houseNumber, postalCode, city);
+    }
 }
