@@ -55,4 +55,9 @@ public class CityDistance implements MovementEntity<Integer> {
     public Integer getId() {
         return this.id;
     }
+
+    public void addDistance(int metersDriven)
+    {
+        this.distance += metersDriven;
+    }
 }
