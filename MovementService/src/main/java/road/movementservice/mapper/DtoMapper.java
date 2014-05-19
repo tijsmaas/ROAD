@@ -42,6 +42,7 @@ public class DtoMapper
         }
 
         InvoiceDto invoiceDto = new InvoiceDto(invoice.getInvoiceID(), invoice.getUserID(), invoice.getGenerationDate(), invoice.getStartDate(), invoice.getEndDate(), invoice.getPaymentStatus().ordinal(), total);
+
         return invoiceDto;
     }
 

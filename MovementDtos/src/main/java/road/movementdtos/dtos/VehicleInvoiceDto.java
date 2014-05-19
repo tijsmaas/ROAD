@@ -9,15 +9,15 @@ import java.util.List;
  */
 public class VehicleInvoiceDto
 {
-    private int vehicleInvoiceID;
+    private int id;
     private VehicleDto vehicle;
     private BigDecimal subTotal;
     private double kilometersDriven;
-    private List<CityMovementDto> cityMovements;
+    private List<CityDistanceDto> cityMovements;
 
-    public VehicleInvoiceDto(int vehicleInvoiceID, VehicleDto vehicleDto, BigDecimal subTotal, int metersDriven)
+    public VehicleInvoiceDto(int id, VehicleDto vehicleDto, BigDecimal subTotal, int metersDriven)
     {
-        this.vehicleInvoiceID = vehicleInvoiceID;
+        this.id = id;
         this.vehicle  = vehicleDto;
         this.subTotal = subTotal;
         this.kilometersDriven = metersDriven / 100;
@@ -29,14 +29,14 @@ public class VehicleInvoiceDto
     public VehicleInvoiceDto(){};
 
 
-    public int getVehicleInvoiceID()
+    public int getId()
     {
-        return vehicleInvoiceID;
+        return id;
     }
 
-    public void setVehicleInvoiceID(int vehicleInvoiceID)
+    public void setId(int id)
     {
-        this.vehicleInvoiceID = vehicleInvoiceID;
+        this.id = id;
     }
 
     public VehicleDto getVehicle()
@@ -59,12 +59,12 @@ public class VehicleInvoiceDto
         this.subTotal = subTotal;
     }
 
-    public List<CityMovementDto> getCityMovements()
+    public List<CityDistanceDto> getCityMovements()
     {
         return cityMovements;
     }
 
-    public void setCityMovements(List<CityMovementDto> cityMovements)
+    public void setCityMovements(List<CityDistanceDto> cityMovements)
     {
         this.cityMovements = cityMovements;
     }

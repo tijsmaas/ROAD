@@ -1,13 +1,13 @@
 package road.billdts.connections;
 
-        import aidas.userservice.dto.UserDto;
-        import road.movementdtos.dtos.CityDto;
-        import road.movementdts.connections.ClientConnection;
-        import road.movementdts.connections.MovementConnection;
+import aidas.userservice.dto.UserDto;
+import road.movementdtos.dtos.CityDto;
+import road.movementdts.connections.ClientConnection;
+import road.movementdts.connections.MovementConnection;
 
-        import java.util.ArrayList;
-        import java.util.Date;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by geh on 11-4-14.
@@ -35,15 +35,16 @@ public class BillClient extends ClientConnection implements IBillQuery
     }
 
     @Override
-    public List<CityDto> getCities() {
+    public List<CityDto> getCities()
+    {
         return this.remoteCall("getCities", ArrayList.class);
     }
 
     @Override
     public Integer generateMonthlyInvoices(Integer month, Integer year)
     {
-        Object result = this.remoteCall("generateMonthlyInvoices", Integer.class, month, year);
+        Integer result = this.remoteCall("generateMonthlyInvoices", Integer.class, month, year);
         System.out.println("Remote call result = " + result);
-        return (Integer)result;
+        return result;
     }
 }

@@ -5,8 +5,42 @@
                 xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
 
 
+    <h:outputScript library="js" name="invoiceDetailShower.js"/>
     <h:panelGroup id="#{id}_invoicedetail_container">
 
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Invoice ##{invoice.invoiceID} from #{invoice.month} / #{invoice.year}</h3>
+            </div>
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>License plate</th>
+                    <th>Subtotal</th>
+                    <th>Driven</th>
+                    <th>View Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <ui:repeat value="#{invoice.vehicleInvoices}" var="vehicleInvoice">
+                    <tr>
+                        <td>#{vehicleInvoice.vehicle.licensePlate}</td>
+                        <td>€#{vehicleInvoice.subTotal}</td>
+                        <td>#{vehicleInvoice.kilometersDriven}km</td>
 
+                        <!--TODO: Implement movement details-->
+                        <td>
+                            <a href="#" onclick="showVehicleInvoiceDetails(10); return false;">View details</a>
+                        </td>
+                    </tr>
+                </ui:repeat>
+                </tbody>
+            </table>
+            <h:panelGroup layout="block" styleClass="panel-footer">
+                <label>Total: €#{invoice.total}</label>
+
+            </h:panelGroup>
+        </div>
     </h:panelGroup>
 </ui:composition>

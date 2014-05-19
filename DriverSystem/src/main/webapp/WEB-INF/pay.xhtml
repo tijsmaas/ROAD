@@ -16,40 +16,18 @@
 
 
         <h:panelGroup layout="block" rendered="#{!paymentBean.loadError}" styleClass="pill">
+            <ui:insert name="login">
+                <ui:include src="views/invoiceDetails.xhtml">
+                    <ui:param name="invoice" value="#{paymentBean.invoice}"/>
+                    <ui:param name="showPaymentFooter" value="#{true}"/>
+                    <ui:param name="id" value="paymentDetails"/>
+                </ui:include>
+            </ui:insert>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3>Invoice ##{paymentBean.invoice.invoiceID} from #{paymentBean.invoice.month} / #{paymentBean.invoice.year}</h3>
-                </div>
-                <!-- Table -->
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>License plate</th>
-                        <th>Subtotal</th>
-                        <th>Driven</th>
-                        <th>View MDetails</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <ui:repeat value="#{paymentBean.invoice.vehicleInvoices}" var="vehicleInvoice">
-                        <tr>
-                            <td>#{vehicleInvoice.vehicle.licensePlate}</td>
-                            <td>€#{vehicleInvoice.subTotal}</td>
-                            <td>#{vehicleInvoice.kilometersDriven}km</td>
-                            <!--TODO: Implement movement details-->
-                            <td>To be implemented</td>
-                        </tr>
-                    </ui:repeat>
-                    </tbody>
-                </table>
-                <div class="panel-footer">
-                    <label>Total: €#{paymentBean.invoice.total}</label>
-                    <div>
-                        <p:commandButton id="btnPay" styleClass="btn btn-primary" value="Pay invoice"
-                                         actionListener="#{paymentBean.pay}"/>
-                    </div>
-                </div>
+
+            <div>
+                <p:commandButton id="#{id}_btnPay" styleClass="btn btn-primary" value="Pay invoice"
+                                 actionListener="#{paymentBean.pay}"/>
             </div>
         </h:panelGroup>
 

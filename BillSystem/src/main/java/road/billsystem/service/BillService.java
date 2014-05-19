@@ -9,7 +9,6 @@ import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
-import javax.enterprise.context.ApplicationScoped;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,9 +45,9 @@ public class BillService implements Serializable
 
     public int generateMonthlyInvoices(int month, int year)
     {
-        Object result = billClient.generateMonthlyInvoices(month, year);
+        Integer result = billClient.generateMonthlyInvoices(month, year);
         System.out.println("result: " + result);
-        return 0;
+        return result;
     }
 
     public UserDto login(String username, String password)
