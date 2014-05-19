@@ -48,7 +48,7 @@ public class Server
      */
     public void init()
     {
-        EntityManagerFactory emfUserService = Persistence.createEntityManagerFactory("UserServicePU");
+        EntityManagerFactory emfUserService = Persistence.createEntityManagerFactory("UserServicePUMS");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MovementPUNonJTA");
 
         this.userManager = new UserManager(emfUserService);

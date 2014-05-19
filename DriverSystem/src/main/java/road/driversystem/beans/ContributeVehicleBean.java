@@ -73,7 +73,14 @@ public class ContributeVehicleBean implements Serializable
      */
     public boolean isVehicleEdit(VehicleDto vehicle)
     {
-        return this.curEditVehicle == vehicle;
+        if(this.curEditVehicle == null || vehicle == null)
+        {
+            return false;
+        }
+        else
+        {
+            return vehicle.getLicensePlate().equals(this.curEditVehicle.getLicensePlate());
+        }
     }
 
     /**
@@ -83,7 +90,11 @@ public class ContributeVehicleBean implements Serializable
     public void changeVehicleEdit(VehicleDto vehicle)
     {
         this.curEditVehicle = vehicle;
-        this.curEditVehicleContributeGPS =  vehicle != null ? vehicle.getContributeGPSData() : null;
+
+        if(vehicle != null)
+        {
+            this.curEditVehicleContributeGPS = vehicle.getContributeGPSData();
+        }
     }
 
     /**

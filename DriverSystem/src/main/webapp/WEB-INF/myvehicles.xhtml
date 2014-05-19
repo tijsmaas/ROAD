@@ -8,39 +8,47 @@
 
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
-
         <h:panelGroup layout="block" styleClass="pill pill-autosize">
-            <h4><h:outputText value="#{translator.getProperty('myVehicles')}"/></h4>
+            <h4>
+                <h:outputText value="#{translator.getProperty('myVehicles')}"/>
+            </h4>
 
-            <h:dataTable value="#{contributeVehicleBean.vehicles}" var="vehicle" styleClass="table table-hover">
-                <h:column>
-                    <f:facet name="header"><h:outputText value="#{translator.getProperty('licencePlate')}"/></f:facet>
-                    #{vehicle.licensePlate}
-                </h:column>
-                <h:column>
-                    <f:facet name="header"><h:outputText value="#{translator.getProperty('contributeTraficJam')}" /></f:facet>
-                    <h:outputText value="#{vehicle.contributeGPSData}" rendered="#{!contributeVehicleBean.isVehicleEdit(vehicle)}" />
-                    <h:form rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}">
-                        <!-- TODO: Fix the checkbox. This checkbox doesn't edit the value in the bean. -->
-                        <h:selectBooleanCheckbox value="#{contributeVehicleBean.curEditVehicleContributeGPS}" />
-                    </h:form>
-                </h:column>
-                <h:column>
-                    <h:form rendered="#{!contributeVehicleBean.isVehicleEdit(vehicle)}">
-                        <h:commandLink action="#{contributeVehicleBean.changeVehicleEdit(vehicle)}">
+            <h:form>
+                <h:dataTable value="#{contributeVehicleBean.vehicles}" var="vehicle" styleClass="table table-hover">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{translator.getProperty('licencePlate')}"/>
+                        </f:facet>
+                        #{vehicle.licensePlate}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{translator.getProperty('contributeTraficJam')}" />
+                        </f:facet>
+                    </h:column>
+
+                    <h:column>
+                        <h:outputText value="#{vehicle.contributeGPSData}" rendered="#{!contributeVehicleBean.isVehicleEdit(vehicle)}" />
+                    </h:column>
+                    <h:column>
+                        <h:selectBooleanCheckbox value="#{contributeVehicleBean.curEditVehicleContributeGPS}" rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}" />
+                    </h:column>
+                    <h:column>
+                        <h:commandLink action="#{contributeVehicleBean.changeVehicleEdit(vehicle)}" rendered="#{!contributeVehicleBean.isVehicleEdit(vehicle)}">
                             <i class="fa fa-pencil blue"></i>
                         </h:commandLink>
-                    </h:form>
-                    <h:form rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}">
-                        <h:commandLink action="#{contributeVehicleBean.saveEditVehicle}">
+                    </h:column>
+                    <h:column>
+                        <h:commandLink action="#{contributeVehicleBean.saveEditVehicle}" rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}">
                             <i class="fa fa-floppy-o blue"></i>
                         </h:commandLink>
-                        <h:commandLink action="#{contributeVehicleBean.changeVehicleEdit(null)}">
+                        <h:commandLink action="#{contributeVehicleBean.changeVehicleEdit(null)}" rendered="#{contributeVehicleBean.isVehicleEdit(vehicle)}">
                             <i class="fa fa-ban red"></i>
                         </h:commandLink>
-                    </h:form>
-                </h:column>
-            </h:dataTable>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
         </h:panelGroup>
     </ui:define>
 </ui:composition>
