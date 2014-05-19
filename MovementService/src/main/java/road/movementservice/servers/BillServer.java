@@ -60,12 +60,12 @@ public class BillServer extends ServerConnection implements IBillQuery
     @Override
     public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
     {
-        return cityDAO.adjustKilometerRate(city, addDate, price);
+        return cityDAO.adjustKilometerRate(dtoMapper.toCity(city), addDate, price);
     }
 
     @Override
     public List<CityDto> getCities() {
-        return cityDAO.findAll();
+        return dtoMapper.toCityDtoList(cityDAO.findAll());
     }
 
     @Override
