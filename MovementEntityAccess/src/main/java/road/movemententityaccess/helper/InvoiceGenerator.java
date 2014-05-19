@@ -107,7 +107,7 @@ public class InvoiceGenerator
          */
         double km_rate = 20.0;
         
-        double totalMetersDriven = 0.0;
+        int totalMetersDriven = 0;
         Lane prevLane = null;
         Invoice invoice = this.getOrCreateInvoice(vehicleOwnership);
         Map<City, CityDistance> cityDistances = new HashMap<>();
@@ -154,7 +154,7 @@ public class InvoiceGenerator
         //Set the subtotal of the vehicleInvoice to the calculated subtotal
         vehicleInvoice.setSubTotal(new BigDecimal(subTotal, MathContext.DECIMAL64));
 
-        vehicleInvoice.setMetersDriven(metersDriven);
+        vehicleInvoice.setMetersDriven(totalMetersDriven);
 
         //Set the invoice to the vehicle invoice
         vehicleInvoice.setInvoice(invoice);
@@ -214,11 +214,6 @@ public class InvoiceGenerator
 
     public Collection<Invoice> getInvoices(){
         return this.userInvoices.values();
-    }
-
-    private double calculateTotalPrice(Collection<CityDistance> values)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
