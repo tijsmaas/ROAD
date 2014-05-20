@@ -13,6 +13,10 @@
         <view-id value="../WEB-INF/pay.xhtml"/>
     </url-mapping>
     <url-mapping>
+        <pattern value="/invoiceDetail/#{invoiceID}"></pattern>
+        <view-id value="../WEB-INF/invoiceDetailsPage.xhtml"/>
+    </url-mapping>
+    <url-mapping>
         <pattern value="/pay/"></pattern>
         <view-id value="../WEB-INF/pay.xhtml"/>
     </url-mapping>
