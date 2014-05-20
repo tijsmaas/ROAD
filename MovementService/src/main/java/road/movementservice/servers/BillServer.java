@@ -1,9 +1,9 @@
 package road.movementservice.servers;
 
-//import aidas.usersystem.IUserManager;
+//import road.usersystem.UserDAO;
 
-import aidas.userservice.IUserManager;
-import aidas.userservice.dto.UserDto;
+import road.userservice.UserDAO;
+import road.userservice.dto.UserDto;
 import road.billdts.connections.IBillQuery;
 import road.movementdtos.dtos.CityDto;
 import road.movementdts.connections.MovementConnection;
@@ -28,10 +28,10 @@ public class BillServer extends ServerConnection implements IBillQuery
     private InvoiceDAO invoiceDAO;
     private MovementDAO movementDAO;
     private CityDAO cityDAO;
-    private IUserManager userManager;
+    private UserDAO userManager;
     private DtoMapper dtoMapper;
 
-    public BillServer(InvoiceDAO invoiceDAO, IUserManager userManager, MovementDAO movementDAO, CityDAO cityDAO, DtoMapper dtoMapper)
+    public BillServer(InvoiceDAO invoiceDAO, UserDAO userManager, MovementDAO movementDAO, CityDAO cityDAO, DtoMapper dtoMapper)
     {
         super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
 

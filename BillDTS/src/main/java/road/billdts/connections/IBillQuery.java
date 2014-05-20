@@ -1,6 +1,6 @@
 package road.billdts.connections;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDto;
 
 import java.util.Date;

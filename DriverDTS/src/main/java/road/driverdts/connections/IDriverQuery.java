@@ -1,6 +1,6 @@
 package road.driverdts.connections;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;

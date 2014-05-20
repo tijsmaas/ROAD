@@ -6,7 +6,7 @@
 
 package road.driversystem.service;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import road.driverdts.connections.DriverClient;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;

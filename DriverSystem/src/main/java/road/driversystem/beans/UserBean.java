@@ -6,7 +6,7 @@
 
 package road.driversystem.beans;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import com.ocpsoft.pretty.PrettyContext;
 import road.driversystem.domain.infoobjects.PaymentSession;
 import road.driversystem.utils.Utlities;

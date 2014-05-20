@@ -2,24 +2,23 @@
  * Copyright by AIDaS.
  */
 
-package aidas.userservice;
+package road.userservice;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
- * This class provides the tests for the functions in the {@link UserManager} 
+ * This class provides the tests for the functions in the {@link UserDAOImpl}
  * class.
  * 
  * @author Geert
  */
-public class UserManagerTest {
+public class UserDAOTest {
 
-    private IUserManager um;
+    private UserDAO um;
 
     private EntityManagerFactory emf;
 
@@ -29,7 +28,7 @@ public class UserManagerTest {
     @BeforeClass
     public void beforeClass() {
         //this.emf = Persistence.createEntityManagerFactory("UserServicePU");
-        //this.um = new UserManager(emf);
+        //this.um = new UserDAOImpl(emf);
     }
 
     /**
@@ -41,7 +40,7 @@ public class UserManagerTest {
     }
 
     /**
-     * Test the {@link UserManager#register(java.lang.String, java.lang.String)}
+     * Test the {@link UserDAOImpl#register(java.lang.String, java.lang.String)}
      * function.
      * 
      * @throws java.lang.Exception when a function called in the test function 

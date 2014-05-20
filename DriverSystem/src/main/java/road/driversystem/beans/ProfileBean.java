@@ -4,7 +4,7 @@
 
 package road.driversystem.beans;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import road.driversystem.service.DriverService;
 
 import javax.annotation.PostConstruct;

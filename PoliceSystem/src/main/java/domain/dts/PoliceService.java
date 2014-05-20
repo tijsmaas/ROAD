@@ -6,7 +6,7 @@
 
 package domain.dts;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import road.policedts.connections.PoliceClient;
 
 import javax.annotation.PostConstruct;

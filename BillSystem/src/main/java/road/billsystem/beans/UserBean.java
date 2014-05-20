@@ -6,7 +6,7 @@
 
 package road.billsystem.beans;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import com.ocpsoft.pretty.PrettyContext;
 import road.billsystem.utils.Utilities;
 
