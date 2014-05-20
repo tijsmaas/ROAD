@@ -1,6 +1,6 @@
 package beans;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import domain.dts.PoliceService;
 
 import javax.ejb.Stateless;

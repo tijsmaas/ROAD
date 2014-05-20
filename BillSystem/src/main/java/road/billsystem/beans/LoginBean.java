@@ -1,6 +1,6 @@
 package road.billsystem.beans;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import road.billsystem.service.BillService;
 import road.billsystem.utils.Utilities;
 

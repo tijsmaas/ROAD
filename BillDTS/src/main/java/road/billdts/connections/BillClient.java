@@ -1,6 +1,6 @@
 package road.billdts.connections;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDto;
 import road.movementdts.connections.ClientConnection;
 import road.movementdts.connections.MovementConnection;

@@ -1,9 +1,9 @@
 package road.movementmapper.dao;
 
-import aidas.userservice.UserManager;
-import aidas.userservice.dto.UserDto;
-import aidas.userservice.entities.UserEntity;
-import aidas.userservice.exceptions.UserSystemException;
+import road.userservice.UserDAOImpl;
+import road.userservice.dto.UserDto;
+import road.userservice.entities.UserEntity;
+import road.userservice.exceptions.UserSystemException;
 import road.movemententities.entities.Lane;
 import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleOwnership;
@@ -48,7 +48,7 @@ public class MovementsDAOImpl implements MovementsDAO
     @PersistenceUnit(unitName = "UserServicePU")
     private EntityManagerFactory emf;
 
-    private UserManager userManager;
+    private UserDAOImpl userManager;
 
     private UserEntity userEntity;
     
@@ -132,7 +132,7 @@ public class MovementsDAOImpl implements MovementsDAO
                 try
                 {
                     // create new user with incrementing name
-                    userManager = new UserManager(emf);
+                    userManager = new UserDAOImpl(emf);
                     UserDto user = userManager.register("user" + USER_ID++ + "name", "aidas123");
                     vehicleOwnership.setUserID(user.getId());
                 }

@@ -1,7 +1,7 @@
 package road.movementservice.servers;
 
-import aidas.userservice.IUserManager;
-import aidas.userservice.dto.UserDto;
+import road.userservice.UserDAO;
+import road.userservice.dto.UserDto;
 import road.driverdts.connections.IDriverQuery;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
@@ -35,7 +35,7 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     /**
      * The user manager which is used to process all authentication requests.
      */
-    private IUserManager userManager;
+    private UserDAO userManager;
 
     /**
      * Create a new instance of the {@link DriverServer} class.
@@ -46,7 +46,7 @@ public class DriverServer extends ServerConnection implements IDriverQuery
      * @param vehicleDAO the vehicle dao.
      * @param mapper the instance of the DTO mapper
      */
-    public DriverServer(IUserManager userManager, LaneDAO laneDAO, ConnectionDAO connectionDAO, EdgeDAO edgeDAO, VehicleDAO vehicleDAO, InvoiceDAO invoiceDAO, DtoMapper mapper)
+    public DriverServer(UserDAO userManager, LaneDAO laneDAO, ConnectionDAO connectionDAO, EdgeDAO edgeDAO, VehicleDAO vehicleDAO, InvoiceDAO invoiceDAO, DtoMapper mapper)
     {
         super(MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
 

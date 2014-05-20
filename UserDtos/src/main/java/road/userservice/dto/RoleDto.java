@@ -2,7 +2,7 @@
  * Copyright by AIDaS.
  */
 
-package aidas.userservice.dto;
+package road.userservice.dto;
 
 /**
  * This class represents a role to which an {@link UserDto} can be assigned. For 

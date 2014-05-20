@@ -2,21 +2,17 @@
  * Copyright by AIDaS.
  */
 
-package aidas.userservice;
+package road.userservice;
 
-import aidas.security.Security;
-import aidas.userservice.converters.UserConverter;
-import aidas.userservice.dto.Right;
-import aidas.userservice.dto.UserDto;
-import aidas.userservice.entities.UserEntity;
-import aidas.userservice.exceptions.UserSystemException;
+import road.security.Security;
+import road.userservice.converters.UserConverter;
+import road.userservice.dto.Right;
+import road.userservice.dto.UserDto;
+import road.userservice.entities.UserEntity;
+import road.userservice.exceptions.UserSystemException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
@@ -24,16 +20,13 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
 
 /**
- * The class representing the implementation of the {@link IUserManager}.
+ * The class representing the implementation of the {@link UserDAO}.
  * 
  * @author Geert
  */
-public class UserManager implements IUserManager {
+public class UserDAOImpl implements UserDAO {
     
     /**
      * The entity manager of the database.
@@ -41,10 +34,10 @@ public class UserManager implements IUserManager {
     private EntityManager em;
 
     /**
-     * Create a new instance of the {@link UserManager} class.
+     * Create a new instance of the {@link UserDAOImpl} class.
      * @param emf the {@link EntityManagerFactory} from which the {@link EntityManager} can be created.
      */
-    public UserManager(EntityManagerFactory emf) {
+    public UserDAOImpl(EntityManagerFactory emf) {
         this.em = emf.createEntityManager();
     }
 
@@ -63,7 +56,7 @@ public class UserManager implements IUserManager {
      */
     @Override
     public UserDto login(String username, String password) {
-        UserEntity user = aidas.utils.Query.getSingleOrDefault(
+        UserEntity user = road.utils.Query.getSingleOrDefault(
                 this.em.createQuery("SELECT u FROM USERS u WHERE u.username = :username", UserEntity.class)
                     .setParameter("username", username));
         UserDto userDto = null;
@@ -75,7 +68,7 @@ public class UserManager implements IUserManager {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException 
                 | InvalidKeyException | IllegalBlockSizeException 
                 | BadPaddingException | InvalidKeySpecException ex) {
-            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return userDto;
@@ -102,7 +95,7 @@ public class UserManager implements IUserManager {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException 
                 | InvalidKeyException | IllegalBlockSizeException 
                 | BadPaddingException | InvalidKeySpecException ex) {
-            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
 
             throw new UserSystemException(ex.getMessage());
         }
@@ -145,7 +138,7 @@ public class UserManager implements IUserManager {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException
                 | InvalidKeyException | IllegalBlockSizeException
                 | BadPaddingException | InvalidKeySpecException ex) {
-            Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
 
             return "Internal server error.";
         }

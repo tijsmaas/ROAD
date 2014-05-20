@@ -2,7 +2,7 @@
  * Copyright by AIDaS.
  */
 
-package aidas.userservice.dto;
+package road.userservice.dto;
 
 /**
  * This enumeration contains all the rights which are present in the application.

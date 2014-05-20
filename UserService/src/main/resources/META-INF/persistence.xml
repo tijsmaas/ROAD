@@ -3,8 +3,8 @@
     <persistence-unit name="UserServicePU" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>jdbc/ROADUser</jta-data-source>
-        <class>aidas.userservice.entities.RoleEntity</class>
-        <class>aidas.userservice.entities.UserEntity</class>
+        <class>road.userservice.entities.RoleEntity</class>
+        <class>road.userservice.entities.UserEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
@@ -16,8 +16,8 @@
     <persistence-unit name="UserServicePUMS" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>jdbc/ROADUser</jta-data-source>
-        <class>aidas.userservice.entities.RoleEntity</class>
-        <class>aidas.userservice.entities.UserEntity</class>
+        <class>road.userservice.entities.RoleEntity</class>
+        <class>road.userservice.entities.UserEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>

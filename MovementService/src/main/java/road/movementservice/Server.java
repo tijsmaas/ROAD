@@ -1,9 +1,5 @@
 package road.movementservice;
 
-import aidas.userservice.IUserManager;
-import aidas.userservice.UserManager;
-import aidas.userservice.exceptions.UserSystemException;
-
 import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleOwnership;
 import road.movemententityaccess.dao.*;
@@ -12,6 +8,9 @@ import road.movementservice.servers.BillServer;
 import road.movementservice.servers.CarServer;
 import road.movementservice.servers.DriverServer;
 import road.movementservice.servers.PoliceServer;
+import road.userservice.UserDAO;
+import road.userservice.UserDAOImpl;
+import road.userservice.exceptions.UserSystemException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -41,7 +40,7 @@ public class Server
     /**
      * The user manager which is used to process all authentication requests.
      */
-    private IUserManager userManager;
+    private UserDAO userManager;
 
     /**
      * this method is used to initialize all the different services.
@@ -51,7 +50,7 @@ public class Server
         EntityManagerFactory emfUserService = Persistence.createEntityManagerFactory("UserServicePUMS");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MovementPUNonJTA");
 
-        this.userManager = new UserManager(emfUserService);
+        this.userManager = new UserDAOImpl(emfUserService);
         
         // Create a user for debugging.
         try {

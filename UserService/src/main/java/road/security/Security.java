@@ -2,7 +2,7 @@
  * Copyright by AIDaS.
  */
 
-package aidas.security;
+package road.security;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -77,7 +77,7 @@ public class Security {
         cipher.init(Cipher.ENCRYPT_MODE, keySpec);
         
         byte[] encryped = cipher.doFinal(toEncrypt.getBytes());
-        return aidas.utils.Byte.arrayToString(encryped);
+        return road.utils.Byte.arrayToString(encryped);
     }
     
     /**
@@ -93,6 +93,6 @@ public class Security {
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
 
         byte[] encoded = skf.generateSecret(spec).getEncoded();
-        return aidas.utils.Byte.arrayToString(encoded);
+        return road.utils.Byte.arrayToString(encoded);
     }
 }

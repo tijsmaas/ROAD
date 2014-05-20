@@ -2,9 +2,8 @@
  * Copyright by AIDaS.
  */
 
-package aidas.utils;
+package road.utils;
 
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**

@@ -1,14 +1,10 @@
 package road.movementservice.servers;
 
-//import aidas.usersystem.IUserManager;
-import aidas.userservice.dto.UserDto;
+//import road.usersystem.UserDAO;
+import road.userservice.dto.UserDto;
 import road.policedts.connections.IPoliceQuery;
 import road.movementdts.connections.MovementConnection;
 import road.movementservice.connections.ServerConnection;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.Startup;
-import javax.ejb.Singleton;
 
 //import javax.inject.Inject;
 

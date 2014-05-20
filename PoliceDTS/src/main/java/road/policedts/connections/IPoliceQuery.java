@@ -1,6 +1,6 @@
 package road.policedts.connections;
 
-import aidas.userservice.dto.UserDto;
+import road.userservice.dto.UserDto;
 
 /**
  * Created by geh on 23-4-14.

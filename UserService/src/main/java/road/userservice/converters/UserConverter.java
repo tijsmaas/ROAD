@@ -2,10 +2,10 @@
  * Copyright by AIDaS.
  */
 
-package aidas.userservice.converters;
+package road.userservice.converters;
 
-import aidas.userservice.dto.UserDto;
-import aidas.userservice.entities.UserEntity;
+import road.userservice.dto.UserDto;
+import road.userservice.entities.UserEntity;
 
 /**
  * This class represents the converter which can be used to convert the {@link UserEntity} class.

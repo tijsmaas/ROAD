@@ -2,7 +2,7 @@
  * Copyright by AIDaS.
  */
 
-package aidas.utils;
+package road.utils;
 
 /**
  * This class represents the helper functions for the byte type.
