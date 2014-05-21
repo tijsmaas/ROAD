@@ -1,4 +1,4 @@
-package qualifier;
+package road.policesystem.qualifier;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Retention;
@@ -10,7 +10,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Created by Niek on 10/04/14.
  * © Aidas 2014
  *
- * Simple qualifier for the DAO producers
+ * Simple road.policesystem.qualifier for the DAO producers
  */
 @Qualifier
 @Retention(RUNTIME)

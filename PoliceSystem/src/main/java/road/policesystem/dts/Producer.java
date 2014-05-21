@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package domain.dts;
+package road.policesystem.dts;
 
 import road.policedts.connections.PoliceClient;
 
 import javax.enterprise.inject.Produces;
-import qualifier.ProducerQualifier;
+import road.policesystem.qualifier.ProducerQualifier;
 
 /**
  *
