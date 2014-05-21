@@ -1,5 +1,9 @@
 package road.policesystem.beans;
 
+import road.movementdtos.dtos.MovementUserDto;
+import road.policesystem.service.PoliceService;
+import road.policesystem.utils.Utlities;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -27,8 +31,8 @@ public class LoginBean
     @Inject
     private UserBean userBean;
 
-//    @Inject
-//    private PoliceService policeService;
+    @Inject
+    private PoliceService policeService;
 
     public void setUsername(String username)
     {
@@ -62,21 +66,21 @@ public class LoginBean
 
     public void login() throws IOException
     {
-//        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-//        try
-//        {
-//            MovementUserDto user = policeService.login(username, password);
-//            this.failed = (user == null);
-//            if (!failed)
-//            {
-//                userBean.setLoggedinUser(user);
-//                context.redirect(Utlities.getHostnameAndContext() + userBean.getLoginRedirect());
-//            }
-//        } catch(Exception ex)
-//        {
-//            ex.printStackTrace();
-//            this.failed = true;
-//        }
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        try
+        {
+            MovementUserDto user = policeService.login(username, password);
+            this.failed = (user == null);
+            if (!failed)
+            {
+                userBean.setLoggedinUser(user);
+                context.redirect(Utlities.getHostnameAndContext() + userBean.getLoginRedirect());
+            }
+        } catch(Exception ex)
+        {
+            ex.printStackTrace();
+            this.failed = true;
+        }
     }
 
     public void redirectIfLoggedIn()

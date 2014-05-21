@@ -1,7 +1,7 @@
 package road.policesystem.beans;
 
 import road.movementdtos.dtos.VehicleDto;
-import road.policesystem.dts.PoliceService;
+import road.policesystem.service.PoliceService;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;

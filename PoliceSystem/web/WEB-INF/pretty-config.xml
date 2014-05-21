@@ -9,27 +9,7 @@
         <view-id value="../login.xhtml"/>
     </url-mapping>
     <url-mapping>
-        <pattern value="/pay/#{invoiceID}"></pattern>
-        <view-id value="../WEB-INF/pay.xhtml"/>
-    </url-mapping>
-    <url-mapping>
-        <pattern value="/invoiceDetail/#{invoiceID}"></pattern>
-        <view-id value="../WEB-INF/invoiceDetailsPage.xhtml"/>
-    </url-mapping>
-    <url-mapping>
-        <pattern value="/pay/"></pattern>
-        <view-id value="../WEB-INF/pay.xhtml"/>
-    </url-mapping>
-    <url-mapping>
-        <pattern value="/myvehicles/"></pattern>
-        <view-id value="../WEB-INF/myvehicles.xhtml"/>
-    </url-mapping>
-    <url-mapping>
-        <pattern value="/profile/"></pattern>
-        <view-id value="../WEB-INF/profile.xhtml"/>
-    </url-mapping>
-    <url-mapping>
-        <pattern value="/invoices/"></pattern>
-        <view-id value="../WEB-INF/invoices.xhtml"/>
+        <pattern value="/stolencar/#{licenseplate}"></pattern>
+        <view-id value="../WEB-INF/viewstolencars.xhtml"/>
     </url-mapping>
 </pretty-config>

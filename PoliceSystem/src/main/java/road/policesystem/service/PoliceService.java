@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package road.policesystem.dts;
+package road.policesystem.service;
 
 import road.movementdtos.dtos.MovementUserDto;
 import road.movementdtos.dtos.StolenCarDto;
