@@ -15,6 +15,7 @@ public abstract class MovementConnection
     public final static String CarSystemQueue = "carRequestQueue";
     public final static String PoliceSystemQueue = "policeRequestQueue";
     public final static String DriverSystemQueue = "driverRequestQueue";
+    public final static String JamTopic = "jamTopic";
 
     protected Context context;
     protected ConnectionFactory factory;

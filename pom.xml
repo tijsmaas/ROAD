@@ -26,5 +26,7 @@
         <module>MovementMapper</module>
         <module>MovementSumo</module>
         <module>MovementDtos</module>
+        <module>JamDTS</module>
+        <module>JamSystem</module>
     </modules>
 </project>

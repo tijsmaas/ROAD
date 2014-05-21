@@ -1,6 +1,7 @@
 package road.movementparser.parser;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 import java.io.Serializable;
@@ -20,7 +21,6 @@ import sumo.movements.jaxb.*;
 public class MovementParser
 {
     /* Package name of generated movement classes */
-
     private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
 
     private EntityDAO entityDAO;
@@ -40,7 +40,7 @@ public class MovementParser
      *
      * @param changes
      */
-    public void parseChanges(String changes, int sequencenr)
+    public List<Movement> parseChanges(String changes, int sequencenr)
     {
         if (numberOfMovementParses != sequencenr)
         {
@@ -48,61 +48,68 @@ public class MovementParser
             this.missed++;
         }
         
-        numberOfMovementParses++;
+        this.numberOfMovementParses++;
 
         long startTime = System.nanoTime();
 
         @SuppressWarnings("unchecked")
         JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
 
-        /* Get current date, midnight time, because the timestep counter start at midnight */
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        parseTimesteps(root, cal);
+        List<Movement> movements = this.parseTimesteps(root, new GregorianCalendar());
         System.out.println("Parsed changes in " + (System.nanoTime() - startTime) + "ns");
+
+        return movements;
     }
 
     /**
-     * Parse all timesteps and all vehicle movements within them.
+     * Parsers exactly a timestep and returns a collection of all movements in the Netstate {@link root} variable.
+     * @param root Sumo Netstate variable to be parsed, that should contain exactly one timestep.
+     * @param date The exact time on which this timestep is received.
+     * @return
      */
-    public void parseTimesteps(JAXBElement<SumoNetstateType> root, Calendar date)
+    public List<Movement> parseTimesteps(JAXBElement<SumoNetstateType> root, Calendar date)
     {
         if (root == null)
         {
             throw new IllegalArgumentException();
         }
 
-        // foreach movement
+        List<Movement> movements = new ArrayList<>();
+
+        /**
+         * Parses the Timesteps of the Sumo Netstate {@link root} variable.
+         * However, this is a real-time parser, so the root Netstate should contain
+         * exactly one Timestep.
+          */
         for (TimestepType timestep : root.getValue().getTimestep())
         {
-            for (Serializable a : timestep.getContent())
+            for (Serializable rawEdge : timestep.getContent())
             {
-                if (a instanceof String)
+                if (rawEdge instanceof String)
                 {
                     continue;
                 }
 
-                EdgeType xmlEdge = (EdgeType)((JAXBElement)a).getValue();
+                EdgeType xmlEdge = (EdgeType)((JAXBElement)rawEdge).getValue();
 
                 for (LaneType xmlLane : xmlEdge.getLane())
                 {
-                    Lane lane = (Lane) entityDAO.findById(Lane.class, xmlLane.getId());
+                    Lane lane = (Lane)entityDAO.findById(Lane.class, xmlLane.getId());
+
                     // set datetime and timestep time of movement to now.
                     Movement movement = new Movement(date, timestep.getTime(), lane);
                     entityDAO.create(movement);
 
                     List<VehicleMovement> movementVehicles = new ArrayList();
 
-                    for (Serializable b : xmlLane.getContent())
+                    for (Serializable rawVehicle : xmlLane.getContent())
                     {
-                        if (b instanceof String)
+                        if (rawVehicle instanceof String)
                         {
                             continue;
                         }
 
-                        VehicleType xmlVehicle = (VehicleType) ((JAXBElement) b).getValue();
+                        VehicleType xmlVehicle = (VehicleType)((JAXBElement)rawVehicle).getValue();
                         String licenseplate = xmlVehicle.getId();
 
                         // Get vehicle by its license plate (<vehicle id="license">) or create a vehicle
@@ -123,8 +130,11 @@ public class MovementParser
                     // Add all moving vehicles to the movement
                     movement.setVehicleMovements(movementVehicles);
                     entityDAO.edit(movement);
+                    movements.add(movement);
                 }
             }
         }// end foreach movement
+
+        return movements;
     }
 }

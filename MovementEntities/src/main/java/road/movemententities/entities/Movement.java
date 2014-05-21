@@ -6,7 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Movement implements MovementEntity<Integer> {
+public class Movement implements MovementEntity<Integer>
+{
     @Id
     @GeneratedValue
     private int id;
@@ -16,37 +17,47 @@ public class Movement implements MovementEntity<Integer> {
 
     @ManyToOne
     private Lane lane;
-    
+
     @OneToMany
     private List<VehicleMovement> vehicleMovements;
 
-    public Movement(Calendar movementDate, float time, Lane lane) {
-        Calendar resultDateTime = (Calendar)movementDate.clone();
+    public Movement(Calendar movementDate, float time, Lane lane)
+    {
+        Calendar resultDateTime = (Calendar) movementDate.clone();
         resultDateTime.add(Calendar.SECOND, Math.round(time));
         this.movementDateTime = resultDateTime.getTime();
         this.lane = lane;
     }
 
-    public Movement(){};
+    public Movement()
+    {
+    }
+
+    ;
 
     @Override
-    public Integer getId() {
+    public Integer getId()
+    {
         return id;
     }
 
-    public Date getMovementDateTime() {
+    public Date getMovementDateTime()
+    {
         return movementDateTime;
     }
 
-    public Lane getLane() {
+    public Lane getLane()
+    {
         return lane;
     }
 
-    public List<VehicleMovement> getVehicleMovements() {
+    public List<VehicleMovement> getVehicleMovements()
+    {
         return vehicleMovements;
     }
 
-    public void setVehicleMovements(List<VehicleMovement> vehicleMovements) {
+    public void setVehicleMovements(List<VehicleMovement> vehicleMovements)
+    {
         this.vehicleMovements = vehicleMovements;
     }
 }

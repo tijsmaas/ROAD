@@ -2,11 +2,12 @@ package road.billdts.connections;
 
 import road.billdts.dto.InvoiceSearchQuery;
 import road.movementdtos.dtos.CityDistanceDto;
+import road.movementdtos.dtos.MovementUserDto;
+import road.movementdts.connections.QueueClient;
 import road.movementdtos.dtos.CityDto;
 import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.MovementUserDto;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
-import road.movementdts.connections.ClientConnection;
 import road.movementdts.connections.MovementConnection;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
  * This class is NOT THREADSAFE. If you want multithreading, create on BillConnection for EACH
  * thread.
  */
-public class BillClient extends ClientConnection implements IBillQuery
+public class BillClient extends QueueClient implements IBillQuery
 {
     public BillClient()
     {

@@ -1,5 +1,6 @@
 package road.movementservice.connections;
 
+import road.movementdts.listeners.ConnectionListener;
 import road.movementdts.connections.MovementConnection;
 import road.movementdts.helpers.Pair;
 import road.movementdts.serializers.Serializer;
