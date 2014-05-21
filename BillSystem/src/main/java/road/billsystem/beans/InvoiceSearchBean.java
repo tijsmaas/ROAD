@@ -1,13 +1,19 @@
 package road.billsystem.beans;
 
+import road.billdts.dto.InvoiceSearchQuery;
 import road.billsystem.service.BillService;
 import road.movementdtos.dtos.InvoiceDto;
+import road.movementdts.helpers.DateHelper;
+import road.movementdts.helpers.Pair;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -21,7 +27,12 @@ public class InvoiceSearchBean
     @Inject
     private BillService service;
 
-    private String searchQuery;
+    private String username;
+    private String carTrackerID;
+    private int minMonth = 0;
+    private int minYear = 2010;
+    private int maxMonth = 1;
+    private int maxYear = 2015;
     private List<InvoiceDto> foundInvoices;
 
     @PostConstruct
@@ -33,13 +44,22 @@ public class InvoiceSearchBean
      * Search for the invoices based on the search query
      */
     public void search(){
-        this.searchQuery = this.searchQuery.trim();
-        if(this.searchQuery == null || this.searchQuery.isEmpty()) {
-            this.foundInvoices = new ArrayList<>();
-            return;
+        if(this.username != null)
+        {
+            this.username = this.username.trim();
         }
 
-        this.foundInvoices = service.getInvoicesForSearchQuery(this.searchQuery);
+        if(this.carTrackerID != null)
+        {
+            this.carTrackerID = this.carTrackerID.trim();
+        }
+
+        Pair<Calendar, Calendar> minRange = DateHelper.getDateRange(minMonth, minYear);
+        Pair<Calendar, Calendar> maxRange = DateHelper.getDateRange(maxMonth, maxYear);
+
+        InvoiceSearchQuery searchQuery = new InvoiceSearchQuery(this.username, this.carTrackerID, minRange.getFirst().getTime(), maxRange.getSecond().getTime());
+
+        this.foundInvoices = service.getInvoicesForSearchQuery(searchQuery);
     }
 
 
@@ -51,14 +71,24 @@ public class InvoiceSearchBean
 
     }
 
-    public String getSearchQuery()
+    public String getUsername()
     {
-        return searchQuery;
+        return username;
     }
 
-    public void setSearchQuery(String searchQuery)
+    public void setUsername(String username)
     {
-        this.searchQuery = searchQuery;
+        this.username = username;
+    }
+
+    public String getCarTrackerID()
+    {
+        return carTrackerID;
+    }
+
+    public void setCarTrackerID(String carTrackerID)
+    {
+        this.carTrackerID = carTrackerID;
     }
 
     public List<InvoiceDto> getFoundInvoices()
@@ -69,5 +99,71 @@ public class InvoiceSearchBean
     public void setFoundInvoices(List<InvoiceDto> foundInvoices)
     {
         this.foundInvoices = foundInvoices;
+    }
+
+    public SelectItem[] getMonths() {
+        String[] months = new DateFormatSymbols().getMonths();
+        SelectItem[] items = new SelectItem[months.length -1];
+
+
+        for (int i = 0; i < months.length -1; i++)
+        {
+            items[i] = new SelectItem(i, months[i]);
+        }
+
+            return items;
+    }
+
+    public SelectItem[] getYears(){
+        SelectItem[] items = new SelectItem[5];
+
+        //LEKKER HARDCODEN. LEKKER LEGACY SUPPORT
+        int year = 2011;
+        for (int i = 0; i < 5 ; i++)
+        {
+            items[i] = new SelectItem(year++);
+        }
+
+        return items;
+    }
+
+    public int getMinMonth()
+    {
+        return minMonth;
+    }
+
+    public void setMinMonth(int minMonth)
+    {
+        this.minMonth = minMonth;
+    }
+
+    public int getMinYear()
+    {
+        return minYear;
+    }
+
+    public void setMinYear(int minYear)
+    {
+        this.minYear = minYear;
+    }
+
+    public int getMaxMonth()
+    {
+        return maxMonth;
+    }
+
+    public void setMaxMonth(int maxMonth)
+    {
+        this.maxMonth = maxMonth;
+    }
+
+    public int getMaxYear()
+    {
+        return maxYear;
+    }
+
+    public void setMaxYear(int maxYear)
+    {
+        this.maxYear = maxYear;
     }
 }

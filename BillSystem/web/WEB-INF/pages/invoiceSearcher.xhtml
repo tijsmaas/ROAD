@@ -11,12 +11,42 @@
         <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
 
 
-        <div class="pill fullSearch">
+        <div class="pill">
             <h:form id="searchForm">
-                <p:inputText id="txtSearch" styleClass="searchBar" placeholder="Search for invoices"
-                             value="#{invoiceSearchBean.searchQuery}"/>
-                <p:commandButton id="btnSearch" styleClass="searchIcon" value=""
-                                 actionListener="#{invoiceSearchBean.search}" update="@(#resultContainer)"/>
+                <div class="fullSearch">
+                    <p:inputText id="txtSearch" styleClass="searchBar" placeholder="Search by name"
+                                 value="#{invoiceSearchBean.username}"/>
+
+                </div>
+
+                <div class="inlineContainer" style="margin-top:3px;">
+                    <div class="inlineItem">
+                        <p:outputLabel for="txtCarTracker" value="Cartracker ID"/>
+                        <p:inputText id="txtCarTracker" value="#{invoiceSearchBean.carTrackerID}"/>
+                    </div>
+                    <div class="inlineItem">
+                        <p:outputLabel value="From"/>
+                        <h:selectOneMenu id="minMonth" value="#{invoiceSearchBean.minMonth}">
+                            <f:selectItems value="#{invoiceSearchBean.months}"/>
+                        </h:selectOneMenu>
+                        <h:selectOneMenu id="minYear" value="#{invoiceSearchBean.minYear}">
+                            <f:selectItems value="#{invoiceSearchBean.years}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="inlineItem">
+                        <p:outputLabel value="to"/>
+                        <h:selectOneMenu id="maxMonth" value="#{invoiceSearchBean.maxMonth}">
+                            <f:selectItems value="#{invoiceSearchBean.months}"/>
+                        </h:selectOneMenu>
+                        <h:selectOneMenu id="maxYear" value="#{invoiceSearchBean.maxYear}">
+                            <f:selectItems value="#{invoiceSearchBean.years}"/>
+                        </h:selectOneMenu>
+                    </div>
+
+                    <p:commandButton id="btnSearch" styleClass="btn btn-success" value="Search" style="float:right"
+                                     actionListener="#{invoiceSearchBean.search}" update="@(#resultContainer)"/>
+
+                </div>
             </h:form>
         </div>
 
@@ -27,7 +57,7 @@
                 <!--TODO: Foreach-->
                 <ui:repeat value="#{invoiceSearchBean.foundInvoices}" var="invoice">
                     <div class="pill">
-                        <h4>#{invoice.username}'s Invoice ##{invoice.invoiceID} for #{invoice.month} / #{invoice.year}</h4>
+                        <h4>#{invoice.user.userName()}'s Invoice ##{invoice.invoiceID} for #{invoice.month} / #{invoice.year}</h4>
                         <h:outputLabel value="Total amount: €#{invoice.total.toString()}"/>
 
                         <h:panelGroup layout="block" rendered="#{invoice.paymentStatus == 'NOT_PAID'}">
@@ -36,8 +66,14 @@
                             </div>
                         </h:panelGroup>
 
-                        <h:panelGroup layout="block" styleClass="alert alert-success" rendered="#{invoice.paymentStatus == 'SUCCESSFUL'}">
+                        <h:panelGroup layout="block" styleClass="alert alert-success"
+                                      rendered="#{invoice.paymentStatus == 'SUCCESSFUL'}">
                             This invoice has been paid for.
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" styleClass="alert alert-info"
+                                      rendered="#{invoice.paymentStatus == 'CANCELLED'}">
+                            This invoice has been cancelled.
                         </h:panelGroup>
 
                         <a href="invoicedetail/#{invoice.invoiceID}" class="btn btn-primary">View and edit</a>

@@ -8,5 +8,6 @@ public enum PaymentStatus
 {
     NOT_PAID,
     SUCCESSFUL,
-    PENDING
+    PENDING,
+    CANCELLED
 }

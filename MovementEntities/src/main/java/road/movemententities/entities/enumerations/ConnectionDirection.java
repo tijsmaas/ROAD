@@ -4,7 +4,7 @@ public enum ConnectionDirection {
 
     STRAIGHT("s"),
     TURN("t"),
-    EFT("l"),
+    LEFT("l"),
     RIGHT("r"),
     PARTIALLY_LEFT("L"),
     PARTIALLY_RIGHT("R"),

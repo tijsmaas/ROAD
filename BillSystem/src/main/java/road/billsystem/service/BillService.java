@@ -1,11 +1,12 @@
 package road.billsystem.service;
 
+import road.billdts.dto.InvoiceSearchQuery;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.MovementUserDto;
-import road.userservice.dto.UserDto;
 import road.billdts.connections.BillClient;
 import road.movementdtos.dtos.CityDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
@@ -83,11 +84,11 @@ public class BillService implements Serializable
 
     /**
      * Get a list of invoices for user based on the search query
-     * @param searchQuery
+     * @param searchDetails
      * @return
      */
-    public List<InvoiceDto> getInvoicesForSearchQuery(String searchQuery){
-        return billClient.getInvoicesForUserSearch(searchQuery);
+    public List<InvoiceDto> getInvoicesForSearchQuery(InvoiceSearchQuery searchDetails){
+        return billClient.getInvoicesForSearch(searchDetails);
     }
 
     /**
@@ -106,5 +107,16 @@ public class BillService implements Serializable
      */
     public InvoiceDto getInvoiceWithDetails(int invoiceID){
         return billClient.getInvoiceDetails(invoiceID);
+    }
+
+    /**
+     * Update the status of invoice with given ID to a new PaymentStatus
+     * @param invoiceID The ID of the invoice to update
+     * @param newStatus The newStatus
+     * @return Success or unsuccessful
+     */
+    public boolean updateInvoiceStatus(int invoiceID, PaymentStatus newStatus)
+    {
+        return billClient.updateInvoicePaymentStatus(invoiceID, newStatus);
     }
 }

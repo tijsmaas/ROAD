@@ -101,7 +101,7 @@ public class Server
 
             Vehicle v = new Vehicle();
             v.setLicensePlate("AA-12-BB");
-            VehicleOwnership vo = new VehicleOwnership(v, mUser.getId(), new GregorianCalendar(), null);
+            VehicleOwnership vo = new VehicleOwnership(v, mUser, new GregorianCalendar(), null);
 
             em.persist(v);
             em.persist(vo);

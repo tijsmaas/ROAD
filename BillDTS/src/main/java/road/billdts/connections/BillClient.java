@@ -1,8 +1,11 @@
 package road.billdts.connections;
 
-import road.movementdtos.dtos.MovementUserDto;
-import road.userservice.dto.UserDto;
+import road.billdts.dto.InvoiceSearchQuery;
+import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.CityDto;
+import road.movementdtos.dtos.InvoiceDto;
+import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.ClientConnection;
 import road.movementdts.connections.MovementConnection;
 
@@ -50,9 +53,9 @@ public class BillClient extends ClientConnection implements IBillQuery
     }
 
     @Override
-    public List<InvoiceDto> getInvoicesForUserSearch(String searchQuery)
+    public List<InvoiceDto> getInvoicesForSearch(InvoiceSearchQuery searchDetails)
     {
-        List<InvoiceDto> result = this.remoteCall("getInvoicesForUserSearch", ArrayList.class, searchQuery);
+        List<InvoiceDto> result = this.remoteCall("getInvoicesForSearch", ArrayList.class, searchDetails);
         return result;
     }
 

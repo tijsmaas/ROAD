@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -29,10 +28,9 @@ public class InvoiceDetailBean
     private InvoiceDto invoice;
     private boolean loadError;
 
-    private SelectItem[] selectablePaymentMethods;
-
-    private PaymentStatus selectedPaymentStatus;
-
+    /**
+     * Load the invoice based on the requestParameter
+     */
     @PostConstruct
     public void init()
     {
@@ -54,9 +52,38 @@ public class InvoiceDetailBean
         }
     }
 
+    /**
+     * Mark the current invoice as cancelled
+     */
+    public void cancelInvoice()
+    {
+        PaymentStatus cancelled = PaymentStatus.CANCELLED;
+
+        boolean updated = service.updateInvoiceStatus(this.invoice.getInvoiceID(), cancelled);
+        if (updated)
+        {
+            this.invoice.setPaymentStatus(cancelled);
+        }
+
+    }
+
+    /**
+     * Mark the current invoice as paid
+     */
+    public void markInvoiceAsPaid()
+    {
+        PaymentStatus paid = PaymentStatus.SUCCESSFUL;
+
+        boolean updated = service.updateInvoiceStatus(this.invoice.getInvoiceID(), paid);
+        if (updated)
+        {
+            this.invoice.setPaymentStatus(paid);
+        }
+    }
+
     public InvoiceDto getInvoice()
     {
-        return invoice;
+        return this.invoice;
     }
 
     public void setInvoice(InvoiceDto invoice)
@@ -74,21 +101,5 @@ public class InvoiceDetailBean
         this.loadError = loadError;
     }
 
-    public SelectItem[] getSelectablePaymentMethods()
-    {
-        SelectItem[] selectItems = new SelectItem[PaymentStatus.values().length];
-        
-        int i = 0;
-        for (PaymentStatus paymentStatus : PaymentStatus.values())
-        {
-            selectItems[i++] = new SelectItem(paymentStatus, paymentStatus.toString());
-        }
 
-        return selectablePaymentMethods;
-    }
-
-    public PaymentStatus getSelectedPaymentStatus()
-    {
-        return selectedPaymentStatus;
-    }
 }

@@ -6,18 +6,11 @@ import road.movemententities.entities.VehicleMovement;
 import road.movemententities.entities.enumerations.PaymentStatus;
 import road.movemententityaccess.helper.InvoiceGenerator;
 
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.TemporalType;
+import java.util.*;
 
 /**
  * Created by Niek on 14/05/14.
@@ -34,9 +27,10 @@ public class InvoiceDAOImpl implements InvoiceDAO
 
     /**
      * {@inheritDoc}
+     *
      * @param vehicleMovements List of movements you want to generate invoices for
-     * @param startDate Starting date of the invoice
-     * @param endDate End date of the invoices
+     * @param startDate        Starting date of the invoice
+     * @param endDate          End date of the invoices
      * @return number of generated invoices
      */
     @Override
@@ -54,13 +48,14 @@ public class InvoiceDAOImpl implements InvoiceDAO
 
     /**
      * {@inheritDoc}
+     *
      * @param userID the ID of the user
      * @return List of Invoices
      */
     @Override
     public List<Invoice> getInvoicesForUser(int userID)
     {
-        Query query = em.createQuery("select invoice from Invoice invoice where invoice.userID = :userID order by invoice.paymentStatus asc");
+        Query query = em.createQuery("select invoice from Invoice invoice where invoice.user.id = :userID order by invoice.generationDate asc");
         query.setParameter("userID", userID);
 
         return query.getResultList();
@@ -68,6 +63,7 @@ public class InvoiceDAOImpl implements InvoiceDAO
 
     /**
      * {@inheritDoc}
+     *
      * @param invoiceID
      * @return the found invoice
      */
@@ -85,7 +81,8 @@ public class InvoiceDAOImpl implements InvoiceDAO
 
     /**
      * {@inheritDoc}
-     * @param invoiceID the ID of the invoice you want to update
+     *
+     * @param invoiceID           the ID of the invoice you want to update
      * @param entityPaymentStatus
      * @return true when success, false when not
      */
@@ -97,7 +94,8 @@ public class InvoiceDAOImpl implements InvoiceDAO
         Invoice invoice = this.getInvoice(invoiceID);
 
 
-        if(invoice == null){
+        if (invoice == null)
+        {
             throw new IllegalArgumentException("No invoice with given ID exists in the database");
         }
 
@@ -111,6 +109,7 @@ public class InvoiceDAOImpl implements InvoiceDAO
 
     /**
      * {@inheritDoc}
+     *
      * @param vehicleInvoiceID the id of the VehicleInvoice for which you want to get the citydistances
      * @return List of cityDistances
      */
@@ -123,17 +122,39 @@ public class InvoiceDAOImpl implements InvoiceDAO
         return query.getResultList();
     }
 
-    /**
-     * {@inheritDoc}
-     * @param eligibleUserIDs List of eligible userIDs
-     * @return
-     */
     @Override
-    public List<Invoice> findInvoicesForUserIDs(List<Integer> eligibleUserIDs)
+    public List<Invoice> findInvoiceFromQuery(String username, String carTrackerID, Date startDate, Date endDate)
     {
-        Query query = em.createQuery("Select invoice from Invoice invoice where invoice.userID IN :idList");
-        query.setParameter("idList", eligibleUserIDs);
+        Set<Invoice> invoices = new HashSet<>();
+        if (carTrackerID != null && !carTrackerID.isEmpty())
+        {
+            Query query = em.createQuery("Select vehicleInvoice.invoice from VehicleInvoice vehicleInvoice where vehicleInvoice.ownership.vehicle.carTrackerID = :carTrackerID and " +
+                    "vehicleInvoice.invoice.generationDate > :startDate and vehicleInvoice.invoice.generationDate < :endDate order by vehicleInvoice.invoice.generationDate");
+            query.setParameter("carTrackerID", carTrackerID);
+            query.setParameter("startDate", startDate, TemporalType.DATE);
+            query.setParameter("endDate", endDate, TemporalType.DATE);
 
-        return query.getResultList();
+            List<Invoice> foundInvoices = query.getResultList();
+            invoices.addAll(foundInvoices);
+        }
+
+        if(username != null && !username.isEmpty())
+        {
+            Query query = em.createQuery("Select invoice From Invoice invoice where (invoice.user.username LIKE :username or invoice.user.name like :username)" +
+                    "and invoice.generationDate > :startdate and invoice.endDate < :endDate order by invoice.generationDate");
+            query.setParameter("username", "%"+username+"%");
+            query.setParameter("startdate", startDate, TemporalType.DATE);
+            query.setParameter("endDate", endDate, TemporalType.DATE);
+
+            List<Invoice> foundInvoices = query.getResultList();
+            invoices.addAll(foundInvoices);
+        }
+
+        List<Invoice> invoiceList = new ArrayList<>();
+        invoiceList.addAll(invoices);
+
+        return invoiceList;
+
     }
+
 }

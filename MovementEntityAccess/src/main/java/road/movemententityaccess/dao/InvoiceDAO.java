@@ -47,10 +47,5 @@ public interface InvoiceDAO
      */
     public List<CityDistance> getCityDistancesForVehicleInvoice(int vehicleInvoiceID);
 
-    /**
-     * return all invoices of which the userID matches an id in the list
-     * @param eligibleUserIDs List of eligible userIDs
-     * @return list of found invoices
-     */
-    public List<Invoice> findInvoicesForUserIDs(List<Integer> eligibleUserIDs);
+    public List<Invoice> findInvoiceFromQuery(String username, String carTrackerID, Date startDate, Date endDate);
 }

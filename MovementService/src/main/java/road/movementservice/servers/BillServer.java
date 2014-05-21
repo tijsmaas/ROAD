@@ -2,39 +2,35 @@ package road.movementservice.servers;
 
 //import road.usersystem.UserDAO;
 
-import road.movementdtos.dtos.MovementUserDto;
-import road.movemententities.entities.Invoice;
-import road.movemententities.entities.MovementUser;
-import road.movemententityaccess.dao.LoginDAO;
-import road.movementservice.helpers.DAOHelper;
-import road.userservice.UserDAO;
-import road.userservice.dto.UserDto;
 import road.billdts.connections.IBillQuery;
+import road.billdts.dto.InvoiceSearchQuery;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.CityDto;
 import road.movementdtos.dtos.InvoiceDto;
+import road.movementdtos.dtos.MovementUserDto;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.MovementConnection;
 import road.movementdts.helpers.DateHelper;
 import road.movementdts.helpers.Pair;
 import road.movemententities.entities.CityDistance;
 import road.movemententities.entities.Invoice;
+import road.movemententities.entities.MovementUser;
 import road.movemententities.entities.VehicleMovement;
 import road.movemententityaccess.dao.CityDAO;
 import road.movemententityaccess.dao.InvoiceDAO;
+import road.movemententityaccess.dao.LoginDAO;
 import road.movemententityaccess.dao.MovementDAO;
 import road.movementservice.connections.ServerConnection;
+import road.movementservice.helpers.DAOHelper;
 import road.movementservice.mapper.DtoMapper;
 import road.userservice.UserDAO;
-import road.userservice.dto.UserDto;
-import road.userservice.entities.UserEntity;
 
-import java.util.*;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -106,47 +102,23 @@ public class BillServer extends ServerConnection implements IBillQuery
         }
 
         return invoices.size();
-        return amountCreated;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param searchQuery username to search for
+     * @param searchDetails searchDetails to search for
      * @return List of invoiceDTOs that match the query result
      */
     @Override
-    public List<InvoiceDto> getInvoicesForUserSearch(String searchQuery)
+    public List<InvoiceDto> getInvoicesForSearch(InvoiceSearchQuery searchDetails)
     {
-        List<UserEntity> foundUsers = userManager.findUsersByName(searchQuery);
-
-        //If no users are found, no Invoices will be found. so we just return here already.
-        if (foundUsers.size() < 1)
-        {
-            return new ArrayList<>();
-        }
-
-        List<UserDto> eligibleUsers = new ArrayList<>();
-        for (UserEntity userEntity : foundUsers)
-        {
-            eligibleUsers.add(new UserDto(userEntity.getId(), userEntity.getUsername()));
-        }
-
-
-        //Create a map with the userID as key, so we can later easily find the userName belonging to it.
-        Map<Integer, UserDto> userIdMap = new HashMap<>();
-        for (UserDto userDto : eligibleUsers)
-        {
-            userIdMap.put(userDto.getId(), userDto);
-        }
-
-        List<Invoice> foundInvoices = this.invoiceDAO.findInvoicesForUserIDs(new ArrayList<>(userIdMap.keySet()));
+        List<Invoice> foundInvoices = invoiceDAO.findInvoiceFromQuery(searchDetails.getUsername(), searchDetails.getCartrackerID(), searchDetails.getMinDate(), searchDetails.getMaxDate());
 
         List<InvoiceDto> invoiceDtos = new ArrayList<>();
-        //Map the Invoices to DTOs
-        for (Invoice foundInvoice : foundInvoices)
+        for (Invoice invoice :foundInvoices)
         {
-            invoiceDtos.add(dtoMapper.mapSimple(foundInvoice, userIdMap));
+            invoiceDtos.add(this.dtoMapper.mapSimple(invoice));
         }
 
         return invoiceDtos;
@@ -214,7 +186,7 @@ public class BillServer extends ServerConnection implements IBillQuery
         try
         {
             // Grab the user so that we can send an email.
-            MovementUser user = this.loginDAO.getUser(invoice.getUserID());
+            MovementUser user = this.loginDAO.getUser(invoice.getUser().getId());
 
             if(user.isInvoiceMail())
             {

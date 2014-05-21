@@ -2,12 +2,10 @@ package road.movementservice.mapper;
 
 import road.movementdtos.dtos.*;
 import road.movemententities.entities.*;
-import road.userservice.dto.UserDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The Dto Mapper contains functions for mapping Entity objects to Dto objects
@@ -23,22 +21,11 @@ public class DtoMapper
 
 
     /**
-     *
-     * Map an Invoice object to a simple invoiceDTO, not containing any of the child relations
-     * @param invoice
-     * @return
-     */
-    public InvoiceDto mapSimple(Invoice invoice){
-        return this.mapSimple(invoice, null);
-    }
-
-    /**
      * Map an invoice object to a simple InvoiceDTO, not containing any child relations
      * @param invoice
-     * @param userIdDtoMap Map of userIDs coupled to UserDTO belonging to that ID
      * @return
      */
-    public InvoiceDto mapSimple(Invoice invoice, Map<Integer, UserDto> userIdDtoMap)
+    public InvoiceDto mapSimple(Invoice invoice)
     {
         if (invoice == null)
         {
@@ -50,11 +37,8 @@ public class DtoMapper
             total = total.add(vehicleInvoice.getSubTotal());
         }
 
-        InvoiceDto invoiceDto = new InvoiceDto(invoice.getInvoiceID(), invoice.getUserID(), invoice.getGenerationDate(), invoice.getStartDate(), invoice.getEndDate(), invoice.getPaymentStatus().ordinal(), total);
-
-        if(userIdDtoMap != null){
-            invoiceDto.setUsername(userIdDtoMap.get(invoice.getUserID()).getUsername());
-        }
+        MovementUserDto movementUserDto = this.toMovementUserDto(invoice.getUser());
+        InvoiceDto invoiceDto = new InvoiceDto(invoice.getInvoiceID(), movementUserDto, invoice.getGenerationDate(), invoice.getStartDate(), invoice.getEndDate(), invoice.getPaymentStatus().ordinal(), total);
 
         return invoiceDto;
     }

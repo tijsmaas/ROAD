@@ -190,11 +190,23 @@ body {
     position: absolute;
     width: 20px;
     height: 20px;
-    left: 12px;
-    top: 15px;
+    left: 3px;
+    top: 5px;
     border: 0px;
     overflow: hidden;
     background: url("#{resource['images:search.png']}");
+}
+
+.inlineItem {
+    display: inline-block;
+}
+
+.inlineItem label {
+    margin-right:15px;
+}
+
+.inlineItem input {
+    margin-right:25px;
 }
 
 .tweetContainer {

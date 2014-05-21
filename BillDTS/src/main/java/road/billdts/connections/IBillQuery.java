@@ -1,11 +1,11 @@
 package road.billdts.connections;
 
-import road.movementdtos.dtos.MovementUserDto;
+import road.billdts.dto.InvoiceSearchQuery;
 import road.movementdtos.dtos.CityDistanceDto;
-import road.movementdtos.dtos.InvoiceDto;
-import road.movementdtos.dtos.enumerations.PaymentStatus;
-import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDto;
+import road.movementdtos.dtos.InvoiceDto;
+import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -26,10 +26,10 @@ public interface IBillQuery
 
     /**
      * Get the invoices for the users that have a username matching the @param searchQuery parameter
-     * @param searchQuery
+     * @param searchDetails The search details
      * @return
      */
-    List<InvoiceDto> getInvoicesForUserSearch(String searchQuery);
+    List<InvoiceDto> getInvoicesForSearch(InvoiceSearchQuery searchDetails);
 
     /**
      * Update the paymentstatus of an invoice

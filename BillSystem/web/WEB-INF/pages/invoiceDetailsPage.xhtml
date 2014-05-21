@@ -7,28 +7,46 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <ui:define name="content">
-        <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+        <h:panelGroup layout="block" id="invoiceContainer">
+            <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
 
-        <h:panelGroup layout="block" rendered="#{invoiceDetailBean.loadError}" styleClass="pill pill-autosize">
-            <div class="alert alert-danger">
-                The invoice you tried to load is not valid.
-            </div>
-        </h:panelGroup>
+            <h:panelGroup layout="block" rendered="#{invoiceDetailBean.loadError}" styleClass="pill pill-autosize">
+                <div class="alert alert-danger">
+                    The invoice you tried to load is not valid.
+                </div>
+            </h:panelGroup>
 
 
-        <h:panelGroup layout="block" rendered="#{!invoiceDetailBean.loadError}" styleClass="pill">
-            <ui:insert name="login">
-                <ui:include src="../views/invoiceDetails.xhtml">
-                    <ui:param name="invoice" value="#{invoiceDetailBean.invoice}"/>
-                    <ui:param name="showPaymentFooter" value="#{false}"/>
-                    <ui:param name="id" value="paymentDetails"/>
-                </ui:include>
-            </ui:insert>
+            <h:panelGroup layout="block" rendered="#{!invoiceDetailBean.loadError}" styleClass="pill">
+                <ui:insert name="login">
+                    <ui:include src="../views/invoiceDetails.xhtml">
+                        <ui:param name="invoice" value="#{invoiceDetailBean.invoice}"/>
+                        <ui:param name="showPaymentFooter" value="#{false}"/>
+                        <ui:param name="id" value="paymentDetails"/>
+                    </ui:include>
+                </ui:insert>
 
-            <h:selectOneMenu id="paymentStatus" value="#{invoiceDetailBean.selectedPaymentStatus}">
-                <f:selectItem value="#{invoiceDetailBean.selectablePaymentMethods}" var="ps"
-                              itemValue="#{ps}" itemLabel="#{ps.label}"/>
-            </h:selectOneMenu>
+
+                <h:panelGroup layout="block" styleClass="alert alert-success"
+                              rendered="#{invoiceDetailBean.invoice.paymentStatus == 'SUCCESSFUL'}">
+                    The user has already paid for this invoice
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="alert alert-info"
+                              rendered="#{invoiceDetailBean.invoice.paymentStatus == 'CANCELLED'}">
+                    This invoice has been cancelled.
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{invoiceDetailBean.invoice.paymentStatus == 'NOT_PAID'}">
+                    <h:form id="paymentForm">
+                        <h:commandButton styleClass="btn btn-success" value="Mark as paid"
+                                         actionListener="#{invoiceDetailBean.markInvoiceAsPaid}"/>
+                        <h:commandButton styleClass="btn btn-danger" value="Cancel invoice"
+                                         actionListener="#{invoiceDetailBean.cancelInvoice}"/>
+                    </h:form>
+                </h:panelGroup>
+
+            </h:panelGroup>
         </h:panelGroup>
 
 
