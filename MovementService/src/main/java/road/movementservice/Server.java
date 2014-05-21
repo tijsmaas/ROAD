@@ -5,10 +5,7 @@ import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleOwnership;
 import road.movemententityaccess.dao.*;
 import road.movementservice.mapper.DtoMapper;
-import road.movementservice.servers.BillServer;
-import road.movementservice.servers.CarServer;
-import road.movementservice.servers.DriverServer;
-import road.movementservice.servers.PoliceServer;
+import road.movementservice.servers.*;
 import road.userservice.UserDAO;
 import road.userservice.UserDAOImpl;
 import road.userservice.dto.UserDto;
@@ -31,6 +28,7 @@ public class Server
     private BillServer billServer;
     private PoliceServer policeServer;
     private CarServer carServer;
+    private JamServer jamServer;
 
     private DtoMapper dtoMapper;
     private Session mailSession;
@@ -82,6 +80,9 @@ public class Server
 
         this.carServer = new CarServer(new EntityDAOImpl(emf));
         this.carServer.init();
+
+        this.jamServer = new JamServer(this.dtoMapper);
+        this.jamServer.init();
 
         this.fillDatabase(emf, emfUserService);
     }
