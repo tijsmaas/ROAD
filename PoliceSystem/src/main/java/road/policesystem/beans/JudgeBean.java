@@ -1,4 +1,4 @@
-package beans;
+package road.policesystem.beans;
 
 import road.movementdtos.dtos.VehicleDto;
 import road.policesystem.dts.PoliceService;
