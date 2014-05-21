@@ -75,7 +75,7 @@ public class PaymentBean
             this.currentInvoiceID = Integer.parseInt(requestedInvoiceID);
             this.invoice = service.getInvoiceWithDetails(this.currentInvoiceID);
 
-            if (this.invoice == null || this.invoice.getUserID() != this.userSession.getLoggedinUser().id() || this.invoice.getPaymentStatus() == PaymentStatus.SUCCESSFUL)
+            if (this.invoice == null || this.invoice.getUser().id() != this.userSession.getLoggedinUser().id() || this.invoice.getPaymentStatus() == PaymentStatus.SUCCESSFUL)
             {
                 this.loadError = true;
             }

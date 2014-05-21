@@ -138,7 +138,7 @@ public class MovementsDAOImpl implements MovementsDAO
                     loginDAO = new LoginDAOImpl(em);
                     UserDto user = userDAO.register("user" + USER_ID++ + "name", "aidas123", "tijs.maas@student.fontys.nl");
                     MovementUser mUser = loginDAO.register(user.getUsername(), user.getEmail());
-                    vehicleOwnership.setUserID(mUser.getId());
+                    vehicleOwnership.setUser(mUser);
                 }
                 catch (UserSystemException ex)
                 {

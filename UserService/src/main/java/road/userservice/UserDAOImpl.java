@@ -39,7 +39,6 @@ public class UserDAOImpl implements UserDAO
 
     /**
      * Create a new instance of the {@link UserDAOImpl} class.
-     *
      * @param emf the {@link EntityManagerFactory} from which the {@link EntityManager} can be created.
      */
     public UserDAOImpl(EntityManagerFactory emf)
@@ -229,5 +228,20 @@ public class UserDAOImpl implements UserDAO
             UserEntity user = users.get(0);
             return new UserDto(user.getId(), user.getUsername(), user.getEmail());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param searchQuery the name to search for
+     * @return List of found users
+     */
+    @Override
+    public List<UserEntity> findUsersByName(String searchQuery)
+    {
+        Query query = em.createQuery("Select user from USERS user WHERE user.username like :username or user.name like :username");
+        query.setParameter("username", "%" + searchQuery + "%");
+
+        return query.getResultList();
     }
 }

@@ -3,13 +3,9 @@ package road.movementservice.mapper;
 import road.movementdtos.dtos.*;
 import road.movemententities.entities.*;
 import road.movemententityaccess.dao.LoginDAO;
-import road.userservice.UserDAO;
-import road.userservice.dto.UserDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -25,10 +21,9 @@ public class DtoMapper
 {
 
     /**
-     * Map an Invoice object to a simple invoiceDTO, not containing any of the child relations
-     *
-     * @param invoice the invoice to map
-     * @return simple InvoiceDTO
+     * Map an invoice object to a simple InvoiceDTO, not containing any child relations
+     * @param invoice
+     * @return
      */
     public InvoiceDto mapSimple(Invoice invoice)
     {
@@ -42,7 +37,8 @@ public class DtoMapper
             total = total.add(vehicleInvoice.getSubTotal());
         }
 
-        InvoiceDto invoiceDto = new InvoiceDto(invoice.getInvoiceID(), invoice.getUserID(), invoice.getGenerationDate(), invoice.getStartDate(), invoice.getEndDate(), invoice.getPaymentStatus().ordinal(), total);
+        MovementUserDto movementUserDto = this.toMovementUserDto(invoice.getUser());
+        InvoiceDto invoiceDto = new InvoiceDto(invoice.getInvoiceID(), movementUserDto, invoice.getGenerationDate(), invoice.getStartDate(), invoice.getEndDate(), invoice.getPaymentStatus().ordinal(), total);
 
         return invoiceDto;
     }
@@ -178,7 +174,7 @@ public class DtoMapper
     public StolenCarDto toStolenCarDto(Vehicle vehicle, LoginDAO loginDAO) {
         List<VehicleOwnerDto> owners = new ArrayList<>();
         for(VehicleOwnership owner : vehicle.getVehicleOwners()) {
-            owners.add(new VehicleOwnerDto(toMovementUserDto(loginDAO.getUser(owner.getUserID())),
+            owners.add(new VehicleOwnerDto(toMovementUserDto(loginDAO.getUser(owner.getUser().getId())),
                     owner.getRegistrationdate(), owner.getRegistrationExperationDate()));
         }
         List<VehicleMovementDto> movements = new ArrayList<>();

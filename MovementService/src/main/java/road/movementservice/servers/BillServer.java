@@ -10,21 +10,33 @@ import road.movementservice.connections.QueueServer;
 import road.movementservice.helpers.DAOHelper;
 import road.userservice.UserDAO;
 import road.billdts.connections.IBillQuery;
+import road.billdts.dto.InvoiceSearchQuery;
+import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.CityDto;
+import road.movementdtos.dtos.InvoiceDto;
+import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.MovementConnection;
 import road.movementdts.helpers.DateHelper;
 import road.movementdts.helpers.Pair;
+import road.movemententities.entities.CityDistance;
+import road.movemententities.entities.Invoice;
+import road.movemententities.entities.MovementUser;
 import road.movemententities.entities.VehicleMovement;
 import road.movemententityaccess.dao.CityDAO;
 import road.movemententityaccess.dao.InvoiceDAO;
+import road.movemententityaccess.dao.LoginDAO;
 import road.movemententityaccess.dao.MovementDAO;
+import road.movementservice.helpers.DAOHelper;
 import road.movementservice.mapper.DtoMapper;
+import road.userservice.UserDAO;
 
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -77,7 +89,8 @@ public class BillServer extends QueueServer implements IBillQuery
     }
 
     @Override
-    public List<CityDto> getCities() {
+    public List<CityDto> getCities()
+    {
         return dtoMapper.toCityDtoList(cityDAO.findAll());
     }
 
@@ -97,6 +110,77 @@ public class BillServer extends QueueServer implements IBillQuery
         return invoices.size();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param searchDetails searchDetails to search for
+     * @return List of invoiceDTOs that match the query result
+     */
+    @Override
+    public List<InvoiceDto> getInvoicesForSearch(InvoiceSearchQuery searchDetails)
+    {
+        List<Invoice> foundInvoices = invoiceDAO.findInvoiceFromQuery(searchDetails.getUsername(), searchDetails.getCartrackerID(), searchDetails.getMinDate(), searchDetails.getMaxDate());
+
+        List<InvoiceDto> invoiceDtos = new ArrayList<>();
+        for (Invoice invoice :foundInvoices)
+        {
+            invoiceDtos.add(this.dtoMapper.mapSimple(invoice));
+        }
+
+        return invoiceDtos;
+
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param invoiceID     the invoiceID you want to update
+     * @param paymentStatus the new paymentstatus
+     * @return
+     */
+    @Override
+    public Boolean updateInvoicePaymentStatus(Integer invoiceID, PaymentStatus paymentStatus)
+    {
+        road.movemententities.entities.enumerations.PaymentStatus entityPaymentStatus = road.movemententities.entities.enumerations.PaymentStatus.values()[paymentStatus.ordinal()];
+        Boolean result = invoiceDAO.updateInvoicePaymentstatus(invoiceID, entityPaymentStatus);
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param invoiceID the ID of the invoice you want to get details of
+     * @return
+     */
+    @Override
+    public InvoiceDto getInvoiceDetails(Integer invoiceID)
+    {
+        Invoice foundInvoice = invoiceDAO.getInvoice(invoiceID);
+
+        return dtoMapper.map(foundInvoice);
+    }
+
+    /**
+     * #{@inheritDoc}
+     *
+     * @param vehicleInvoiceID the ID of the vehicleInvoice
+     * @return
+     */
+    @Override
+    public List<CityDistanceDto> getCityDistances(Integer vehicleInvoiceID)
+    {
+        List<CityDistance> cityDistances = this.invoiceDAO.getCityDistancesForVehicleInvoice(vehicleInvoiceID);
+
+        List<CityDistanceDto> cityDistanceDtos = new ArrayList<>();
+        for (CityDistance cityDistance : cityDistances)
+        {
+            cityDistanceDtos.add(this.dtoMapper.map(cityDistance));
+        }
+
+        return cityDistanceDtos;
+    }
+
     //TODO
     /**
      * Sends an email to the customer to inform them that a new invoice is ready to be made.
@@ -108,7 +192,7 @@ public class BillServer extends QueueServer implements IBillQuery
         try
         {
             // Grab the user so that we can send an email.
-            MovementUser user = this.loginDAO.getUser(invoice.getUserID());
+            MovementUser user = this.loginDAO.getUser(invoice.getUser().getId());
 
             if(user.isInvoiceMail())
             {

@@ -1,7 +1,8 @@
-package road.driversystem.beans;
+package road.billsystem.beans;
 
-import road.driversystem.service.DriverService;
+import road.billsystem.service.BillService;
 import road.movementdtos.dtos.InvoiceDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -19,7 +20,7 @@ import javax.inject.Named;
 public class InvoiceDetailBean
 {
     @Inject
-    private DriverService service;
+    private BillService service;
 
     @Inject
     private UserBean userSession;
@@ -27,6 +28,9 @@ public class InvoiceDetailBean
     private InvoiceDto invoice;
     private boolean loadError;
 
+    /**
+     * Load the invoice based on the requestParameter
+     */
     @PostConstruct
     public void init()
     {
@@ -41,16 +45,45 @@ public class InvoiceDetailBean
             int invoiceID = Integer.parseInt(requestedInvoiceID);
             this.invoice = service.getInvoiceWithDetails(invoiceID);
 
-            if (this.invoice == null || this.invoice.getUser().id() != this.userSession.getLoggedinUser().id())
+            if (this.invoice == null)
             {
                 this.loadError = true;
             }
         }
     }
 
+    /**
+     * Mark the current invoice as cancelled
+     */
+    public void cancelInvoice()
+    {
+        PaymentStatus cancelled = PaymentStatus.CANCELLED;
+
+        boolean updated = service.updateInvoiceStatus(this.invoice.getInvoiceID(), cancelled);
+        if (updated)
+        {
+            this.invoice.setPaymentStatus(cancelled);
+        }
+
+    }
+
+    /**
+     * Mark the current invoice as paid
+     */
+    public void markInvoiceAsPaid()
+    {
+        PaymentStatus paid = PaymentStatus.SUCCESSFUL;
+
+        boolean updated = service.updateInvoiceStatus(this.invoice.getInvoiceID(), paid);
+        if (updated)
+        {
+            this.invoice.setPaymentStatus(paid);
+        }
+    }
+
     public InvoiceDto getInvoice()
     {
-        return invoice;
+        return this.invoice;
     }
 
     public void setInvoice(InvoiceDto invoice)
@@ -67,4 +100,6 @@ public class InvoiceDetailBean
     {
         this.loadError = loadError;
     }
+
+
 }

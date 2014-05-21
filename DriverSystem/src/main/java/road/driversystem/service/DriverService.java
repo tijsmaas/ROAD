@@ -99,7 +99,6 @@ public class DriverService implements Serializable
      * @return
      */
     public List<CityDistanceDto> getCityMovements(int vehicleInvoiceID){
-        //TODO: Implement this method
         return this.driverQueries.getCityDistances(vehicleInvoiceID);
     }
 
