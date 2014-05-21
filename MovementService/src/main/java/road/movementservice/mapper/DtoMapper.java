@@ -2,10 +2,14 @@ package road.movementservice.mapper;
 
 import road.movementdtos.dtos.*;
 import road.movemententities.entities.*;
+import road.movemententityaccess.dao.LoginDAO;
+import road.userservice.UserDAO;
 import road.userservice.dto.UserDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -169,5 +173,32 @@ public class DtoMapper
                                     .city(user.getCity())
                                     .invoiceMail(user.isInvoiceMail());
         return dto;
+    }
+
+    public StolenCarDto toStolenCarDto(Vehicle vehicle, LoginDAO loginDAO) {
+        List<VehicleOwnerDto> owners = new ArrayList<>();
+        for(VehicleOwnership owner : vehicle.getVehicleOwners()) {
+            owners.add(new VehicleOwnerDto(toMovementUserDto(loginDAO.getUser(owner.getUserID())),
+                    owner.getRegistrationdate(), owner.getRegistrationExperationDate()));
+        }
+        List<VehicleMovementDto> movements = new ArrayList<>();
+        for(VehicleMovement vehicleMovement : vehicle.getVehicleMovements()) {
+            Movement movement = vehicleMovement.getMovement();
+            Lane lane = movement.getLane();
+            Edge edge = lane.getEdge();
+            movements.add(new VehicleMovementDto(vehicleMovement.getId(), vehicleMovement.getPosition(),
+                    vehicleMovement.getSpeed(), movement.getMovementDateTime(), lane.getIndex(), lane.getLength(),
+                    edge.getType(), toCityDto(edge.getFrom()), toCityDto(edge.getTo()), edge.getPriority()));
+        }
+        return new StolenCarDto(vehicle.getCarTrackerID(), vehicle.getLicensePlate(), owners, movements);
+    }
+
+    public List<StolenCarDto> toStolenCarDtoList(List<Vehicle> vehicleList, LoginDAO loginDAO) {
+        List<StolenCarDto> returnList = new ArrayList<>();
+        for (Vehicle v : vehicleList) {
+            returnList.add(toStolenCarDto(v, loginDAO));
+        }
+
+        return returnList;
     }
 }
