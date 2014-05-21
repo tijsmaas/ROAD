@@ -192,4 +192,13 @@ public class DtoMapper
         }
         return new StolenCarDto(vehicle.getCarTrackerID(), vehicle.getLicensePlate(), owners, movements);
     }
+
+    public List<StolenCarDto> toStolenCarDtoList(List<Vehicle> vehicleList, LoginDAO loginDAO) {
+        List<StolenCarDto> returnList = new ArrayList<>();
+        for (Vehicle v : vehicleList) {
+            returnList.add(toStolenCarDto(v, loginDAO));
+        }
+
+        return returnList;
+    }
 }

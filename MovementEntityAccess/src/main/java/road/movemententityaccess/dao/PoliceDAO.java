@@ -30,4 +30,6 @@ public interface PoliceDAO
      * @return The found vehicles
      */
     List<Vehicle> findAllVehicles();
+
+    boolean setStolen(Vehicle vehicle);
 }

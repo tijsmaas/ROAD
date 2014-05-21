@@ -1,14 +1,10 @@
 package road.movemententityaccess.dao;
 
-import road.movemententities.entities.Movement;
 import road.movemententities.entities.Vehicle;
-import road.movemententities.entities.VehicleOwnership;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,5 +56,19 @@ public class PoliceDAOImpl implements PoliceDAO
 
         List<Vehicle> resultList = query.getResultList();
         return resultList;
+    }
+
+    @Override
+    public boolean setStolen(Vehicle vehicle)
+    {
+        try
+        {
+            em.merge(vehicle);
+            return true;
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
     }
 }
