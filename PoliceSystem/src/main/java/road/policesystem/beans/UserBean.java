@@ -7,8 +7,8 @@
 package road.policesystem.beans;
 
 import com.ocpsoft.pretty.PrettyContext;
+import road.policesystem.utils.Utilities;
 import road.movementdtos.dtos.MovementUserDto;
-import road.policesystem.utils.Utlities;
 
 import javax.ejb.SessionBean;
 import javax.enterprise.context.SessionScoped;
@@ -47,7 +47,7 @@ public class UserBean implements Serializable
         try {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.invalidateSession();
-            ec.redirect(Utlities.getContextRoot() + "/login/");
+            ec.redirect(Utilities.getContextRoot() + "/login/");
 
         } catch (IOException e) {
             Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, e);
@@ -62,12 +62,12 @@ public class UserBean implements Serializable
     public void redirectIfNotLoggedIn()
     {
 
-       ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         if(this.loggedinUser == null){
             try
             {
                 this.loginRedirect = PrettyContext.getCurrentInstance().getRequestURL().toURL();
-                context.redirect(Utlities.getContextRoot() + "/login/");
+                context.redirect(Utilities.getContextRoot() + "/login/");
 
             } catch (IOException e)
             {
@@ -75,4 +75,5 @@ public class UserBean implements Serializable
             }
         }
     }
+
 }

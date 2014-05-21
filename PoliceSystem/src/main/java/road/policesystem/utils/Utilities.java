@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Niek on 13/05/14.
  * © Aidas 2014
  */
-public class Utlities
+public class Utilities
 {
     public static String getContextRoot()
     {

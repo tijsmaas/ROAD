@@ -5,11 +5,12 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    <ui:param name="title" value="PoliceSystem"/>
-    <ui:param name="url" value="/PoliceSystem/"/>
+    <ui:param name="title" value="BillSystem"/>
+    <ui:param name="url" value="/billsystem/"/>
 
     <ui:define name="content">
         <f:event type="preRenderView" listener="#{loginBean.redirectIfLoggedIn}"/>
+
 
             <h:panelGroup layout="block" rendered="#{sessionBean.authenticatedUser eq null}">
                 <div class="pill login-pill" id="loginPill">

@@ -1,8 +1,8 @@
 package road.policesystem.beans;
 
+import road.policesystem.utils.Utilities;
 import road.movementdtos.dtos.MovementUserDto;
 import road.policesystem.service.PoliceService;
-import road.policesystem.utils.Utlities;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Mitch
+ * @author Niek
  */
 @Named("loginBean") @RequestScoped
 public class LoginBean
@@ -38,7 +38,7 @@ public class LoginBean
     {
         this.username = username;
     }
-    
+
     public String getUsername()
     {
         return username;
@@ -74,7 +74,7 @@ public class LoginBean
             if (!failed)
             {
                 userBean.setLoggedinUser(user);
-                context.redirect(Utlities.getHostnameAndContext() + userBean.getLoginRedirect());
+                context.redirect(Utilities.getHostnameAndContext() + userBean.getLoginRedirect());
             }
         } catch(Exception ex)
         {

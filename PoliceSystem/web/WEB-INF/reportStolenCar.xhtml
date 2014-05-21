@@ -1,0 +1,31 @@
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <div class="pill">
+                <h:form id="stolenForm">
+                    <p:outputLabel for="txtLicense" styleClass="col-sm-3 control-label"
+                                   value="License plate"/>
+                    <div class="col-sm-9">
+                        <p:inputText id="txtLicense" value="#{judgeBean.licensePlate}" />
+                    </div>
+                    <p:commandButton value="Search" action="#{judgeBean.getVehicle}" update="stolenForm"/>
+                    <hr/>
+                    <p:outputLabel for="txtFoundLicense" styleClass="col-sm-3 control-label"
+                                   value="License plate" rendered="#{judgeBean.vehicle != null}"/>
+                    <div class="col-sm-9">
+                        <h:outputText id="txtFoundLicense" value="#{judgeBean.vehicle.licensePlate}" rendered="#{judgeBean.vehicle != null}"/>
+                    </div>
+                </h:form>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+
+
+</ui:composition>

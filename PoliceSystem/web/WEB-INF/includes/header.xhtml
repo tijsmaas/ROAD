@@ -15,23 +15,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">PoliceSystem</a>
+                    <a class="navbar-brand" href=" ">BillSystem</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <h:form>
-                                <h:selectOneMenu value="#{translator.language}" onchange="submit()" style="margin-top:15px; margin-bottom: 15px;">
-                                    <f:selectItem itemValue="en" itemLabel="English"/>
-                                    <f:selectItem itemValue="nl" itemLabel="Nederlands"/>
-                                </h:selectOneMenu>
-                            </h:form>
-                        </li>
-                        <li><a href="invoices/">My Invoices</a></li>
-                        <li><a href="myvehicles/"><h:outputText value="#{translator.getProperty('myVehicles')}"/></a></li>
-                        <li><a href="#">Other menu</a></li>
+                        <li><a href="#">Bills</a></li>
+                        <li><a href="invoicegeneration/">InvoiceGeneration</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -73,9 +64,6 @@
                                                     class="caret"></b></a>
                                             <ul class="dropdown-menu">
                                                 <li><a href=" ">Home</a></li>
-                                                <li>
-                                                    <a href="profile/"><h:outputText value="#{translator.getProperty('profile')}" /></a>
-                                                </li>
                                                 <li>
                                                     <h:commandLink
                                                             actionListener="#{userBean.logout}">Logout</h:commandLink>

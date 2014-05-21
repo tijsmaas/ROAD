@@ -9,7 +9,8 @@
         <view-id value="../login.xhtml"/>
     </url-mapping>
     <url-mapping>
-        <pattern value="/stolencar/#{licenseplate}"></pattern>
-        <view-id value="../WEB-INF/viewstolencars.xhtml"/>
+        <pattern value="/invoicegeneration/"></pattern>
+        <view-id value="../WEB-INF/pages/invoicegeneration.xhtml"/>
     </url-mapping>
+
 </pretty-config>
