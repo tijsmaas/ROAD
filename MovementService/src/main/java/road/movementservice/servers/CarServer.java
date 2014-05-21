@@ -2,19 +2,21 @@ package road.movementservice.servers;
 
 import road.cardts.connections.ICarQuery;
 import road.movementdts.connections.MovementConnection;
+import road.movemententities.entities.Movement;
 import road.movemententityaccess.dao.EntityDAO;
 import road.movementparser.parser.Authentication;
 import road.movementparser.parser.GenericParser;
 import road.movementparser.parser.MovementParser;
-import road.movementservice.connections.ServerConnection;
+import road.movementservice.connections.QueueServer;
 
 import javax.ws.rs.NotAuthorizedException;
+import java.util.List;
 
 
 /**
  * Created by geh on 7-5-14.
  */
-public class CarServer extends ServerConnection implements ICarQuery
+public class CarServer extends QueueServer implements ICarQuery
 {
     private EntityDAO entityDAO;
     private Authentication authentication;
@@ -43,7 +45,8 @@ public class CarServer extends ServerConnection implements ICarQuery
     {
         if(this.authentication.checkApiKey(apiKey))
         {
-            this.movementParser.parseChanges(xml, sequence.intValue());
+            List<Movement> movements = this.movementParser.parseChanges(xml, sequence.intValue());
+            //TODO fire event
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                    + "<response status=\"ok\" VEHICLE_ID=\"2\"/></xml>";
         }

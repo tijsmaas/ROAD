@@ -1,5 +1,6 @@
 package road.movementservice.connections;
 
+import road.movementdts.listeners.ConnectionListener;
 import road.movementdts.helpers.Pair;
 import road.movementdts.helpers.RequestHelper;
 
@@ -11,13 +12,13 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by geh on 10-4-14.
  */
-public abstract class ServerConnection<T> implements ConnectionListener
+public abstract class QueueServer<T> implements ConnectionListener
 {
     private ReplyConnection connection;
     private ConcurrentHashMap<String, Method> methods;
     private T instance;
 
-    public ServerConnection(String factoryName, String listenTo)
+    public QueueServer(String factoryName, String listenTo)
     {
         this.connection = new ReplyConnection(factoryName, listenTo, this);
     }

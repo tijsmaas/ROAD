@@ -3,20 +3,19 @@ package road.movementservice.servers;
 //import road.usersystem.UserDAO;
 import road.movementdtos.dtos.MovementUserDto;
 import road.movemententityaccess.dao.LoginDAO;
+import road.movementservice.connections.QueueServer;
 import road.movementservice.helpers.DAOHelper;
 import road.movementservice.mapper.DtoMapper;
 import road.userservice.UserDAO;
-import road.userservice.dto.UserDto;
 import road.policedts.connections.IPoliceQuery;
 import road.movementdts.connections.MovementConnection;
-import road.movementservice.connections.ServerConnection;
 
 //import javax.inject.Inject;
 
 /**
  * Created by geh on 23-4-14.
  */
-public class PoliceServer extends ServerConnection implements IPoliceQuery
+public class PoliceServer extends QueueServer implements IPoliceQuery
 {
     private LoginDAO loginDAO;
     private UserDAO userDAO;

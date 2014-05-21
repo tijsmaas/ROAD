@@ -1,12 +1,11 @@
 package road.driverdts.connections;
 
 import road.movementdtos.dtos.MovementUserDto;
-import road.userservice.dto.UserDto;
+import road.movementdts.connections.QueueClient;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
 import road.movementdtos.dtos.VehicleDto;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
-import road.movementdts.connections.ClientConnection;
 import road.movementdts.connections.MovementConnection;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.List;
 /**
  * Created by geh on 22-4-14.
  */
-public class DriverClient extends ClientConnection implements IDriverQuery
+public class DriverClient extends QueueClient implements IDriverQuery
 {
     public DriverClient()
     {

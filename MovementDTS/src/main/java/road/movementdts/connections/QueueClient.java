@@ -8,14 +8,14 @@ import road.movementdts.helpers.RequestHelper;
  *
  * This class is to be used for Client side RPC connections to the MovementService.
  */
-public abstract class ClientConnection
+public abstract class QueueClient
 {
     /**
      * The actual JMS connection used to establish communication with the MovementService
      */
     private RequestConnection connection;
 
-    public ClientConnection(String serverAddress, String factoryName, String sendTo)
+    public QueueClient(String serverAddress, String factoryName, String sendTo)
     {
         try
         {

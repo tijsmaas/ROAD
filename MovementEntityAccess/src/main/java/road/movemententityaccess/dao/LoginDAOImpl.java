@@ -63,7 +63,9 @@ public class LoginDAOImpl implements LoginDAO
     @Override
     public MovementUser getUser(int id)
     {
-        return this.em.find(MovementUser.class, id);
+        MovementUser user = this.em.find(MovementUser.class, id);
+        this.em.refresh(user);
+        return user;
     }
 
     @Override

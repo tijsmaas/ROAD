@@ -2,6 +2,7 @@ package road.movementservice.servers;
 
 import road.movementdtos.dtos.MovementUserDto;
 import road.movemententities.entities.MovementUser;
+import road.movementservice.connections.QueueServer;
 import road.movementservice.helpers.DAOHelper;
 import road.userservice.UserDAO;
 import road.driverdts.connections.IDriverQuery;
@@ -13,7 +14,6 @@ import road.movementdts.connections.MovementConnection;
 import road.movemententities.entities.CityDistance;
 import road.movemententities.entities.Invoice;
 import road.movemententityaccess.dao.*;
-import road.movementservice.connections.ServerConnection;
 import road.movementservice.mapper.DtoMapper;
 import road.userservice.dto.UserDto;
 
@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * Created by geh on 22-4-14.
  * This is the Server side of the connection with the DriverSystem application (
  */
-public class DriverServer extends ServerConnection implements IDriverQuery
+public class DriverServer extends QueueServer implements IDriverQuery
 {
     private EdgeDAO edgeDAO;
     private LaneDAO laneDAO;

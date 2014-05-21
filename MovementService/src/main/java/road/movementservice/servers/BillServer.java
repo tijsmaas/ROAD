@@ -6,9 +6,9 @@ import road.movementdtos.dtos.MovementUserDto;
 import road.movemententities.entities.Invoice;
 import road.movemententities.entities.MovementUser;
 import road.movemententityaccess.dao.LoginDAO;
+import road.movementservice.connections.QueueServer;
 import road.movementservice.helpers.DAOHelper;
 import road.userservice.UserDAO;
-import road.userservice.dto.UserDto;
 import road.billdts.connections.IBillQuery;
 import road.movementdtos.dtos.CityDto;
 import road.movementdts.connections.MovementConnection;
@@ -18,7 +18,6 @@ import road.movemententities.entities.VehicleMovement;
 import road.movemententityaccess.dao.CityDAO;
 import road.movemententityaccess.dao.InvoiceDAO;
 import road.movemententityaccess.dao.MovementDAO;
-import road.movementservice.connections.ServerConnection;
 import road.movementservice.mapper.DtoMapper;
 
 import javax.mail.Message;
@@ -33,7 +32,7 @@ import java.util.List;
 /**
  * Created by geh on 11-4-14.
  */
-public class BillServer extends ServerConnection implements IBillQuery
+public class BillServer extends QueueServer implements IBillQuery
 {
     private InvoiceDAO invoiceDAO;
     private MovementDAO movementDAO;

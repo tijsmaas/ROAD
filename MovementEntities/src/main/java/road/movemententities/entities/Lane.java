@@ -1,6 +1,10 @@
 package road.movemententities.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Niek on 14/03/14.
@@ -21,6 +25,11 @@ public class Lane implements MovementEntity<String>
 
     @Column(name = "LaneLength")
     private float length;
+
+    @ManyToMany @JoinTable(name="lanesFrom", joinColumns = { @JoinColumn(name="lanesTo") }, inverseJoinColumns = { @JoinColumn(name="lanesFrom") })
+    private List<Lane> lanesFrom = new ArrayList<>();
+    @ManyToMany(mappedBy="lanesFrom")
+    private List<Lane> lanesTo = new ArrayList<>();
 
     // Empty constructor for JPA
     public Lane(){ }
@@ -69,7 +78,38 @@ public class Lane implements MovementEntity<String>
         return length;
     }
 
-    public Edge getEdge(){
+    public Edge getEdge()
+    {
         return this.edge;
+    }
+
+    public List<Lane> getLanesFrom()
+    {
+        return lanesFrom;
+    }
+
+    public void setLanesFrom(List<Lane> lanesFrom)
+    {
+        this.lanesFrom = lanesFrom;
+    }
+
+    public void addLaneFrom(Lane lane)
+    {
+        this.lanesFrom.add(lane);
+    }
+
+    public List<Lane> getLanesTo()
+    {
+        return lanesTo;
+    }
+
+    public void setLanesTo(List<Lane> lanesTo)
+    {
+        this.lanesTo = lanesTo;
+    }
+
+    public void addLaneTo(Lane lane)
+    {
+        this.lanesTo.add(lane);
     }
 }

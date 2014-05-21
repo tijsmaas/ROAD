@@ -133,6 +133,8 @@ public class MapParser
             connection.setVia(via);
             from.addConnection(connection);
             to.addConnection(connection);
+            fromLane.addLaneTo(toLane);
+            toLane.addLaneFrom(fromLane);
             entityDAO.edit(from);
             entityDAO.edit(to);
             entityDAO.edit(connection);
