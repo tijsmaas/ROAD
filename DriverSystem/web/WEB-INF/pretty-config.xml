@@ -32,4 +32,8 @@
         <pattern value="/invoices/"></pattern>
         <view-id value="../WEB-INF/invoices.xhtml"/>
     </url-mapping>
+    <url-mapping>
+        <pattern value="/carDetails/"></pattern>
+        <view-id value="../WEB-INF/carDetails.xhtml"/>
+    </url-mapping>
 </pretty-config>
