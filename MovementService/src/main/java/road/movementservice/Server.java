@@ -74,7 +74,7 @@ public class Server
         this.billServer.init();
 
         this.policeServer = new PoliceServer(new LoginDAOImpl(emf),
-                                            new UserDAOImpl(emf),
+                                            new UserDAOImpl(emfUserService),
                                             new PoliceDAOImpl(emf),
                                             new VehicleDAOImpl(emf),
                                             this.dtoMapper);
