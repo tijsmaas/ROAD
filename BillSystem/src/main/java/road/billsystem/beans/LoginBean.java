@@ -1,5 +1,6 @@
 package road.billsystem.beans;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.billsystem.service.BillService;
 import road.billsystem.utils.Utilities;
@@ -69,7 +70,7 @@ public class LoginBean
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try
         {
-            UserDto user = driverService.login(username, password);
+            MovementUserDto user = driverService.login(username, password);
             this.failed = (user == null);
             if (!failed)
             {

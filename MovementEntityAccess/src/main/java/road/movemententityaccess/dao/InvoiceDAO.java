@@ -16,14 +16,7 @@ import java.util.List;
  */
 public interface InvoiceDAO
 {
-    /**
-     * Generate invoices for the list of movements
-     * @param vehicleMovements List of movements you want to generate invoices for
-     * @param startDate Starting date of the invoice
-     * @param endDate End date of the invoices
-     * @return Number of generated invoices
-     */
-    public int generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate);
+    public List<Invoice> generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate);
 
     /**
      * Get all the invoices for a certain user

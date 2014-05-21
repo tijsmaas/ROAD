@@ -9,7 +9,8 @@ package road.userservice.dto;
  * 
  * @author Geert
  */
-public class UserDto {
+public class UserDto
+{
     /**
      * The identifier of the user.
      */
@@ -19,6 +20,11 @@ public class UserDto {
      * The username of the user. Cannot be an empty {@link String}.
      */
     private String username;
+
+    /**
+     * The email of the user. Cannot be an empty {@link String}.
+     */
+    private String email;
 
     /**
      * The name of the user.
@@ -55,16 +61,18 @@ public class UserDto {
      * @param id the identifier of the user.
      * @param username the username of the user. Cannot be an empty {@link String}.
      */
-    public UserDto(int id, String username)
+    public UserDto(int id, String username, String email)
     {
         this();
 
-        if (username == null || username.isEmpty()) {
+        if (username == null || username.isEmpty())
+        {
             throw new IllegalArgumentException("UserDto: username cannot be empty.");
         }
 
         this.id = id;
         this.username = username;
+        this.email = email;
     }
     
     /**
@@ -99,6 +107,23 @@ public class UserDto {
     public void setUsername(String username)
     {
         this.username = username;
+    }
+
+    /**
+     * Get the {@link #email} of the {@link UserDto}.
+     * @return the email of the user
+     */
+    public String getEmail()
+    {
+        return email;
+    }
+
+    /**
+     * Set the {@link #email} of the {@link UserDto}.
+     */
+    public void setEmail(String email)
+    {
+        this.email = email;
     }
 
     /**

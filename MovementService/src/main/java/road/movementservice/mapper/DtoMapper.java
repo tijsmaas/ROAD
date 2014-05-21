@@ -171,4 +171,19 @@ public class DtoMapper
 
         return returnList;
     }
+
+    public MovementUserDto toMovementUserDto(MovementUser user)
+    {
+        MovementUserDto dto = new MovementUserDto()
+                                    .id(user.getId())
+                                    .userName(user.getUsername())
+                                    .email(user.getEmail())
+                                    .name(user.getName())
+                                    .street(user.getStreet())
+                                    .houseNumber(user.getHouseNumber())
+                                    .postalCode(user.getPostalCode())
+                                    .city(user.getCity())
+                                    .invoiceMail(user.isInvoiceMail());
+        return dto;
+    }
 }

@@ -6,6 +6,7 @@
 
 package domain.dts;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.policedts.connections.PoliceClient;
 
@@ -29,7 +30,7 @@ public class PoliceService
         policeClient.start();
     }
     
-    public UserDto login(String username, String password)
+    public MovementUserDto login(String username, String password)
     {
         return policeClient.authenticate(username, password);
     }

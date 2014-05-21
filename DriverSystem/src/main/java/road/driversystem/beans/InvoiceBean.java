@@ -30,7 +30,7 @@ public class InvoiceBean
     @PostConstruct
     public void init()
     {
-        this.userInvoices = service.getUserInvoices(userSession.getLoggedinUser().getId());
+        this.userInvoices = service.getUserInvoices(userSession.getLoggedinUser().id());
     }
 
     public List<InvoiceDto> getUserInvoices()

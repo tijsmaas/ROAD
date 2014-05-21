@@ -6,6 +6,7 @@
 
 package road.driversystem.service;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.driverdts.connections.DriverClient;
 import road.movementdtos.dtos.CityDistanceDto;
@@ -40,9 +41,9 @@ public class DriverService implements Serializable
         this.driverQueries.start();
     }
 
-    public UserDto login(String username, String password)
+    public MovementUserDto login(String username, String password)
     {
-        UserDto result = driverQueries.authenticate(username, password);
+        MovementUserDto result = driverQueries.authenticate(username, password);
         return result;
     }
 
@@ -123,8 +124,8 @@ public class DriverService implements Serializable
      * @param city the city in which the user lives.
      * @return true if changing the details was successful, otherwise false.
      */
-    public boolean changeDetails(int id, String name, String street, String houseNumber, String postalCode, String city) {
-        Boolean result = driverQueries.changeDetails(id, name, street, houseNumber, postalCode, city);
-        return result != null ? result.booleanValue() : false;
+    public MovementUserDto changeDetails(int id, String name, String street, String houseNumber, String postalCode, String city, Boolean invoiceNotification)
+    {
+        return driverQueries.changeDetails(id, name, street, houseNumber, postalCode, city, invoiceNotification);
     }
 }

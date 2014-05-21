@@ -1,5 +1,6 @@
 package road.driverdts.connections;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface IDriverQuery
 {
-    UserDto authenticate(String userId, String password);
+    MovementUserDto authenticate(String userId, String password);
 
     Long getLaneCount();
 
@@ -83,5 +84,5 @@ public interface IDriverQuery
      * @param city the city in which the user lives.
      * @return true if changing the details was successful, otherwise false.
      */
-    Boolean changeDetails(Integer id, String name, String street, String houseNumber, String postalCode, String city);
+    MovementUserDto changeDetails(Integer id, String name, String street, String houseNumber, String postalCode, String city, Boolean invoiceNotification);
 }

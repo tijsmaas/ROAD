@@ -17,8 +17,8 @@ import java.util.List;
  * 
  * @author Geert
  */
-public interface UserDAO {
-    
+public interface UserDAO
+{
     /**
      * Check if the current {@link UserDto} has the provided right.
      * @param authId the authentication identifier provided by the 
@@ -52,7 +52,7 @@ public interface UserDAO {
      * exception will be thrown containing a message with the details of the 
      * failure.
      */
-    UserDto register(String username, String password) throws UserSystemException;
+    UserDto register(String username, String password, String email) throws UserSystemException;
     
     /**
      * Check if the current {@link UserDto} has the provided right.
@@ -87,6 +87,20 @@ public interface UserDAO {
      * @return true if changing the details was successful, otherwise false.
      */
     boolean changeDetails(int id, String name, String street, String houseNumber, String postalCode, String city);
+
+    /**
+     * Retrieve a user from the database by id.
+     * @param id the identifier of the user.
+     * @return the specific user, packaged in the UserDto class.
+     */
+    UserDto getUser(int id);
+
+    /**
+     * Retrieve a user from the database by id.
+     * @param userName the username of the user.
+     * @return the specific user, packaged in the UserDto class.
+     */
+    UserDto getUser(String userName);
 
 
     /**

@@ -2,6 +2,7 @@ package road.billsystem.service;
 
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.billdts.connections.BillClient;
 import road.movementdtos.dtos.CityDto;
@@ -62,17 +63,10 @@ public class BillService implements Serializable
         return result;
     }
 
-    /**
-     * Authenticate your user to the billclient
-     * @param username The username used to authenticate
-     * @param password The password used to authenticate
-     * @return UserDTO object if login is successful
-     */
-    public UserDto login(String username, String password)
+    public MovementUserDto login(String username, String password)
     {
         return billClient.authenticate(username, password);
     }
-
 
     public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
     {

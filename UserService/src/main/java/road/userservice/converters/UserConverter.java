@@ -20,7 +20,7 @@ public class UserConverter {
      * @return the converted user entity.
      */
     public static UserDto toUserDto(UserEntity userEntity) {
-        UserDto user = new UserDto(userEntity.getId(), userEntity.getUsername());
+        UserDto user = new UserDto(userEntity.getId(), userEntity.getUsername(), userEntity.getEmail());
         user.setName(userEntity.getName());
         user.setStreet(userEntity.getStreet());
         user.setHouseNumber(userEntity.getHouseNumber());

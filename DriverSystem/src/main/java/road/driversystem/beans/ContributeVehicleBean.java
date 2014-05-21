@@ -23,7 +23,6 @@ import java.util.List;
 @Named("contributeVehicleBean")
 public class ContributeVehicleBean implements Serializable
 {
-
     @Inject
     private UserBean userSession;
 
@@ -53,7 +52,7 @@ public class ContributeVehicleBean implements Serializable
     @PostConstruct
     public void initContributeCarBean()
     {
-        this.vehicles = driverService.getVehicles(this.userSession.getLoggedinUser().getId());
+        this.vehicles = driverService.getVehicles(this.userSession.getLoggedinUser().id());
     }
 
     /**

@@ -1,5 +1,6 @@
 package road.driverdts.connections;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
@@ -22,9 +23,9 @@ public class DriverClient extends ClientConnection implements IDriverQuery
     }
 
     @Override
-    public UserDto authenticate(String userId, String password)
+    public MovementUserDto authenticate(String userId, String password)
     {
-        return this.remoteCall("authenticate", UserDto.class, userId, password);
+        return this.remoteCall("authenticate", MovementUserDto.class, userId, password);
     }
 
     @Override
@@ -92,11 +93,13 @@ public class DriverClient extends ClientConnection implements IDriverQuery
     }
 
     @Override
-    public Boolean changeDetails(Integer id, String name, String street, String houseNumber, String postalCode, String city) {
-        if (id == null) {
+    public MovementUserDto changeDetails(Integer id, String name, String street, String houseNumber, String postalCode, String city, Boolean invoiceNotification)
+    {
+        if (id == null)
+        {
             throw new IllegalArgumentException("DriverClient.changePassword: id cannot be null.");
         }
 
-        return this.remoteCall("changeDetails", Boolean.class, id, name, street, houseNumber, postalCode, city);
+        return this.remoteCall("changeDetails", MovementUserDto.class, id, name, street, houseNumber, postalCode, city, invoiceNotification);
     }
 }

@@ -1,5 +1,6 @@
 package beans;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import domain.dts.PoliceService;
 
@@ -62,7 +63,7 @@ public class LoginBean
 
     public void login()
     {
-        UserDto user = billService.login(username, password);
+        MovementUserDto user = billService.login(username, password);
         failed = (user == null);
         if(!failed) {
             userBean.setLoggedinUser(user);

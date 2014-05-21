@@ -2,6 +2,13 @@ package road.movemententityaccess.helper;
 
 import road.movemententities.entities.*;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.math.BigDecimal;
@@ -30,7 +37,6 @@ public class InvoiceGenerator
 
     private Map<Integer, Invoice> userInvoices = new HashMap<>();
 
-
     public InvoiceGenerator(List<VehicleMovement> monthlyMovements, EntityManager em, Date startDate, Date endDate)
     {
         this.monthlyMovements = monthlyMovements;
@@ -39,14 +45,14 @@ public class InvoiceGenerator
         this.endDate = endDate;
         this.generationDate = new Date();
         this.logger = Logger.getLogger(this.getClass().getName());
-
     }
 
     /**
      * Start the generation of invoices
      */
-    public void generate()
+    public List<Invoice> generate()
     {
+        List<Invoice> invoices = new ArrayList<Invoice>();
         logger.log(Level.INFO, "Starting invoice generation");
         try
         {
@@ -54,10 +60,16 @@ public class InvoiceGenerator
 
             for (Map.Entry<VehicleOwnership, List<VehicleMovement>> mapEntry : vehicleOwnershipListMap.entrySet())
             {
-                this.createOrUpdateInvoice(mapEntry.getKey(), mapEntry.getValue());
+                invoices.add(this.createOrUpdateInvoice(mapEntry.getKey(), mapEntry.getValue()));
             }
-        } catch(Exception ex){
+        }
+        catch(Exception ex)
+        {
             ex.printStackTrace();
+        }
+        finally
+        {
+            return invoices;
         }
     }
 
@@ -97,11 +109,13 @@ public class InvoiceGenerator
      * @param vehicleOwnership The VehicleOwnership of the current invoice to generate
      * @param vehicleMovements The movemets of the ownership
      */
-    private void createOrUpdateInvoice(VehicleOwnership vehicleOwnership, List<VehicleMovement> vehicleMovements)
+    private Invoice createOrUpdateInvoice(VehicleOwnership vehicleOwnership, List<VehicleMovement> vehicleMovements)
     {
         VehicleInvoice vehicleInvoice = new VehicleInvoice(vehicleOwnership);
         em.persist(vehicleInvoice);
+
         Double subTotal = 0.0;
+
         /**
          * README.
          * TODO: Replace km_rate with city.getKMRate() when km rates work!
@@ -126,20 +140,26 @@ public class InvoiceGenerator
                 if(prevLane!= null)
                 {
                     city = this.getCityByLane(prevLane);
-                } else if(currentLane != null){
+                }
+                else if(currentLane != null)
+                {
                     city = this.getCityByLane(currentLane);
                 }
                 
-                if(city != null) {
+                if(city != null)
+                {
                     double km_rate = 0.10;
                     CityRate currentRate = city.getCurrentRate();
-                    if(currentRate != null){
-                        String kmRateAsRetardedString = currentRate.getKilometerRate();
 
+                    if(currentRate != null)
+                    {
+                        String kmRateAsRetardedString = currentRate.getKilometerRate();
                         km_rate = Double.parseDouble(kmRateAsRetardedString); //Ik ga raven tot de grond gaat beven als dit fout gaat
                     }
+
                     String kmRateAsRetardedString = city.getCurrentRate().getKilometerRate();
                     CityDistance cityDistance = cityDistances.get(city);
+
                     // add to subtotal
                     totalkilometersdriven += kilometersDriven;
                     subTotal += kilometersDriven * (km_rate);
@@ -152,7 +172,9 @@ public class InvoiceGenerator
                         cityDistance = new CityDistance(city, kilometersDriven, km_rate, movementDate);
                         cityDistance.setVehicleInvoice(vehicleInvoice);
                         cityDistances.put(city, cityDistance);
-                    }else{
+                    }
+                    else
+                    {
                         cityDistance.addDistance(kilometersDriven);
                     }
                 }
@@ -162,7 +184,7 @@ public class InvoiceGenerator
             }
         }
         
-        logger.log(Level.INFO, "User : " + vehicleOwnership.getUserID() + " has driven " + totalkilometersdriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
+        logger.log(Level.INFO, "MovementUser : " + vehicleOwnership.getUserID() + " has driven " + totalkilometersdriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
 
         vehicleInvoice.setMovementList(new ArrayList<CityDistance>(cityDistances.values()));
 
@@ -182,6 +204,8 @@ public class InvoiceGenerator
 
         logger.log(Level.INFO, "Added vehicle invoice to invoice with ID " + invoice.getInvoiceID());
         em.merge(invoice);
+
+        return invoice;
     }
     
     /**
@@ -189,7 +213,8 @@ public class InvoiceGenerator
      * @param lane
      * @return the city
      */
-    private City getCityByLane(Lane lane) {
+    private City getCityByLane(Lane lane)
+    {
         String laneID = lane.getId();
         String[] laneIDs = laneID.split("\\_");
         laneID = laneIDs[0];
@@ -213,7 +238,8 @@ public class InvoiceGenerator
         if (this.userInvoices.containsKey(vehicleOwnership.getUserID()))
         {
             return this.userInvoices.get(vehicleOwnership.getUserID());
-        } else
+        }
+        else
         {
             Invoice invoice = new Invoice(generationDate, startDate, endDate, vehicleOwnership.getUserID());
             em.persist(invoice);
@@ -225,8 +251,8 @@ public class InvoiceGenerator
         }
     }
 
-    public Collection<Invoice> getInvoices(){
+    public Collection<Invoice> getInvoices()
+    {
         return this.userInvoices.values();
     }
-
 }
