@@ -5,15 +5,14 @@ import road.movemententities.entities.*;
 import road.movemententityaccess.dao.LoginDAO;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The Dto Mapper contains functions for mapping Entity objects to Dto objects
- *
- *
+ * <p/>
+ * <p/>
  * TODO: Look for a way to implement a Java alternative to automapper
- *
+ * <p/>
  * Created by Niek on 18/05/14.
  * © Aidas 2014
  */
@@ -68,8 +67,10 @@ public class DtoMapper
     public VehicleDto map(Vehicle vehicle)
     {
         VehicleOwnership currentOwer = null;
-        for (VehicleOwnership vo : vehicle.getVehicleOwners()) {
-            if (vo.getRegistrationExperationDate() == null) {
+        for (VehicleOwnership vo : vehicle.getVehicleOwners())
+        {
+            if (vo.getRegistrationExperationDate() == null)
+            {
                 currentOwer = vo;
                 break;
             }
@@ -81,6 +82,91 @@ public class DtoMapper
     }
 
     /**
+     * Map the {@link VehicleMovement} to a {@link VehicleMovementDto}.
+     * @param vehicleMovement the vehicle movement to map.
+     * @return the mapped vehicle movement.
+     */
+    public VehicleMovementDto map(VehicleMovement vehicleMovement) {
+        return new VehicleMovementDto(
+                vehicleMovement.getId(),
+                vehicleMovement.getPosition(),
+                vehicleMovement.getSpeed(),
+                vehicleMovement.getMovement().getMovementDateTime(),
+                vehicleMovement.getMovement().getLane().getIndex(),
+                vehicleMovement.getMovement().getLane().getLength(),
+                vehicleMovement.getMovement().getLane().getEdge().getType(),
+                this.toCityDto(vehicleMovement.getMovement().getLane().getEdge().getFrom()),
+                this.toCityDto(vehicleMovement.getMovement().getLane().getEdge().getTo()),
+                vehicleMovement.getMovement().getLane().getEdge().getPriority());
+    }
+
+    /**
+     * Map the collection of {@link VehicleMovement} to a collection of {@link VehicleMovementDto}.
+     * @param vehicleMovements the vehicle movements to map.
+     * @return the collection containing the mapped vehicle movements.
+     */
+    public List<VehicleMovementDto> mapVehicleMovements(List<VehicleMovement> vehicleMovements)
+    {
+        List<VehicleMovementDto> returnList = new ArrayList();
+        for (VehicleMovement vehicleMovement : vehicleMovements)
+        {
+            returnList.add(this.map(vehicleMovement));
+        }
+
+        return returnList;
+    }
+
+    /**
+     * Map the {@link Lane} to a {@link LaneDto}.
+     * @param lane the lane to map.
+     * @return the mapped lane.
+     */
+    public LaneDto map(Lane lane)
+    {
+        List<String> laneIdsFrom = new ArrayList();
+        for (Lane laneFrom : lane.getLanesFrom())
+        {
+            laneIdsFrom.add(laneFrom.getId());
+        }
+
+        List<String> laneIdsTo = new ArrayList();
+        for (Lane laneTo : lane.getLanesTo())
+        {
+            laneIdsFrom.add(laneTo.getId());
+        }
+
+        return new LaneDto(lane.getId(), lane.getLength(), laneIdsFrom, laneIdsTo);
+    }
+
+    /**
+     * Map the {@link Movement} to a {@link MovementDto}.
+     * @param movement the movement to map.
+     * @return the mapped movement.
+     */
+    public MovementDto map(Movement movement)
+    {
+        return new MovementDto(
+                this.map(movement.getLane()),
+                this.mapVehicleMovements(movement.getVehicleMovements()));
+    }
+
+    /**
+     * Maps a collection of {@link Movement} to {@link MovementDto}
+     * @param movements the movements to map.
+     * @return the mapped movements.
+     */
+    public List<MovementDto> mapMovements(List<Movement> movements)
+    {
+        List<MovementDto> returnList = new ArrayList<>();
+        for (Movement movement : movements)
+        {
+            returnList.add(this.map(movement));
+        }
+
+        return returnList;
+    }
+
+    /**
      * Maps a collection of Vehicle to a VehicleDTO
      *
      * @param vehicles The Vehicle objects to map
@@ -89,7 +175,8 @@ public class DtoMapper
     public List<VehicleDto> map(List<Vehicle> vehicles)
     {
         List<VehicleDto> returnList = new ArrayList<>();
-        for (Vehicle v : vehicles) {
+        for (Vehicle v : vehicles)
+        {
             returnList.add(this.map(v));
         }
 
@@ -123,22 +210,22 @@ public class DtoMapper
     }
 
     /**
-     *
      * Convert the {@link road.movemententities.entities.City} to a {@link road.movementdtos.dtos.CityDto} class.
      * @param city the city entity to convert.
      * @return the converted city entity.
      */
-    public CityDto toCityDto(City city) {
+    public CityDto toCityDto(City city)
+    {
         return new CityDto(city.getCityId(), city.getCityName(), city.getCurrentRate() == null ? null : city.getCurrentRate().getKilometerRate());
     }
 
     /**
-     *
      * Convert the {@link road.movemententities.entities.City} to a {@link road.movementdtos.dtos.CityDto} class.
      * @param city the city entity to convert.
      * @return the converted city entity.
      */
-    public City toCity(CityDto city) {
+    public City toCity(CityDto city)
+    {
         return new City(city.getCityId(), city.getCityName());
     }
 
@@ -147,9 +234,11 @@ public class DtoMapper
      * @param cityList the list of cities.
      * @return the converted city list
      */
-    public List<CityDto> toCityDtoList(List<City> cityList) {
+    public List<CityDto> toCityDtoList(List<City> cityList)
+    {
         List<CityDto> returnList = new ArrayList<>();
-        for (City c : cityList) {
+        for (City c : cityList)
+        {
             returnList.add(toCityDto(c));
         }
 
@@ -171,27 +260,23 @@ public class DtoMapper
         return dto;
     }
 
-    public StolenCarDto toStolenCarDto(Vehicle vehicle, LoginDAO loginDAO) {
+    public StolenCarDto toStolenCarDto(Vehicle vehicle, LoginDAO loginDAO)
+    {
         List<VehicleOwnerDto> owners = new ArrayList<>();
-        for(VehicleOwnership owner : vehicle.getVehicleOwners()) {
+        for(VehicleOwnership owner : vehicle.getVehicleOwners())
+        {
             owners.add(new VehicleOwnerDto(toMovementUserDto(loginDAO.getUser(owner.getUser().getId())),
                     owner.getRegistrationdate(), owner.getRegistrationExperationDate()));
         }
-        List<VehicleMovementDto> movements = new ArrayList<>();
-        for(VehicleMovement vehicleMovement : vehicle.getVehicleMovements()) {
-            Movement movement = vehicleMovement.getMovement();
-            Lane lane = movement.getLane();
-            Edge edge = lane.getEdge();
-            movements.add(new VehicleMovementDto(vehicleMovement.getId(), vehicleMovement.getPosition(),
-                    vehicleMovement.getSpeed(), movement.getMovementDateTime(), lane.getIndex(), lane.getLength(),
-                    edge.getType(), toCityDto(edge.getFrom()), toCityDto(edge.getTo()), edge.getPriority()));
-        }
+        List<VehicleMovementDto> movements = this.mapVehicleMovements(vehicle.getVehicleMovements());
         return new StolenCarDto(vehicle.getCarTrackerID(), vehicle.getLicensePlate(), owners, movements);
     }
 
-    public List<StolenCarDto> toStolenCarDtoList(List<Vehicle> vehicleList, LoginDAO loginDAO) {
+    public List<StolenCarDto> toStolenCarDtoList(List<Vehicle> vehicleList, LoginDAO loginDAO)
+    {
         List<StolenCarDto> returnList = new ArrayList<>();
-        for (Vehicle v : vehicleList) {
+        for (Vehicle v : vehicleList)
+        {
             returnList.add(toStolenCarDto(v, loginDAO));
         }
 

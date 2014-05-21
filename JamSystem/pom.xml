@@ -10,4 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>JamSystem</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>ROAD</groupId>
+            <artifactId>JamDTS</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
