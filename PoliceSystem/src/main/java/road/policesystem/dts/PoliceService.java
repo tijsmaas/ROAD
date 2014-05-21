@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 
-package domain.dts;
+package road.policesystem.dts;
 
 import road.movementdtos.dtos.MovementUserDto;
-import road.userservice.dto.UserDto;
 import road.policedts.connections.PoliceClient;
 
 import javax.annotation.PostConstruct;
