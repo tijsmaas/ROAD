@@ -6,6 +6,7 @@
 
 package beans;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 
 import javax.enterprise.context.SessionScoped;
@@ -24,15 +25,15 @@ import java.util.logging.Logger;
 @SessionScoped
 public class UserBean implements Serializable
 {
-    private UserDto loggedinUser;
+    private MovementUserDto loggedinUser;
 
-    public void setLoggedinUser(UserDto loggedinUser)
+    public void setLoggedinUser(MovementUserDto loggedinUser)
     {
         this.loggedinUser = loggedinUser;
         redirect("welcome.xhtml");
     }
 
-    public UserDto getLoggedinUser()
+    public MovementUserDto getLoggedinUser()
     {
         return loggedinUser;
     }

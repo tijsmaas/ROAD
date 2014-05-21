@@ -1,5 +1,6 @@
 package road.policedts.connections;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.movementdts.connections.ClientConnection;
 import road.movementdts.connections.MovementConnection;
@@ -15,8 +16,8 @@ public class PoliceClient extends ClientConnection implements IPoliceQuery
     }
 
     @Override
-    public UserDto authenticate(String userId, String password)
+    public MovementUserDto authenticate(String userId, String password)
     {
-        return this.remoteCall("authenticate", UserDto.class, userId, password);
+        return this.remoteCall("authenticate", MovementUserDto.class, userId, password);
     }
 }

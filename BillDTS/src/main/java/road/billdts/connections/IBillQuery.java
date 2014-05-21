@@ -1,5 +1,6 @@
 package road.billdts.connections;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDto;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface IBillQuery
 {
-    UserDto authenticate(String user, String password);
+    MovementUserDto authenticate(String user, String password);
 
     boolean adjustKilometerRate(CityDto city, Date addDate, String price);
 

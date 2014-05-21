@@ -1,7 +1,9 @@
 package road.movementservice.servers;
 
+import road.movementdtos.dtos.MovementUserDto;
+import road.movemententities.entities.MovementUser;
+import road.movementservice.helpers.DAOHelper;
 import road.userservice.UserDAO;
-import road.userservice.dto.UserDto;
 import road.driverdts.connections.IDriverQuery;
 import road.movementdtos.dtos.CityDistanceDto;
 import road.movementdtos.dtos.InvoiceDto;
@@ -13,6 +15,7 @@ import road.movemententities.entities.Invoice;
 import road.movemententityaccess.dao.*;
 import road.movementservice.connections.ServerConnection;
 import road.movementservice.mapper.DtoMapper;
+import road.userservice.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,27 +33,29 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     private VehicleDAO vehicleDAO;
     private ConnectionDAO connectionDAO;
     private InvoiceDAO invoiceDAO;
+    private LoginDAO loginDAO;
     private DtoMapper dtoMapper;
 
     /**
      * The user manager which is used to process all authentication requests.
      */
-    private UserDAO userManager;
+    private UserDAO userDAO;
 
     /**
      * Create a new instance of the {@link DriverServer} class.
-     * @param userManager the user manager.
+     * @param UserDAO the user manager.
      * @param laneDAO the lane dao.
      * @param connectionDAO the connection dao.
      * @param edgeDAO the edge dao.
      * @param vehicleDAO the vehicle dao.
      * @param mapper the instance of the DTO mapper
      */
-    public DriverServer(UserDAO userManager, LaneDAO laneDAO, ConnectionDAO connectionDAO, EdgeDAO edgeDAO, VehicleDAO vehicleDAO, InvoiceDAO invoiceDAO, DtoMapper mapper)
+    public DriverServer(UserDAO UserDAO, LoginDAO loginDAO, LaneDAO laneDAO, ConnectionDAO connectionDAO, EdgeDAO edgeDAO, VehicleDAO vehicleDAO, InvoiceDAO invoiceDAO, DtoMapper mapper)
     {
         super(MovementConnection.FactoryName, MovementConnection.DriverSystemQueue);
 
-        this.userManager = userManager;
+        this.userDAO = UserDAO;
+        this.loginDAO = loginDAO;
         this.laneDAO = laneDAO;
         this.connectionDAO = connectionDAO;
         this.edgeDAO = edgeDAO;
@@ -69,9 +74,9 @@ public class DriverServer extends ServerConnection implements IDriverQuery
     }
 
     @Override
-    public UserDto authenticate(String user, String password)
+    public MovementUserDto authenticate(String userName, String password)
     {
-        return this.userManager.login(user, password);
+        return DAOHelper.authenticate(this.userDAO, this.loginDAO, this.dtoMapper, userName, password);
     }
 
     @Override
@@ -159,23 +164,46 @@ public class DriverServer extends ServerConnection implements IDriverQuery
      * {@inheritDoc}
      */
     @Override
-    public String changePassword(Integer id, String oldPassword, String newPassword, String newPasswordValidate) {
-        if (id == null) {
+    public String changePassword(Integer id, String oldPassword, String newPassword, String newPasswordValidate)
+    {
+        if (id == null)
+        {
             throw new IllegalArgumentException("DriverServer.changePassword: id cannot be null.");
         }
 
-        return this.userManager.changePassword(id.intValue(), oldPassword, newPassword, newPasswordValidate);
+        return this.userDAO.changePassword(id.intValue(), oldPassword, newPassword, newPasswordValidate);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Boolean changeDetails(Integer id, String name, String street, String houseNumber, String postalCode, String city) {
-        if (id == null) {
+    public MovementUserDto changeDetails(Integer id, String name, String street, String houseNumber, String postalCode, String city, Boolean invoiceNotification)
+    {
+        if (id == null)
+        {
             throw new IllegalArgumentException("DriverServer.changeDetails: id cannot be null.");
         }
 
-        return this.userManager.changeDetails(id.intValue(), name, street, houseNumber, postalCode, city);
+        MovementUser mUser = this.loginDAO.getUser(id);
+
+        if(mUser == null)
+        {
+            return null;
+        }
+
+        UserDto userDto = this.userDAO.getUser(mUser.getUsername());
+
+        if(userDto == null)
+        {
+            return null;
+        }
+
+        if(this.userDAO.changeDetails(userDto.getId(), name, street, houseNumber, postalCode, city))
+        {
+            mUser = this.loginDAO.update(id, name, street, houseNumber, postalCode, city, invoiceNotification);
+        }
+
+        return this.dtoMapper.toMovementUserDto(mUser);
     }
 }

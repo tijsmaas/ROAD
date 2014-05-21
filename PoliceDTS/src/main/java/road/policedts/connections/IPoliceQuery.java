@@ -1,5 +1,6 @@
 package road.policedts.connections;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 
 /**
@@ -7,5 +8,5 @@ import road.userservice.dto.UserDto;
  */
 public interface IPoliceQuery
 {
-    UserDto authenticate(String userId, String password);
+    MovementUserDto authenticate(String userId, String password);
 }

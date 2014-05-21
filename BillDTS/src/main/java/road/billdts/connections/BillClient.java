@@ -1,5 +1,6 @@
 package road.billdts.connections;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDto;
 import road.movementdts.connections.ClientConnection;
@@ -23,9 +24,9 @@ public class BillClient extends ClientConnection implements IBillQuery
     }
 
     @Override
-    public UserDto authenticate(String user, String password)
+    public MovementUserDto authenticate(String user, String password)
     {
-        return this.remoteCall("authenticate", UserDto.class, user, password);
+        return this.remoteCall("authenticate", MovementUserDto.class, user, password);
     }
 
     @Override

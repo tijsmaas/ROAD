@@ -15,6 +15,7 @@
         <class>road.movemententities.entities.Invoice</class>
         <class>road.movemententities.entities.Lane</class>
         <class>road.movemententities.entities.Movement</class>
+        <class>road.movemententities.entities.MovementUser</class>
         <class>road.movemententities.entities.Vehicle</class>
         <class>road.movemententities.entities.VehicleInvoice</class>
         <class>road.movemententities.entities.VehicleMovement</class>
@@ -44,6 +45,7 @@
         <class>road.movemententities.entities.Invoice</class>
         <class>road.movemententities.entities.Lane</class>
         <class>road.movemententities.entities.Movement</class>
+        <class>road.movemententities.entities.MovementUser</class>
         <class>road.movemententities.entities.Vehicle</class>
         <class>road.movemententities.entities.VehicleInvoice</class>
         <class>road.movemententities.entities.VehicleMovement</class>

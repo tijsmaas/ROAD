@@ -1,5 +1,6 @@
 package road.movementmapper.dao;
 
+import road.movemententities.entities.MovementUser;
 import road.userservice.UserDAOImpl;
 import road.userservice.dto.UserDto;
 import road.userservice.entities.UserEntity;
@@ -48,7 +49,8 @@ public class MovementsDAOImpl implements MovementsDAO
     @PersistenceUnit(unitName = "UserServicePU")
     private EntityManagerFactory emf;
 
-    private UserDAOImpl userManager;
+    private UserDAOImpl userDAO;
+    private LoginDAOImpl loginDAO;
 
     private UserEntity userEntity;
     
@@ -132,9 +134,11 @@ public class MovementsDAOImpl implements MovementsDAO
                 try
                 {
                     // create new user with incrementing name
-                    userManager = new UserDAOImpl(emf);
-                    UserDto user = userManager.register("user" + USER_ID++ + "name", "aidas123");
-                    vehicleOwnership.setUserID(user.getId());
+                    userDAO = new UserDAOImpl(emf);
+                    loginDAO = new LoginDAOImpl(em);
+                    UserDto user = userDAO.register("user" + USER_ID++ + "name", "aidas123", "tijs.maas@student.fontys.nl");
+                    MovementUser mUser = loginDAO.register(user.getUsername(), user.getEmail());
+                    vehicleOwnership.setUserID(mUser.getId());
                 }
                 catch (UserSystemException ex)
                 {

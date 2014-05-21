@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface InvoiceDAO
 {
-    public int generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate);
+    public List<Invoice> generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate);
 
     public List<Invoice> getInvoicesForUser(int userID);
 

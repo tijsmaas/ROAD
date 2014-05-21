@@ -6,6 +6,7 @@
 
 package road.billsystem.beans;
 
+import road.movementdtos.dtos.MovementUserDto;
 import road.userservice.dto.UserDto;
 import com.ocpsoft.pretty.PrettyContext;
 import road.billsystem.utils.Utilities;
@@ -27,17 +28,17 @@ import java.util.logging.Logger;
 @Named("userBean") @SessionScoped
 public class UserBean implements Serializable
 {
-    private UserDto loggedinUser;
+    private MovementUserDto loggedinUser;
 
     private String loginRedirect = " ";
 
 
-    public void setLoggedinUser(UserDto loggedinUser)
+    public void setLoggedinUser(MovementUserDto loggedinUser)
     {
         this.loggedinUser = loggedinUser;
     }
 
-    public UserDto getLoggedinUser()
+    public MovementUserDto getLoggedinUser()
     {
         return loggedinUser;
     }

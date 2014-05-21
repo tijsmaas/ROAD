@@ -1,5 +1,6 @@
 package road.movementservice;
 
+import road.movemententities.entities.MovementUser;
 import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleOwnership;
 import road.movemententityaccess.dao.*;
@@ -10,8 +11,12 @@ import road.movementservice.servers.DriverServer;
 import road.movementservice.servers.PoliceServer;
 import road.userservice.UserDAO;
 import road.userservice.UserDAOImpl;
+import road.userservice.dto.UserDto;
 import road.userservice.exceptions.UserSystemException;
 
+import javax.mail.Session;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,25 +27,13 @@ import java.util.GregorianCalendar;
  */
 public class Server
 {
-    private LaneDAO laneDAO;
-    private EdgeDAO edgeDAO;
-    private CityDAO cityDAO;
-    private VehicleDAO vehicleDAO;
-    private ConnectionDAO connectionDAO;
-    private InvoiceDAO invoiceDAO;
-    private MovementDAO movementDAO;
-
     private DriverServer driverServer;
     private BillServer billServer;
     private PoliceServer policeServer;
     private CarServer carServer;
 
     private DtoMapper dtoMapper;
-
-    /**
-     * The user manager which is used to process all authentication requests.
-     */
-    private UserDAO userManager;
+    private Session mailSession;
 
     /**
      * this method is used to initialize all the different services.
@@ -50,51 +43,72 @@ public class Server
         EntityManagerFactory emfUserService = Persistence.createEntityManagerFactory("UserServicePUMS");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("MovementPUNonJTA");
 
-        this.userManager = new UserDAOImpl(emfUserService);
-        
-        // Create a user for debugging.
-        try {
-            this.userManager.register("admin", "aidas123");
-        } catch (UserSystemException e) {
-            e.printStackTrace();
+        try
+        {
+            this.mailSession = (Session)new InitialContext().lookup("roadmail");
+        }
+        catch(NamingException ex)
+        {
+            ex.printStackTrace();
         }
 
         this.dtoMapper = new DtoMapper();
-        this.laneDAO = new LaneDAOImpl(emf);
-        this.edgeDAO = new EdgeDAOImpl(emf);
-        this.cityDAO = new CityDAOImpl(emf);
-        this.vehicleDAO = new VehicleDAOImpl(emf);
-        this.connectionDAO = new ConnectionDAOImpl(emf);
-        this.invoiceDAO = new InvoiceDAOImpl(emf);
-        this.movementDAO  = new MovementDAOImpl(emf);
 
-        this.driverServer = new DriverServer(this.userManager, this.laneDAO, this.connectionDAO, this.edgeDAO, this.vehicleDAO, this.invoiceDAO, this.dtoMapper);
+        this.driverServer = new DriverServer(   new UserDAOImpl(emfUserService),
+                                                new LoginDAOImpl(emf),
+                                                new LaneDAOImpl(emf),
+                                                new ConnectionDAOImpl(emf),
+                                                new EdgeDAOImpl(emf),
+                                                new VehicleDAOImpl(emf),
+                                                new InvoiceDAOImpl(emf),
+                                                this.dtoMapper);
         this.driverServer.init();
 
-        this.billServer = new BillServer(this.invoiceDAO, this.userManager, this.movementDAO, this.cityDAO, this.dtoMapper);
+        this.billServer = new BillServer(   new InvoiceDAOImpl(emf),
+                                            new LoginDAOImpl(emf),
+                                            new UserDAOImpl(emfUserService),
+                                            new MovementDAOImpl(emf),
+                                            new CityDAOImpl(emf),
+                                            this.dtoMapper,
+                                            this.mailSession);
         this.billServer.init();
 
-        this.policeServer = new PoliceServer();
+        this.policeServer = new PoliceServer(new LoginDAOImpl(emf), new UserDAOImpl(emf), this.dtoMapper);
         this.policeServer.init();
 
         this.carServer = new CarServer(new EntityDAOImpl(emf));
         this.carServer.init();
 
-        this.fillDatabase(emf);
+        this.fillDatabase(emf, emfUserService);
     }
 
     /**
      * Function to fill the database with test data.
-     * @param emf the entity manager factory used for getting the {@link EntityManager}.
+     * @param movementEmf the entity manager factory used for getting the {@link EntityManager}.
      */
-    private void fillDatabase(EntityManagerFactory emf) {
-        EntityManager em = emf.createEntityManager();
+    private void fillDatabase(EntityManagerFactory movementEmf, EntityManagerFactory userEmf)
+    {
+        EntityManager em = movementEmf.createEntityManager();
 
-        Vehicle v = new Vehicle();
-        v.setLicensePlate("AA-12-BB");
-        VehicleOwnership vo = new VehicleOwnership(v, 1, new GregorianCalendar(), null);
+        // Create a user for debugging.
+        try
+        {
+            UserDAO userDAO = new UserDAOImpl(userEmf);
+            LoginDAO loginDAO = new LoginDAOImpl(movementEmf);
 
-        em.persist(v);
-        em.persist(vo);
+            UserDto userDto = userDAO.register("admin", "aidas123", "tijs.maas@student.fontys.nl");
+            MovementUser mUser = loginDAO.register(userDto.getUsername(), userDto.getEmail());
+
+            Vehicle v = new Vehicle();
+            v.setLicensePlate("AA-12-BB");
+            VehicleOwnership vo = new VehicleOwnership(v, mUser.getId(), new GregorianCalendar(), null);
+
+            em.persist(v);
+            em.persist(vo);
+        }
+        catch (UserSystemException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

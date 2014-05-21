@@ -1,6 +1,11 @@
 package road.movementservice.servers;
 
 //import road.usersystem.UserDAO;
+import road.movementdtos.dtos.MovementUserDto;
+import road.movemententityaccess.dao.LoginDAO;
+import road.movementservice.helpers.DAOHelper;
+import road.movementservice.mapper.DtoMapper;
+import road.userservice.UserDAO;
 import road.userservice.dto.UserDto;
 import road.policedts.connections.IPoliceQuery;
 import road.movementdts.connections.MovementConnection;
@@ -13,9 +18,17 @@ import road.movementservice.connections.ServerConnection;
  */
 public class PoliceServer extends ServerConnection implements IPoliceQuery
 {
-    public PoliceServer()
+    private LoginDAO loginDAO;
+    private UserDAO userDAO;
+    private DtoMapper dtoMapper;
+
+    public PoliceServer(LoginDAO loginDAO, UserDAO userDAO, DtoMapper dtoMapper)
     {
         super(MovementConnection.FactoryName, MovementConnection.PoliceSystemQueue);
+
+        this.loginDAO = loginDAO;
+        this.userDAO = userDAO;
+        this.dtoMapper = dtoMapper;
     }
 
     public void init()
@@ -25,8 +38,8 @@ public class PoliceServer extends ServerConnection implements IPoliceQuery
     }
 
     @Override
-    public UserDto authenticate(String user, String password)
+    public MovementUserDto authenticate(String user, String password)
     {
-        return new UserDto(1, user + " @ police system");
+        return DAOHelper.authenticate(this.userDAO, this.loginDAO, this.dtoMapper, user, password);
     }
 }

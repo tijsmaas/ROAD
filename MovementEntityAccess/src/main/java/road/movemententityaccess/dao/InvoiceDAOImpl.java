@@ -6,6 +6,13 @@ import road.movemententities.entities.VehicleMovement;
 import road.movemententities.entities.enumerations.PaymentStatus;
 import road.movemententityaccess.helper.InvoiceGenerator;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -26,17 +33,16 @@ public class InvoiceDAOImpl implements InvoiceDAO
     }
 
     @Override
-    public int generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate)
+    public List<Invoice> generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate)
     {
+        this.em.getTransaction().begin();
 
-            em.getTransaction().begin();
         InvoiceGenerator invoiceGenerator = new InvoiceGenerator(vehicleMovements, this.em, startDate, endDate);
-        invoiceGenerator.generate();
+        List<Invoice> invoices = invoiceGenerator.generate();
 
+        this.em.getTransaction().commit();
 
-        em.getTransaction().commit();
-        return invoiceGenerator.getInvoices().size();
-
+        return invoices;
     }
 
     @Override

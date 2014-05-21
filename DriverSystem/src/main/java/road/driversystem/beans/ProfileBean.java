@@ -4,8 +4,8 @@
 
 package road.driversystem.beans;
 
-import road.userservice.dto.UserDto;
 import road.driversystem.service.DriverService;
+import road.movementdtos.dtos.MovementUserDto;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -20,7 +20,8 @@ import java.io.Serializable;
  */
 @Named("profileBean")
 @RequestScoped
-public class ProfileBean implements Serializable {
+public class ProfileBean implements Serializable
+{
 
     @Inject
     private UserBean userSession;
@@ -41,45 +42,62 @@ public class ProfileBean implements Serializable {
     private String houseNumber;
     private String postalCode;
     private String city;
+    private boolean invoiceNotification;
 
-    public ProfileBean() {}
+    public ProfileBean()
+    {
+    }
 
     /**
      * The function executed after constructing the bean.
      */
     @PostConstruct
-    public void init() {
-        UserDto user = this.userSession.getLoggedinUser();
+    public void init()
+    {
+        MovementUserDto user = this.userSession.getLoggedinUser();
 
-        this.fullName = user.getName();
-        this.street = user.getStreet();
-        this.houseNumber = user.getHouseNumber();
-        this.postalCode = user.getPostalCode();
-        this.city = user.getCity();
+        this.fullName = user.name();
+        this.street = user.street();
+        this.houseNumber = user.houseNumber();
+        this.postalCode = user.postalCode();
+        this.city = user.city();
+        this.invoiceNotification = user.invoiceMail();
     }
 
     /**
      * Change the details of the current user.
      */
-    public void changeDetails() {
-        boolean isSuccessful = this.driverService.changeDetails(
-                this.userSession.getLoggedinUser().getId(),
+    public void changeDetails()
+    {
+        MovementUserDto user = this.driverService.changeDetails(
+                this.userSession.getLoggedinUser().id(),
                 this.fullName,
                 this.street,
                 this.houseNumber,
                 this.postalCode,
-                this.city);
+                this.city,
+                this.invoiceNotification);
 
-        this.detailErrorMessage = !isSuccessful ? "Failed to change you details. Please try again." : null;
-        this.detailsSuccessful = isSuccessful;
+        if(user == null)
+        {
+            this.detailsSuccessful = false;
+            this.detailErrorMessage = "Failed to change details. Please try again.";
+        }
+        else
+        {
+            this.detailsSuccessful = true;
+            this.detailErrorMessage = null;
+            this.userSession.setLoggedinUser(user);
+        }
     }
 
     /**
      * Change the password of the current user.
      */
-    public void changePassword() {
+    public void changePassword()
+    {
         String message = this.driverService.changePassword(
-                this.userSession.getLoggedinUser().getId(),
+                this.userSession.getLoggedinUser().id(),
                 this.oldPassword,
                 this.newPassword1,
                 this.newPassword2);
@@ -88,81 +106,113 @@ public class ProfileBean implements Serializable {
         this.passwordSuccessful = message == null;
     }
 
-    public String getOldPassword() {
+    public String getOldPassword()
+    {
         return oldPassword;
     }
 
-    public void setOldPassword(String oldPassword) {
+    public void setOldPassword(String oldPassword)
+    {
         this.oldPassword = oldPassword;
     }
 
-    public String getNewPassword1() {
+    public String getNewPassword1()
+    {
         return newPassword1;
     }
 
-    public void setNewPassword1(String newPassword1) {
+    public void setNewPassword1(String newPassword1)
+    {
         this.newPassword1 = newPassword1;
     }
 
-    public String getNewPassword2() {
+    public String getNewPassword2()
+    {
         return newPassword2;
     }
 
-    public void setNewPassword2(String newPassword2) {
+    public void setNewPassword2(String newPassword2)
+    {
         this.newPassword2 = newPassword2;
     }
 
-    public String getFullName() { return fullName; }
+    public String getFullName()
+    {
+        return fullName;
+    }
 
-    public void setFullName(String fullName) {
+    public void setFullName(String fullName)
+    {
         this.fullName = fullName;
     }
 
-    public String getStreet() {
+    public String getStreet()
+    {
         return street;
     }
 
-    public void setStreet(String street) {
+    public void setStreet(String street)
+    {
         this.street = street;
     }
 
-    public String getHouseNumber() {
+    public String getHouseNumber()
+    {
         return houseNumber;
     }
 
-    public void setHouseNumber(String houseNumber) {
+    public void setHouseNumber(String houseNumber)
+    {
         this.houseNumber = houseNumber;
     }
 
-    public String getPostalCode() {
+    public String getPostalCode()
+    {
         return postalCode;
     }
 
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(String postalCode)
+    {
         this.postalCode = postalCode;
     }
 
-    public String getCity() {
+    public String getCity()
+    {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(String city)
+    {
         this.city = city;
     }
 
-    public boolean isPasswordSuccessful() {
+    public boolean isInvoiceNotification()
+    {
+        return invoiceNotification;
+    }
+
+    public void setInvoiceNotification(boolean invoiceNotification)
+    {
+        this.invoiceNotification = invoiceNotification;
+    }
+
+    public boolean isPasswordSuccessful()
+    {
         return passwordSuccessful;
     }
 
-    public boolean isDetailsSuccessful() {
+    public boolean isDetailsSuccessful()
+    {
         return detailsSuccessful;
     }
 
-    public String getPasswordErrorMessage() {
+    public String getPasswordErrorMessage()
+    {
         return passwordErrorMessage;
     }
 
-    public String getDetailErrorMessage() {
+    public String getDetailErrorMessage()
+    {
         return detailErrorMessage;
     }
 }

@@ -2,6 +2,7 @@ package road.movementservice.mapper;
 
 import road.movementdtos.dtos.*;
 import road.movemententities.entities.*;
+import road.userservice.dto.UserDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -153,5 +154,20 @@ public class DtoMapper
         }
 
         return returnList;
+    }
+
+    public MovementUserDto toMovementUserDto(MovementUser user)
+    {
+        MovementUserDto dto = new MovementUserDto()
+                                    .id(user.getId())
+                                    .userName(user.getUsername())
+                                    .email(user.getEmail())
+                                    .name(user.getName())
+                                    .street(user.getStreet())
+                                    .houseNumber(user.getHouseNumber())
+                                    .postalCode(user.getPostalCode())
+                                    .city(user.getCity())
+                                    .invoiceMail(user.isInvoiceMail());
+        return dto;
     }
 }
