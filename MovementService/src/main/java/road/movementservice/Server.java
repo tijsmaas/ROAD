@@ -73,7 +73,7 @@ public class Server
                                             this.mailSession);
         this.billServer.init();
 
-        this.policeServer = new PoliceServer(new LoginDAOImpl(emf), new UserDAOImpl(emf), this.dtoMapper);
+        this.policeServer = new PoliceServer(new LoginDAOImpl(emf), new UserDAOImpl(emf), new PoliceDAOImpl(emf), this.dtoMapper);
         this.policeServer.init();
 
         this.carServer = new CarServer(new EntityDAOImpl(emf));
