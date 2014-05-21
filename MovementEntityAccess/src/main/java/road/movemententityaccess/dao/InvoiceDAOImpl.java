@@ -25,6 +25,13 @@ public class InvoiceDAOImpl implements InvoiceDAO
         em = emf.createEntityManager();
     }
 
+    /**
+     * {@inheritDoc}
+     * @param vehicleMovements List of movements you want to generate invoices for
+     * @param startDate Starting date of the invoice
+     * @param endDate End date of the invoices
+     * @return number of generated invoices
+     */
     @Override
     public int generate(List<VehicleMovement> vehicleMovements, Date startDate, Date endDate)
     {
@@ -39,6 +46,11 @@ public class InvoiceDAOImpl implements InvoiceDAO
 
     }
 
+    /**
+     * {@inheritDoc}
+     * @param userID the ID of the user
+     * @return List of Invoices
+     */
     @Override
     public List<Invoice> getInvoicesForUser(int userID)
     {
@@ -48,6 +60,11 @@ public class InvoiceDAOImpl implements InvoiceDAO
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     * @param invoiceID
+     * @return the found invoice
+     */
     @Override
     public Invoice getInvoice(int invoiceID)
     {
@@ -59,6 +76,13 @@ public class InvoiceDAOImpl implements InvoiceDAO
         return invoices.isEmpty() ? null : invoices.get(0);
     }
 
+
+    /**
+     * {@inheritDoc}
+     * @param invoiceID the ID of the invoice you want to update
+     * @param entityPaymentStatus
+     * @return true when success, false when not
+     */
     @Override
     public boolean updateInvoicePaymentstatus(int invoiceID, PaymentStatus entityPaymentStatus)
     {
@@ -79,11 +103,30 @@ public class InvoiceDAOImpl implements InvoiceDAO
 
     }
 
+    /**
+     * {@inheritDoc}
+     * @param vehicleInvoiceID the id of the VehicleInvoice for which you want to get the citydistances
+     * @return List of cityDistances
+     */
     @Override
     public List<CityDistance> getCityDistancesForVehicleInvoice(int vehicleInvoiceID)
     {
         Query query = em.createQuery("select cityDistance from CityDistance cityDistance where cityDistance.vehicleInvoice.id = :vehicleInvoiceID order by cityDistance.movementDate");
         query.setParameter("vehicleInvoiceID", vehicleInvoiceID);
+
+        return query.getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param eligibleUserIDs List of eligible userIDs
+     * @return
+     */
+    @Override
+    public List<Invoice> findInvoicesForUserIDs(List<Integer> eligibleUserIDs)
+    {
+        Query query = em.createQuery("Select invoice from Invoice invoice where invoice.userID IN :idList");
+        query.setParameter("idList", eligibleUserIDs);
 
         return query.getResultList();
     }

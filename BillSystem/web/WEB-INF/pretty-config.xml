@@ -12,5 +12,13 @@
         <pattern value="/invoicegeneration/"></pattern>
         <view-id value="../WEB-INF/pages/invoicegeneration.xhtml"/>
     </url-mapping>
+    <url-mapping>
+        <pattern value="/invoicesearch/"></pattern>
+        <view-id value="../WEB-INF/pages/invoiceSearcher.xhtml"/>
+    </url-mapping>
+    <url-mapping>
+        <pattern value="/invoicedetail/#{invoiceID}"></pattern>
+        <view-id value="../WEB-INF/pages/invoiceDetailsPage.xhtml"/>
+    </url-mapping>
 
 </pretty-config>

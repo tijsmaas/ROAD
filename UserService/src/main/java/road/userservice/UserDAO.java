@@ -6,7 +6,10 @@ package road.userservice;
 
 import road.userservice.dto.Right;
 import road.userservice.dto.UserDto;
+import road.userservice.entities.UserEntity;
 import road.userservice.exceptions.UserSystemException;
+
+import java.util.List;
 
 /**
  * This interface represents the manager which handles all the functions which 
@@ -84,4 +87,12 @@ public interface UserDAO {
      * @return true if changing the details was successful, otherwise false.
      */
     boolean changeDetails(int id, String name, String street, String houseNumber, String postalCode, String city);
+
+
+    /**
+     * Find users based on their name (username, lastname) and return the list of users
+     * @param searchQuery the name to search for
+     * @return list of users that match the search criteria
+     */
+    public List<UserEntity> findUsersByName(String searchQuery);
 }

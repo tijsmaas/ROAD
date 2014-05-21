@@ -24,6 +24,7 @@ public class InvoiceDto
     private BigDecimal total;
     private int month;
     private int year;
+    private String username;
 
     public InvoiceDto()
     {
@@ -144,6 +145,16 @@ public class InvoiceDto
     public void setYear(int year)
     {
         this.year = year;
+    }
+
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
     }
 }
 

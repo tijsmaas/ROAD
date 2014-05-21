@@ -1,5 +1,8 @@
 package road.billdts.connections;
 
+import road.movementdtos.dtos.CityDistanceDto;
+import road.movementdtos.dtos.InvoiceDto;
+import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.userservice.dto.UserDto;
 import road.movementdtos.dtos.CityDto;
 import road.movementdts.connections.ClientConnection;
@@ -46,5 +49,33 @@ public class BillClient extends ClientConnection implements IBillQuery
         Integer result = this.remoteCall("generateMonthlyInvoices", Integer.class, month, year);
         System.out.println("Remote call result = " + result);
         return result;
+    }
+
+    @Override
+    public List<InvoiceDto> getInvoicesForUserSearch(String searchQuery)
+    {
+        List<InvoiceDto> result = this.remoteCall("getInvoicesForUserSearch", ArrayList.class, searchQuery);
+        return result;
+    }
+
+    @Override
+    public Boolean updateInvoicePaymentStatus(Integer invoiceID, PaymentStatus paymentStatus)
+    {
+        Boolean success = this.remoteCall("updateInvoicePaymentStatus", Boolean.class, invoiceID, paymentStatus);
+        return success;
+    }
+
+    @Override
+    public InvoiceDto getInvoiceDetails(Integer invoiceID)
+    {
+        InvoiceDto foundDto = this.remoteCall("getInvoiceDetails", InvoiceDto.class, invoiceID);
+        return foundDto;
+    }
+
+    @Override
+    public List<CityDistanceDto> getCityDistances(Integer vehicleInvoiceID)
+    {
+        List<CityDistanceDto> cityDistanceDtoList = this.remoteCall("getCityDistances", ArrayList.class, vehicleInvoiceID);
+        return cityDistanceDtoList;
     }
 }
