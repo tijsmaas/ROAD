@@ -31,5 +31,5 @@ public interface PoliceDAO
      */
     List<Vehicle> findAllVehicles();
 
-    boolean setStolen(Vehicle vehicle);
+    Vehicle setStolen(Vehicle vehicle);
 }

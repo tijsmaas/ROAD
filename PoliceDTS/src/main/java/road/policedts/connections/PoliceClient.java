@@ -43,16 +43,16 @@ public class PoliceClient extends QueueClient implements IPoliceQuery
 
     @Override
     public VehicleDto getVehicleByLicensePlate(String licensePlate) {
-        return this.remoteCall("getVehicleByLicensePlate", VehicleDto.class);
+        return this.remoteCall("getVehicleByLicensePlate", VehicleDto.class, licensePlate);
     }
 
     @Override
     public VehicleDto getVehicleByCartrackerId(String cartrackerId) {
-        return this.remoteCall("getVehicleByCartrackerId", VehicleDto.class);
+        return this.remoteCall("getVehicleByCartrackerId", VehicleDto.class, cartrackerId);
     }
 
     @Override
-    public boolean setStolen(VehicleDto vehicleDto, boolean isStolen) {
-        return this.remoteCall("setStolen", boolean.class, vehicleDto, isStolen);
+    public VehicleDto setStolen(VehicleDto vehicleDto) {
+        return this.remoteCall("setStolen", VehicleDto.class, vehicleDto);
     }
 }

@@ -60,7 +60,8 @@ public class PoliceService implements Serializable
         return policeClient.getAllStolenCars();
     }
 
-    public boolean setStolen(VehicleDto vehicle, boolean isStolen) {
-        return policeClient.setStolen(vehicle, isStolen);
+    public VehicleDto setStolen(VehicleDto vehicle)
+    {
+        return policeClient.setStolen(vehicle);
     }
 }

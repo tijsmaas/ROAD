@@ -12,5 +12,9 @@
         <pattern value="/invoicegeneration/"></pattern>
         <view-id value="../WEB-INF/pages/invoicegeneration.xhtml"/>
     </url-mapping>
+    <url-mapping>
+        <pattern value="/reportStolenCar/"></pattern>
+        <view-id value="../WEB-INF/reportStolenCar.xhtml"/>
+    </url-mapping>
 
 </pretty-config>

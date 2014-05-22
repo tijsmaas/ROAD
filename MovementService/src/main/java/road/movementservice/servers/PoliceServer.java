@@ -80,9 +80,9 @@ public class PoliceServer extends QueueServer implements IPoliceQuery
     }
 
     @Override
-    public boolean setStolen(VehicleDto vehicleDto, boolean isStolen) {
+    public VehicleDto setStolen(VehicleDto vehicleDto) {
         Vehicle vehicle = vehicleDAO.findByLicensePlate(vehicleDto.getLicensePlate());
-        vehicle.setStolen(isStolen);
-        return policeDAO.setStolen(vehicle);
+        vehicle.setStolen(vehicleDto.isStolen());
+        return dtoMapper.map(policeDAO.setStolen(vehicle));
     }
 }

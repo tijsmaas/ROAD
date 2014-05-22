@@ -24,5 +24,5 @@ public interface IPoliceQuery
 
     VehicleDto getVehicleByCartrackerId(String cartrackerId);
 
-    boolean setStolen(VehicleDto vehicleDto, boolean isStolen);
+    VehicleDto setStolen(VehicleDto vehicleDto);
 }

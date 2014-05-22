@@ -28,7 +28,8 @@ public class StolenCarBean implements Serializable{
         this.licensePlate = licensePlate;
     }
     
-    public List<StolenCarDto> getStolenCars() {
+    public List<StolenCarDto> getStolenCars()
+    {
         return policeService.getAllStolenCars();
     }
 
