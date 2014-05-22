@@ -1,8 +1,9 @@
 package road.policedts.connections;
 
 import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.VehicleMovementDto;
+import road.movementdtos.dtos.VehicleOwnerDto;
 import road.movementdts.connections.QueueClient;
-import road.movementdtos.dtos.StolenCarDto;
 import road.movementdtos.dtos.VehicleDto;
 import road.userservice.dto.UserDto;
 import road.movementdts.connections.MovementConnection;
@@ -27,17 +28,17 @@ public class PoliceClient extends QueueClient implements IPoliceQuery
     }
 
     @Override
-    public StolenCarDto getStolenCarByLicensePlate(String licensePlate) {
-        return this.remoteCall("getStolenCarByLicensePlate", StolenCarDto.class, licensePlate);
+    public VehicleDto getStolenCarByLicensePlate(String licensePlate) {
+        return this.remoteCall("getStolenCarByLicensePlate", VehicleDto.class, licensePlate);
     }
 
     @Override
-    public StolenCarDto getStolenCarByCartrackerId(String cartrackerId) {
-        return this.remoteCall("getStolenCarByCartrackerId", StolenCarDto.class, cartrackerId);
+    public VehicleDto getStolenCarByCartrackerId(String cartrackerId) {
+        return this.remoteCall("getStolenCarByCartrackerId", VehicleDto.class, cartrackerId);
     }
 
     @Override
-    public List<StolenCarDto> getAllStolenCars() {
+    public List<VehicleDto> getAllStolenCars() {
         return this.remoteCall("getAllStolenCars", ArrayList.class);
     }
 
@@ -54,5 +55,15 @@ public class PoliceClient extends QueueClient implements IPoliceQuery
     @Override
     public VehicleDto setStolen(VehicleDto vehicleDto) {
         return this.remoteCall("setStolen", VehicleDto.class, vehicleDto);
+    }
+
+    @Override
+    public List<VehicleOwnerDto> getVehicleOwners(String licensePlate) {
+        return this.remoteCall("getVehicleOwners", ArrayList.class, licensePlate);
+    }
+
+    @Override
+    public List<VehicleMovementDto> getVehicleMovements(String licensePlate) {
+        return this.remoteCall("getVehicleMovements", ArrayList.class, licensePlate);
     }
 }

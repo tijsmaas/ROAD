@@ -1,6 +1,8 @@
 package road.policesystem.beans;
 
-import road.movementdtos.dtos.StolenCarDto;
+import road.movementdtos.dtos.VehicleDto;
+import road.movementdtos.dtos.VehicleMovementDto;
+import road.movementdtos.dtos.VehicleOwnerDto;
 import road.policesystem.service.PoliceService;
 
 import javax.enterprise.context.SessionScoped;
@@ -28,13 +30,23 @@ public class StolenCarBean implements Serializable{
         this.licensePlate = licensePlate;
     }
     
-    public List<StolenCarDto> getStolenCars()
+    public List<VehicleDto> getStolenCars()
     {
         return policeService.getAllStolenCars();
     }
 
-    public StolenCarDto getStolenCarByLicensePlate()
+    public VehicleDto getStolenCarByLicensePlate()
     {
         return policeService.getStolenCarByLicensePlate(licensePlate);
+    }
+
+    public List<VehicleOwnerDto> getVehicleOwners(String licensePlate)
+    {
+        return policeService.getVehicleOwners(licensePlate);
+    }
+
+    public List<VehicleMovementDto> getVehicleMovements(String licensePlate)
+    {
+        return policeService.getVehicleMovements(licensePlate);
     }
 }

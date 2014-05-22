@@ -216,7 +216,7 @@ public class DtoMapper
      */
     public CityDto toCityDto(City city)
     {
-        return new CityDto(city.getCityId(), city.getCityName(), city.getCurrentRate() == null ? null : city.getCurrentRate().getKilometerRate());
+        return city == null ? null : new CityDto(city.getCityId(), city.getCityName(), city.getCurrentRate() == null ? null : city.getCurrentRate().getKilometerRate());
     }
 
     /**
@@ -260,26 +260,24 @@ public class DtoMapper
         return dto;
     }
 
-    public StolenCarDto toStolenCarDto(Vehicle vehicle, LoginDAO loginDAO)
+    public List<VehicleOwnerDto> mapVehicleOwners(List<VehicleOwnership> owners, LoginDAO loginDAO)
     {
-        List<VehicleOwnerDto> owners = new ArrayList<>();
-        for(VehicleOwnership owner : vehicle.getVehicleOwners())
+        List<VehicleOwnerDto> ownerDtos = new ArrayList<>();
+        for(VehicleOwnership owner : owners)
         {
-            owners.add(new VehicleOwnerDto(toMovementUserDto(loginDAO.getUser(owner.getUser().getId())),
-                    owner.getRegistrationdate(), owner.getRegistrationExperationDate()));
+            Date registrationDate = null;
+            if(owner.getRegistrationdate() != null)
+            {
+                registrationDate = new Date(owner.getRegistrationdate().getTimeInMillis());
+            }
+            Date registrationExpirationDate = null;
+            if(owner.getRegistrationExperationDate() != null)
+            {
+                registrationExpirationDate = new Date(owner.getRegistrationExperationDate().getTimeInMillis());
+            }
+            ownerDtos.add(new VehicleOwnerDto(toMovementUserDto(loginDAO.getUser(owner.getUser().getId())),
+                    registrationDate, registrationExpirationDate));
         }
-        List<VehicleMovementDto> movements = this.mapVehicleMovements(vehicle.getVehicleMovements());
-        return new StolenCarDto(vehicle.getCarTrackerID(), vehicle.getLicensePlate(), owners, movements);
-    }
-
-    public List<StolenCarDto> toStolenCarDtoList(List<Vehicle> vehicleList, LoginDAO loginDAO)
-    {
-        List<StolenCarDto> returnList = new ArrayList<>();
-        for (Vehicle v : vehicleList)
-        {
-            returnList.add(toStolenCarDto(v, loginDAO));
-        }
-
-        return returnList;
+        return ownerDtos;
     }
 }

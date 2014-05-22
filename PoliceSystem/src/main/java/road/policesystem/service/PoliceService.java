@@ -7,8 +7,9 @@
 package road.policesystem.service;
 
 import road.movementdtos.dtos.MovementUserDto;
-import road.movementdtos.dtos.StolenCarDto;
 import road.movementdtos.dtos.VehicleDto;
+import road.movementdtos.dtos.VehicleMovementDto;
+import road.movementdtos.dtos.VehicleOwnerDto;
 import road.userservice.dto.UserDto;
 import road.policedts.connections.PoliceClient;
 
@@ -40,11 +41,11 @@ public class PoliceService implements Serializable
         return policeClient.authenticate(username, password);
     }
 
-    public StolenCarDto getStolenCarByLicensePlate(String licensePlate) {
+    public VehicleDto getStolenCarByLicensePlate(String licensePlate) {
         return policeClient.getStolenCarByLicensePlate(licensePlate);
     }
 
-    public StolenCarDto getStolenCarByCartrackerId(String cartrackerId) {
+    public VehicleDto getStolenCarByCartrackerId(String cartrackerId) {
         return policeClient.getStolenCarByCartrackerId(cartrackerId);
     }
 
@@ -56,12 +57,22 @@ public class PoliceService implements Serializable
         return policeClient.getVehicleByCartrackerId(cartrackerId);
     }
 
-    public List<StolenCarDto> getAllStolenCars() {
+    public List<VehicleDto> getAllStolenCars() {
         return policeClient.getAllStolenCars();
     }
 
     public VehicleDto setStolen(VehicleDto vehicle)
     {
         return policeClient.setStolen(vehicle);
+    }
+
+    public List<VehicleOwnerDto> getVehicleOwners(String licensePlate)
+    {
+        return policeClient.getVehicleOwners(licensePlate);
+    }
+
+    public List<VehicleMovementDto> getVehicleMovements(String licensePlate)
+    {
+        return policeClient.getVehicleMovements(licensePlate);
     }
 }
