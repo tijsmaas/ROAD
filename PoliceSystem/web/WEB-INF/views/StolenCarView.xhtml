@@ -5,14 +5,29 @@
                 xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
 
 
-    <h:panelGroup id="#{id}_container">
+    <h:panelGroup id="container">
 
         <div id="authenticationcontainer">
-            <div id="#{id}_loginContainer" class="loginContainer">
+            <div id="loginContainer" class="loginContainer">
 
-                <h:form id="loginForm_#{id}" styleClass="form-horizontal">
-                    <h4>Log in to #{title}</h4>
+                <h:form id="loginForm" styleClass="form-horizontal">
+                    <h4>Stolen car #{licenseplate}</h4>
 
+                    <!-- Table -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>License plate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat value="#{stolenCarBean.stolenCars}" var="stolencar">
+                                <tr>
+                                    <td>#{stolencar.licensePlate}</td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
 
                     <c:panelGroup layout="block" styleClass="alert alert-danger"
                                   rendered="#{loginBean.failed}">
@@ -20,30 +35,21 @@
                     </c:panelGroup>
 
                     <div class="form-group">
-                        <p:outputLabel for="#{id}_txtUsername" styleClass="col-sm-3 control-label"
-                                       value="#{msg['username']}"/>
+                        <p:outputLabel for="txtUsername" styleClass="col-sm-3 control-label"
+                                       value="username"/>
 
                         <div class="col-sm-9">
 
-                            <p:inputText id="#{id}_txtUsername" value="#{loginBean.username}"
+                            <p:inputText id="txtUsername" value="#{loginBean.username}"
                                          styleClass="form-control"/>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <p:outputLabel for="#{id}_txtPassword" styleClass="col-sm-3 control-label"
-                                       value="#{msg['password']}"/>
-
-
-                        <div class="col-sm-9">
-                            <p:password id="#{id}_txtPassword" value="#{loginBean.password}" styleClass="form-control"/>
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-10">
-                            <p:commandButton id="#{id}_btnLogin" value="Login" styleClass="btn btn-success"
-                                             update="loginForm_#{id}"
+                            <p:commandButton id="btnLogin" value="Login" styleClass="btn btn-success"
+                                             update="loginForm"
                                              actionListener="#{loginBean.login}"/>
 
                             <div style="display:inline-block; margin-left:12px;">
@@ -53,7 +59,6 @@
                                     </f:facet>
                                 </p:ajaxStatus>
                             </div>
-
                         </div>
                     </div>
 
