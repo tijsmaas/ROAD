@@ -8,6 +8,7 @@
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <ui:define name="content">
+        <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
         <h:panelGroup layout="block">
             <div class="pill pill-autosize">
                 <h:form id="stolenForm">
