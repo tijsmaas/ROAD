@@ -22,7 +22,8 @@ public class VehicleOwnership implements MovementEntity<Integer>
     @ManyToOne(cascade = {CascadeType.ALL})
     private Vehicle vehicle;
 
-    private int userID;
+    @ManyToOne
+    private MovementUser user;
 
     /**
      * Specifies if the user wants the car movements to be used in the traffic jam calculations.
@@ -39,9 +40,9 @@ public class VehicleOwnership implements MovementEntity<Integer>
     // Empty constructor for JPA
     public VehicleOwnership() { }
 
-    public VehicleOwnership(Vehicle vehicle, int userID, Calendar registrationdate, Calendar registrationExperationDate) {
+    public VehicleOwnership(Vehicle vehicle, MovementUser user, Calendar registrationdate, Calendar registrationExperationDate) {
         this.vehicle = vehicle;
-        this.userID = userID;
+        this.user = user;
         this.registrationdate = registrationdate;
         this.registrationExperationDate = registrationExperationDate;
     }
@@ -67,14 +68,14 @@ public class VehicleOwnership implements MovementEntity<Integer>
         this.vehicle = vehicle;
     }
 
-    public int getUserID()
+    public MovementUser getUser()
     {
-        return userID;
+        return user;
     }
 
-    public void setUserID(int userID)
+    public void setUser(MovementUser user)
     {
-        this.userID = userID;
+        this.user = user;
     }
 
     public Calendar getRegistrationdate()

@@ -20,15 +20,29 @@ public class JudgeBean implements Serializable
 
     private String licensePlate;
     private VehicleDto vehicle;
-    private boolean isStolen;
 
-    public void getVehicle()
+    public VehicleDto getVehicle()
+    {
+        return vehicle;
+    }
+
+    public String getLicensePlate()
+    {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate)
+    {
+        this.licensePlate = licensePlate;
+    }
+
+    public void searchVehicle()
     {
         vehicle = policeService.getVehicleByLicensePlate(licensePlate);
     }
 
-    public void SetStolen()
+    public void setStolen()
     {
-        isStolen = policeService.setStolen(vehicle, isStolen);
+        vehicle = policeService.setStolen(vehicle);
     }
 }

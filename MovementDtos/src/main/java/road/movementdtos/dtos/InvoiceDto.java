@@ -15,7 +15,7 @@ import java.util.List;
 public class InvoiceDto
 {
     private int invoiceID;
-    private int userID;
+    public MovementUserDto user;
     private Date generationDate;
     private Date startDate;
     private Date endDate;
@@ -29,13 +29,13 @@ public class InvoiceDto
     {
     }
 
-    public InvoiceDto(int invoiceID, int userID, Date generationDate, Date startDate, Date endDate, int paymentStatus, BigDecimal total)
+    public InvoiceDto(int invoiceID, MovementUserDto user, Date generationDate, Date startDate, Date endDate, int paymentStatus, BigDecimal total)
     {
         this.invoiceID = invoiceID;
-        this.userID = userID;
         this.generationDate = generationDate;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.user = user;
         this.paymentStatus = PaymentStatus.values()[paymentStatus];
         this.total =  total.setScale(2, RoundingMode.CEILING);
 
@@ -54,16 +54,6 @@ public class InvoiceDto
     public void setInvoiceID(int invoiceID)
     {
         this.invoiceID = invoiceID;
-    }
-
-    public int getUserID()
-    {
-        return userID;
-    }
-
-    public void setUserID(int userID)
-    {
-        this.userID = userID;
     }
 
     public Date getGenerationDate()
@@ -144,6 +134,11 @@ public class InvoiceDto
     public void setYear(int year)
     {
         this.year = year;
+    }
+
+    public MovementUserDto getUser()
+    {
+        return user;
     }
 }
 

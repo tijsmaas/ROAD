@@ -8,6 +8,7 @@ import road.movementparser.parser.Authentication;
 import road.movementparser.parser.GenericParser;
 import road.movementparser.parser.MovementParser;
 import road.movementservice.connections.QueueServer;
+import road.movementservice.events.JamEvent;
 
 import javax.ws.rs.NotAuthorizedException;
 import java.util.List;
@@ -46,7 +47,8 @@ public class CarServer extends QueueServer implements ICarQuery
         if(this.authentication.checkApiKey(apiKey))
         {
             List<Movement> movements = this.movementParser.parseChanges(xml, sequence.intValue());
-            //TODO fire event
+            JamEvent.fire(movements);
+
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                    + "<response status=\"ok\" VEHICLE_ID=\"2\"/></xml>";
         }

@@ -16,8 +16,8 @@ public class Invoice implements MovementEntity<Integer>, Serializable
     @GeneratedValue
     private int invoiceID;
 
-    @Id
-    private int userID;
+    @ManyToOne
+    private MovementUser user;
 
     @Temporal(TemporalType.DATE)
     private Date generationDate;
@@ -37,12 +37,12 @@ public class Invoice implements MovementEntity<Integer>, Serializable
 
     public Invoice() {}
 
-    public Invoice(Date generationDate, Date startDate, Date endDate, int userID){
+    public Invoice(Date generationDate, Date startDate, Date endDate, MovementUser user){
         this.generationDate = generationDate;
         this.startDate = startDate;
         this.endDate = endDate;
         this.paymentStatus = PaymentStatus.NOT_PAID;
-        this.userID = userID;
+        this.user = user;
     }
 
     public List<VehicleInvoice> getVehicleInvoices()
@@ -60,14 +60,14 @@ public class Invoice implements MovementEntity<Integer>, Serializable
         return invoiceID;
     }
 
-    public int getUserID()
+    public MovementUser getUser()
     {
-        return userID;
+        return user;
     }
 
-    public void setUserID(int userID)
+    public void setUser(MovementUser user)
     {
-        this.userID = userID;
+        this.user = user;
     }
 
     public Date getStartDate()

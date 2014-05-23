@@ -65,7 +65,7 @@ public class UserBean implements Serializable
     public void redirectIfNotLoggedIn()
     {
 
-       ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         if(this.loggedinUser == null){
             try
             {

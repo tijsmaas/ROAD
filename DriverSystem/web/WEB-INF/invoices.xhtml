@@ -37,6 +37,10 @@
 
                             <a class="btn btn-success" href="invoiceDetail/#{invoice.invoiceID}">View details</a>
                         </h:panelGroup>
+
+                        <h:panelGroup layout="block" styleClass="alert alert-success" rendered="#{invoice.paymentStatus == 'CANCELLED'}">
+                            This invoice has been cancelled.
+                        </h:panelGroup>
                     </div>
                 </ui:repeat>
             </div>

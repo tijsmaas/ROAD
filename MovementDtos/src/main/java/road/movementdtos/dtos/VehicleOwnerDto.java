@@ -1,19 +1,20 @@
 package road.movementdtos.dtos;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Mitch on 21-5-2014.
  */
 public class VehicleOwnerDto {
     private MovementUserDto user;
-    private Calendar registrationdate;
-    private Calendar registrationExperationDate;
+    private Date registrationdate;
+    private Date registrationExperationDate;
 
     public VehicleOwnerDto() {
     }
 
-    public VehicleOwnerDto(MovementUserDto user, Calendar registrationdate, Calendar registrationExperationDate) {
+    public VehicleOwnerDto(MovementUserDto user, Date registrationdate, Date registrationExperationDate) {
         this.user = user;
         this.registrationdate = registrationdate;
         this.registrationExperationDate = registrationExperationDate;
@@ -23,11 +24,11 @@ public class VehicleOwnerDto {
         return user;
     }
 
-    public Calendar getRegistrationdate() {
+    public Date getRegistrationdate() {
         return registrationdate;
     }
 
-    public Calendar getRegistrationExperationDate() {
+    public Date getRegistrationExperationDate() {
         return registrationExperationDate;
     }
 }

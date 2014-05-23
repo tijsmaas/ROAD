@@ -1,0 +1,77 @@
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <div class="pill pill-autosize">
+                <h:form id="stolenForm">
+                    <div class="form-group">
+                        <p:outputLabel for="txtLicense" styleClass="col-sm-5 control-label"
+                                       value="License plate"/>
+                        <div class="col-sm-5">
+                            <p:inputText id="txtLicense" value="#{judgeBean.licensePlate}" />
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-10">
+                            <p:commandButton value="Search" styleClass="btn btn-success"
+                                             update="stolenForm" action="#{judgeBean.searchVehicle()}"/>
+                            <div style="display:inline-block; margin-left:12px;">
+                                <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel2">
+                                    <f:facet name="start">
+                                        <div class="ajax-loader"></div>
+                                    </f:facet>
+                                </p:ajaxStatus>
+                            </div>
+                        </div>
+                    </div>
+                    <c:panelGroup layout="block" rendered="#{judgeBean.vehicle != null}">
+                        <hr/>
+                        <hr/>
+                        <hr/>
+                        <div class="form-group">
+                            <p:outputLabel for="txtFoundLicense" styleClass="col-sm-5 control-label"
+                                           value="License plate"/>
+                            <div class="col-sm-5">
+                                <h:outputText id="txtFoundLicense" value="#{judgeBean.vehicle.licensePlate}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel for="stolenCheck" styleClass="col-sm-9 control-label"
+                                           value="This car is stolen"/>
+                            <div class="col-sm-1">
+                                <h:selectBooleanCheckbox id="stolenCheck" value="#{judgeBean.vehicle.stolen}"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-10">
+                                <p:commandButton value="Submit" styleClass="btn btn-success"
+                                                 update="stolenForm" action="#{judgeBean.setStolen()}"/>
+                                <div style="display:inline-block; margin-left:12px;">
+                                    <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
+                                        <f:facet name="start">
+                                            <div class="ajax-loader"></div>
+                                        </f:facet>
+                                    </p:ajaxStatus>
+                                </div>
+                            </div>
+                        </div>
+                    </c:panelGroup>
+                </h:form>
+            </div>
+        </h:panelGroup>
+    </ui:define>
+
+
+</ui:composition>

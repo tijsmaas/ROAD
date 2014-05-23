@@ -1,8 +1,9 @@
 package road.policedts.connections;
 
 import road.movementdtos.dtos.MovementUserDto;
-import road.movementdtos.dtos.StolenCarDto;
 import road.movementdtos.dtos.VehicleDto;
+import road.movementdtos.dtos.VehicleMovementDto;
+import road.movementdtos.dtos.VehicleOwnerDto;
 import road.userservice.dto.UserDto;
 
 import java.util.List;
@@ -14,15 +15,19 @@ public interface IPoliceQuery
 {
     MovementUserDto authenticate(String userId, String password);
 
-    StolenCarDto getStolenCarByLicensePlate(String licensePlate);
+    VehicleDto getStolenCarByLicensePlate(String licensePlate);
 
-    StolenCarDto getStolenCarByCartrackerId(String cartrackerId);
+    VehicleDto getStolenCarByCartrackerId(String cartrackerId);
 
-    List<StolenCarDto> getAllStolenCars();
+    List<VehicleDto> getAllStolenCars();
 
     VehicleDto getVehicleByLicensePlate(String licensePlate);
 
     VehicleDto getVehicleByCartrackerId(String cartrackerId);
 
-    boolean setStolen(VehicleDto vehicleDto, boolean isStolen);
+    VehicleDto setStolen(VehicleDto vehicleDto);
+
+    List<VehicleOwnerDto> getVehicleOwners(String licensePlate);
+
+    List<VehicleMovementDto> getVehicleMovements(String licensePlate);
 }

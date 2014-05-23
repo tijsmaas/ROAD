@@ -41,7 +41,7 @@ public class InvoiceDetailBean
             int invoiceID = Integer.parseInt(requestedInvoiceID);
             this.invoice = service.getInvoiceWithDetails(invoiceID);
 
-            if (this.invoice == null || this.invoice.getUserID() != this.userSession.getLoggedinUser().id())
+            if (this.invoice == null || this.invoice.getUser().id() != this.userSession.getLoggedinUser().id())
             {
                 this.loadError = true;
             }

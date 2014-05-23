@@ -2,13 +2,6 @@ package road.movemententityaccess.helper;
 
 import road.movemententities.entities.*;
 
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.math.BigDecimal;
@@ -35,7 +28,7 @@ public class InvoiceGenerator
 
     private HashMap<String, HashMap<VehicleOwnership, List<VehicleMovement>>> userCarsAndMovements;
 
-    private Map<Integer, Invoice> userInvoices = new HashMap<>();
+    private Map<MovementUser, Invoice> userInvoices = new HashMap<>();
 
     public InvoiceGenerator(List<VehicleMovement> monthlyMovements, EntityManager em, Date startDate, Date endDate)
     {
@@ -184,7 +177,7 @@ public class InvoiceGenerator
             }
         }
         
-        logger.log(Level.INFO, "MovementUser : " + vehicleOwnership.getUserID() + " has driven " + totalkilometersdriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
+        logger.log(Level.INFO, "MovementUser : " + vehicleOwnership.getUser().getUsername() + " has driven " + totalkilometersdriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
 
         vehicleInvoice.setMovementList(new ArrayList<CityDistance>(cityDistances.values()));
 
@@ -235,18 +228,18 @@ public class InvoiceGenerator
      */
     private Invoice getOrCreateInvoice(VehicleOwnership vehicleOwnership)
     {
-        if (this.userInvoices.containsKey(vehicleOwnership.getUserID()))
+        if (this.userInvoices.containsKey(vehicleOwnership.getUser()))
         {
-            return this.userInvoices.get(vehicleOwnership.getUserID());
+            return this.userInvoices.get(vehicleOwnership.getUser());
         }
         else
         {
-            Invoice invoice = new Invoice(generationDate, startDate, endDate, vehicleOwnership.getUserID());
+            Invoice invoice = new Invoice(generationDate, startDate, endDate, vehicleOwnership.getUser());
             em.persist(invoice);
 
-            this.userInvoices.put(vehicleOwnership.getUserID(), invoice);
+            this.userInvoices.put(vehicleOwnership.getUser(), invoice);
 
-            logger.log(Level.INFO, "Creating new invoice for user with ID " + vehicleOwnership.getUserID());
+            logger.log(Level.INFO, "Creating new invoice for user with ID " + vehicleOwnership.getUser().getUsername());
             return invoice;
         }
     }

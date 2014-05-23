@@ -2,8 +2,9 @@ package road.movementservice.servers;
 
 //import road.usersystem.UserDAO;
 import road.movementdtos.dtos.MovementUserDto;
-import road.movementdtos.dtos.StolenCarDto;
 import road.movementdtos.dtos.VehicleDto;
+import road.movementdtos.dtos.VehicleMovementDto;
+import road.movementdtos.dtos.VehicleOwnerDto;
 import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleOwnership;
 import road.movemententityaccess.dao.LoginDAO;
@@ -55,18 +56,18 @@ public class PoliceServer extends QueueServer implements IPoliceQuery
     }
 
     @Override
-    public StolenCarDto getStolenCarByLicensePlate(String licensePlate) {
-        return dtoMapper.toStolenCarDto(policeDAO.findVehicleByLicensePlate(licensePlate), loginDAO);
+    public VehicleDto getStolenCarByLicensePlate(String licensePlate) {
+        return dtoMapper.map(policeDAO.findVehicleByLicensePlate(licensePlate));
     }
 
     @Override
-    public StolenCarDto getStolenCarByCartrackerId(String cartrackerId) {
-        return dtoMapper.toStolenCarDto(policeDAO.findVehicleByCartracker(cartrackerId), loginDAO);
+    public VehicleDto getStolenCarByCartrackerId(String cartrackerId) {
+        return dtoMapper.map(policeDAO.findVehicleByCartracker(cartrackerId));
     }
 
     @Override
-    public List<StolenCarDto> getAllStolenCars() {
-        return dtoMapper.toStolenCarDtoList(policeDAO.findAllVehicles(), loginDAO);
+    public List<VehicleDto> getAllStolenCars() {
+        return dtoMapper.map(policeDAO.findAllVehicles());
     }
 
     @Override
@@ -80,9 +81,19 @@ public class PoliceServer extends QueueServer implements IPoliceQuery
     }
 
     @Override
-    public boolean setStolen(VehicleDto vehicleDto, boolean isStolen) {
+    public VehicleDto setStolen(VehicleDto vehicleDto) {
         Vehicle vehicle = vehicleDAO.findByLicensePlate(vehicleDto.getLicensePlate());
-        vehicle.setStolen(isStolen);
-        return policeDAO.setStolen(vehicle);
+        vehicle.setStolen(vehicleDto.isStolen());
+        return dtoMapper.map(policeDAO.setStolen(vehicle));
+    }
+
+    @Override
+    public List<VehicleOwnerDto> getVehicleOwners(String licensePlate) {
+        return dtoMapper.mapVehicleOwners(vehicleDAO.findByLicensePlate(licensePlate).getVehicleOwners(), loginDAO);
+    }
+
+    @Override
+    public List<VehicleMovementDto> getVehicleMovements(String licensePlate) {
+        return dtoMapper.mapVehicleMovements(vehicleDAO.findByLicensePlate(licensePlate).getVehicleMovements());
     }
 }
