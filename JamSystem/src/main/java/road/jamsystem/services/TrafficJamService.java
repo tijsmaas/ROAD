@@ -18,6 +18,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Geert
@@ -26,7 +27,7 @@ import java.util.Map;
 public class TrafficJamService
 {
     private final static String KEY_FILE_NAME = "authentication.ini";
-    private final static int REQUESTS_PER_HOUR = 25000;
+    private final static int REQUESTS_PER_HOUR = 12;
 
     @Inject
     private TrafficJamBean trafficJamBean;
@@ -50,10 +51,7 @@ public class TrafficJamService
     @WebMethod(operationName = "getTrafficJams")
     public List<LaneDto> getTrafficJams(@WebParam(name = "ApiKey") String apiKey) throws JamException
     {
-        if (!processApiKey(apiKey))
-        {
-            throw new JamException("Api key is invalid or cannot be used at this time.");
-        }
+        processApiKey(apiKey);
 
         //return this.jamService.getLanesWithJam();
         return this.trafficJamBean.getLanesWithJam();
@@ -64,12 +62,11 @@ public class TrafficJamService
      * @param apiKey the api key to process.
      * @return true if the api key is valid and can be used, otherwise false.
      */
-    private boolean processApiKey(String apiKey)
+    private void processApiKey(String apiKey) throws JamException
     {
-        boolean keyValidated = false;
-
         if (apiKey != null)
         {
+            boolean keyValidated = false;
             GregorianCalendar lastKeyUsing = this.keyUsings.get(apiKey);
 
             if (lastKeyUsing == null)
@@ -82,15 +79,27 @@ public class TrafficJamService
                 lastCallAllowed.add(GregorianCalendar.MINUTE, -60 / REQUESTS_PER_HOUR);
 
                 keyValidated = lastKeyUsing.before(lastCallAllowed);
+                if (!keyValidated)
+                {
+                    long millisecondsLeft = lastKeyUsing.getTimeInMillis() - lastCallAllowed.getTimeInMillis();
+                    long secondsLeft = (millisecondsLeft / 1000) % 60;
+                    long minutesLeft = millisecondsLeft / 60000;
+                    throw new JamException("Please wait another "
+                            + (minutesLeft < 10 ? "0" : "") + minutesLeft
+                            + ":"
+                            + (secondsLeft < 10 ? "0" : "") + secondsLeft
+                            + " minutes");
+                }
+            }
+
+            if (keyValidated)
+            {
+                this.keyUsings.put(apiKey, new GregorianCalendar());
+                return;
             }
         }
 
-        if (keyValidated)
-        {
-            this.keyUsings.put(apiKey, new GregorianCalendar());
-        }
-
-        return keyValidated;
+        throw new JamException("Api key is invalid");
     }
 
     /**
