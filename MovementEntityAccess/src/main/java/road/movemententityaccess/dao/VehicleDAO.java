@@ -46,4 +46,6 @@ public interface VehicleDAO
      */
     Boolean updateVehicle(String licencePlate, Boolean contributeGPSData);
 
+    List<Vehicle> getAllVehicles();
+
 }

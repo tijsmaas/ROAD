@@ -45,39 +45,39 @@ public class Server
 
         try
         {
-            this.mailSession = (Session)new InitialContext().lookup("roadmail");
-        }
-        catch(NamingException ex)
+            this.mailSession = (Session) new InitialContext().lookup("roadmail");
+        } catch (NamingException ex)
         {
             ex.printStackTrace();
         }
 
         this.dtoMapper = new DtoMapper();
 
-        this.driverServer = new DriverServer(   new UserDAOImpl(emfUserService),
-                                                new LoginDAOImpl(emf),
-                                                new LaneDAOImpl(emf),
-                                                new ConnectionDAOImpl(emf),
-                                                new EdgeDAOImpl(emf),
-                                                new VehicleDAOImpl(emf),
-                                                new InvoiceDAOImpl(emf),
-                                                this.dtoMapper);
+        this.driverServer = new DriverServer(new UserDAOImpl(emfUserService),
+                new LoginDAOImpl(emf),
+                new LaneDAOImpl(emf),
+                new ConnectionDAOImpl(emf),
+                new EdgeDAOImpl(emf),
+                new VehicleDAOImpl(emf),
+                new InvoiceDAOImpl(emf),
+                this.dtoMapper);
         this.driverServer.init();
 
-        this.billServer = new BillServer(   new InvoiceDAOImpl(emf),
-                                            new LoginDAOImpl(emf),
-                                            new UserDAOImpl(emfUserService),
-                                            new MovementDAOImpl(emf),
-                                            new CityDAOImpl(emf),
-                                            this.dtoMapper,
-                                            this.mailSession);
+        this.billServer = new BillServer(new InvoiceDAOImpl(emf),
+                new LoginDAOImpl(emf),
+                new UserDAOImpl(emfUserService),
+                new MovementDAOImpl(emf),
+                new CityDAOImpl(emf),
+                this.dtoMapper,
+                new VehicleDAOImpl(emf),
+                this.mailSession);
         this.billServer.init();
 
         this.policeServer = new PoliceServer(new LoginDAOImpl(emf),
-                                            new UserDAOImpl(emfUserService),
-                                            new PoliceDAOImpl(emf),
-                                            new VehicleDAOImpl(emf),
-                                            this.dtoMapper);
+                new UserDAOImpl(emfUserService),
+                new PoliceDAOImpl(emf),
+                new VehicleDAOImpl(emf),
+                this.dtoMapper);
         this.policeServer.init();
 
         this.carServer = new CarServer(new EntityDAOImpl(emf));
@@ -88,6 +88,7 @@ public class Server
 
     /**
      * Function to fill the database with test data.
+     *
      * @param movementEmf the entity manager factory used for getting the {@link EntityManager}.
      */
     private void fillDatabase(EntityManagerFactory movementEmf, EntityManagerFactory userEmf)
@@ -109,8 +110,7 @@ public class Server
 
             em.persist(v);
             em.persist(vo);
-        }
-        catch (UserSystemException e)
+        } catch (UserSystemException e)
         {
             e.printStackTrace();
         }

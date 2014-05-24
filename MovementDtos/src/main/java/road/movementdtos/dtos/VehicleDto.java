@@ -22,6 +22,11 @@ public class VehicleDto {
     private String licensePlate;
 
     /**
+     * The ID of the vehicle
+     */
+    private int vehicleID;
+
+    /**
      * Create a new instance of the {@link VehicleDto} class.
      */
     public VehicleDto() {}
@@ -31,9 +36,10 @@ public class VehicleDto {
      * @param licensePlate the licence plate of the vehicle.
      * @param contributeGPSData if the vehicle movements are used in the traffic jam calculations.
      */
-    public VehicleDto(String licensePlate, boolean contributeGPSData) {
+    public VehicleDto(int vehicleID, String licensePlate, boolean contributeGPSData) {
         this.licensePlate = licensePlate;
         this.contributeGPSData = contributeGPSData;
+        this.vehicleID = vehicleID;
     }
 
     /**
@@ -59,4 +65,22 @@ public class VehicleDto {
      * @param licensePlate the licence plate of the vehicle.
      */
     public void setLicensePlate(String licensePlate) { this.licensePlate = licensePlate; }
+
+    /**
+     * set the {@link #vehicleID} value
+     * @return the ID of the vehicle
+     */
+    public int getVehicleID()
+    {
+        return vehicleID;
+    }
+
+    /**
+     * set the {@link #vehicleID} value
+     * @param vehicleID the new vehicleID to set
+     */
+    public void setVehicleID(int vehicleID)
+    {
+        this.vehicleID = vehicleID;
+    }
 }

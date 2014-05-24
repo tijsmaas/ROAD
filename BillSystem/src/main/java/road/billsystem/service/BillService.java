@@ -1,11 +1,8 @@
 package road.billsystem.service;
 
 import road.billdts.dto.InvoiceSearchQuery;
-import road.movementdtos.dtos.CityDistanceDto;
-import road.movementdtos.dtos.InvoiceDto;
-import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.*;
 import road.billdts.connections.BillClient;
-import road.movementdtos.dtos.CityDto;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +11,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -118,5 +116,25 @@ public class BillService implements Serializable
     public boolean updateInvoiceStatus(int invoiceID, PaymentStatus newStatus)
     {
         return billClient.updateInvoicePaymentStatus(invoiceID, newStatus);
+    }
+
+    /**
+     * Get all the current vehicles in the database
+     * @return list of found Vehicle DTOs
+     */
+    public List<VehicleDto> getExistingVehicles(){
+        return billClient.getAllVehicles();
+    }
+
+    /**
+     * Get the vehicle ownerships for the current vehicle
+     * @param vehicleID The ID of the vehicle you want to get the ownerships from
+     * @return List of ownerships
+     */
+    public List<VehicleOwnerDto> getVehicleOwnerships(int vehicleID)
+    {
+        //TODO: implement;
+
+        return new ArrayList<>();
     }
 }

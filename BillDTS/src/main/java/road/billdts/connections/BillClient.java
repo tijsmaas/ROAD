@@ -1,14 +1,10 @@
 package road.billdts.connections;
 
 import road.billdts.dto.InvoiceSearchQuery;
-import road.movementdtos.dtos.CityDistanceDto;
-import road.movementdtos.dtos.MovementUserDto;
-import road.movementdts.connections.QueueClient;
-import road.movementdtos.dtos.CityDto;
-import road.movementdtos.dtos.InvoiceDto;
-import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.*;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.MovementConnection;
+import road.movementdts.connections.QueueClient;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,5 +75,11 @@ public class BillClient extends QueueClient implements IBillQuery
     {
         List<CityDistanceDto> cityDistanceDtoList = this.remoteCall("getCityDistances", ArrayList.class, vehicleInvoiceID);
         return cityDistanceDtoList;
+    }
+
+    @Override
+    public List<VehicleDto> getAllVehicles()
+    {
+        return this.remoteCall("getAllVehicles", ArrayList.class);
     }
 }

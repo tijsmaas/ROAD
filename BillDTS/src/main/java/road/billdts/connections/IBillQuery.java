@@ -1,10 +1,7 @@
 package road.billdts.connections;
 
 import road.billdts.dto.InvoiceSearchQuery;
-import road.movementdtos.dtos.CityDistanceDto;
-import road.movementdtos.dtos.CityDto;
-import road.movementdtos.dtos.InvoiceDto;
-import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.*;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import java.util.Date;
@@ -52,4 +49,6 @@ public interface IBillQuery
      * @return a list of citydistances
      */
     List<CityDistanceDto> getCityDistances(Integer vehicleInvoiceID);
+
+    List<VehicleDto> getAllVehicles();
 }

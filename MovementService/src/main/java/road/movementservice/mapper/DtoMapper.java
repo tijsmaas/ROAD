@@ -77,7 +77,7 @@ public class DtoMapper
 
         boolean contributeGPSData = currentOwer != null ? currentOwer.getContributeGPSData() : false;
 
-        return new VehicleDto(vehicle.getLicensePlate(), contributeGPSData);
+        return new VehicleDto(vehicle.getVehicleID(), vehicle.getLicensePlate(), contributeGPSData);
     }
 
     /**

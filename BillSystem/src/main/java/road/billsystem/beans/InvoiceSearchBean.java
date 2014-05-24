@@ -36,20 +36,22 @@ public class InvoiceSearchBean
     private List<InvoiceDto> foundInvoices;
 
     @PostConstruct
-    public void init(){
+    public void init()
+    {
         this.foundInvoices = new ArrayList<>();
     }
 
     /**
      * Search for the invoices based on the search query
      */
-    public void search(){
-        if(this.username != null)
+    public void search()
+    {
+        if (this.username != null)
         {
             this.username = this.username.trim();
         }
 
-        if(this.carTrackerID != null)
+        if (this.carTrackerID != null)
         {
             this.carTrackerID = this.carTrackerID.trim();
         }
@@ -65,9 +67,11 @@ public class InvoiceSearchBean
 
     /**
      * Update the payment status of an invoice
+     *
      * @param invoiceDto the invoice to update
      */
-    public void updatePaymentStatus(InvoiceDto invoiceDto){
+    public void updatePaymentStatus(InvoiceDto invoiceDto)
+    {
 
     }
 
@@ -101,25 +105,27 @@ public class InvoiceSearchBean
         this.foundInvoices = foundInvoices;
     }
 
-    public SelectItem[] getMonths() {
+    public SelectItem[] getMonths()
+    {
         String[] months = new DateFormatSymbols().getMonths();
-        SelectItem[] items = new SelectItem[months.length -1];
+        SelectItem[] items = new SelectItem[months.length - 1];
 
 
-        for (int i = 0; i < months.length -1; i++)
+        for (int i = 0; i < months.length - 1; i++)
         {
             items[i] = new SelectItem(i, months[i]);
         }
 
-            return items;
+        return items;
     }
 
-    public SelectItem[] getYears(){
+    public SelectItem[] getYears()
+    {
         SelectItem[] items = new SelectItem[5];
 
         //LEKKER HARDCODEN. LEKKER LEGACY SUPPORT
         int year = 2011;
-        for (int i = 0; i < 5 ; i++)
+        for (int i = 0; i < 5; i++)
         {
             items[i] = new SelectItem(year++);
         }

@@ -2,31 +2,16 @@ package road.movementservice.servers;
 
 //import road.usersystem.UserDAO;
 
-import road.movementdtos.dtos.MovementUserDto;
-import road.movemententities.entities.Invoice;
-import road.movemententities.entities.MovementUser;
-import road.movemententityaccess.dao.LoginDAO;
-import road.movementservice.connections.QueueServer;
-import road.movementservice.helpers.DAOHelper;
-import road.userservice.UserDAO;
 import road.billdts.connections.IBillQuery;
 import road.billdts.dto.InvoiceSearchQuery;
-import road.movementdtos.dtos.CityDistanceDto;
-import road.movementdtos.dtos.CityDto;
-import road.movementdtos.dtos.InvoiceDto;
-import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.*;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.MovementConnection;
 import road.movementdts.helpers.DateHelper;
 import road.movementdts.helpers.Pair;
-import road.movemententities.entities.CityDistance;
-import road.movemententities.entities.Invoice;
-import road.movemententities.entities.MovementUser;
-import road.movemententities.entities.VehicleMovement;
-import road.movemententityaccess.dao.CityDAO;
-import road.movemententityaccess.dao.InvoiceDAO;
-import road.movemententityaccess.dao.LoginDAO;
-import road.movemententityaccess.dao.MovementDAO;
+import road.movemententities.entities.*;
+import road.movemententityaccess.dao.*;
+import road.movementservice.connections.QueueServer;
 import road.movementservice.helpers.DAOHelper;
 import road.movementservice.mapper.DtoMapper;
 import road.userservice.UserDAO;
@@ -53,8 +38,9 @@ public class BillServer extends QueueServer implements IBillQuery
     private LoginDAO loginDAO;
     private DtoMapper dtoMapper;
     private Session mailSession;
+    private VehicleDAO vehicleDAO;
 
-    public BillServer(InvoiceDAO invoiceDAO, LoginDAO loginDAO, UserDAO userDAO, MovementDAO movementDAO, CityDAO cityDAO, DtoMapper dtoMapper, Session mailSession)
+    public BillServer(InvoiceDAO invoiceDAO, LoginDAO loginDAO, UserDAO userDAO, MovementDAO movementDAO, CityDAO cityDAO, DtoMapper dtoMapper, VehicleDAO vehicleDAO, Session mailSession)
     {
         super(MovementConnection.FactoryName, MovementConnection.BillSystemQueue);
 
@@ -64,6 +50,7 @@ public class BillServer extends QueueServer implements IBillQuery
         this.movementDAO = movementDAO;
         this.cityDAO = cityDAO;
         this.dtoMapper = dtoMapper;
+        this.vehicleDAO = vehicleDAO;
         this.mailSession = mailSession;
     }
 
@@ -179,6 +166,20 @@ public class BillServer extends QueueServer implements IBillQuery
         }
 
         return cityDistanceDtos;
+    }
+
+    @Override
+    public List<VehicleDto> getAllVehicles()
+    {
+        List<Vehicle> foundVehicles = vehicleDAO.getAllVehicles();
+
+        List<VehicleDto> dtoVehicles = new ArrayList<>();
+        for (Vehicle vehicle : foundVehicles)
+        {
+            dtoVehicles.add(dtoMapper.map(vehicle));
+        }
+
+        return dtoVehicles;
     }
 
     //TODO

@@ -88,6 +88,11 @@ public class Vehicle implements MovementEntity
         return licensePlate;
     }
 
+    public int getVehicleID()
+    {
+        return this.id;
+    }
+
     @Override
     public Object getId()
     {

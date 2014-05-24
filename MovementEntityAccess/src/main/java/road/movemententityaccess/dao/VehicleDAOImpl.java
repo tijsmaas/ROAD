@@ -77,7 +77,7 @@ public class VehicleDAOImpl implements VehicleDAO
     @Override
     public void changeVehicleOwnership(Vehicle vehicle, int userID)
     {
-
+        //TODO: implement this method.
     }
 
     /**
@@ -109,5 +109,13 @@ public class VehicleDAOImpl implements VehicleDAO
         }
 
         return successful;
+    }
+
+    @Override
+    public List<Vehicle> getAllVehicles()
+    {
+        Query query = em.createQuery("select vehicle from Vehicle vehicle");
+
+        return query.getResultList();
     }
 }
