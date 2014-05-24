@@ -63,7 +63,7 @@ public class VehicleDAOImpl implements VehicleDAO
             return new ArrayList();
         }
 
-        TypedQuery query = em.createQuery("SELECT vo.vehicle FROM VehicleOwnership vo WHERE vo.userID = :userId AND vo.registrationExperationDate IS NULL", Vehicle.class);
+        TypedQuery query = em.createQuery("SELECT vo.vehicle FROM VehicleOwnership vo WHERE vo.user.id = :userId AND vo.registrationExperationDate IS NULL", Vehicle.class);
         query.setParameter("userId", userID);
 
         return query.getResultList();
