@@ -8,71 +8,75 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 
 public class GenericParser
 {
-    public GenericParser()
-    {
+    private Unmarshaller unmarshaller;
 
+    public GenericParser(String classpath)
+    {
+        /**
+         * Read XML(JAXB) annotations from the classes in this package *
+         */
+        try
+        {
+            JAXBContext jc = JAXBContext.newInstance(classpath);
+            this.unmarshaller = jc.createUnmarshaller();
+        }
+        catch (JAXBException e)
+        {
+            System.err.println("Classpath lookup failed");
+            e.printStackTrace();
+        }
     }
 
     /**
      * Parse XML from file with classes in classpath
      * @param file
-     * @param classpath
      * @return JAXB root element
      */
     @SuppressWarnings("rawtypes")
-    public JAXBElement parse(File file, String classpath)
+    public JAXBElement parse(File file)
     {
-        JAXBContext jc;
+        JAXBElement element = null;
         try
         {
-            /**
-             * Read XML(JAXB) annotations from the classes in this package *
-             */
-            jc = JAXBContext.newInstance(classpath);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-            return (JAXBElement) unmarshaller.unmarshal(file);
+            element = (JAXBElement)unmarshaller.unmarshal(file);
         }
-        catch (JAXBException e)
+        catch(Exception ex)
         {
-            System.err.println("Parsing of " + file.getName() + " failed");
-            e.printStackTrace();
+            ex.printStackTrace();
         }
-        return null;
+        finally
+        {
+            return element;
+        }
     }
     
     /**
      * Parse XML from string movements with classes in classpath
      * @param movements
-     * @param classpath
      * @return JAXB root element
      */
-    public JAXBElement parse(String movements, String classpath)
+    public JAXBElement parse(String movements)
     {
-        JAXBContext jc;
+        JAXBElement element = null;
         try
         {
-            /**
-             * Read XML(JAXB) annotations from the classes in this package *
-             */
-            jc = JAXBContext.newInstance(classpath);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-            return (JAXBElement) unmarshaller.unmarshal(XMLInputFactory.newFactory().createXMLEventReader(new ByteArrayInputStream(movements.getBytes())));
+            XMLEventReader reader = XMLInputFactory.newFactory().createXMLEventReader(new ByteArrayInputStream(movements.getBytes()));
+            element = (JAXBElement)unmarshaller.unmarshal(reader);
         }
-        catch (JAXBException e)
+        catch(Exception ex)
         {
             System.err.println("Parsing of string failed");
-            e.printStackTrace();
+            ex.printStackTrace();
         }
-        catch (XMLStreamException ex)
+        finally
         {
-            Logger.getLogger(GenericParser.class.getName()).log(Level.SEVERE, null, ex);
+            return element;
         }
-
-        return null;
     }
 }

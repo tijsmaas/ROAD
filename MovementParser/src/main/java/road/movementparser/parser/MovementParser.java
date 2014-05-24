@@ -10,6 +10,7 @@ import java.util.Calendar;
 import road.movemententities.entities.*;
 import road.movemententityaccess.dao.EntityDAO;
 import road.movemententityaccess.dao.VehicleDAO;
+import road.movementparser.daos.ParserDAOImpl;
 import sumo.movements.jaxb.*;
 
 /**
@@ -22,19 +23,21 @@ import sumo.movements.jaxb.*;
 public class MovementParser
 {
     /* Package name of generated movement classes */
-    private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
+    public static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
 
     private EntityDAO entityDAO;
     private VehicleDAO vehicleDAO;
     private GenericParser genericParser;
+    private ParserDAOImpl parserDAO;
 
     private int missed = 0;
     private int numberOfMovementParses = 0;
 
-    public MovementParser(EntityDAO entityDAO, VehicleDAO vehicleDAO, GenericParser genericParser)
+    public MovementParser(EntityDAO entityDAO, VehicleDAO vehicleDAO, ParserDAOImpl parserDAO, GenericParser genericParser)
     {
         this.entityDAO = entityDAO;
         this.vehicleDAO = vehicleDAO;
+        this.parserDAO = parserDAO;
         this.genericParser = genericParser;
     }
 
@@ -56,7 +59,7 @@ public class MovementParser
         long startTime = System.nanoTime();
 
         @SuppressWarnings("unchecked")
-        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
+        JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes);
 
         List<Movement> movements = this.parseTimesteps(root, new GregorianCalendar());
         System.out.println("Parsed changes in " + (System.nanoTime() - startTime) + "ns");
@@ -97,7 +100,8 @@ public class MovementParser
 
                 for (LaneType xmlLane : xmlEdge.getLane())
                 {
-                    Lane lane = (Lane)entityDAO.findById(Lane.class, xmlLane.getId());
+                    //Lane lane = (Lane)entityDAO.findById(Lane.class, xmlLane.getId());
+                    Lane lane = this.parserDAO.getLane(xmlLane.getId());
 
                     // set datetime and timestep time of movement to now.
                     Movement movement = new Movement(date, timestep.getTime(), lane);

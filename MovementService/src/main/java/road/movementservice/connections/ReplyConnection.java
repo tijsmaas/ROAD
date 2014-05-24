@@ -27,6 +27,7 @@ public class ReplyConnection extends MovementConnection implements MessageListen
             this.session = this.connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
             this.producer = this.session.createProducer(null);
+            this.producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
             this.listenTo = (Destination)this.context.lookup(listenTo);
             this.consumer = this.session.createConsumer(this.listenTo);

@@ -4,6 +4,7 @@ import road.movemententities.entities.MovementUser;
 import road.movemententities.entities.Vehicle;
 import road.movemententities.entities.VehicleOwnership;
 import road.movemententityaccess.dao.*;
+import road.movementparser.daos.ParserDAOImpl;
 import road.movementservice.mapper.DtoMapper;
 import road.movementservice.servers.*;
 import road.userservice.UserDAO;
@@ -78,7 +79,7 @@ public class Server
                                             this.dtoMapper);
         this.policeServer.init();
 
-        this.carServer = new CarServer(new EntityDAOImpl(emf), new VehicleDAOImpl(emf));
+        this.carServer = new CarServer(new EntityDAOImpl(emf), new VehicleDAOImpl(emf), new ParserDAOImpl(emf));
         this.carServer.init();
 
         this.jamServer = new JamServer(this.dtoMapper);

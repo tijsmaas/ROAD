@@ -92,7 +92,8 @@ public class CarSimulator implements Serializable
 
     private void setTimer(int wait)
     {
-        this.timerService.createTimer(wait, null);
+        //this.timerService.createTimer(wait, null);
+        this.timerService.createTimer(0, null);
     }
 
     @Timeout

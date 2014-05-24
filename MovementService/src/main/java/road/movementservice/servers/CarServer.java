@@ -5,6 +5,7 @@ import road.movementdts.connections.MovementConnection;
 import road.movemententities.entities.Movement;
 import road.movemententityaccess.dao.EntityDAO;
 import road.movemententityaccess.dao.VehicleDAO;
+import road.movementparser.daos.ParserDAOImpl;
 import road.movementparser.parser.Authentication;
 import road.movementparser.parser.GenericParser;
 import road.movementparser.parser.MovementParser;
@@ -24,13 +25,13 @@ public class CarServer extends QueueServer implements ICarQuery
     private Authentication authentication;
     private MovementParser movementParser;
 
-    public CarServer(EntityDAO entityDAO, VehicleDAO vehicleDAO)
+    public CarServer(EntityDAO entityDAO, VehicleDAO vehicleDAO, ParserDAOImpl parserDAO)
     {
         super(MovementConnection.FactoryName, MovementConnection.CarSystemQueue);
 
         this.entityDAO = entityDAO;
         this.authentication = new Authentication("/authentication.ini");
-        this.movementParser = new MovementParser(entityDAO, vehicleDAO, new GenericParser());
+        this.movementParser = new MovementParser(entityDAO, vehicleDAO, parserDAO, new GenericParser(MovementParser.SUMOMOVEMENTSJAXBPACKAGE));
     }
 
     /**

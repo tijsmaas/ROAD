@@ -41,6 +41,7 @@ public class RequestConnection extends MovementConnection
 
             this.sendTo = (Destination)this.context.lookup(sendTo);
             this.producer = this.session.createProducer(this.sendTo);
+            this.producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
             this.listenTo = this.session.createTemporaryQueue();
             this.consumer = this.session.createConsumer(this.listenTo);
