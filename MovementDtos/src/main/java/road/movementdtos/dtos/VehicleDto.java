@@ -32,6 +32,16 @@ public class VehicleDto {
     private int vehicleID;
 
     /**
+     * The ID of the cartracker
+     */
+    private String cartrackerID;
+
+    /**
+     * Owner of the current vehicle
+     */
+    private VehicleOwnerDto vehicleOwner;
+
+    /**
      * Create a new instance of the {@link VehicleDto} class.
      */
     public VehicleDto() {}
@@ -49,11 +59,25 @@ public class VehicleDto {
      * @param licensePlate the licence plate of the vehicle.
      * @param contributeGPSData if the vehicle movements are used in the traffic jam calculations.
      */
-    public VehicleDto(int vehicleID, String licensePlate, boolean contributeGPSData, boolean isStolen) {
+    public VehicleDto(int vehicleID, String licensePlate, boolean contributeGPSData, boolean isStolen, String cartrackerID) {
         this.licensePlate = licensePlate;
         this.contributeGPSData = contributeGPSData;
         this.isStolen = isStolen;
         this.vehicleID = vehicleID;
+        this.cartrackerID = cartrackerID;
+    }
+
+    /**
+     * Create a new instance of the {@link VehicleDto} class.
+     * @param licensePlate the licence plate of the vehicle.
+     * @param contributeGPSData if the vehicle movements are used in the traffic jam calculations.
+     */
+    public VehicleDto(int vehicleID, String licensePlate, boolean contributeGPSData, boolean isStolen, VehicleOwnerDto vehicleOwner) {
+        this.licensePlate = licensePlate;
+        this.contributeGPSData = contributeGPSData;
+        this.isStolen = isStolen;
+        this.vehicleID = vehicleID;
+        this.vehicleOwner = vehicleOwner;
     }
 
     /**
@@ -96,5 +120,25 @@ public class VehicleDto {
     public void setVehicleID(int vehicleID)
     {
         this.vehicleID = vehicleID;
+    }
+
+    public VehicleOwnerDto getVehicleOwner()
+    {
+        return vehicleOwner;
+    }
+
+    public void setVehicleOwner(VehicleOwnerDto vehicleOwner)
+    {
+        this.vehicleOwner = vehicleOwner;
+    }
+
+    public String getCartrackerID()
+    {
+        return cartrackerID;
+    }
+
+    public void setCartrackerID(String cartrackerID)
+    {
+        this.cartrackerID = cartrackerID;
     }
 }

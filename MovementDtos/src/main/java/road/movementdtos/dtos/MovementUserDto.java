@@ -134,4 +134,94 @@ public class MovementUserDto
         this.invoiceMail = invoiceMail;
         return this;
     }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getStreet()
+    {
+        return street;
+    }
+
+    public String getHouseNumber()
+    {
+        return houseNumber;
+    }
+
+    public String getPostalCode()
+    {
+        return postalCode;
+    }
+
+    public String getCity()
+    {
+        return city;
+    }
+
+    public boolean isInvoiceMail()
+    {
+        return invoiceMail;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setStreet(String street)
+    {
+        this.street = street;
+    }
+
+    public void setHouseNumber(String houseNumber)
+    {
+        this.houseNumber = houseNumber;
+    }
+
+    public void setPostalCode(String postalCode)
+    {
+        this.postalCode = postalCode;
+    }
+
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
+
+    public void setInvoiceMail(boolean invoiceMail)
+    {
+        this.invoiceMail = invoiceMail;
+    }
 }

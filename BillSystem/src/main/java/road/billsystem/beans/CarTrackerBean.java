@@ -5,19 +5,21 @@ import road.movementdtos.dtos.VehicleDto;
 import road.movementdtos.dtos.VehicleOwnerDto;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
 /**
+ * Bean for the Cartracker manager
+ *
  * Created by Niek on 21/05/14.
  * © Aidas 2014
  */
 
 @Named
-@ViewScoped
+@RequestScoped
 public class CarTrackerBean
 {
     @Inject
@@ -26,12 +28,14 @@ public class CarTrackerBean
     @Inject
     private UserBean usersession;
 
-    private VehicleDto selectedVehicle;
     private List<VehicleDto> availableVehicles;
 
     private List<VehicleOwnerDto> currentVehicleOwnerships;
 
 
+    /**
+     * Get all the existing vehicles to fill the dropdowns with
+     */
     @PostConstruct
     public void init()
     {
@@ -39,6 +43,10 @@ public class CarTrackerBean
     }
 
 
+    /**
+     * Create an array of select items from the current vehicles
+     * @return
+     */
     public SelectItem[] getVehicles()
     {
 
@@ -47,26 +55,10 @@ public class CarTrackerBean
 
         for (int i = 0; i < this.availableVehicles.size(); i++)
         {
-            items[i] = new SelectItem(this.availableVehicles.get(i), this.availableVehicles.get(i).getLicensePlate());
+            items[i] = new SelectItem(this.availableVehicles.get(i).getVehicleID(), this.availableVehicles.get(i).getLicensePlate());
         }
 
         return items;
 
-    }
-
-
-    public VehicleDto getSelectedVehicle()
-    {
-        return selectedVehicle;
-    }
-
-    public void setSelectedVehicle(VehicleDto selectedVehicle)
-    {
-        this.selectedVehicle = selectedVehicle;
-    }
-
-    public void vehicleChanged()
-    {
-        this.currentVehicleOwnerships = this.service.getVehicleOwnerships(this.selectedVehicle.getVehicleID());
     }
 }

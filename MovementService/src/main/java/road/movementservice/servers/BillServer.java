@@ -89,7 +89,7 @@ public class BillServer extends QueueServer implements IBillQuery
         List<VehicleMovement> vehicleMovements = movementDAO.getMovementsForVehicleInRange(invoiceDateRange.getFirst(), invoiceDateRange.getSecond());
         List<Invoice> invoices = invoiceDAO.generate(vehicleMovements, invoiceDateRange.getFirst().getTime(), invoiceDateRange.getSecond().getTime());
 
-        for(Invoice invoice : invoices)
+        for (Invoice invoice : invoices)
         {
             this.sendMail(invoice);
         }
@@ -109,7 +109,7 @@ public class BillServer extends QueueServer implements IBillQuery
         List<Invoice> foundInvoices = invoiceDAO.findInvoiceFromQuery(searchDetails.getUsername(), searchDetails.getCartrackerID(), searchDetails.getMinDate(), searchDetails.getMaxDate());
 
         List<InvoiceDto> invoiceDtos = new ArrayList<>();
-        for (Invoice invoice :foundInvoices)
+        for (Invoice invoice : foundInvoices)
         {
             invoiceDtos.add(this.dtoMapper.mapSimple(invoice));
         }
@@ -182,10 +182,84 @@ public class BillServer extends QueueServer implements IBillQuery
         return dtoVehicles;
     }
 
-    //TODO
+    @Override
+    public List<MovementUserDto> getAllUsers()
+    {
+        List<MovementUser> resultList = vehicleDAO.getAllVehicleUsers();
+
+        List<MovementUserDto> movementUsers = new ArrayList<>();
+        for (MovementUser movementUser : resultList)
+        {
+            movementUsers.add(dtoMapper.toMovementUserDto(movementUser));
+        }
+
+        return movementUsers;
+    }
+
+    @Override
+    public VehicleDto addNewVehicle(String carTrackerID, String licensePlate, Integer movementUserID)
+    {
+        MovementUser foundUser = vehicleDAO.findMovementUser(movementUserID);
+
+        if (foundUser == null)
+        {
+            return null;
+        }
+
+        Vehicle addedVehicle = vehicleDAO.addNewVehicle(carTrackerID, licensePlate, foundUser);
+
+        return dtoMapper.map(addedVehicle);
+    }
+
+    @Override
+    public VehicleDto getVehicleDetails(Integer vehicleID)
+    {
+        Vehicle vehicle = vehicleDAO.findByID(vehicleID);
+
+        VehicleDto vehicleDto = dtoMapper.map(vehicle);
+        vehicleDto.setVehicleOwner(dtoMapper.map(vehicle.getCurrentOwner()));
+
+        return vehicleDto;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param vehicleID the Vehicle ID of the vehicle to change the owner of
+     * @param userID    the ID of the new owner
+     * @return the new VehicleOwnerDTO object
+     */
+    @Override
+    public VehicleOwnerDto changeVehicleOwner(Integer vehicleID, Integer userID)
+    {
+        MovementUser newOwner = vehicleDAO.findMovementUser(userID);
+        if (newOwner == null)
+        {
+            return null;
+        }
+
+
+
+        Vehicle vehicleToChange = vehicleDAO.findByID(vehicleID);
+        if (vehicleToChange == null)
+        {
+            return null;
+        }
+
+        if(vehicleToChange.getCurrentOwner().getUser() == newOwner)
+        {
+            return dtoMapper.map(vehicleToChange.getCurrentOwner());
+        }
+
+        VehicleOwnership ownership= vehicleDAO.changeVehicleOwner(vehicleToChange, newOwner);
+
+        return dtoMapper.map(ownership);
+    }
+
     /**
      * Sends an email to the customer to inform them that a new invoice is ready to be made.
      * Only done if the user has opted in
+     *
      * @param invoice the invoice that has been newly generated
      */
     private void sendMail(Invoice invoice)
@@ -195,23 +269,21 @@ public class BillServer extends QueueServer implements IBillQuery
             // Grab the user so that we can send an email.
             MovementUser user = this.loginDAO.getUser(invoice.getUser().getId());
 
-            if(user.isInvoiceMail())
+            if (user.isInvoiceMail())
             {
                 // Set up the message
                 Message msg = new MimeMessage(this.mailSession);
                 msg.setSubject("New invoice from your trustworthy and friendly government!");
                 msg.setRecipient(Message.RecipientType.TO, new InternetAddress((user.getEmail()), user.getUsername()));
                 msg.setFrom(new InternetAddress(mailSession.getProperty("mail.from")));
-                msg.setText("Hey, " + user.getUsername() + ". There is a new invoice available for you. Go to the Driver System to pay now! Greetings from your friendly neighbourhood government." );
+                msg.setText("Hey, " + user.getUsername() + ". There is a new invoice available for you. Go to the Driver System to pay now! Greetings from your friendly neighbourhood government.");
 
                 // Send the message
                 Transport.send(msg);
             }
-        }
-        catch (Exception ex)
+        } catch (Exception ex)
         {
             ex.printStackTrace();
         }
-
     }
 }

@@ -51,4 +51,30 @@ public interface IBillQuery
     List<CityDistanceDto> getCityDistances(Integer vehicleInvoiceID);
 
     List<VehicleDto> getAllVehicles();
+
+    List<MovementUserDto> getAllUsers();
+
+    /**
+     * Add a new vehicle to the database
+     * @param carTrackerID The ID of the vehicle to add
+     * @param licensePlate The license plate for the vehicle
+     * @param movementUserID The Id of the movementUser
+     * @return the newly added vehicle.
+     */
+    VehicleDto addNewVehicle(String carTrackerID, String licensePlate, Integer movementUserID);
+
+    /**
+     * Get the details for a vehicle
+     * @param vehicleID The ID of the vehicle
+     * @return The vehicle DTO and the current owner DTO
+     */
+    VehicleDto getVehicleDetails(Integer vehicleID);
+
+    /**
+     * Change the current owner of a vehicle
+     * @param vehicleID the Vehicle ID of the vehicle to change the owner of
+     * @param userID the ID of the new owner
+     * @return the new VehicleOwnerDTO object
+     */
+    VehicleOwnerDto changeVehicleOwner(Integer vehicleID, Integer userID);
 }

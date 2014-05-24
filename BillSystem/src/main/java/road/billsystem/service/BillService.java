@@ -1,8 +1,9 @@
 package road.billsystem.service;
 
-import road.billdts.dto.InvoiceSearchQuery;
-import road.movementdtos.dtos.*;
 import road.billdts.connections.BillClient;
+import road.billdts.dto.InvoiceSearchQuery;
+import road.billsystem.webapi.webexceptions.ChangeOwnerFailedException;
+import road.movementdtos.dtos.*;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 
 import javax.annotation.PostConstruct;
@@ -11,7 +12,6 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timer;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -126,15 +126,41 @@ public class BillService implements Serializable
         return billClient.getAllVehicles();
     }
 
-    /**
-     * Get the vehicle ownerships for the current vehicle
-     * @param vehicleID The ID of the vehicle you want to get the ownerships from
-     * @return List of ownerships
-     */
-    public List<VehicleOwnerDto> getVehicleOwnerships(int vehicleID)
-    {
-        //TODO: implement;
 
-        return new ArrayList<>();
+    /**
+     * Get all current users existing in the database
+     * @return
+     */
+    public List<MovementUserDto> getAllUsers(){
+        return billClient.getAllUsers();
+    }
+
+    public VehicleDto addVehicle(String carTrackerID, String licensePlate, int movementUserID){
+        return billClient.addNewVehicle(carTrackerID, licensePlate, movementUserID);
+    }
+
+    /**
+     * Get the details of the vehicle selected
+     * @param vehicleID the ID of the vehicle to get the details of
+     * @return Pair containing the vehicleDTo and the current owner data.
+     */
+    public VehicleDto getVehicleDetails(int vehicleID){
+        return billClient.getVehicleDetails(vehicleID);
+    }
+
+    /**
+     * Change the owner of a vehicle to the new owner ID
+     * @param vehicleID the ID of the vehicle to change the owner of
+     * @param newOwnerID the ID of the new owner
+     * @return The new ownership DTO object
+     */
+    public VehicleOwnerDto changeVehicleOwner(int vehicleID, int newOwnerID) throws ChangeOwnerFailedException
+    {
+         VehicleOwnerDto newOwner =  billClient.changeVehicleOwner(vehicleID, newOwnerID);
+        if(newOwner == null){
+            throw new ChangeOwnerFailedException("An error occurred whilst changing the owner for this vehicle");
+        }
+
+        return newOwner;
     }
 }

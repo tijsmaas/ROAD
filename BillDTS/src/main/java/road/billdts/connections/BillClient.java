@@ -80,6 +80,35 @@ public class BillClient extends QueueClient implements IBillQuery
     @Override
     public List<VehicleDto> getAllVehicles()
     {
-        return this.remoteCall("getAllVehicles", ArrayList.class);
+        List<VehicleDto> vehicles = this.remoteCall("getAllVehicles", ArrayList.class);
+        return vehicles;
     }
+
+    @Override
+    public List<MovementUserDto> getAllUsers()
+    {
+        List<MovementUserDto> users = this.remoteCall("getAllUsers", ArrayList.class);
+        return users;
+    }
+
+    @Override
+    public VehicleDto addNewVehicle(String carTrackerID, String licensePlate, Integer movementUserID)
+    {
+        return this.remoteCall("addNewVehicle", VehicleDto.class, carTrackerID, licensePlate, movementUserID);
+    }
+
+    @Override
+    public VehicleDto getVehicleDetails(Integer vehicleID)
+    {
+        return this.remoteCall("getVehicleDetails", VehicleDto.class, vehicleID);
+    }
+
+    @Override
+    public VehicleOwnerDto changeVehicleOwner(Integer vehicleID, Integer userID)
+    {
+        VehicleOwnerDto owner = this.remoteCall("changeVehicleOwner", VehicleOwnerDto.class, vehicleID, userID);
+        return owner;
+    }
+
+
 }

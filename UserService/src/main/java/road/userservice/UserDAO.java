@@ -109,4 +109,5 @@ public interface UserDAO
      * @return list of users that match the search criteria
      */
     public List<UserEntity> findUsersByName(String searchQuery);
+
 }
