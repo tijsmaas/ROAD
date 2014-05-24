@@ -2,10 +2,13 @@
  * Created by Niek on 24/05/14.
  */
 
-var CARSELECTOR_ID = "selectCar"
+var CARSELECTOR_ID = "selectCar";
 var availableUsers = null;
 var currentVehicleID = null;
 
+/**
+ * On document ready, bind the event handlers.
+ */
 $(document).ready(function () {
     var $carSelector = $("#" + CARSELECTOR_ID);
 
@@ -48,10 +51,20 @@ $(document).ready(function () {
 
 });
 
+
+/**
+ * Get the selected value of a select element
+ * @param $select the select element to get the selected option of
+ * @returns {*}
+ */
 function getSelectedValue($select) {
     return $select.find('option:selected').val();
 }
 
+/**
+ * Load the details for a certain car
+ * @param carID The ID of the car for which we want to load details
+ */
 function loadCarDetails(carID) {
     $.ajax({
         type: "GET",
@@ -77,6 +90,9 @@ function loadCarDetails(carID) {
     });
 }
 
+/**
+ * Change the current owner of selected vehicle.
+ */
 function changeCurrentOwner(){
     if(currentVehicleID == null){
         return;
@@ -106,6 +122,9 @@ function changeCurrentOwner(){
 
 }
 
+/**
+ * Show the dialog for adding a new vehicle.
+ */
 function newVehicleDialog() {
     $("#newVehicleModal").modal();
 
@@ -120,6 +139,10 @@ function newVehicleDialog() {
     }
 }
 
+/**
+ * Get all users to add to the select
+ * @param onSuccessCallback the callback for when the ajax request is successful
+ */
 function getUsers(onSuccessCallback) {
     $.ajax({
         type: "GET",
@@ -134,6 +157,11 @@ function getUsers(onSuccessCallback) {
     })
 }
 
+/**
+ * Fill the users selector with a list of users
+ * @param $selectItem the item to fill
+ * @param userList the list of users to add
+ */
 function fillUsersSelector($selectItem, userList) {
     $selectItem.empty();
     for (var i = 0; i < userList.length; i++) {
@@ -143,6 +171,9 @@ function fillUsersSelector($selectItem, userList) {
     }
 }
 
+/**
+ * Add a new vehicle to the datbase
+ */
 function addNewVehicle() {
     var cancel = false;
     $("#newVehicleForm").find('input, select').each(function () {
@@ -165,8 +196,6 @@ function addNewVehicle() {
     newVehicle.cartrackerID = carTrackerID;
     newVehicle.movementUserID = ownerID;
 
-    debugger;
-    //Register a user
     $.ajax({
         type: "POST",
         url: "webapi/CartrackerAPI/addVehicle",
@@ -190,21 +219,12 @@ function addNewVehicle() {
     });
 }
 
+/**
+ * Append a new vehicle to the vehicle selector
+ * @param vehicle the vehicle toappend
+ */
 function appendNewVehicleToSelect(vehicle){
         $("#selectCar").append($("<option>").val(vehicle.vehicleID).text(vehicle.licensePlate));
 }
 
-function createAlert(text, isSuccess){
-    var $alert = $("<div>").addClass('alert');
-
-    $alert.text(text);
-
-    if(isSuccess){
-        $alert.addClass('alert-success');
-    } else {
-        $alert.addClass('alert-danger');
-    }
-
-    return $alert
-}
 
