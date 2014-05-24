@@ -78,7 +78,7 @@ public class Server
                                             this.dtoMapper);
         this.policeServer.init();
 
-        this.carServer = new CarServer(new EntityDAOImpl(emf));
+        this.carServer = new CarServer(new EntityDAOImpl(emf), new VehicleDAOImpl(emf));
         this.carServer.init();
 
         this.jamServer = new JamServer(this.dtoMapper);

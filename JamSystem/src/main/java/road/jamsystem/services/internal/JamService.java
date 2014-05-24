@@ -3,6 +3,7 @@ package road.jamsystem.services.internal;
 import road.jamdts.connections.IJamListener;
 import road.jamdts.connections.JamClient;
 import road.movementdtos.dtos.MovementDto;
+import road.movementdtos.dtos.VehicleMovementDto;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -30,6 +31,7 @@ public class JamService implements IJamListener
     public void init()
     {
         this.jamClient = new JamClient(this);
+        this.jamClient.start();
     }
 
     /**
@@ -39,5 +41,12 @@ public class JamService implements IJamListener
     public void movementsReceived(Map<String, MovementDto> laneMap)
     {
         // TODO: Calculate traffic jams. Put them into a variable and create getter.
+        for(Map.Entry<String, MovementDto> entry : laneMap.entrySet())
+        {
+            for(VehicleMovementDto vMovement : entry.getValue().getVehicleMovements())
+            {
+                //vMovement
+            }
+        }
     }
 }

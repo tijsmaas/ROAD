@@ -18,6 +18,14 @@ public class MovementDto
     private List<VehicleMovementDto> vehicleMovements;
 
     /**
+     * No-args constructor for (de)serialization
+     */
+    public MovementDto()
+    {
+
+    }
+
+    /**
      * Create a new instance of the {@link MovementDto}.
      */
     public MovementDto(LaneDto lane, List<VehicleMovementDto> vehicleMovements)
