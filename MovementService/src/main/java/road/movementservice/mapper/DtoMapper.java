@@ -66,6 +66,8 @@ public class DtoMapper
      */
     public VehicleDto map(Vehicle vehicle)
     {
+        if(vehicle == null) return null;
+
         VehicleOwnership currentOwer = null;
         for (VehicleOwnership vo : vehicle.getVehicleOwners())
         {
@@ -87,6 +89,8 @@ public class DtoMapper
      * @return the mapped vehicle movement.
      */
     public VehicleMovementDto map(VehicleMovement vehicleMovement) {
+        String lane_id = vehicleMovement.getMovement().getLane().getId();
+
         return new VehicleMovementDto(
                 vehicleMovement.getId(),
                 vehicleMovement.getPosition(),
@@ -97,7 +101,9 @@ public class DtoMapper
                 vehicleMovement.getMovement().getLane().getEdge().getType(),
                 this.toCityDto(vehicleMovement.getMovement().getLane().getEdge().getFrom()),
                 this.toCityDto(vehicleMovement.getMovement().getLane().getEdge().getTo()),
-                vehicleMovement.getMovement().getLane().getEdge().getPriority());
+                vehicleMovement.getMovement().getLane().getEdge().getPriority(),
+                lane_id
+                );
     }
 
     /**
@@ -275,8 +281,20 @@ public class DtoMapper
             {
                 registrationExpirationDate = new Date(owner.getRegistrationExperationDate().getTimeInMillis());
             }
-            ownerDtos.add(new VehicleOwnerDto(toMovementUserDto(loginDAO.getUser(owner.getUser().getId())),
-                    registrationDate, registrationExpirationDate));
+
+            MovementUser user = owner.getUser();
+            MovementUserDto userDto;
+            if(user == null)
+            {
+                System.err.println("User of vehicleOwnership with id "+owner.getId()+" is null");
+                userDto = null;
+            }
+            else
+            {
+                userDto = toMovementUserDto(user);
+            }
+            VehicleOwnerDto vehicleOwnerDto = new VehicleOwnerDto(userDto, registrationDate, registrationExpirationDate);
+            ownerDtos.add(vehicleOwnerDto);
         }
         return ownerDtos;
     }

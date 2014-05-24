@@ -1,10 +1,13 @@
 package road.policesystem.beans;
 
+import road.movementdtos.dtos.CityDto;
 import road.movementdtos.dtos.VehicleDto;
 import road.movementdtos.dtos.VehicleMovementDto;
 import road.movementdtos.dtos.VehicleOwnerDto;
 import road.policesystem.service.PoliceService;
 
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
@@ -18,6 +21,7 @@ import java.util.List;
  * Created by Mitch on 21-5-2014.
  */
 @ManagedBean
+@ViewScoped
 public class StolenCarBean
 {
     // Maximum number of suggestions for the vehicle search box.
@@ -25,6 +29,10 @@ public class StolenCarBean
 
     @Inject
     private PoliceService policeService;
+
+    List<VehicleMovementDto> movements = new ArrayList();
+    VehicleMovementDto realtimeLocation = null;
+    String realtimeLocationPlace = "";
 
     private String licensePlate = "";
 
@@ -46,7 +54,8 @@ public class StolenCarBean
      * @param searchLicensePlate
      * @return
      */
-    public List<String> completeStolenCars(String searchLicensePlate) {
+    public List<String> completeStolenCars(String searchLicensePlate)
+    {
         // Remove separators from license plate.
         searchLicensePlate = searchLicensePlate.replace("-", "").toUpperCase();
 
@@ -71,12 +80,56 @@ public class StolenCarBean
     }
 
     /**
+     * Update the realtime location of a vehicle.
+     * @return
+     */
+    public boolean updateRealtimeLocation()
+    {
+        if(licensePlate == null) return false;
+        System.out.println("Updating realtime location...");
+        this.movements = policeService.getVehicleMovements(licensePlate);
+        VehicleMovementDto mostResentMovement = null;
+        for(VehicleMovementDto movement : this.movements)
+        {
+            if(mostResentMovement == null || movement.getMovementDateTime().after(mostResentMovement.getMovementDateTime()))
+            {
+                mostResentMovement = movement;
+            }
+        }
+        this.realtimeLocation = mostResentMovement;
+        updateRealtimeLocationPlace();
+        return true;
+    }
+
+    private void updateRealtimeLocationPlace() {
+        if(this.realtimeLocation == null) return;
+
+        CityDto from = this.realtimeLocation.getFrom();
+        CityDto to = this.realtimeLocation.getTo();
+        String roadtype = this.realtimeLocation.getType();
+        String lane_id = this.realtimeLocation.getLane_id();
+
+        this.realtimeLocationPlace = from.getCityName()+" -> "+to.getCityName()+" ";
+    }
+
+    public VehicleMovementDto getRealtimeLocation() {
+        return realtimeLocation;
+    }
+
+    public String getRealtimeLocationPlace() {
+        return realtimeLocationPlace;
+    }
+
+    /**
      * Check if we found a license plate, so that we can show detailed vehicle info.
+     * Also update realtime movement information so that it is not empty.
      * @return
      */
     public boolean isActive()
     {
-        return this.getStolenCarByLicensePlate() != null;
+        boolean active = this.getStolenCarByLicensePlate() != null;
+        if(active) updateRealtimeLocation();
+        return active;
     }
 
     public VehicleDto getStolenCarByLicensePlate()
@@ -93,6 +146,7 @@ public class StolenCarBean
     public List<VehicleMovementDto> getVehicleMovements()
     {
         if(licensePlate == null) return new ArrayList();
-        return policeService.getVehicleMovements(licensePlate);
+        this.movements = policeService.getVehicleMovements(licensePlate);
+        return this.movements;
     }
 }
