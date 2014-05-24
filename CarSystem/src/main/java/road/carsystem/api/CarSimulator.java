@@ -82,6 +82,7 @@ public class CarSimulator implements Serializable
             this.session = session;
             Netstate state = ((Netstate)xStream.fromXML(file.getInputstream()));
             this.timeSteps = state.timeSteps;
+            this.sequence = 0;
             this.setTimer(0);
         }
         catch(Exception ex)
