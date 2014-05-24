@@ -1,0 +1,30 @@
+<ui:composition template="WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:c="http://java.sun.com/jsf/html">
+
+    <ui:param name="title" value="Traffic jams"/>
+    <ui:define name="content">
+        <h:panelGroup layout="block" styleClass="pill pill-autosize">
+            <h:form id="jamForm" class="form-horizontal" role="form">
+                <c:panelGroup layout="block" styleClass="alert alert-danger" rendered="#{trafficJamBean.errorMessage != null}">
+                    #{trafficJamBean.errorMessage}
+                </c:panelGroup>
+
+                <p:commandButton value="Update traffic jams" styleClass="btn btn-success" update="jamForm" actionListener="#{trafficJamBean.updateTrafficJams}"/>
+
+                <ul>
+                    <ui:repeat value="#{trafficJamBean.lanesWithTrafficJams}" var="lane">
+                        <li>#{lane.id}</li>
+                    </ui:repeat>
+                </ul>
+            </h:form>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>
+

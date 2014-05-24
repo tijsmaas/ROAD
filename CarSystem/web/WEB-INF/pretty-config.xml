@@ -10,4 +10,8 @@
         <pattern value="/simulation/" />
         <view-id value="../simulation.xhtml" />
     </url-mapping>
+    <url-mapping>
+        <pattern value="/trafficjam/" />
+        <view-id value="../trafficjam.xhtml" />
+    </url-mapping>
 </pretty-config>
