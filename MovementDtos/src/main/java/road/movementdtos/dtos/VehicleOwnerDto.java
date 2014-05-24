@@ -1,6 +1,5 @@
 package road.movementdtos.dtos;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -11,8 +10,7 @@ public class VehicleOwnerDto {
     private Date registrationdate;
     private Date registrationExperationDate;
 
-    public VehicleOwnerDto() {
-    }
+    public VehicleOwnerDto() {}
 
     public VehicleOwnerDto(MovementUserDto user, Date registrationdate, Date registrationExperationDate) {
         this.user = user;
@@ -30,5 +28,20 @@ public class VehicleOwnerDto {
 
     public Date getRegistrationExperationDate() {
         return registrationExperationDate;
+    }
+
+    public void setUser(MovementUserDto user)
+    {
+        this.user = user;
+    }
+
+    public void setRegistrationdate(Date registrationdate)
+    {
+        this.registrationdate = registrationdate;
+    }
+
+    public void setRegistrationExperationDate(Date registrationExperationDate)
+    {
+        this.registrationExperationDate = registrationExperationDate;
     }
 }

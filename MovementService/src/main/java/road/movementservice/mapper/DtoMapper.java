@@ -58,6 +58,16 @@ public class DtoMapper
         return new VehicleInvoiceDto(vehicleInvoice.getId(), this.map(vehicleInvoice.getOwnership().getVehicle()), vehicleInvoice.getSubTotal(), vehicleInvoice.getMetersDriven());
     }
 
+    public VehicleOwnerDto map(VehicleOwnership ownership)
+    {
+        Date expirationDate = null;
+        if(ownership.getRegistrationExperationDate() != null)
+        {
+            expirationDate = ownership.getRegistrationExperationDate().getTime();
+        }
+        return new VehicleOwnerDto(this.toMovementUserDto(ownership.getUser()), ownership.getRegistrationdate().getTime(), expirationDate);
+    }
+
     /**
      * Maps a Vehicle to a VehicleDTO
      *
@@ -80,7 +90,7 @@ public class DtoMapper
 
         boolean contributeGPSData = currentOwer != null ? currentOwer.getContributeGPSData() : false;
 
-        return new VehicleDto(vehicle.getLicensePlate(), contributeGPSData, vehicle.isStolen());
+        return new VehicleDto(vehicle.getVehicleID(), vehicle.getLicensePlate(), contributeGPSData, vehicle.isStolen(), vehicle.getCarTrackerID());
     }
 
     /**

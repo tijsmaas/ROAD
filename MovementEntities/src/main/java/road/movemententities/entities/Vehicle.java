@@ -11,12 +11,12 @@ import java.util.List;
  * © Aidas 2014
  */
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"carTrackerID", "licensePlate"})})
 public class Vehicle implements MovementEntity
 {
     @Id @GeneratedValue
     private int id;
 
+    @Column(unique  = true)
     private String carTrackerID;
 
     @Column(unique = true)
@@ -41,6 +41,12 @@ public class Vehicle implements MovementEntity
     public Vehicle(String carTracker)
     {
         this.carTrackerID = carTracker;
+    }
+
+    public Vehicle(String carTrackerID, String licensePlate)
+    {
+        this.carTrackerID = carTrackerID;
+        this.licensePlate = licensePlate;
     }
 
 
@@ -86,6 +92,11 @@ public class Vehicle implements MovementEntity
     public String getLicensePlate()
     {
         return licensePlate;
+    }
+
+    public int getVehicleID()
+    {
+        return this.id;
     }
 
     @Override

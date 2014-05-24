@@ -83,7 +83,7 @@ public class VehicleOwnership implements MovementEntity<Integer>
         return registrationdate;
     }
 
-    public void setRegistrationdate(GregorianCalendar registrationdate)
+    public void setRegistrationdate(Calendar registrationdate)
     {
         this.registrationdate = registrationdate;
     }
@@ -93,7 +93,7 @@ public class VehicleOwnership implements MovementEntity<Integer>
         return registrationExperationDate;
     }
 
-    public void setRegistrationExperationDate(GregorianCalendar registrationExperationDate)
+    public void setRegistrationExperationDate(Calendar registrationExperationDate)
     {
         this.registrationExperationDate = registrationExperationDate;
     }

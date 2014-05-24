@@ -20,5 +20,9 @@
         <pattern value="/invoicedetail/#{invoiceID}"></pattern>
         <view-id value="../WEB-INF/pages/invoiceDetailsPage.xhtml"/>
     </url-mapping>
+    <url-mapping>
+        <pattern value="/manageCars/"></pattern>
+        <view-id value="../WEB-INF/pages/cartrackerManager.xhtml"/>
+    </url-mapping>
 
 </pretty-config>

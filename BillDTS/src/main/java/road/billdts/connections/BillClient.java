@@ -1,14 +1,10 @@
 package road.billdts.connections;
 
 import road.billdts.dto.InvoiceSearchQuery;
-import road.movementdtos.dtos.CityDistanceDto;
-import road.movementdtos.dtos.MovementUserDto;
-import road.movementdts.connections.QueueClient;
-import road.movementdtos.dtos.CityDto;
-import road.movementdtos.dtos.InvoiceDto;
-import road.movementdtos.dtos.MovementUserDto;
+import road.movementdtos.dtos.*;
 import road.movementdtos.dtos.enumerations.PaymentStatus;
 import road.movementdts.connections.MovementConnection;
+import road.movementdts.connections.QueueClient;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,4 +76,39 @@ public class BillClient extends QueueClient implements IBillQuery
         List<CityDistanceDto> cityDistanceDtoList = this.remoteCall("getCityDistances", ArrayList.class, vehicleInvoiceID);
         return cityDistanceDtoList;
     }
+
+    @Override
+    public List<VehicleDto> getAllVehicles()
+    {
+        List<VehicleDto> vehicles = this.remoteCall("getAllVehicles", ArrayList.class);
+        return vehicles;
+    }
+
+    @Override
+    public List<MovementUserDto> getAllUsers()
+    {
+        List<MovementUserDto> users = this.remoteCall("getAllUsers", ArrayList.class);
+        return users;
+    }
+
+    @Override
+    public VehicleDto addNewVehicle(String carTrackerID, String licensePlate, Integer movementUserID)
+    {
+        return this.remoteCall("addNewVehicle", VehicleDto.class, carTrackerID, licensePlate, movementUserID);
+    }
+
+    @Override
+    public VehicleDto getVehicleDetails(Integer vehicleID)
+    {
+        return this.remoteCall("getVehicleDetails", VehicleDto.class, vehicleID);
+    }
+
+    @Override
+    public VehicleOwnerDto changeVehicleOwner(Integer vehicleID, Integer userID)
+    {
+        VehicleOwnerDto owner = this.remoteCall("changeVehicleOwner", VehicleOwnerDto.class, vehicleID, userID);
+        return owner;
+    }
+
+
 }

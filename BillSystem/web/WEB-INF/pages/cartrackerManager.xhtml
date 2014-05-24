@@ -1,0 +1,116 @@
+<ui:composition template="../template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <ui:define name="content">
+        <h:outputScript library="js" name="cartrackerManager.js"/>
+        <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
+
+        <div class="pill" id="carSelectorPill">
+            <div id="successAdd" class="alert alert-success alert-dismissable" style="display: none">
+                <strong>Success!</strong> Your new vehicle has been added.
+            </div>
+
+            <div id="carSelector">
+                <p:outputLabel value="Select vehicle" for="selectCar"/>
+                <h:selectOneMenu id="selectCar" style="width:150px;">
+                    <f:selectItems value="#{carTrackerBean.vehicles}"/>
+                </h:selectOneMenu>
+                <button id="btnNewVehicleDialog" class="btn btn-primary" onclick="return false;"
+                        value="Add new vehicle">Add new vehicle
+                </button>
+            </div>
+
+        </div>
+
+        <div class="pill" id="vehicleDetails" style="display:none;">
+            <div>
+                <label id="lblLicensePlate">License plate</label>
+            </div>
+
+            <div>
+                <label id="lblId">Cartracker ID</label>
+            </div>
+            <div>
+                <label id="lblOwner">Owner</label>
+                <select id="userSelectDetails"></select>
+            </div>
+
+            <button id="btnChangeOwner" class="btn btn-success" onclick="return false;">Change owner</button>
+
+            <div id="changeOwnerSuccess" class="alert alert-success" style="display:none;">
+                <b>Success!</b> The owner for this vehicle has been changed.
+            </div>
+
+            <div id="changeOwnerFailed" class="alert alert-danger" style="display:none;">
+                <b>Error!</b> An error occured whilst changing the owner for this vehicle.
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="newVehicleModal" tabindex="-1" role="dialog" aria-labelledby="newVehicleModal"
+             style="text-align: left"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="detailModalLabel">Add new vehicle</h4>
+                    </div>
+                    <div id="modalbody" class="modal-body">
+                        <div class="form-horizontal" id="newVehicleForm">
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="control-label" for="txtCarTrackerID">CarTrackerID</label>
+
+                                <div class="controls">
+                                    <input id="txtCarTrackerID" name="carTrackerID" type="text" placeholder=""
+                                           class="input-medium form-control" required=""/>
+
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="control-label" for="txtLicensePlate">Liense Plate</label>
+
+                                <div class="controls">
+                                    <input id="txtLicensePlate" name="txtLicensePlate" type="text" placeholder=""
+                                           class="input-medium form-control" required=""/>
+
+                                </div>
+                            </div>
+
+                            <!-- Select Basic -->
+                            <div class="form-group">
+                                <label class="control-label" for="newVehicleSelectUser">Select owner</label>
+
+                                <div class="controls">
+                                    <select id="newVehicleSelectUser" name="newVehicleSelectUser" class="input-large">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="control-label" for="btnAddVehicle"></label>
+
+                                <div class="controls">
+                                    <button id="btnAddVehicle" name="btnAddVehicle" onclick="return false;"
+                                            class="btn btn-success">Add Vehicle
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+
