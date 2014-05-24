@@ -5,15 +5,11 @@
       xmlns:p="http://primefaces.org/ui">
 <base href="#{request.requestURL.substring(0, request.requestURL.length() - request.requestURI.length())}#{request.contextPath}/"/>
 <h:head>
-    <h:outputScript library="js" name="jquery-2.1.0.min.js"/>
     <h:outputStylesheet library="bootstrap" name="bootstrap.css"/>
     <h:outputStylesheet library="css" name="style.css"/>
-    <h:outputStylesheet library="font-awesome" name="css/font-awesome.min.css"/>
-    <h:outputStylesheet library="font-awesome" name="custom/icon-layout.css"/>
     <h:outputScript library="bootstrap" name="bootstrap.js"/>
 </h:head>
 <h:body>
-    <f:view locale="#{translator.locale}">
         <div class="header">
             <ui:insert name="header">
                 <ui:include src="includes/header.xhtml">
@@ -27,10 +23,7 @@
                 <ui:insert name="content">
                     Default Content
                 </ui:insert>
-
-
             </div>
         </div>
-    </f:view>
 </h:body>
 </html>

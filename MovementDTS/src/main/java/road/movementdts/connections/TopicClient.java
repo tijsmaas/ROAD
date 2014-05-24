@@ -9,7 +9,7 @@ import road.movementdts.listeners.SubscribeListener;
  */
 public abstract class TopicClient implements SubscribeListener
 {
-    private SubscribeConnection connection;
+    protected SubscribeConnection connection;
 
     public TopicClient(String factoryName, String listenTo)
     {

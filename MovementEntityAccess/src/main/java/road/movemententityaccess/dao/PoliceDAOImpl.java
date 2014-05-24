@@ -59,16 +59,11 @@ public class PoliceDAOImpl implements PoliceDAO
     }
 
     @Override
-    public boolean setStolen(Vehicle vehicle)
+    public Vehicle setStolen(Vehicle vehicle)
     {
-        try
-        {
-            em.merge(vehicle);
-            return true;
-        }
-        catch(Exception ex)
-        {
-            return false;
-        }
+        em.getTransaction().begin();
+        Vehicle returnVehicle = em.merge(vehicle);
+        em.getTransaction().commit();
+        return returnVehicle;
     }
 }

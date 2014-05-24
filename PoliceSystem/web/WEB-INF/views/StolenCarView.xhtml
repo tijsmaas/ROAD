@@ -5,46 +5,90 @@
                 xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html">
 
 
-    <h:panelGroup id="#{id}_container">
+    <h:panelGroup id="container">
+        <p:layout style="min-width:400px;min-height:600px;">
 
-        <div id="authenticationcontainer">
-            <div id="#{id}_loginContainer" class="loginContainer">
+            <p:layoutUnit position="west" resizable="true" size="300" minSize="300" maxSize="300">
+                <h:form id="selectVehicleForm">
 
-                <h:form id="loginForm_#{id}" styleClass="form-horizontal">
-                    <h4>Log in to #{title}</h4>
+                    <p:outputLabel value="Vehicle licence plate" for="vehicleSelector"/>
+                    <p:autoComplete id="vehicleSelector" dropdown="true" value="#{stolenCarBean.licensePlate}"
+                                    completeMethod="#{stolenCarBean.completeStolenCars}"/>
+                    <p:commandButton id="btnSelectVehicle" value="Select vehicle" styleClass="btn"
+                                     update=":vehicleForm" />
+                </h:form>
+            </p:layoutUnit>
 
+            <p:layoutUnit position="center">
+                <h:form id="vehicleForm" styleClass="form-horizontal">
+                    <c:panelGroup layout="block" rendered="#{stolenCarBean.active}">
+                        <h2>Stolen vehicle #{stolenCarBean.licensePlate}</h2>
+
+                        <p:tabView style="border:0px;">
+                        <p:tab title="Vehicle movements">
+                            <h4>Movements</h4>
+                            <!-- Table of movements -->
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Date and time</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Speed (M/s)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ui:repeat value="#{stolenCarBean.vehicleMovements}" var="movement">
+                                    <tr>
+                                        <td>#{movement.movementDateTime}</td>
+                                        <td>#{movement.from.cityName}</td>
+                                        <td>#{movement.to.cityName}</td>
+                                        <td>#{movement.speed}</td>
+                                    </tr>
+                                </ui:repeat>
+                                </tbody>
+                            </table>
+                        </p:tab>
+                        <p:tab title="Vehicle owner history">
+                            <h4>Owners</h4>
+                            <!-- Table of owners -->
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Date of registration</th>
+                                    <th>Date of expiration</th>
+                                    <th>Owner</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ui:repeat value="#{stolenCarBean.vehicleOwners}" var="owner">
+                                    <tr>
+                                        <td>#{owner.registrationdate}</td>
+                                        <td>#{owner.registrationExperationDate}</td>
+                                        <td>#{owner.user.name}</td>
+                                    </tr>
+                                </ui:repeat>
+                                </tbody>
+                            </table>
+                        </p:tab>
+                        </p:tabView>
+                    </c:panelGroup>
+                </h:form>
+
+
+<!--
 
                     <c:panelGroup layout="block" styleClass="alert alert-danger"
-                                  rendered="#{loginBean.failed}">
+                                  rendered="#loginBean.failed}">
                         The username and/or password you entered is incorrect.
                     </c:panelGroup>
 
-                    <div class="form-group">
-                        <p:outputLabel for="#{id}_txtUsername" styleClass="col-sm-3 control-label"
-                                       value="#{msg['username']}"/>
-
-                        <div class="col-sm-9">
-
-                            <p:inputText id="#{id}_txtUsername" value="#{loginBean.username}"
-                                         styleClass="form-control"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <p:outputLabel for="#{id}_txtPassword" styleClass="col-sm-3 control-label"
-                                       value="#{msg['password']}"/>
-
-
-                        <div class="col-sm-9">
-                            <p:password id="#{id}_txtPassword" value="#{loginBean.password}" styleClass="form-control"/>
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-10">
-                            <p:commandButton id="#{id}_btnLogin" value="Login" styleClass="btn btn-success"
-                                             update="loginForm_#{id}"
-                                             actionListener="#{loginBean.login}"/>
+                            <p:commandButton id="btnLogin" value="Login" styleClass="btn btn-success"
+                                             update=":vehicleForm"
+                                             actionListener="#loginBean.login}"/>
 
                             <div style="display:inline-block; margin-left:12px;">
                                 <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
@@ -53,12 +97,9 @@
                                     </f:facet>
                                 </p:ajaxStatus>
                             </div>
-
                         </div>
-                    </div>
-
-                </h:form>
-            </div>
-        </div>
+                    </div>-->
+            </p:layoutUnit>
+        </p:layout>
     </h:panelGroup>
 </ui:composition>

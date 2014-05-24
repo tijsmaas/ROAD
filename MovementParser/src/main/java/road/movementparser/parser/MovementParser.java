@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 import road.movemententities.entities.*;
 import road.movemententityaccess.dao.EntityDAO;
+import road.movemententityaccess.dao.VehicleDAO;
 import sumo.movements.jaxb.*;
 
 /**
@@ -24,14 +25,16 @@ public class MovementParser
     private static final String SUMOMOVEMENTSJAXBPACKAGE = "sumo.movements.jaxb";
 
     private EntityDAO entityDAO;
+    private VehicleDAO vehicleDAO;
     private GenericParser genericParser;
 
     private int missed = 0;
     private int numberOfMovementParses = 0;
 
-    public MovementParser(EntityDAO entityDAO, GenericParser genericParser)
+    public MovementParser(EntityDAO entityDAO, VehicleDAO vehicleDAO, GenericParser genericParser)
     {
         this.entityDAO = entityDAO;
+        this.vehicleDAO = vehicleDAO;
         this.genericParser = genericParser;
     }
 
@@ -62,7 +65,7 @@ public class MovementParser
     }
 
     /**
-     * Parsers exactly a timestep and returns a collection of all movements in the Netstate {@link root} variable.
+     * Parsers exactly a timestep and returns a collection of all movements in the Netstate root variable.
      * @param root Sumo Netstate variable to be parsed, that should contain exactly one timestep.
      * @param date The exact time on which this timestep is received.
      * @return
@@ -113,7 +116,7 @@ public class MovementParser
                         String licenseplate = xmlVehicle.getId();
 
                         // Get vehicle by its license plate (<vehicle id="license">) or create a vehicle
-                        Vehicle vehicle = (Vehicle)entityDAO.findById(Vehicle.class, licenseplate);
+                        Vehicle vehicle = vehicleDAO.findByLicensePlate(licenseplate);
                         if (vehicle == null)
                         {
                             vehicle = new Vehicle(licenseplate);

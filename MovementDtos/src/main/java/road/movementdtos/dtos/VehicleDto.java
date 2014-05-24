@@ -17,6 +17,11 @@ public class VehicleDto {
     private boolean contributeGPSData;
 
     /**
+     * Specifies if this vehicle is stolen.
+     */
+    private boolean isStolen;
+
+    /**
      * The licence plate of the vehicle.
      */
     private String licensePlate;
@@ -31,14 +36,23 @@ public class VehicleDto {
      */
     public VehicleDto() {}
 
+    public boolean isStolen() {
+        return isStolen;
+    }
+
+    public void setStolen(boolean isStolen) {
+        this.isStolen = isStolen;
+    }
+
     /**
      * Create a new instance of the {@link VehicleDto} class.
      * @param licensePlate the licence plate of the vehicle.
      * @param contributeGPSData if the vehicle movements are used in the traffic jam calculations.
      */
-    public VehicleDto(int vehicleID, String licensePlate, boolean contributeGPSData) {
+    public VehicleDto(int vehicleID, String licensePlate, boolean contributeGPSData, boolean isStolen) {
         this.licensePlate = licensePlate;
         this.contributeGPSData = contributeGPSData;
+        this.isStolen = isStolen;
         this.vehicleID = vehicleID;
     }
 
