@@ -2,6 +2,7 @@ package road.jamsystem.services.internal;
 
 import road.jamdts.connections.IJamListener;
 import road.jamdts.connections.JamClient;
+import road.jamsystem.beans.TrafficJamBean;
 import road.movementdtos.dtos.LaneDto;
 import road.movementdtos.dtos.MovementDto;
 import road.movementdts.helpers.Pair;
@@ -9,6 +10,7 @@ import road.movementdts.helpers.Pair;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,14 +18,11 @@ import java.util.Map;
 /**
  * Created by Geert on 21/05/2014.
  */
-@Singleton
-@Startup
+@Singleton @Startup
 public class JamService implements IJamListener
 {
-    /**
-     * A collection containing all lanes with a traffic jam on them.
-     */
-    private List<LaneDto> lanesWithJam;
+    @Inject
+    private TrafficJamBean trafficJamBean;
 
     private JamClient jamClient;
 
@@ -75,7 +74,8 @@ public class JamService implements IJamListener
             }
         }
 
-        this.lanesWithJam = lanesWithTrafficJams;
+        //this.lanesWithJam = lanesWithTrafficJams;
+        this.trafficJamBean.setLanesWithJam(lanesWithTrafficJams);
     }
 
     /**
