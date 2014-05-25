@@ -11,66 +11,48 @@
         <h:panelGroup layout="block" styleClass="pill">
             <p:tabView>
                 <p:tab title="#{msg['Vehicle']}">
-                    <h:panelGrid columns="2">
-                        <p:outputLabel for="txtKenteken" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Kenteken']}:"/>
+                    <h:panelGrid columns="2" width="100%">
+                        <p:outputLabel for="txtKenteken" value="#{msg['Kenteken']}:"/>
                         <h:outputText id="txtKenteken" value="#{carBean.getDetail('Kenteken')}" />
-                        <p:outputLabel for="txtVoertuigsoort" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Voertuigsoort']}:"/>
+                        <p:outputLabel for="txtVoertuigsoort" value="#{msg['Voertuigsoort']}:"/>
                         <h:outputText id="txtVoertuigsoort" value="#{carBean.getDetail('Voertuigsoort')}" />
-                        <p:outputLabel for="txtMerk" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Merk']}:"/>
+                        <p:outputLabel for="txtMerk" value="#{msg['Merk']}:"/>
                         <h:outputText id="txtMerk" value="#{carBean.getDetail('Merk')}" />
-                        <p:outputLabel for="txtHandelsbenaming" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Handelsbenaming']}:"/>
+                        <p:outputLabel for="txtHandelsbenaming" value="#{msg['Handelsbenaming']}:"/>
                         <h:outputText id="txtHandelsbenaming" value="#{carBean.getDetail('Handelsbenaming')}" />
-                        <p:outputLabel for="txtHoofdbrandstof" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Hoofdbrandstof']}:"/>
+                        <p:outputLabel for="txtHoofdbrandstof" value="#{msg['Hoofdbrandstof']}:"/>
                         <h:outputText id="txtHoofdbrandstof" value="#{carBean.getDetail('Hoofdbrandstof')}" />
-                        <p:outputLabel for="txtVervaldatumAPK" styleClass="col-sm-3 control-label"
-                                       value="#{msg['VervaldatumAPK']}:"/>
+                        <p:outputLabel for="txtVervaldatumAPK" value="#{msg['VervaldatumAPK']}:"/>
                         <h:outputText id="txtVervaldatumAPK" value="#{carBean.getDetail('VervaldatumAPK')}" />
-                        <p:outputLabel for="txtDatumaanvangtenaamstelling" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Datumaanvangtenaamstelling']}:"/>
+                        <p:outputLabel for="txtDatumaanvangtenaamstelling" value="#{msg['Datumaanvangtenaamstelling']}:"/>
                         <h:outputText id="txtDatumaanvangtenaamstelling" value="#{carBean.getDetail('Datumaanvangtenaamstelling')}" />
-                        <p:outputLabel for="txtBPM" styleClass="col-sm-3 control-label"
-                                       value="#{msg['BPM']}:"/>
+                        <p:outputLabel for="txtBPM" value="#{msg['BPM']}:"/>
                         <h:outputText id="txtBPM" value="#{carBean.getDetail('BPM')}" />
                     </h:panelGrid>
                 </p:tab>
-                <p:tab title="#{msg['Properties']}">
-                    <h:outputText value="#{msg['Facilities']}" />
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:outputLabel for="txtInrichting" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Inrichting']}:"/>
+                <p:tab title="#{msg['Facilities']}">
+                    <h:panelGrid columns="2" width="100%">
+                        <p:outputLabel for="txtInrichting" value="#{msg['Inrichting']}:"/>
                         <h:outputText id="txtInrichting" value="#{carBean.getDetail('Inrichting')}" />
-                        <p:outputLabel for="txtAantalzitplaatsen" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Aantalzitplaatsen']}:"/>
+                        <p:outputLabel for="txtAantalzitplaatsen" value="#{msg['Aantalzitplaatsen']}:"/>
                         <h:outputText id="txtAantalzitplaatsen" value="#{carBean.getDetail('Aantalzitplaatsen')}" />
-                        <p:outputLabel for="txtAantalstaanplaatsen" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Aantalstaanplaatsen']}:"/>
+                        <p:outputLabel for="txtAantalstaanplaatsen" value="#{msg['Aantalstaanplaatsen']}:"/>
                         <h:outputText id="txtAantalstaanplaatsen" value="#{carBean.getDetail('Aantalstaanplaatsen')}" />
-                        <p:outputLabel for="txtEerstekleur" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Eerstekleur']}:"/>
+                        <p:outputLabel for="txtEerstekleur" value="#{msg['Eerstekleur']}:"/>
                         <h:outputText id="txtEerstekleur" value="#{carBean.getDetail('Eerstekleur')}" />
-                        <p:outputLabel for="txtTweedekleur" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Tweedekleur']}:"/>
+                        <p:outputLabel for="txtTweedekleur" value="#{msg['Tweedekleur']}:"/>
                         <h:outputText id="txtTweedekleur" value="#{carBean.getDetail('Tweedekleur')}" />
-                        <br/>
-                        <br/>
-                        <h:outputText value="#{msg['Motor']}" />
-                        <br/>
-                        <p:outputLabel for="txtBrandstof" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Hoofdbrandstof']}:"/>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="#{msg['Motor']}">
+                    <h:panelGrid columns="2" width="100%">
+                        <p:outputLabel for="txtBrandstof" value="#{msg['Hoofdbrandstof']}:"/>
                         <h:outputText id="txtBrandstof" value="#{carBean.getDetail('Hoofdbrandstof')}" />
-                        <p:outputLabel for="txtAantalcilinders" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Aantalcilinders']}:"/>
+                        <p:outputLabel for="txtAantalcilinders" value="#{msg['Aantalcilinders']}:"/>
                         <h:outputText id="txtAantalcilinders" value="#{carBean.getDetail('Aantalcilinders')}" />
-                        <p:outputLabel for="txtCilinderinhoud" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Cilinderinhoud']}:"/>
+                        <p:outputLabel for="txtCilinderinhoud" value="#{msg['Cilinderinhoud']}:"/>
                         <h:outputText id="txtCilinderinhoud" value="#{carBean.getDetail('Cilinderinhoud')}" />
-                        <p:outputLabel for="txtVermogen" styleClass="col-sm-3 control-label"
-                                       value="#{msg['Vermogen']}:"/>
+                        <p:outputLabel for="txtVermogen" value="#{msg['Vermogen']}:"/>
                         <h:outputText id="txtVermogen" value="#{carBean.getDetail('Vermogen')}" />
                     </h:panelGrid>
                 </p:tab>
