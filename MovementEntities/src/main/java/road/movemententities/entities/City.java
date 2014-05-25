@@ -65,7 +65,7 @@ public class City implements MovementEntity<String>
 
         double randomValue = min + (max - min) * random.nextDouble();
 
-        this.cityRates.add(new CityRate(this, new Date(), String.valueOf(randomValue)));
+        this.cityRates.add(new CityRate(this, new Date(), randomValue));
     }
 
     public String getCityId()
