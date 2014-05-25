@@ -23,6 +23,6 @@ public interface CityDAO
 
     List<City> findAll();
 
-    boolean adjustKilometerRate(City city, Date addDate, String price);
+    boolean adjustKilometerRate(String cityId, Date addDate, String price);
 
 }
