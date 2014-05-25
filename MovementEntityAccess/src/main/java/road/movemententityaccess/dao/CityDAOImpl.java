@@ -59,14 +59,15 @@ public class CityDAOImpl implements CityDAO
     }
 
     @Override
-    public boolean adjustKilometerRate(City city, Date addDate, String price)
+    public boolean adjustKilometerRate(String cityId, Date addDate, String price)
     {
         try
         {
+            em.getTransaction().begin();
+            City city = find(cityId);
             CityRate cityRate = new CityRate(city, addDate, price);
-            em.persist(new CityRate(city, addDate, price));
-            city.addCityRate(cityRate);
-            em.merge(city);
+            em.merge(cityRate);
+            em.getTransaction().commit();
             return true;
         }
         catch(Exception ex)

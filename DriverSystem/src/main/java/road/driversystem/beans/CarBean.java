@@ -29,7 +29,11 @@ public class CarBean {
     private HashMap<String, String> details = new HashMap<>();
 
     public String getDetail(String property) {
-        return details.get(property);
+        String result = "Niet geregistreerd";
+        if(details.get(property) != null && !details.get(property).equals("")) {
+            result = details.get(property);
+        }
+        return result;
     }
 
     public void getCarDetails(String kenteken){

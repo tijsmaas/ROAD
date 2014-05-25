@@ -11,6 +11,11 @@
     <ui:define name="content">
         <h:head>
             <h:outputScript library="js" name="simulation.js"/>
+
+            <!-- Format: https://maps.googleapis.com/maps/api/js?key=API_KEY&sensor=SET_TO_TRUE_OR_FALSE -->
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXtN-vqcg5GiCDl23g3MQS2rfx6a1JRE0&amp;sensor=false"></script>
+
+            <h:outputScript library="js" name="map.js"/>
         </h:head>
         <div class="pill pill-autosize" id="loginPill">
             <h3>Car Simulator - Simulation</h3>
@@ -24,6 +29,9 @@
                     Simulation file has not yet been uploaded. Go to the setup page first to upload a simulation file.
                 </c:otherwise>
             </c:choose>
+        </div>
+        <div class="pill pill-autosize">
+            <div id="map-canvas" style="height: 500px;"></div>
         </div>
         <div class="pill pill-autosize" id="message"></div>
         <div class="pill pill-scroll" id="show"></div>
