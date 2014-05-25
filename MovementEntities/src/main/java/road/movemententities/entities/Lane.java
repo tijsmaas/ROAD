@@ -3,8 +3,6 @@ package road.movemententities.entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Niek on 14/03/14.
@@ -25,6 +23,9 @@ public class Lane implements MovementEntity<String>
 
     @Column(name = "LaneLength")
     private float length;
+
+    @OneToMany(mappedBy = "lane")
+    private List<ShapeCoordinate> shape;
 
     @ManyToMany @JoinTable(name="lanesFrom", joinColumns = { @JoinColumn(name="lanesTo") }, inverseJoinColumns = { @JoinColumn(name="lanesFrom") })
     private List<Lane> lanesFrom = new ArrayList<>();
@@ -47,6 +48,12 @@ public class Lane implements MovementEntity<String>
         this.index = index;
         this.speed = speed;
         this.length = length;
+    }
+
+    public Lane(Edge edge, String id, int index, float speed, float length, List<ShapeCoordinate> shape)
+    {
+        this(edge, id, index, speed, length);
+        this.shape = shape;
     }
 
     public String getLaneIdentifier()
@@ -76,6 +83,16 @@ public class Lane implements MovementEntity<String>
     public float getLength()
     {
         return length;
+    }
+
+    public List<ShapeCoordinate> getShape()
+    {
+        return shape;
+    }
+
+    public void setShape(List<ShapeCoordinate> shape)
+    {
+        this.shape = shape;
     }
 
     public Edge getEdge()

@@ -1,4 +1,4 @@
-package road.carsystem.domain;
+package road.carsystem.domain.netstate;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * Created by geh on 14-5-14.
  */
-public class Edge
+public class TimeStep
 {
-    @XStreamAsAttribute @XStreamAlias("id")
-    public String id;
-    @XStreamImplicit(itemFieldName="lane")
-    public List<Lane> lanes;
+    @XStreamAsAttribute @XStreamAlias("time")
+    public Float time;
+    @XStreamImplicit(itemFieldName="edge")
+    public List<Edge> edges;
 }

@@ -1,4 +1,4 @@
-package road.carsystem.domain;
+package road.carsystem.domain.netstate;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;

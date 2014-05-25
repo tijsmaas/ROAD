@@ -33,8 +33,6 @@ public class Movement implements MovementEntity<Integer>
     {
     }
 
-    ;
-
     @Override
     public Integer getId()
     {

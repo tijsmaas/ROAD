@@ -43,10 +43,10 @@ public class MovementParser
         try
         {
             long startTime = System.nanoTime();
-            @SuppressWarnings("unchecked")
-            JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
-            parseTimesteps(root, insertDate);
-            System.out.println("Parsed " + changes.getName() + " in " + (System.nanoTime() - startTime) + "ns");
+            //@SuppressWarnings("unchecked")
+            //JAXBElement<SumoNetstateType> root = (JAXBElement<SumoNetstateType>) genericParser.parse(changes, SUMOMOVEMENTSJAXBPACKAGE);
+            //parseTimesteps(root, insertDate);
+            //System.out.println("Parsed " + changes.getName() + " in " + (System.nanoTime() - startTime) + "ns");
         }
         catch (Exception ex)
         {
