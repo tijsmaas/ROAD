@@ -146,11 +146,8 @@ public class InvoiceGenerator
 
                     if(currentRate != null)
                     {
-                        String kmRateAsRetardedString = currentRate.getKilometerRate();
-                        km_rate = Double.parseDouble(kmRateAsRetardedString); //Ik ga raven tot de grond gaat beven als dit fout gaat
+                        km_rate = currentRate.getKilometerRate();
                     }
-
-                    String kmRateAsRetardedString = city.getCurrentRate().getKilometerRate();
                     CityDistance cityDistance = cityDistances.get(city);
 
                     // add to subtotal
