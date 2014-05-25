@@ -30,7 +30,7 @@ public class BillClient extends QueueClient implements IBillQuery
     }
 
     @Override
-    public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
+    public boolean adjustKilometerRate(CityDto city, Date addDate, double price)
     {
         return this.remoteCall("adjustKilometerRate", boolean.class, city, addDate, price);
     }

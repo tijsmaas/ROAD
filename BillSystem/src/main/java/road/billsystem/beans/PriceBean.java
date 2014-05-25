@@ -47,7 +47,7 @@ public class PriceBean implements Serializable
     {
         if(price.matches("\\d+[,.]\\d{2}"))
         {
-            billService.adjustKilometerRate(city, new Date(), price);
+            billService.adjustKilometerRate(city, new Date(), Double.parseDouble(price));
             return "The kilometer rates has been changed successfully.";
         }
         else

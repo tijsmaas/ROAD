@@ -59,7 +59,7 @@ public class CityDAOImpl implements CityDAO
     }
 
     @Override
-    public boolean adjustKilometerRate(String cityId, Date addDate, String price)
+    public boolean adjustKilometerRate(String cityId, Date addDate, double price)
     {
         try
         {

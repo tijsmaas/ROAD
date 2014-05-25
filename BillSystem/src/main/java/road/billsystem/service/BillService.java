@@ -67,7 +67,7 @@ public class BillService implements Serializable
         return billClient.authenticate(username, password);
     }
 
-    public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
+    public boolean adjustKilometerRate(CityDto city, Date addDate, double price)
     {
         return billClient.adjustKilometerRate(city, addDate, price);
     }

@@ -70,7 +70,7 @@ public class BillServer extends QueueServer implements IBillQuery
     }
 
     @Override
-    public boolean adjustKilometerRate(CityDto city, Date addDate, String price)
+    public boolean adjustKilometerRate(CityDto city, Date addDate, double price)
     {
         return cityDAO.adjustKilometerRate(city.getCityId(), addDate, price);
     }

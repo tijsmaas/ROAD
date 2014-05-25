@@ -16,11 +16,11 @@ public class CityRate
     CityRateId id;
 
     @Column(unique = false, nullable = true)
-    private String kilometerRate;
+    private double kilometerRate;
 
     public CityRate(){}
 
-    public CityRate(City city, Date addDate, String kilometerRate)
+    public CityRate(City city, Date addDate, double kilometerRate)
     {
         id = new CityRateId();
         id.setCity(city);
@@ -36,11 +36,11 @@ public class CityRate
         this.id = id;
     }
 
-    public String getKilometerRate() {
+    public double getKilometerRate() {
         return kilometerRate;
     }
 
-    public void setKilometerRate(String kilometerRate) {
+    public void setKilometerRate(double kilometerRate) {
         this.kilometerRate = kilometerRate;
     }
 }
