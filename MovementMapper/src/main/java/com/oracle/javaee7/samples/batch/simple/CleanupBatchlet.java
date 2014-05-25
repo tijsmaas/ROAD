@@ -40,7 +40,6 @@ public class CleanupBatchlet extends AbstractBatchlet
         //Print Maximum available memory
         System.out.println("Max Memory:" + runtime.maxMemory() / mb);
         
-        
         System.out.println("Cleaning up...");
         em.getEntityManagerFactory().getCache().evictAll();
         

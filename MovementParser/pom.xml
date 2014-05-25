@@ -40,5 +40,10 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.4.Final</version>
         </dependency>
+        <dependency>
+            <groupId>xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
 </project>

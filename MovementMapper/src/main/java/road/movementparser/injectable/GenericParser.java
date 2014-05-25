@@ -1,5 +1,7 @@
 package road.movementparser.injectable;
 
+import org.primefaces.model.UploadedFile;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -20,7 +22,7 @@ public class GenericParser
      * @return JAXB root element
      */
     @SuppressWarnings("rawtypes")
-    public JAXBElement parse(File file, String classpath)
+    public JAXBElement parse(UploadedFile file, String classpath)
     {
         JAXBContext jc;
         try
@@ -30,12 +32,12 @@ public class GenericParser
              */
             jc = JAXBContext.newInstance(classpath);
             Unmarshaller unmarshaller = jc.createUnmarshaller();
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            BufferedInputStream bis = new BufferedInputStream(file.getInputstream());
             return (JAXBElement) unmarshaller.unmarshal(bis);
         }
-        catch (JAXBException | OutOfMemoryError | FileNotFoundException e)
+        catch (JAXBException | OutOfMemoryError | IOException e)
         {
-            System.err.println("Parsing of " + file.getName() + " failed");
+            System.err.println("Parsing of " + file.getFileName() + " failed");
             e.printStackTrace();
         }
         return null;

@@ -1,5 +1,6 @@
 package road.movementmapper;
 
+import org.primefaces.model.UploadedFile;
 import org.xml.sax.SAXException;
 import osm.jaxb.OsmType;
 import road.movementparser.injectable.GenericParser;
@@ -30,12 +31,12 @@ public class MovementMapper
      *            info.
      * @throws SAXException
      */
-    public void parseSUMO(File map) throws SAXException
+    public void parseSUMO(UploadedFile map) throws SAXException
     {
         long startTime = System.nanoTime();
         JAXBElement<NetType> root = (JAXBElement<NetType>) genericParser.parse(map, SUMOJAXBPACKAGE);
         mapParser.parseMap(root);
-        System.out.println("Parsed " + map.getName() + " in " + (System.nanoTime() - startTime) + "ns");
+        System.out.println("Parsed " + map.getFileName() + " in " + (System.nanoTime() - startTime) + "ns");
     }
 
     /**
@@ -45,11 +46,11 @@ public class MovementMapper
      * @param map Open Street map file
      *            (Tested with OSM version='0.6' generator='JOSM')
      */
-    public void parseOSM(File map)
+    public void parseOSM(UploadedFile map)
     {
         long startTime = System.nanoTime();
         JAXBElement<OsmType> root = (JAXBElement<OsmType>) genericParser.parse(map, OSMJAXBPACKAGE);
         mapParser.parseCities(root);
-        System.out.println("Parsed " + map.getName() + " in " + (System.nanoTime() - startTime) + "ns");
+        System.out.println("Parsed " + map.getFileName() + " in " + (System.nanoTime() - startTime) + "ns");
     }
 }

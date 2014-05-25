@@ -1,5 +1,7 @@
 package road.carsystem.domain;
 
+import road.carsystem.domain.netstate.TimeStep;
+
 /**
  * Created by geh on 15-5-14.
  */

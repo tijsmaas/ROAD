@@ -20,9 +20,15 @@ public class VehicleMovement implements MovementEntity<Integer>
     @ManyToOne
     VehicleOwnership vehicleOwnership;
 
-    /* Vehicle position and speed */
+    /* Vehicle position on the lane */
     private float position;
+    /* Vehicle speed in m/s */
     private float speed;
+    /* WGS84 latitude of vehicle */
+    private double latitude;
+    /* WGS84 longitude of vehicle */
+    private double longitude;
+
 
     // Empty constructor for JPA
     public VehicleMovement()
@@ -43,6 +49,20 @@ public class VehicleMovement implements MovementEntity<Integer>
         this.vehicleOwnership = vehicleOwnership;
         this.position = position;
         this.speed = speed;
+    }
+
+    public VehicleMovement(Movement movement, Vehicle vehicle, float position, float speed, double latitude, double longitude)
+    {
+        this(movement, vehicle, position, speed);
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public VehicleMovement(Movement movement, VehicleOwnership vehicleOwnership, float position, float speed, double latitude, double longitude)
+    {
+        this(movement, vehicleOwnership, position, speed);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     //region Properties
@@ -86,6 +106,25 @@ public class VehicleMovement implements MovementEntity<Integer>
         this.speed = speed;
     }
 
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude()
+    {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude)
+    {
+        this.longitude = longitude;
+    }
     public Movement getMovement()
     {
         return movement;

@@ -4,18 +4,35 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:c="http://java.sun.com/jstl/core">
 
     <ui:define name="content">
-        <div class="pill login-pill" id="loginPill">
-            <h3>Parse movements file</h3>
-            <form action="startjob" method="post">
-                <table>
-                    <tr><td><label for="basedate">Date of movements(dd-MM-yyyy|HH:mm:ss): </label></td><td><input type="text"  name="basedate" value="11-02-2014|11:11:11" /></td></tr>
-                    <tr><td><label for="basedate">File with movements: </label></td><td><input type="text"  name="inputfile" value="movement_vehicle_gen_t0.xml" /></td></tr>
-                    <tr><td></td><td><input type="submit" value="Send" /></td></tr>
-                </table>
-            </form>
+        <div class="pill pill-autosize" id="parserContent">
+            <h:form enctype="multipart/form-data">
+                OSM map (PTS-ESD-2.osm)
+                <p:fileUpload value="#{mapBean.osmMapFile}" mode="simple"/>
+                SUMO map (geo.net.xml)
+                <p:fileUpload value="#{mapBean.sumoMapFile}" mode="simple"/>
+                Initial movements (geo_sim20.xml)
+                <p:fileUpload value="#{mapBean.movementsFile}" mode="simple"/>
+                <br />
+                <p:commandButton value="Submit" ajax="false" actionListener="#{mapBean.upload}"/>
+                <br /><br />
+                <p:messages showDetail="true"/>
+            </h:form>
+
+            <c:choose>
+                <c:when test="${mapBean.sumoMapFile != null and mapBean.osmMapFile != null and mapBean.movementsFile != null}">
+                    Both the map and the movements have been uploaded. You may start parsing now!
+                    <h:form>
+                        <p:commandButton value="Start parsing" ajax="false" actionListener="#{mapBean.startParse()}" />
+                    </h:form>
+                </c:when>
+                <c:otherwise>
+                    Both a map (OSM and SUMO) file and a movement file have to be uploaded before you may start parsing.
+                </c:otherwise>
+            </c:choose>
         </div>
     </ui:define>
 

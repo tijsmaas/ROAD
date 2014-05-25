@@ -10,7 +10,7 @@ import com.thoughtworks.xstream.XStream;
 import org.primefaces.model.UploadedFile;
 import road.cardts.connections.CarClient;
 import road.carsystem.domain.*;
-import road.movementdts.helpers.Pair;
+import road.carsystem.domain.netstate.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;

@@ -4,11 +4,15 @@ import road.movemententities.entities.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.xml.bind.JAXBElement;
 import osm.jaxb.NodeType;
 import osm.jaxb.OsmType;
 import osm.jaxb.TagType;
 import road.movementmapper.dao.EntityDAO;
+import road.movementmapper.helpers.CoordinateConversion;
 import sumo.jaxb.ConnectionType;
 import sumo.jaxb.EdgeType;
 import sumo.jaxb.LaneType;
@@ -23,6 +27,8 @@ public class MapParser
 {
     @Inject
     private EntityDAO entityDAO;
+    @PersistenceContext(unitName = "MovementPU")
+    private EntityManager em;
 
     /**
      * Parse the SUMO version of the net map.
@@ -66,6 +72,24 @@ public class MapParser
             for (LaneType xmlLane : xmlEdge.getLane())
             {
                 Lane lane = new Lane(edge, xmlLane.getId(), xmlLane.getIndex().intValue(), xmlLane.getSpeed(), xmlLane.getLength());
+
+                //Parse coordinates from the shape attribute value.
+                List<ShapeCoordinate> shape = new ArrayList<>();
+                int sequence = 0;
+                for(String rawCoor : xmlLane.getShape().split(" "))
+                {
+                    /* this converts the utm coordinates, converted by NetConvert, back to the original
+                     * WGS84 latitude longitude coordinates. 31 is the zone and N is the hemisphere (northern)
+                     * keep this in mind when converting from other files. */
+                    rawCoor = "31,N," + rawCoor;
+                    double[] coorNums = new CoordinateConversion().utm2LatLon(rawCoor);
+                    ShapeCoordinate coor = new ShapeCoordinate(lane, sequence, coorNums[0], coorNums[1]);
+                    shape.add(coor);
+                    this.em.persist(coor);
+                    sequence++;
+                }
+
+                lane.setShape(shape);
                 edge.addLane(lane);
                 entityDAO.create(lane);
             }

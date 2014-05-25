@@ -53,77 +53,77 @@ import java.util.Enumeration;
  */
 public class JobSubmitterServlet extends HttpServlet
 {
-    @Inject
-    private JobReceiverBean jobsubmitter;
-
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter pw = response.getWriter();
-        Enumeration<String> x = request.getParameterNames();
-        pw.println("args:");
-        while (x.hasMoreElements())
-        {
-            pw.println(x.nextElement());
-        }
-
-        String inputfile = request.getParameter("inputfile");
-        String insertdate = request.getParameter("basedate");
-        try
-        {
-            pw.println(inputfile);
-            pw.println(insertdate);
-            jobsubmitter.startbatch(inputfile, insertdate);
-            pw.println("OK");
-        }
-        catch (Exception ex)
-        {
-            throw new ServletException(ex);
-        }
-        finally
-        {
-            pw.close();
-        }
-    }
-
-    /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP
-     * <code>POST</code> method.
-     *
-     * @param request  servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        processRequest(request, response);
-    }
+//    @Inject
+//    private JobReceiverBean jobsubmitter;
+//
+//    /**
+//     * Processes requests for both HTTP
+//     * <code>GET</code> and
+//     * <code>POST</code> methods.
+//     *
+//     * @param request  servlet request
+//     * @param response servlet response
+//     * @throws ServletException if a servlet-specific error occurs
+//     * @throws IOException      if an I/O error occurs
+//     */
+//    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException
+//    {
+//        response.setContentType("text/html;charset=UTF-8");
+//        PrintWriter pw = response.getWriter();
+//        Enumeration<String> x = request.getParameterNames();
+//        pw.println("args:");
+//        while (x.hasMoreElements())
+//        {
+//            pw.println(x.nextElement());
+//        }
+//
+//        String inputfile = request.getParameter("inputfile");
+//        String insertdate = request.getParameter("basedate");
+//        try
+//        {
+//            pw.println(inputfile);
+//            pw.println(insertdate);
+//            jobsubmitter.startbatch(inputfile, insertdate);
+//            pw.println("OK");
+//        }
+//        catch (Exception ex)
+//        {
+//            throw new ServletException(ex);
+//        }
+//        finally
+//        {
+//            pw.close();
+//        }
+//    }
+//
+//    /**
+//     * Handles the HTTP
+//     * <code>GET</code> method.
+//     *
+//     * @param request  servlet request
+//     * @param response servlet response
+//     * @throws ServletException if a servlet-specific error occurs
+//     * @throws IOException      if an I/O error occurs
+//     */
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+//    {
+//        processRequest(request, response);
+//    }
+//
+//    /**
+//     * Handles the HTTP
+//     * <code>POST</code> method.
+//     *
+//     * @param request  servlet request
+//     * @param response servlet response
+//     * @throws ServletException if a servlet-specific error occurs
+//     * @throws IOException      if an I/O error occurs
+//     */
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+//    {
+//        processRequest(request, response);
+//    }
 }

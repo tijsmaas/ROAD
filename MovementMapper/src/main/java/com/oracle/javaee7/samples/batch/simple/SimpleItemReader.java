@@ -51,6 +51,9 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.bind.JAXBElement;
+
+import org.primefaces.model.UploadedFile;
+import road.movementmapper.beans.MapBean;
 import road.movementparser.injectable.GenericParser;
 import sumo.movements.jaxb.SumoNetstateType;
 import sumo.movements.jaxb.TimestepType;
@@ -78,10 +81,9 @@ public class SimpleItemReader extends AbstractItemReader
     public void open(Serializable e) throws Exception
     {
         Properties jobParameters = BatchRuntime.getJobOperator().getParameters(jobContext.getExecutionId());
-        String filename = jobParameters.getProperty("inputfile");
-        System.out.println("Opening file "+filename);
-        File inputfile = getResourceFile(filename); 
-        JAXBElement<SumoNetstateType> root = jaxbparser.parse(inputfile, SUMOMOVEMENTSJAXBPACKAGE);
+        //String file = (String)jobParameters.get("file");
+        //System.out.println("Opening file");
+        JAXBElement<SumoNetstateType> root = jaxbparser.parse(MapBean.movements, SUMOMOVEMENTSJAXBPACKAGE);
         timestepIterator = root.getValue().getTimestep().iterator();
     }
 
