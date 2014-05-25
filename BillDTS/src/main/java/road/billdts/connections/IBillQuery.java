@@ -15,7 +15,7 @@ public interface IBillQuery
 {
     MovementUserDto authenticate(String user, String password);
 
-    boolean adjustKilometerRate(CityDto city, Date addDate, String price);
+    boolean adjustKilometerRate(CityDto city, Date addDate, double price);
 
     List<CityDto> getCities();
 
