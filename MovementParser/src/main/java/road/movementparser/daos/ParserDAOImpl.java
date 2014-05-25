@@ -1,6 +1,7 @@
 package road.movementparser.daos;
 
 import road.movemententities.entities.Lane;
+import road.movemententities.entities.Vehicle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -44,5 +45,24 @@ public class ParserDAOImpl
     public Lane getLane(String id)
     {
         return this.lanes.get(id);
+    }
+
+    public Vehicle getVehicle(String licensePlate)
+    {
+        Query query = em.createQuery("Select vehicle from Vehicle vehicle where vehicle.licensePlate = :licensePlate");
+        query.setParameter("licensePlate", licensePlate);
+
+        List<Vehicle> resultList = query.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
+    public Vehicle getVehicle(int id)
+    {
+        return this.em.find(Vehicle.class, id);
+    }
+
+    public void addVehicle(Vehicle vehicle)
+    {
+        this.em.persist(vehicle);
     }
 }

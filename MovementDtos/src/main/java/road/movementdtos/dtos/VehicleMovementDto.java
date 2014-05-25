@@ -8,6 +8,8 @@ import java.util.Date;
 public class VehicleMovementDto {
     private int id;
     private float position;
+    private double latitude;
+    private double longitude;
     private float speed;
     private Date movementDateTime;
     private int index;
@@ -21,9 +23,11 @@ public class VehicleMovementDto {
     public VehicleMovementDto() {
     }
 
-    public VehicleMovementDto(int id, float position, float speed, Date movementDateTime, int index, float length, String type, CityDto from, CityDto to, Integer priority) {
+    public VehicleMovementDto(int id, float position, float speed, double latitude, double longitude, Date movementDateTime, int index, float length, String type, CityDto from, CityDto to, Integer priority) {
         this.id = id;
         this.position = position;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.speed = speed;
         this.movementDateTime = movementDateTime;
         this.index = index;
@@ -35,9 +39,12 @@ public class VehicleMovementDto {
         this.lane_id = "";
     }
 
-    public VehicleMovementDto(int id, float position, float speed, Date movementDateTime, int index, float length, String type, CityDto from, CityDto to, Integer priority, String lane_id) {
+    public VehicleMovementDto(int id, float position, double latitude, double longitude, float speed, Date movementDateTime, int index, float length, String type, CityDto from, CityDto to, Integer priority, String lane_id)
+    {
         this.id = id;
         this.position = position;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.speed = speed;
         this.movementDateTime = movementDateTime;
         this.index = index;
@@ -48,6 +55,8 @@ public class VehicleMovementDto {
         this.priority = priority;
         this.lane_id = lane_id;
     }
+
+
 
     public int getId() {
         return id;
@@ -67,6 +76,16 @@ public class VehicleMovementDto {
 
     public CityDto getTo() {
         return to;
+    }
+
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    public double getLongitude()
+    {
+        return longitude;
     }
 
     public Integer getPriority() {

@@ -1,4 +1,6 @@
-package road.carsystem.domain;
+package road.movementdtos.sumo;
+
+import road.movementdtos.sumo.FcdVehicle;
 
 /**
  * Created by geh on 14-5-14.

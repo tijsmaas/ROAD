@@ -9,8 +9,9 @@ import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.primefaces.model.UploadedFile;
 import road.cardts.connections.CarClient;
-import road.carsystem.domain.*;
+import road.carsystem.domain.SocketResponse;
 import road.carsystem.domain.netstate.*;
+import road.movementdtos.sumo.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -36,7 +37,7 @@ public class CarSimulator implements Serializable
 
     private CarClient carClient;
     private Session session;
-    private List<TimeStep> timeSteps;
+    private List<FcdTimeStep> timeSteps;
     private int sequence = 0;
 
     public CarSimulator()
@@ -64,6 +65,7 @@ public class CarSimulator implements Serializable
         this.xStream.useAttributeFor(Vehicle.class, "id");
         this.xStream.useAttributeFor(Vehicle.class, "pos");
         this.xStream.useAttributeFor(Vehicle.class, "speed");
+        this.xStream.useAttributeFor(FcdVehicle.class);
         this.xStream.addImplicitCollection(Netstate.class, "timeSteps");
         this.xStream.addImplicitCollection(TimeStep.class, "edges");
         this.xStream.addImplicitCollection(Edge.class, "lanes");
@@ -80,8 +82,8 @@ public class CarSimulator implements Serializable
         try
         {
             this.session = session;
-            Netstate state = ((Netstate)xStream.fromXML(file.getInputstream()));
-            this.timeSteps = state.timeSteps;
+            FcdExport export = ((FcdExport)this.xStream.fromXML(file.getInputstream()));
+            this.timeSteps = export.getTimeSteps();
             this.sequence = 0;
             this.setTimer(0);
         }
@@ -100,7 +102,7 @@ public class CarSimulator implements Serializable
     @Timeout
     private void sendTimeStep()
     {
-        TimeStep step = this.timeSteps.get(this.sequence);
+        FcdTimeStep step = this.timeSteps.get(this.sequence);
         SocketResponse response = new SocketResponse();
         response.timeStep = step;
 
@@ -117,7 +119,7 @@ public class CarSimulator implements Serializable
 
         if(this.sequence + 1 < this.timeSteps.size())
         {
-            this.setTimer((int)(this.timeSteps.get(sequence + 1).time - step.time));
+            this.setTimer((int)(this.timeSteps.get(sequence + 1).getTime() - step.getTime()));
             this.sequence++;
         }
     }
@@ -130,9 +132,9 @@ public class CarSimulator implements Serializable
      * @param step A single timestep with the relevant movements to be pushed
      * @return a boolean to notify of the success or failure of the operation
      */
-    public Boolean sendMovement(String api_key, int sequenceNumber, TimeStep step)
+    public Boolean sendMovement(String api_key, int sequenceNumber, FcdTimeStep step)
     {
-        String xmlMovement = this.xStream.toXML(new Netstate(step));
+        String xmlMovement = this.xStream.toXML(new FcdExport(step));
         String result = this.carClient.addMovement(api_key, (long)sequenceNumber, xmlMovement);
 
         Boolean success = false;

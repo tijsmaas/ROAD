@@ -1,6 +1,7 @@
 package road.carsystem.domain;
 
 import road.carsystem.domain.netstate.TimeStep;
+import road.movementdtos.sumo.FcdTimeStep;
 
 /**
  * Created by geh on 15-5-14.
@@ -8,5 +9,5 @@ import road.carsystem.domain.netstate.TimeStep;
 public class SocketResponse
 {
     public String message;
-    public TimeStep timeStep;
+    public FcdTimeStep timeStep;
 }

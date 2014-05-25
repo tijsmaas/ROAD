@@ -104,6 +104,8 @@ public class DtoMapper
         return new VehicleMovementDto(
                 vehicleMovement.getId(),
                 vehicleMovement.getPosition(),
+                vehicleMovement.getLatitude(),
+                vehicleMovement.getLongitude(),
                 vehicleMovement.getSpeed(),
                 vehicleMovement.getMovement().getMovementDateTime(),
                 vehicleMovement.getMovement().getLane().getIndex(),
@@ -151,7 +153,13 @@ public class DtoMapper
             laneIdsFrom.add(laneTo.getId());
         }
 
-        return new LaneDto(lane.getId(), lane.getLength(), laneIdsFrom, laneIdsTo);
+        Map<Integer, CoordinateDto> coords = new TreeMap<Integer, CoordinateDto>();
+        for(ShapeCoordinate sCoord : lane.getShape())
+        {
+            coords.put(sCoord.getSequence(), new CoordinateDto(sCoord.getLatitude(), sCoord.getLongitude()));
+        }
+
+        return new LaneDto(lane.getId(), lane.getLength(), laneIdsFrom, laneIdsTo, coords);
     }
 
     /**

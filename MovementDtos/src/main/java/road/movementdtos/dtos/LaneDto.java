@@ -2,6 +2,7 @@ package road.movementdtos.dtos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Geert on 21/05/2014.
@@ -12,6 +13,7 @@ public class LaneDto
     private float length;
     private List<String> laneIdsFrom;
     private List<String> laneIdsTo;
+    private Map<Integer, CoordinateDto> shape;
 
     /**
      * Create a new instance of {@link LaneDto}.
@@ -41,11 +43,12 @@ public class LaneDto
      * @param laneIdsFrom the lanes leading to this lane.
      * @param laneIdsTo the lanes leading from this lane.
      */
-    public LaneDto(String id, float length, List<String> laneIdsFrom, List<String> laneIdsTo)
+    public LaneDto(String id, float length, List<String> laneIdsFrom, List<String> laneIdsTo, Map<Integer, CoordinateDto> shape)
     {
         this(id, length);
         this.laneIdsFrom = laneIdsFrom;
         this.laneIdsTo = laneIdsTo;
+        this.shape = shape;
     }
 
     public String getId()

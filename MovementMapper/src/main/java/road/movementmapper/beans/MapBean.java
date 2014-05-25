@@ -85,6 +85,7 @@ public class MapBean implements Serializable
             }
 
             Properties props = new Properties();
+            props.setProperty("basedate", "11-02-2014|11:11:11");
 
             System.out.println("Starting batch via servlet");
             long executionID = jobOperator.start(JOBNAME, props);

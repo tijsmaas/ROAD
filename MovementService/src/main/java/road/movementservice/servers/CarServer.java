@@ -1,6 +1,7 @@
 package road.movementservice.servers;
 
 import road.cardts.connections.ICarQuery;
+import road.movementparser.parser.FcdParser;
 import road.movementdts.connections.MovementConnection;
 import road.movemententities.entities.Movement;
 import road.movemententityaccess.dao.EntityDAO;
@@ -24,6 +25,7 @@ public class CarServer extends QueueServer implements ICarQuery
     private EntityDAO entityDAO;
     private Authentication authentication;
     private MovementParser movementParser;
+    private FcdParser parser;
 
     public CarServer(EntityDAO entityDAO, VehicleDAO vehicleDAO, ParserDAOImpl parserDAO)
     {
@@ -32,6 +34,7 @@ public class CarServer extends QueueServer implements ICarQuery
         this.entityDAO = entityDAO;
         this.authentication = new Authentication("/authentication.ini");
         this.movementParser = new MovementParser(entityDAO, vehicleDAO, parserDAO, new GenericParser(MovementParser.SUMOMOVEMENTSJAXBPACKAGE));
+        this.parser = new FcdParser(parserDAO);
     }
 
     /**
@@ -48,7 +51,8 @@ public class CarServer extends QueueServer implements ICarQuery
     {
         if(this.authentication.checkApiKey(apiKey))
         {
-            List<Movement> movements = this.movementParser.parseChanges(xml, sequence.intValue());
+            List<Movement> movements = this.parser.parse(xml, sequence.intValue());
+            //List<Movement> movements = this.movementParser.parseChanges(xml, sequence.intValue());
             MovementEvent.fire(movements);
 
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
