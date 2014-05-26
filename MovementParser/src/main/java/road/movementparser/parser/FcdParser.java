@@ -53,7 +53,11 @@ public class FcdParser
         List<Movement> movements = new ArrayList<Movement>();
         for(FcdTimeStep timeStep : export.getTimeSteps())
         {
-            movements.add(this.parseTimeStep(timeStep, new GregorianCalendar()));
+            Movement movement = this.parseTimeStep(timeStep, new GregorianCalendar());
+            if(movement != null)
+            {
+                movements.add(movement);
+            }
         }
 
         return movements;
@@ -61,6 +65,8 @@ public class FcdParser
 
     private Movement parseTimeStep(FcdTimeStep timeStep, Calendar cal)
     {
+        if(timeStep.getVehicles() == null || timeStep.getVehicles().size() == 0) return null;
+
         Lane lane = this.parserDAO.getLane(timeStep.getVehicles().get(0).getLaneId());
         Movement movement = new Movement(cal, (float)timeStep.getTime(), lane);
 

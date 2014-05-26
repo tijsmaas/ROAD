@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class FcdTimeStep
 
     public FcdTimeStep()
     {
-
+        this.vehicles = new ArrayList();
     }
 
     public List<FcdVehicle> getVehicles()

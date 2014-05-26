@@ -17,7 +17,7 @@ public class FcdExport
 
     public FcdExport()
     {
-
+        this.timeSteps = new ArrayList();
     }
 
     public FcdExport(List<FcdTimeStep> timeSteps)

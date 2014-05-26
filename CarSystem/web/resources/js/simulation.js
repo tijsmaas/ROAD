@@ -20,6 +20,7 @@ function simulation()
                 " @" + timestep.time.value + "<br />");
             $("#message").html(response.message);
             setMarker(vehicle.y.value, vehicle.x.value);
+            setlMarker(vehicle.y.value, vehicle.x.value);
         };
         ws.onclose = function()
         {
