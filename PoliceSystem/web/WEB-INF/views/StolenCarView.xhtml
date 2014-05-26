@@ -23,6 +23,25 @@
                 <h:form id="vehicleForm" styleClass="form-horizontal">
                     <c:panelGroup layout="block" rendered="#{stolenCarBean.active}">
                         <h2>Stolen vehicle #{stolenCarBean.licensePlate}</h2>
+                        <br/>
+                            <p:panel id="RealtimeLocation" header="Realtime location">
+                                <table class="table">
+                                    <tr>
+                                        <td><h:outputText value="Date and time:"/></td>
+                                        <td><h:outputText value="#{stolenCarBean.realtimeLocation.movementDateTime}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:outputText value="Route:"/></td>
+                                        <td><h:outputText value="#{stolenCarBean.realtimeLocationPlace}"/></td>
+                                    </tr>
+                                    <tr><td><h:outputText value="Speed in M/s:"/></td><td><h:outputText value="#{stolenCarBean.realtimeLocation.speed}"/></td></tr>
+                                </table>
+
+                                <!-- Update realtime location every 3 seconds -->
+                                <p:poll interval="3" listener="#{stolenCarBean.updateRealtimeLocation}" update="vehicleForm"/>
+                            </p:panel>
+
+                        <br/>
 
                         <p:tabView style="border:0px;">
                             <p:tab title="Vehicle movements">
@@ -73,25 +92,6 @@
                             </p:tab>
                         </p:tabView>
 
-                        <br/>
-                        <br/>
-                        <br/>
-                        <p:panel id="RealtimeLocation" header="Realtime location" style="position: absolute; bottom: 0; width:100%;">
-                            <table class="table">
-                                <tr>
-                                    <td><h:outputText value="Date and time:"/></td>
-                                    <td><h:outputText value="#{stolenCarBean.realtimeLocation.movementDateTime}"/></td>
-                                </tr>
-                                <tr>
-                                    <td><h:outputText value="Route:"/></td>
-                                    <td><h:outputText value="#{stolenCarBean.realtimeLocationPlace}"/></td>
-                                </tr>
-                                <tr><td><h:outputText value="Speed in M/s:"/></td><td><h:outputText value="#{stolenCarBean.realtimeLocation.speed}"/></td></tr>
-                            </table>
-
-                            <!-- Update realtime location every 3 seconds -->
-                            <p:poll interval="3" listener="#{stolenCarBean.updateRealtimeLocation}" update="vehicleForm"/>
-                        </p:panel>
 
                     </c:panelGroup>
                 </h:form>
