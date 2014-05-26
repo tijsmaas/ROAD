@@ -24,7 +24,7 @@ function setLeafMarker(id, speed, lat, lon)
 
 function makeMarker(lat, lon)
 {
-    var marker = L.marker([lat, lon],{icon: makeIcon()}).addTo(leafMap).bindPopup('Simulated car, look at it drive!');
+    var marker = L.marker([lat, lon],{icon: makeIcon()}).addTo(leafMap).bindPopup('Simulated car, look at it drive!', {keepInView:true, autoPanPadding: [200, 150]});
     return marker;
 }
 
