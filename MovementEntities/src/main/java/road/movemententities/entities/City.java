@@ -28,7 +28,7 @@ public class City implements MovementEntity<String>
     public City(String cityId)
     {
         this.cityId = cityId;
-        this.cityName = "Unknown";
+        this.cityName = "NA" + cityId;
         CityRate rate = new CityRate(this, new Date(), CityRate.defaultKilometerRate);
 
         if(this.cityRates == null)
@@ -103,4 +103,8 @@ public class City implements MovementEntity<String>
         cityRates.add(cityRate);
     }
 
+    public void setCityName(String cityName)
+    {
+        this.cityName = cityName;
+    }
 }

@@ -209,12 +209,17 @@ public class MapParser
             {
                 if ("addr:city".equals(tag.getK()) || "name".equals(tag.getK()))
                 {
-                    City city = em.find(City.class, tag.getV());
+                    City city = em.find(City.class, node.getId());
                     if(city == null)
                     {
-                        city = new City(tag.getV());
+                        city = new City(node.getId(), tag.getV());
+                        em.persist(city);
                     }
-                    em.persist(city);
+                    else
+                    {
+                        city.setCityName(tag.getV());
+                        em.merge(city);
+                    }
                 }
             }
         }
