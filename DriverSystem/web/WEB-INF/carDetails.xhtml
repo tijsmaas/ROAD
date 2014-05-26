@@ -10,49 +10,49 @@
         <f:event type="preRenderView" listener="#{userBean.redirectIfNotLoggedIn}"/>
         <h:panelGroup layout="block" styleClass="pill">
             <p:tabView>
-                <p:tab title="#{msg['Vehicle']}">
+                <p:tab title="#{translator.getProperty('Vehicle')}">
                     <h:panelGrid columns="2" width="100%">
-                        <p:outputLabel for="txtKenteken" value="#{msg['Kenteken']}:"/>
+                        <p:outputLabel for="txtKenteken" value="#{translator.getProperty('Kenteken')}:"/>
                         <h:outputText id="txtKenteken" value="#{carBean.getDetail('Kenteken')}" />
-                        <p:outputLabel for="txtVoertuigsoort" value="#{msg['Voertuigsoort']}:"/>
+                        <p:outputLabel for="txtVoertuigsoort" value="#{translator.getProperty('Voertuigsoort')}:"/>
                         <h:outputText id="txtVoertuigsoort" value="#{carBean.getDetail('Voertuigsoort')}" />
-                        <p:outputLabel for="txtMerk" value="#{msg['Merk']}:"/>
+                        <p:outputLabel for="txtMerk" value="#{translator.getProperty('Merk')}:"/>
                         <h:outputText id="txtMerk" value="#{carBean.getDetail('Merk')}" />
-                        <p:outputLabel for="txtHandelsbenaming" value="#{msg['Handelsbenaming']}:"/>
+                        <p:outputLabel for="txtHandelsbenaming" value="#{translator.getProperty('Handelsbenaming')}:"/>
                         <h:outputText id="txtHandelsbenaming" value="#{carBean.getDetail('Handelsbenaming')}" />
-                        <p:outputLabel for="txtHoofdbrandstof" value="#{msg['Hoofdbrandstof']}:"/>
+                        <p:outputLabel for="txtHoofdbrandstof" value="#{translator.getProperty('Hoofdbrandstof')}:"/>
                         <h:outputText id="txtHoofdbrandstof" value="#{carBean.getDetail('Hoofdbrandstof')}" />
-                        <p:outputLabel for="txtVervaldatumAPK" value="#{msg['VervaldatumAPK']}:"/>
+                        <p:outputLabel for="txtVervaldatumAPK" value="#{translator.getProperty('VervaldatumAPK')}:"/>
                         <h:outputText id="txtVervaldatumAPK" value="#{carBean.getDetail('VervaldatumAPK')}" />
-                        <p:outputLabel for="txtDatumaanvangtenaamstelling" value="#{msg['Datumaanvangtenaamstelling']}:"/>
+                        <p:outputLabel for="txtDatumaanvangtenaamstelling" value="#{translator.getProperty('Datumaanvangtenaamstelling')}:"/>
                         <h:outputText id="txtDatumaanvangtenaamstelling" value="#{carBean.getDetail('Datumaanvangtenaamstelling')}" />
-                        <p:outputLabel for="txtBPM" value="#{msg['BPM']}:"/>
+                        <p:outputLabel for="txtBPM" value="#{translator.getProperty('BPM')}:"/>
                         <h:outputText id="txtBPM" value="#{carBean.getDetail('BPM')}" />
                     </h:panelGrid>
                 </p:tab>
-                <p:tab title="#{msg['Facilities']}">
+                <p:tab title="#{translator.getProperty('Facilities')}">
                     <h:panelGrid columns="2" width="100%">
-                        <p:outputLabel for="txtInrichting" value="#{msg['Inrichting']}:"/>
+                        <p:outputLabel for="txtInrichting" value="#{translator.getProperty('Inrichting')}:"/>
                         <h:outputText id="txtInrichting" value="#{carBean.getDetail('Inrichting')}" />
-                        <p:outputLabel for="txtAantalzitplaatsen" value="#{msg['Aantalzitplaatsen']}:"/>
+                        <p:outputLabel for="txtAantalzitplaatsen" value="#{translator.getProperty('Aantalzitplaatsen')}:"/>
                         <h:outputText id="txtAantalzitplaatsen" value="#{carBean.getDetail('Aantalzitplaatsen')}" />
-                        <p:outputLabel for="txtAantalstaanplaatsen" value="#{msg['Aantalstaanplaatsen']}:"/>
+                        <p:outputLabel for="txtAantalstaanplaatsen" value="#{translator.getProperty('Aantalstaanplaatsen')}:"/>
                         <h:outputText id="txtAantalstaanplaatsen" value="#{carBean.getDetail('Aantalstaanplaatsen')}" />
-                        <p:outputLabel for="txtEerstekleur" value="#{msg['Eerstekleur']}:"/>
+                        <p:outputLabel for="txtEerstekleur" value="#{translator.getProperty('Eerstekleur')}:"/>
                         <h:outputText id="txtEerstekleur" value="#{carBean.getDetail('Eerstekleur')}" />
-                        <p:outputLabel for="txtTweedekleur" value="#{msg['Tweedekleur']}:"/>
+                        <p:outputLabel for="txtTweedekleur" value="#{translator.getProperty('Tweedekleur')}:"/>
                         <h:outputText id="txtTweedekleur" value="#{carBean.getDetail('Tweedekleur')}" />
                     </h:panelGrid>
                 </p:tab>
-                <p:tab title="#{msg['Motor']}">
+                <p:tab title="#{translator.getProperty('Motor')}">
                     <h:panelGrid columns="2" width="100%">
-                        <p:outputLabel for="txtBrandstof" value="#{msg['Hoofdbrandstof']}:"/>
+                        <p:outputLabel for="txtBrandstof" value="#{translator.getProperty('Hoofdbrandstof')}:"/>
                         <h:outputText id="txtBrandstof" value="#{carBean.getDetail('Hoofdbrandstof')}" />
-                        <p:outputLabel for="txtAantalcilinders" value="#{msg['Aantalcilinders']}:"/>
+                        <p:outputLabel for="txtAantalcilinders" value="#{translator.getProperty('Aantalcilinders')}:"/>
                         <h:outputText id="txtAantalcilinders" value="#{carBean.getDetail('Aantalcilinders')}" />
-                        <p:outputLabel for="txtCilinderinhoud" value="#{msg['Cilinderinhoud']}:"/>
+                        <p:outputLabel for="txtCilinderinhoud" value="#{translator.getProperty('Cilinderinhoud')}:"/>
                         <h:outputText id="txtCilinderinhoud" value="#{carBean.getDetail('Cilinderinhoud')}" />
-                        <p:outputLabel for="txtVermogen" value="#{msg['Vermogen']}:"/>
+                        <p:outputLabel for="txtVermogen" value="#{translator.getProperty('Vermogen')}:"/>
                         <h:outputText id="txtVermogen" value="#{carBean.getDetail('Vermogen')}" />
                     </h:panelGrid>
                 </p:tab>

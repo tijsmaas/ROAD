@@ -24,5 +24,9 @@
         <pattern value="/manageCars/"></pattern>
         <view-id value="../WEB-INF/pages/cartrackerManager.xhtml"/>
     </url-mapping>
+    <url-mapping>
+        <pattern value="/adjustRate/"></pattern>
+        <view-id value="../WEB-INF/pages/adjust_km_rate.xhtml"/>
+    </url-mapping>
 
 </pretty-config>
