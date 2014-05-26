@@ -46,10 +46,18 @@ public class VehicleDto {
      */
     public VehicleDto() {}
 
+    /**
+     * Check if the {@link VehicleDto} {@link #isStolen}.
+     * @return Specification whether this vehicle is stolen.
+     */
     public boolean isStolen() {
         return isStolen;
     }
 
+    /**
+     * Reports if the {@link VehicleDto} {@link #isStolen}.
+     * @param isStolen Specification whether this vehicle is stolen.
+     */
     public void setStolen(boolean isStolen) {
         this.isStolen = isStolen;
     }
@@ -122,21 +130,37 @@ public class VehicleDto {
         this.vehicleID = vehicleID;
     }
 
+    /**
+     * Get the {@link #vehicleOwner} of the {@link VehicleDto}.
+     * @return Owner of the current vehicle
+     */
     public VehicleOwnerDto getVehicleOwner()
     {
         return vehicleOwner;
     }
 
+    /**
+     * Set the {@link #vehicleOwner} of the {@link VehicleDto}.
+     * @param vehicleOwner Owner of the current vehicle
+     */
     public void setVehicleOwner(VehicleOwnerDto vehicleOwner)
     {
         this.vehicleOwner = vehicleOwner;
     }
 
+    /**
+     * Get the {@link #cartrackerID} of the {@link VehicleDto}.
+     * @return The ID of the cartracker
+     */
     public String getCartrackerID()
     {
         return cartrackerID;
     }
 
+    /**
+     * Set the {@link #cartrackerID} of the {@link VehicleDto}.
+     * @param cartrackerID The ID of the cartracker
+     */
     public void setCartrackerID(String cartrackerID)
     {
         this.cartrackerID = cartrackerID;
