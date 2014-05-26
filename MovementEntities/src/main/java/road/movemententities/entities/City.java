@@ -28,6 +28,15 @@ public class City implements MovementEntity<String>
     public City(String cityId)
     {
         this.cityId = cityId;
+        this.cityName = "Unknown";
+        CityRate rate = new CityRate(this, new Date(), CityRate.defaultKilometerRate);
+
+        if(this.cityRates == null)
+        {
+            this.cityRates = new ArrayList();
+        }
+
+        this.cityRates.add(rate);
     }
 
     public List<CityRate> getCityRates()

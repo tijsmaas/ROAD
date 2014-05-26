@@ -15,15 +15,26 @@ function setLeafMarker(id, lat, lon)
     var marker = leafMarkers[id];
     if(marker == null || marker == undefined)
     {
-        leafMarkers[id] = makeMarker(lat, lon);
+        marker = makeMarker(lat, lon);
+        leafMarkers[id] = marker;
     }
     marker.setLatLng([lat, lon]);
 }
 
 function makeMarker(lat, lon)
 {
-    var marker = L.marker([lat, lon]).addTo(leafMap).bindPopup('Simulated car, look at it drive!');
+    var marker = L.marker([lat, lon], {icon: makeIcon()}).addTo(leafMap).bindPopup('Simulated car, look at it drive!');
     return marker;
+}
+
+function makeIcon()
+{
+    return L.icon({
+        iconSize: [34, 34],
+        iconAnchor: [0,0],
+        popupAnchor: [0,0],
+        iconUrl: 'javax.faces.resource/images/car.png'
+    });
 }
 
 window.onload = initLeafMap;
