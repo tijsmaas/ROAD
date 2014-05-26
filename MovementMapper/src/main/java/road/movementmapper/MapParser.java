@@ -62,8 +62,16 @@ public class MapParser
 
             if (!"internal".equals(xmlEdge.getFunction()))
             {
-                from = (City) entityDAO.createOrEdit(City.class, new City(xmlEdge.getFrom()));
-                to = (City) entityDAO.createOrEdit(City.class, new City(xmlEdge.getTo()));
+                from = em.find(City.class, xmlEdge.getFrom());
+                if(from == null)
+                {
+                    from = new City(xmlEdge.getFrom());
+                }
+                to = em.find(City.class, xmlEdge.getTo());
+                if(to == null)
+                {
+                    to = new City(xmlEdge.getTo());
+                }
             }
 
             Edge edge = new Edge(xmlEdge.getId(), xmlEdge.getFunction(), xmlEdge.getType(), from, to, prio);
@@ -112,6 +120,9 @@ public class MapParser
         {
             lanesMap.put(lane.getLaneIdentifier(), lane);
         }
+
+        System.out.println("About to flush");
+        em.flush();
 
         /**
          * Lookup edges and lanes by their names.
@@ -164,24 +175,17 @@ public class MapParser
             }
 
             Connection connection = new Connection(from, to, fromLane, toLane, direction_str, state_str);
-            System.out.println("About to create connection");
-            entityDAO.create(connection);
             connection.setVia(via);
             from.addConnection(connection);
             to.addConnection(connection);
             fromLane.addLaneTo(toLane);
             toLane.addLaneFrom(fromLane);
-            System.out.println("About to edit from");
-            entityDAO.edit(from);
-            System.out.println("About to edit to");
-            entityDAO.edit(to);
-            System.out.println("About to edit connection");
-            entityDAO.edit(connection);
 
-            System.out.println("Persisting to db connection " + connection.getId());
+            em.persist(connection);
+            em.merge(from);
+            em.merge(to);
         }// end for connections
     }
-
     
     /**
      * Enrich map data of lanes and edges with city names.
@@ -203,11 +207,14 @@ public class MapParser
             String id = node.getId();
             for (TagType tag : node.getTag())
             {
-                if ("addr:city".equals(tag.getK()))
+                if ("addr:city".equals(tag.getK()) || "name".equals(tag.getK()))
                 {
-                    City city = new City(id, tag.getV());
-                    // get city by id and add a cityname
-                    entityDAO.createOrEdit(City.class, city);
+                    City city = em.find(City.class, tag.getV());
+                    if(city == null)
+                    {
+                        city = new City(tag.getV());
+                    }
+                    em.persist(city);
                 }
             }
         }

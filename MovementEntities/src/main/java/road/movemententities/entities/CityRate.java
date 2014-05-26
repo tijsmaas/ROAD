@@ -11,6 +11,8 @@ import java.util.Date;
 @Entity
 public class CityRate
 {
+    public static double defaultKilometerRate = 0.10;
+
     @EmbeddedId
     @Column(unique = false, nullable = true)
     CityRateId id;

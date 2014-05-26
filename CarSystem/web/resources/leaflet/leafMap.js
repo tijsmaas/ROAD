@@ -27,7 +27,8 @@ function makeMarker(lat, lon)
     return marker;
 }
 
-function makeIcon(){
+function makeIcon()
+{
     return L.icon({
         iconSize: [34, 34],
         iconAnchor: [0,0],
