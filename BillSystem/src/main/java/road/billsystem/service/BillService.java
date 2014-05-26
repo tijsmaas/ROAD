@@ -39,7 +39,7 @@ public class BillService implements Serializable
      * Timer for generating the monthly invoices after each month, automatically.
      * @param t
      */
-    @Schedule(dayOfMonth = "1st", info="Generate monthly invoices")
+    @Schedule(dayOfMonth = "Last", hour = "23", info="Generate monthly invoices")
     public void generateMonthlyInvoice(Timer t)
     {
         Calendar cal = Calendar.getInstance();
