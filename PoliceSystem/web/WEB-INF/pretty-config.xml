@@ -3,6 +3,7 @@
                xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
 
+<!-- URL mappings for all files, to create clean URLs instead of links to specific xhtml documents -->
 
     <url-mapping>
         <pattern value="/login/"></pattern>
