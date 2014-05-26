@@ -21,14 +21,6 @@ public class Serializer
     {
         this.gson = new Gson();
         this.kryo = new Kryo();
-
-        kryo.register(VehicleDto.class);
-        kryo.register(VehicleMovementDto.class);
-        kryo.register(VehicleOwnerDto.class);
-        kryo.register(CityDto.class);
-        kryo.register(MovementDto.class);
-        kryo.register(LaneDto.class);
-        kryo.register(MovementUserDto.class);
     }
 
     public <T> byte[] serializeBytes(T obj)
@@ -80,4 +72,8 @@ public class Serializer
         }
     }
 
+    public void registerClass(Class type)
+    {
+        this.kryo.register(type);
+    }
 }

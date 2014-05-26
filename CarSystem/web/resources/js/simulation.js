@@ -18,7 +18,7 @@ function initSimulation()
             for(var i = 0; i < vehicles.length; i++)
             {
                 var vehicle = vehicles[i].attributes;
-                setLeafMarker(vehicle.id.value, vehicle.y.value, vehicle.x.value);
+                setLeafMarker(vehicle.id.value, vehicle.speed.value, vehicle.y.value, vehicle.x.value);
             }
         };
         ws.onclose = function()
@@ -33,6 +33,7 @@ function initSimulation()
     }
 }
 
-$(document).ready(function(){
+$(document).ready(function()
+{
    initSimulation();
 });
