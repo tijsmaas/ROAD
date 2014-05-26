@@ -2,7 +2,9 @@ package road.movementmapper;
 
 import road.movemententities.entities.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -45,6 +47,7 @@ public class MapParser
         /**
          * Persist edges, convert XMLtypes to JPA entities
          */
+        List<Lane> lanes = new ArrayList();
         List<Edge> edges = new ArrayList();
         for (EdgeType xmlEdge : root.getValue().getEdge())
         {
@@ -92,9 +95,22 @@ public class MapParser
                 lane.setShape(shape);
                 edge.addLane(lane);
                 entityDAO.create(lane);
+                lanes.add(lane);
             }
             edge = (Edge) entityDAO.edit(edge);
             edges.add(edge);
+        }
+
+        Map<String, Edge> edgesMap = new HashMap<>();
+        for(Edge edge : edges)
+        {
+            edgesMap.put(edge.getId(), edge);
+        }
+
+        Map<String, Lane> lanesMap = new HashMap<>();
+        for(Lane lane : lanes)
+        {
+            lanesMap.put(lane.getLaneIdentifier(), lane);
         }
 
         /**
@@ -113,36 +129,31 @@ public class MapParser
             Edge from = null, to = null;
             Lane fromLane = null, toLane = null, via = null;
 
-            for (Edge e : edges)
+            from = edgesMap.get(from_str);
+            to = edgesMap.get(to_str);
+
+            for(Lane lane : from.getLanes())
             {
-                if (from == null && e.getEdgeIdentifier().equals(from_str))
+                if(lane.getIndex() == fromLane_int)
                 {
-                    from = e;
+                    fromLane = lane;
+                    break;
                 }
+            }
 
-                if (to == null && e.getEdgeIdentifier().equals(to_str))
+            for(Lane lane : to.getLanes())
+            {
+                if(lane.getIndex() == toLane_int)
                 {
-                    to = e;
+                    toLane = lane;
+                    break;
                 }
+            }
 
-                for (Lane l : e.getLanes())
-                {
-                    if (fromLane == null && l.getIndex() == fromLane_int)
-                    {
-                        fromLane = l;
-                    }
-
-                    if (toLane == null && l.getIndex() == toLane_int)
-                    {
-                        toLane = l;
-                    }
-
-                    if (via == null && l.getLaneIdentifier() != null && l.getLaneIdentifier().equals(via_str))
-                    {
-                        via = l;
-                    }
-                } // end for lanes
-            } // end for edges
+            if(via_str != null)
+            {
+                via = lanesMap.get(via_str);
+            }
 
             /**
              * Add links(FK's) in edge from and edge to.
@@ -151,16 +162,20 @@ public class MapParser
             {
                 throw new IllegalArgumentException("SUMO syntax error: connection from or to cannot be found, from="+from_str+", to="+to_str);
             }
-            
+
             Connection connection = new Connection(from, to, fromLane, toLane, direction_str, state_str);
+            System.out.println("About to create connection");
             entityDAO.create(connection);
             connection.setVia(via);
             from.addConnection(connection);
             to.addConnection(connection);
             fromLane.addLaneTo(toLane);
             toLane.addLaneFrom(fromLane);
+            System.out.println("About to edit from");
             entityDAO.edit(from);
+            System.out.println("About to edit to");
             entityDAO.edit(to);
+            System.out.println("About to edit connection");
             entityDAO.edit(connection);
 
             System.out.println("Persisting to db connection " + connection.getId());

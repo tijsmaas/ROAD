@@ -26,13 +26,19 @@
                 <c:when test="${mapBean.sumoMapFile != null and mapBean.osmMapFile != null and mapBean.movementsFile != null}">
                     Both the map and the movements have been uploaded. You may start parsing now!
                     <h:form>
-                        <p:commandButton value="Start parsing" ajax="false" actionListener="#{mapBean.startParse()}" />
+                        <p:commandButton value="Start parsing" ajax="false" actionListener="#{mapBean.startMapParse()}" />
                     </h:form>
                 </c:when>
                 <c:otherwise>
-                    Both a map (OSM and SUMO) file and a movement file have to be uploaded before you may start parsing.
+                    Both a map (OSM and SUMO) file and a movement file have to be uploaded before you may start parsing the map.
                 </c:otherwise>
             </c:choose>
+            <c:if test="#{mapBean.mappingDone}">
+                The map has been parsed. Ready to parse the initial set of movements.
+                <h:form>
+                    <p:commandButton value="Parse movements" ajax="false" actionListener="#{mapBean.startBatchJob()}" />
+                </h:form>
+            </c:if>
         </div>
     </ui:define>
 

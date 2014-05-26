@@ -11,15 +11,14 @@
     <ui:define name="content">
         <h:head>
             <h:outputScript library="js" name="simulation.js"/>
-            <h:outputScript library="leaflet" name="lMap.js" />
+            <h:outputScript library="leaflet" name="leafMap.js" />
             <h:outputScript library="leaflet" name="leaflet.js" />
             <h:outputScript library="leaflet" name="leaflet-osm.js" />
             <h:outputStylesheet library="leaflet" name="leaflet.css" />
 
             <!-- Format: https://maps.googleapis.com/maps/api/js?key=API_KEY&sensor=SET_TO_TRUE_OR_FALSE -->
-            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXtN-vqcg5GiCDl23g3MQS2rfx6a1JRE0&amp;sensor=false"></script>
-
-            <h:outputScript library="js" name="map.js"/>
+            <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXtN-vqcg5GiCDl23g3MQS2rfx6a1JRE0&amp;sensor=false"></script>-->
+            <!--<h:outputScript library="js" name="map.js"/>-->
         </h:head>
         <div class="pill pill-autosize" id="loginPill">
             <h3>Car Simulator - Simulation</h3>
@@ -27,7 +26,6 @@
                 <c:when test="#{carBean.file != null}">
                     Simulation file has been uploaded, ready to run the simulation!
                     <button id="btnSim" class="btn" onclick="simulation()">Start simulation</button>
-
                 </c:when>
                 <c:otherwise>
                     Simulation file has not yet been uploaded. Go to the setup page first to upload a simulation file.
@@ -35,10 +33,7 @@
             </c:choose>
         </div>
         <div class="pill pill-autosize">
-            <div id="lmap" style="height: 180px;"></div>
-        </div>
-        <div class="pill pill-autosize">
-            <div id="map-canvas" style="height: 500px;"></div>
+            <div id="leafMap" style="height: 380px;"></div>
         </div>
         <div class="pill pill-autosize" id="message"></div>
         <div class="pill pill-scroll" id="show"></div>

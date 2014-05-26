@@ -1,26 +1,25 @@
+var ws;
+
 function simulation()
+{
+    $("#btnSim").prop( "disabled", true );
+    ws.send("start");
+}
+
+function initSimulation()
 {
     if ("WebSocket" in window)
     {
-        var ws = new WebSocket("ws://localhost:8080/car/socket");
-        ws.onopen = function()
-        {
-            $("#btnSim").prop( "disabled", true );
-            ws.send("start");
-        };
+        ws = new WebSocket("ws://localhost:8080/car/socket");
         ws.onmessage = function (evt)
         {
             var response = $.parseXML(evt.data);
-            var timestep = response.children[0].children[1].attributes;
-            var vehicle = response.children[0].children[1].children[0].attributes;
-            $("#show").append("Vehicle with id " + vehicle.id.value +
-                " with latitude  " + vehicle.y.value +
-                ", longitude " + vehicle.x.value +
-                " and speed " + vehicle.speed.value  +
-                " @" + timestep.time.value + "<br />");
-            $("#message").html(response.message);
-            setMarker(vehicle.y.value, vehicle.x.value);
-            setlMarker(vehicle.y.value, vehicle.x.value);
+            var vehicles = response.children[0].children[1].children;
+            for(var i = 0; i < vehicles.length; i++)
+            {
+                var vehicle = vehicles[i].attributes;
+                setLeafMarker(vehicle.id.value, vehicle.y.value, vehicle.x.value);
+            }
         };
         ws.onclose = function()
         {
@@ -33,3 +32,5 @@ function simulation()
         alert("WebSocket NOT supported by your Browser!");
     }
 }
+
+window.onload = initSimulation;

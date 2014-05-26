@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 @Named("mapBean") @Singleton
 public class MapBean implements Serializable
 {
+    private boolean mappingDone = false;
     public static UploadedFile movements;
     private static final String JOBNAME = "PayrollJob";
 
@@ -56,7 +57,7 @@ public class MapBean implements Serializable
         }
     }
 
-    public void startParse()
+    public void startMapParse()
     {
         try
         {
@@ -65,7 +66,7 @@ public class MapBean implements Serializable
             System.out.println("[PARSERSERVICE] Finished parsing initial map");
 
             MapBean.movements = this.movementsFile;
-            this.startBatchJob();
+            this.mappingDone = true;
         }
         catch (SAXException ex)
         {
@@ -73,7 +74,7 @@ public class MapBean implements Serializable
         }
     }
 
-    private void startBatchJob()
+    public void startBatchJob()
     {
         try
         {
@@ -131,5 +132,15 @@ public class MapBean implements Serializable
     public void setMovementsFile(UploadedFile movementsFile)
     {
         this.movementsFile = movementsFile;
+    }
+
+    public boolean isMappingDone()
+    {
+        return mappingDone;
+    }
+
+    public void setMappingDone(boolean mappingDone)
+    {
+        this.mappingDone = mappingDone;
     }
 }
