@@ -37,4 +37,16 @@ public class CityDto {
     {
         return currentRate;
     }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public void setCurrentRate(double currentRate) {
+        this.currentRate = currentRate;
+    }
 }

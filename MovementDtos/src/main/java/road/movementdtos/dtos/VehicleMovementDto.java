@@ -103,4 +103,56 @@ public class VehicleMovementDto {
     public String getLane_id() {
         return lane_id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPosition(float position) {
+        this.position = position;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public void setMovementDateTime(Date movementDateTime) {
+        this.movementDateTime = movementDateTime;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setLength(float length) {
+        this.length = length;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setFrom(CityDto from) {
+        this.from = from;
+    }
+
+    public void setTo(CityDto to) {
+        this.to = to;
+    }
+
+    public void setLane_id(String lane_id) {
+        this.lane_id = lane_id;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 }

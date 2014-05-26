@@ -90,4 +90,8 @@ public class LaneDto
     {
         this.laneIdsTo = laneIdsTo;
     }
+
+    public void setShape(Map<Integer, CoordinateDto> shape) {
+        this.shape = shape;
+    }
 }

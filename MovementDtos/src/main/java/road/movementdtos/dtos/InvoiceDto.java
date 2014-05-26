@@ -140,5 +140,9 @@ public class InvoiceDto
     {
         return user;
     }
+
+    public void setUser(MovementUserDto user) {
+        this.user = user;
+    }
 }
 
