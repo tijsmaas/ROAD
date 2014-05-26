@@ -5,6 +5,9 @@ import javax.jms.*;
 import javax.naming.Context;
 
 /**
+ * This is a basic connection that should be used to build more complex connections upon.
+ * This will provide you with the most basic of necessities in establishing a generic
+ * JMS connection.
  * Created by geh on 10-4-14.
  */
 public abstract class MovementConnection

@@ -2,6 +2,9 @@ package road.movementdts.helpers;
 
 /**
  * Created by geh on 26-2-14.
+ * A generic class to store a pair of values.
+ * java.util.Pair already exists, but does not allow you to
+ * set the values after initialization, this does.
  */
 public class Pair<U, V>
 {

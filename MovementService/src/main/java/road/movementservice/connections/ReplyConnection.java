@@ -9,6 +9,8 @@ import javax.naming.InitialContext;
 
 /**
  * Created by geh on 10-4-14.
+ * This class establishes a connection that replies. It listens to a JNDI Queue and replies to
+ * the sent JMS messages' replyTo Destination.
  */
 public class ReplyConnection extends MovementConnection implements MessageListener
 {

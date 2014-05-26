@@ -5,6 +5,9 @@ import road.movementdts.connections.*;
 import road.movementdts.listeners.SubscribeListener;
 
 /**
+ * This is a generic client for a java.jms.Topic channel. This will receive
+ * byte arrays in the abstract method receive. Implement this and deserialize it
+ * with the road.movementdts.serializers.Serializer class.
  * Created by geh on 22-4-14.
  */
 public abstract class TopicClient implements SubscribeListener
