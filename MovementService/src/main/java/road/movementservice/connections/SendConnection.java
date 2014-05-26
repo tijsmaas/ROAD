@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 
 /**
  * Created by geh on 10-4-14.
+ * This class establishes a push based topic connection.
  */
 public class SendConnection extends MovementConnection
 {

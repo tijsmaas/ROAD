@@ -10,6 +10,10 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * Created by geh on 4-4-14.
+ * This is serializer that makes it as easy as possible to use.
+ * The methods that use and return byte arrays use Kryo serialization,
+ * and the ones that use Strings use Gson serialization.
+ * For RPC Kryo is highly preferred.
  */
 public class Serializer
 {

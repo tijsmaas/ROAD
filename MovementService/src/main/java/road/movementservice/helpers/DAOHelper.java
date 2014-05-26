@@ -14,6 +14,17 @@ import java.sql.DataTruncation;
  */
 public class DAOHelper
 {
+    /**
+     * This method creates a MovementUser if they have not logged in before.
+     * This way, the user service is treated as a federated login, and can be easily
+     * stripped from the MovementService so that we can deploy a product that has even more modularity.
+     * @param userDAO DAO for user objects
+     * @param loginDAO DAO for logging in
+     * @param dtoMapper mapper for entities to Data Transfer Objects
+     * @param userName the username
+     * @param password the password
+     * @return MovementUSerDto, will be null if login is not valid.
+     */
     public static MovementUserDto authenticate(UserDAO userDAO, LoginDAO loginDAO, DtoMapper dtoMapper, String userName, String password)
     {
         UserDto userDto = userDAO.login(userName, password);

@@ -11,6 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by geh on 10-4-14.
+ * This is a basic reply server for Queue connections. It will handle requests and send a reply.
+ * Implement this class to make an application specific server.
  */
 public abstract class QueueServer<T> implements ConnectionListener
 {

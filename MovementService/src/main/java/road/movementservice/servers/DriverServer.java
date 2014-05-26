@@ -73,6 +73,12 @@ public class DriverServer extends QueueServer implements IDriverQuery
         this.start();
     }
 
+    /**
+     * Used for authenticating bill system users
+     * @param userName username
+     * @param password password
+     * @return MovementUserDto corresponding to the username if the password was correct, if not, null.
+     */
     @Override
     public MovementUserDto authenticate(String userName, String password)
     {

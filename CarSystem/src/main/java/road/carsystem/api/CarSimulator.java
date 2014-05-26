@@ -23,9 +23,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * REST Web Service
- *
- * @author tijs
+ * This class simulates an actual data feed, by parsing an xml file, splitting it up
+ * into timesteps, and sending the timesteps one by one, as if it were the actual cars sending them.
  */
 @Singleton
 public class CarSimulator implements Serializable
@@ -48,6 +47,7 @@ public class CarSimulator implements Serializable
     @PostConstruct
     private void init()
     {
+        //With xStream you must explicitly tell it to process the annotations of the files, otherwise it won't work.
         this.xStream = new XStream();
         this.xStream.setMode(XStream.NO_REFERENCES);
         this.xStream.processAnnotations(FcdExport.class);

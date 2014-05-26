@@ -22,6 +22,8 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by geh on 8-5-14.
+ * This is the main server that creates, initializes and houses all the different servers that are hosted on this
+ * application.
  */
 public class Server
 {
@@ -31,7 +33,9 @@ public class Server
     private CarServer carServer;
     private JamServer jamServer;
 
+    // Mapper that can be used to map entities to their Data Transfer Object variants.
     private DtoMapper dtoMapper;
+    // Mail Session to be used to send users an email. For invoices for example.
     private Session mailSession;
 
     /**
