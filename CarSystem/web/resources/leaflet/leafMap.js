@@ -30,7 +30,7 @@ function makeMarker(lat, lon)
 function makeIcon(){
     return L.icon({
         iconSize: [34, 34],
-        iconAnchor: [0,0],
+        iconAnchor: [-17,-17],
         popupAnchor: [0,0],
         iconUrl: 'javax.faces.resource/images/car.png'
     });
