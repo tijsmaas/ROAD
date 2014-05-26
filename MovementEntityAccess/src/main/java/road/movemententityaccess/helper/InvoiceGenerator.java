@@ -3,7 +3,6 @@ package road.movemententityaccess.helper;
 import road.movemententities.entities.*;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
@@ -12,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  * Class for generating invoices on the given
- *
+ * <p/>
  * Created by Niek on 17/05/14.
  * © Aidas 2014
  */
@@ -55,12 +54,10 @@ public class InvoiceGenerator
             {
                 invoices.add(this.createOrUpdateInvoice(mapEntry.getKey(), mapEntry.getValue()));
             }
-        }
-        catch(Exception ex)
+        } catch (Exception ex)
         {
             ex.printStackTrace();
-        }
-        finally
+        } finally
         {
             return invoices;
         }
@@ -68,6 +65,7 @@ public class InvoiceGenerator
 
     /**
      * Couple the vehicleMovements to car ownerships
+     *
      * @param monthlyMovements List of monthlymovements
      * @return A map containing a vehicle ownership and it's movements
      */
@@ -99,6 +97,7 @@ public class InvoiceGenerator
 
     /**
      * Create a new invoice, or update the existing one if a vehicleOwnership belongs to a user we already created an invoice for
+     *
      * @param vehicleOwnership The VehicleOwnership of the current invoice to generate
      * @param vehicleMovements The movemets of the ownership
      */
@@ -118,72 +117,91 @@ public class InvoiceGenerator
         Lane prevLane = null;
         Invoice invoice = this.getOrCreateInvoice(vehicleOwnership);
         Map<City, CityDistance> cityDistances = new HashMap<>();
-        
+
+        City prevFriendlyCity = null;
         for (VehicleMovement vehicleMovement : vehicleMovements)
         {
-            // If the vehicle is on an other lane, then the kilometers on the previous lane have been driven.
             Lane currentLane = vehicleMovement.getMovement().getLane();
-            if(prevLane != currentLane)
+            if (prevLane != currentLane)
             {
-                double kilometersDriven = (prevLane == null) ? 0.0 : prevLane.getLength();
+                double metersDriven = (prevLane == null) ? 0.0 : prevLane.getLength();
 
-                City city = null;
-
-                // Lookup the city in which the lane is, this can be null
-                if(prevLane!= null)
+                City drivenCity = null;
+                if (prevLane != null)
                 {
-                    city = this.getCityByLane(prevLane);
+                    drivenCity = this.getCityByLane(prevLane);
+                } else
+                {
+                    drivenCity = this.getCityByLane(currentLane);
                 }
-                else if(currentLane != null)
-                {
-                    city = this.getCityByLane(currentLane);
-                }
-                
-                if(city != null)
-                {
-                    double km_rate = 0.10;
-                    CityRate currentRate = city.getCurrentRate();
 
-                    if(currentRate != null)
+                if(drivenCity!= null && drivenCity.getCityName().startsWith("NA") && prevFriendlyCity != null){
+                    drivenCity = prevFriendlyCity;
+                }
+
+                if (drivenCity != null)
+                {
+                    double km_rate = 0.20;
+                    CityRate currentRate = drivenCity.getCurrentRate();
+                    if (currentRate != null)
                     {
                         km_rate = currentRate.getKilometerRate();
                     }
-                    CityDistance cityDistance = cityDistances.get(city);
 
-                    // add to subtotal
+                    double kilometersDriven = metersDriven / 1000;
+                    if(prevLane != null)
+                    {
+                        logger.log(Level.INFO, "user :" + vehicleOwnership.getUser().getUsername() + " has driven " + kilometersDriven + " on lane " + prevLane.getId());
+                    }
+
+                    subTotal += kilometersDriven * km_rate;
                     totalkilometersdriven += kilometersDriven;
-                    subTotal += kilometersDriven * (km_rate);
-                    
-                    // Check if we have driven here before or not
-                    if(cityDistance == null) 
+
+                    CityDistance cityDistance = cityDistances.get(drivenCity);
+
+                    if (cityDistance == null)
                     {
                         //Add the meters traveled and the km_rate to a new CityDistance object
                         Date movementDate = vehicleMovement.getMovement().getMovementDateTime();
-                        cityDistance = new CityDistance(city, kilometersDriven, km_rate, movementDate);
+                        cityDistance = new CityDistance(drivenCity, metersDriven, km_rate, movementDate);
                         cityDistance.setVehicleInvoice(vehicleInvoice);
-                        cityDistances.put(city, cityDistance);
-                    }
-                    else
+                        cityDistances.put(drivenCity, cityDistance);
+                    } else
                     {
-                        cityDistance.addDistance(kilometersDriven);
+                        cityDistance.addDistance(metersDriven);
                     }
+
                 }
-                
-                // We are driving on the next lane now
+
+
                 prevLane = currentLane;
+
+                if(drivenCity != null && !drivenCity.getCityName().startsWith("NA"))
+                {
+                    prevFriendlyCity = drivenCity;
+                }
             }
         }
-        
-        logger.log(Level.INFO, "MovementUser : " + vehicleOwnership.getUser().getUsername() + " has driven " + totalkilometersdriven + " meters with vehicle " + vehicleOwnership.getVehicle().getId());
+
+
+        logger.log(Level.INFO, "MovementUser : " + vehicleOwnership.getUser().getUsername()
+
+                        + " has driven " + totalkilometersdriven + " meters with vehicle " + vehicleOwnership.getVehicle().
+
+                        getId()
+        );
 
         vehicleInvoice.setMovementList(new ArrayList<CityDistance>(cityDistances.values()));
 
         //Set the subtotal of the vehicleInvoice to the calculated subtotal
-        vehicleInvoice.setSubTotal(new BigDecimal(subTotal, MathContext.DECIMAL64));
+        vehicleInvoice.setSubTotal(new
+
+                        BigDecimal(subTotal, MathContext.DECIMAL64)
+        );
 
         //Set total meters
         double totalMeters = totalkilometersdriven * 1000;
-        int totalMetersDriven = (int)Math.round(totalMeters);
+        int totalMetersDriven = (int) Math.round(totalMeters);
         vehicleInvoice.setMetersDriven(totalMetersDriven);
 
         //Set the invoice to the vehicle invoice
@@ -197,29 +215,22 @@ public class InvoiceGenerator
 
         return invoice;
     }
-    
+
     /**
      * Get the city in which the lane is located.
+     *
      * @param lane
      * @return the city
      */
     private City getCityByLane(Lane lane)
     {
-        String laneID = lane.getId();
-        String[] laneIDs = laneID.split("\\_");
-        laneID = laneIDs[0];
-        laneID = laneID.startsWith(":") ? laneID.substring(1) : laneID;
-
-        Query query = em.createQuery("select city from City city where city.cityId like :laneID");
-        query.setParameter("laneID", laneID+"%");
-
-        List<City> cities = query.getResultList();
-        return cities.size() != 1 ? null : cities.get(0);
+        return lane.getEdge().getFrom();
     }
-    
+
 
     /**
      * Creates a new invoice when there's no invoice for the current user, returns the existing invoice for the current user if we already created one
+     *
      * @param vehicleOwnership The VehicleOwnership of the current invoice to generate
      * @return the new or existing invoice
      */
@@ -228,8 +239,7 @@ public class InvoiceGenerator
         if (this.userInvoices.containsKey(vehicleOwnership.getUser()))
         {
             return this.userInvoices.get(vehicleOwnership.getUser());
-        }
-        else
+        } else
         {
             Invoice invoice = new Invoice(generationDate, startDate, endDate, vehicleOwnership.getUser());
             em.persist(invoice);

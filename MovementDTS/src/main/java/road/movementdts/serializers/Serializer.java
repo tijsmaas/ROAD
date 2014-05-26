@@ -5,7 +5,6 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.gson.Gson;
 import road.movementdtos.dtos.*;
-import road.movemententities.entities.*;
 
 import java.io.ByteArrayOutputStream;
 

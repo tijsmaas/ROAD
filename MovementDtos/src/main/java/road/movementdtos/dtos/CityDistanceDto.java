@@ -10,16 +10,18 @@ public class CityDistanceDto
 {
     private int id;
     private String cityName;
-    private double drivenKM;
-    private double km_prijs;
-    private double totalCost;
+    private Double drivenKM;
+    private Double drivenMeters;
+    private Double km_prijs;
+    private Double totalCost;
     private Date movementDate;
 
-    public CityDistanceDto(int id, String cityName, double driven, double km_prijs, Date movementdate)
+    public CityDistanceDto(int id, String cityName, double drivenMeters, double km_prijs, Date movementdate)
     {
         this.id = id;
         this.cityName = cityName;
-        this.drivenKM = (double) Math.round(driven * 100) / 100;
+        this.drivenMeters = drivenMeters;
+        this.drivenKM = (double) Math.round((drivenMeters / 1000) * 100) / 100;
         this.km_prijs = (double) Math.round(km_prijs * 100) / 100;
 
         this.totalCost = this.drivenKM * this.km_prijs;
@@ -32,7 +34,6 @@ public class CityDistanceDto
     {
     }
 
-    ;
 
     public int getId()
     {
@@ -54,32 +55,42 @@ public class CityDistanceDto
         this.cityName = cityName;
     }
 
-    public double getDrivenKM()
+    public Double getDrivenKM()
     {
         return drivenKM;
     }
 
-    public void setDrivenKM(double drivenKM)
+    public void setDrivenKM(Double drivenKM)
     {
         this.drivenKM = drivenKM;
     }
 
-    public double getKm_prijs()
+    public Double getDrivenMeters()
+    {
+        return drivenMeters;
+    }
+
+    public void setDrivenMeters(Double drivenMeters)
+    {
+        this.drivenMeters = drivenMeters;
+    }
+
+    public Double getKm_prijs()
     {
         return km_prijs;
     }
 
-    public void setKm_prijs(double km_prijs)
+    public void setKm_prijs(Double km_prijs)
     {
         this.km_prijs = km_prijs;
     }
 
-    public double getTotalCost()
+    public Double getTotalCost()
     {
         return totalCost;
     }
 
-    public void setTotalCost(double totalCost)
+    public void setTotalCost(Double totalCost)
     {
         this.totalCost = totalCost;
     }
