@@ -25,11 +25,12 @@ public class Serializer
 
     public <T> byte[] serializeBytes(T obj)
     {
-        Output output = new Output(new ByteArrayOutputStream());
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Output output = new Output(stream);
         this.kryo.writeClassAndObject(output, obj);
         output.close();
 
-        return output.getBuffer();
+        return stream.toByteArray();
     }
 
     public <T> T deSerialize(byte[] raw, Class<T> type)
@@ -70,10 +71,5 @@ public class Serializer
         {
             return result;
         }
-    }
-
-    public void registerClass(Class type)
-    {
-        this.kryo.register(type);
     }
 }

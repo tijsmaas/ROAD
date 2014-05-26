@@ -19,12 +19,12 @@ function setLeafMarker(id, speed, lat, lon)
         leafMarkers[id] = marker;
     }
     marker.setLatLng([lat, lon]);
-    marker.setPopupContent("Cruisin at " + Math.round(speed * 100) / 100 + "m/s, or " +  Math.round(speed * 3.6 * 100) / 100 + "km/h." + "Ballin' yo.");
+    marker.setPopupContent("Cruisin at " + Math.round(speed * 100) / 100 + "m/s, or " +  Math.round(speed * 3.6 * 100) / 100 + "km/h." + "Ballin'.");
 }
 
 function makeMarker(lat, lon)
 {
-    var marker = L.marker([lat, lon], {icon: makeIcon()}).addTo(leafMap).bindPopup('Simulated car, look at it drive!');
+    var marker = L.marker([lat, lon],{icon: makeIcon()}).addTo(leafMap).bindPopup('Simulated car, look at it drive!');
     return marker;
 }
 
