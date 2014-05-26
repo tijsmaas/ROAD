@@ -33,4 +33,6 @@ function initSimulation()
     }
 }
 
-window.onload = initSimulation;
+$(document).ready(function(){
+   initSimulation();
+});

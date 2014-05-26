@@ -39,12 +39,12 @@ public class BillService implements Serializable
      * Timer for generating the monthly invoices after each month, automatically.
      * @param t
      */
-    @Schedule(month="*", info="Generate monthly invoices") //The scheduling goes off every month
+    @Schedule(dayOfMonth = "1st", info="Generate monthly invoices")
     public void generateMonthlyInvoice(Timer t)
     {
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
+        int month = cal.get(Calendar.MONTH - 1);
         this.generateMonthlyInvoices(month, year);
     }
 
@@ -63,7 +63,7 @@ public class BillService implements Serializable
     }
 
     public MovementUserDto login(String username, String password)
-    {
+     {
         return billClient.authenticate(username, password);
     }
 
