@@ -15,7 +15,7 @@ function setLeafMarker(id, speed, lat, lon)
     var marker = leafMarkers[id];
     if(marker == null || marker == undefined)
     {
-        var marker = makeMarker(lat, lon);
+        marker = makeMarker(lat, lon);
         leafMarkers[id] = marker;
     }
     marker.setLatLng([lat, lon]);

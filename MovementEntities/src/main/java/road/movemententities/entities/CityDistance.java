@@ -18,7 +18,7 @@ public class CityDistance implements MovementEntity<Integer> {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date movementDate;
     
-    /* Driven distance in KM */
+    /* Driven distance in meters */
     private double distance;
     
     /* Price per KM */

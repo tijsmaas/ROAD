@@ -39,24 +39,6 @@ public class City implements MovementEntity<String>
         this.cityRates.add(rate);
     }
 
-    public List<CityRate> getCityRates()
-    {
-        return cityRates;
-    }
-
-    public CityRate getCurrentRate()
-    {
-        CityRate currentRate = null;
-        for (CityRate c : cityRates)
-        {
-            if (currentRate == null || c.getId().getAddDate().after(currentRate.getId().getAddDate()))
-            {
-                currentRate = c;
-            }
-        }
-        return currentRate;
-    }
-
     public City(String cityId, String cityName)
     {
         this.cityId = cityId;
@@ -76,6 +58,26 @@ public class City implements MovementEntity<String>
 
         this.cityRates.add(new CityRate(this, new Date(), randomValue));
     }
+
+    public List<CityRate> getCityRates()
+    {
+        return cityRates;
+    }
+
+    public CityRate getCurrentRate()
+    {
+        CityRate currentRate = null;
+        for (CityRate c : cityRates)
+        {
+            if (currentRate == null || c.getId().getAddDate().after(currentRate.getId().getAddDate()))
+            {
+                currentRate = c;
+            }
+        }
+        return currentRate;
+    }
+
+
 
     public String getCityId()
     {
