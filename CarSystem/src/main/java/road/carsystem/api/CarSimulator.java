@@ -50,26 +50,11 @@ public class CarSimulator implements Serializable
     {
         this.xStream = new XStream();
         this.xStream.setMode(XStream.NO_REFERENCES);
-        this.xStream.alias("response", Response.class);
-        this.xStream.useAttributeFor(Response.class, "status");
-        this.xStream.useAttributeFor(Response.class, "VEHICLE_ID");
-        this.xStream.useAttributeFor(Response.class, "cause");
-        this.xStream.alias("sumo-netstate", Netstate.class);
-        this.xStream.alias("timestep", TimeStep.class);
-        this.xStream.useAttributeFor(TimeStep.class, "time");
-        this.xStream.alias("edge", Edge.class);
-        this.xStream.useAttributeFor(Edge.class, "id");
-        this.xStream.alias("lane", Lane.class);
-        this.xStream.useAttributeFor(Lane.class, "id");
-        this.xStream.alias("vehicle", Vehicle.class);
-        this.xStream.useAttributeFor(Vehicle.class, "id");
-        this.xStream.useAttributeFor(Vehicle.class, "pos");
-        this.xStream.useAttributeFor(Vehicle.class, "speed");
-        this.xStream.useAttributeFor(FcdVehicle.class);
-        this.xStream.addImplicitCollection(Netstate.class, "timeSteps");
-        this.xStream.addImplicitCollection(TimeStep.class, "edges");
-        this.xStream.addImplicitCollection(Edge.class, "lanes");
-        this.xStream.addImplicitCollection(Lane.class, "vehicles");
+        this.xStream.processAnnotations(FcdExport.class);
+        this.xStream.processAnnotations(FcdTimeStep.class);
+        this.xStream.processAnnotations(FcdVehicle.class);
+        this.xStream.processAnnotations(Response.class);
+        this.xStream.processAnnotations(SocketResponse.class);
 
         this.gson = new Gson();
 
@@ -93,10 +78,12 @@ public class CarSimulator implements Serializable
         }
     }
 
+    /**
+     * @param wait time in seconds to wait
+     */
     private void setTimer(int wait)
     {
-        //this.timerService.createTimer(wait, null);
-        this.timerService.createTimer(0, null);
+        this.timerService.createTimer(wait * 1000, null);
     }
 
     @Timeout
@@ -115,7 +102,7 @@ public class CarSimulator implements Serializable
             response.message = "Failed to send movement! Sequence number " + this.sequence + " of " + this.timeSteps.size();
         }
 
-        this.session.getAsyncRemote().sendText(this.gson.toJson(response));
+        this.session.getAsyncRemote().sendText(this.xStream.toXML(response)); //this.gson.toJson(response));
 
         if(this.sequence + 1 < this.timeSteps.size())
         {

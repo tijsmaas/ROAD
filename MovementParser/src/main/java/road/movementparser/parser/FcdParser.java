@@ -32,8 +32,10 @@ public class FcdParser
         this.missed = 0;
 
         this.xstream = new XStream();
-        this.xstream.useAttributeFor(FcdTimeStep.class);
-        this.xstream.useAttributeFor(FcdVehicle.class);
+        this.xstream.setMode(XStream.NO_REFERENCES);
+        this.xstream.processAnnotations(FcdExport.class);
+        this.xstream.processAnnotations(FcdTimeStep.class);
+        this.xstream.processAnnotations(FcdVehicle.class);
     }
 
     public List<Movement> parse(String xml, int sequence)
@@ -73,8 +75,8 @@ public class FcdParser
                 this.parserDAO.addVehicle(vehicle);
 
                 VehicleMovement vehicleMovement = new VehicleMovement(movement, vehicle, (float)fcdVehicle.getPos(),
-                                                                      (float)fcdVehicle.getSpeed(), fcdVehicle.getLatitude(),
-                                                                      fcdVehicle.getLongitude());
+                                                                      (float)fcdVehicle.getSpeed(), fcdVehicle.getLongitude(),
+                                                                      fcdVehicle.getLatitude());
                 vehicle.addVehicleMovement(vehicleMovement);
                 vehicleMovements.add(vehicleMovement);
             }

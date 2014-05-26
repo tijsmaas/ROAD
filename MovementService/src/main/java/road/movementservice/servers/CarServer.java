@@ -56,14 +56,14 @@ public class CarServer extends QueueServer implements ICarQuery
             MovementEvent.fire(movements);
 
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                   + "<response status=\"ok\" VEHICLE_ID=\"2\"/></xml>";
+                   + "<response status=\"ok\"> <VEHICLE_ID>2</VEHICLE_ID></response></xml>";
         }
         else
         {
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                    + "<response status=\"error\" cause=\""
+                    + "<response status=\"error\"><cause>"
                     + new NotAuthorizedException("API Key not valid").getLocalizedMessage()
-                    + "\"/>"
+                    + "</cause></response>"
                     + "</xml>";
         }
     }

@@ -2,7 +2,6 @@ package road.movementdtos.sumo;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import road.movementdtos.dtos.LaneDto;
 
 /**
  * Created by geh on 25-5-14.
@@ -10,19 +9,19 @@ import road.movementdtos.dtos.LaneDto;
 @XStreamAlias("vehicle")
 public class FcdVehicle
 {
-    @XStreamAsAttribute
+    @XStreamAsAttribute @XStreamAlias("id")
     private String id;
-    @XStreamAsAttribute
+    @XStreamAsAttribute @XStreamAlias("y")
     private double latitude;
-    @XStreamAsAttribute
+    @XStreamAsAttribute @XStreamAlias("x")
     private double longitude;
-    @XStreamAsAttribute
+    @XStreamAsAttribute @XStreamAlias("angle")
     private double angle;
-    @XStreamAsAttribute
+    @XStreamAsAttribute @XStreamAlias("speed")
     private double speed;
-    @XStreamAsAttribute
+    @XStreamAsAttribute @XStreamAlias("pos")
     private double pos;
-    @XStreamAsAttribute
+    @XStreamAsAttribute @XStreamAlias("lane")
     private String laneId;
 
     public FcdVehicle()
@@ -30,11 +29,11 @@ public class FcdVehicle
 
     }
 
-    public FcdVehicle(String id, double latitude, double longitude, double angle, double speed, double pos, String laneId)
+    public FcdVehicle(String id, double longitude, double latitude, double angle, double speed, double pos, String laneId)
     {
         this.id = id;
-        this.latitude = latitude;
         this.longitude = longitude;
+        this.latitude = latitude;
         this.angle = angle;
         this.speed = speed;
         this.pos = pos;
@@ -51,16 +50,6 @@ public class FcdVehicle
         this.id = id;
     }
 
-    public double getLatitude()
-    {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude)
-    {
-        this.latitude = latitude;
-    }
-
     public double getLongitude()
     {
         return longitude;
@@ -69,6 +58,16 @@ public class FcdVehicle
     public void setLongitude(double longitude)
     {
         this.longitude = longitude;
+    }
+
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude)
+    {
+        this.latitude = latitude;
     }
 
     public double getAngle()

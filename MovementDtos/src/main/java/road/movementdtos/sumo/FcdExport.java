@@ -1,6 +1,7 @@
 package road.movementdtos.sumo;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @XStreamAlias("fcd-export")
 public class FcdExport
 {
+    @XStreamImplicit(itemFieldName="timestep")
     private List<FcdTimeStep> timeSteps;
 
     public FcdExport()

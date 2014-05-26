@@ -2,6 +2,7 @@ package road.movementdtos.sumo;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import java.util.List;
 
@@ -11,8 +12,9 @@ import java.util.List;
 @XStreamAlias("timestep")
 public class FcdTimeStep
 {
+    @XStreamImplicit(itemFieldName="vehicle")
     private List<FcdVehicle> vehicles;
-    @XStreamAsAttribute
+    @XStreamAsAttribute @XStreamAlias("time")
     private double time;
 
     public FcdTimeStep()

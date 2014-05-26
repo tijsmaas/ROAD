@@ -10,12 +10,14 @@ function simulation()
         };
         ws.onmessage = function (evt)
         {
-            var response = $.parseJSON(evt.data);
-            var vehicle = response.timeStep.edges[0].lanes[0].vehicles[0];
-            $("#show").append("Vehicle with id " + vehicle.id +
-                              " with position  " + vehicle.pos +
-                              " and speed " + vehicle.speed  +
-                              " @" + response.timeStep.time + "<br />");
+            var response = $.parseXML(evt.data);
+            var timestep = response.children[0].children[1].attributes;
+            var vehicle = response.children[0].children[1].children[0].attributes;
+            $("#show").append("Vehicle with id " + vehicle.id.value +
+                " with latitude  " + vehicle.y.value +
+                ", longitude " + vehicle.x.value +
+                " and speed " + vehicle.speed.value  +
+                " @" + timestep.time.value + "<br />");
             $("#message").html(response.message);
         };
         ws.onclose = function()
