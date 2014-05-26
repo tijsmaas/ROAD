@@ -1,4 +1,5 @@
 var map;
+var marker;
 
 function initialize() {
     var mapOptions = {
@@ -9,11 +10,11 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
         position: new google.maps.LatLng(0, -180),
         icon: {
             path: google.maps.SymbolPath.CIRCLE,
-            scale: 10,
+            scale: 5,
             fillColor: '#000000',
             fillOpacity: 1.0,
             strokeColor: '#000000',
@@ -39,6 +40,12 @@ function initialize() {
     });
 
     flightPath.setMap(map);
+}
+
+function setMarker(lat, lon)
+{
+    var pos = new google.maps.LatLng(lat, lon);
+    marker.setPosition(pos);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

@@ -19,6 +19,7 @@ function simulation()
                 " and speed " + vehicle.speed.value  +
                 " @" + timestep.time.value + "<br />");
             $("#message").html(response.message);
+            setMarker(vehicle.y.value, vehicle.x.value);
         };
         ws.onclose = function()
         {
