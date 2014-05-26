@@ -15,11 +15,11 @@ function setLeafMarker(id, speed, lat, lon)
     var marker = leafMarkers[id];
     if(marker == null || marker == undefined)
     {
-        marker = makeMarker(lat, lon);
+        var marker = makeMarker(lat, lon);
         leafMarkers[id] = marker;
     }
     marker.setLatLng([lat, lon]);
-    marker.bindPopup("Cruisin at " + speed + "m/s, or " + speed * 3.6 + "km/h." + "Ballin' yo.");
+    marker.setPopupContent("Cruisin at " + Math.round(speed * 100) / 100 + "m/s, or " +  Math.round(speed * 3.6 * 100) / 100 + "km/h." + "Ballin' yo.");
 }
 
 function makeMarker(lat, lon)
@@ -32,7 +32,7 @@ function makeIcon()
 {
     return L.icon({
         iconSize: [34, 34],
-        iconAnchor: [0,0],
+        iconAnchor: [17,17],
         popupAnchor: [0,0],
         iconUrl: 'javax.faces.resource/images/car.png'
     });
