@@ -49,6 +49,12 @@ public class PoliceServer extends QueueServer implements IPoliceQuery
         this.start();
     }
 
+    /**
+     * Used for authenticating bill system users
+     * @param user username
+     * @param password password
+     * @return MovementUserDto corresponding to the username if the password was correct, if not, null.
+     */
     @Override
     public MovementUserDto authenticate(String user, String password)
     {

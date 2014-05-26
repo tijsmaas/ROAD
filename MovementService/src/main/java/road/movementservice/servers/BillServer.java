@@ -28,6 +28,8 @@ import java.util.List;
 
 /**
  * Created by geh on 11-4-14.
+ * This is the server for the BillSystem. It has to implement IBillQuery and return the appropriate values, so that
+ * Bill System can request them.
  */
 public class BillServer extends QueueServer implements IBillQuery
 {
@@ -63,6 +65,12 @@ public class BillServer extends QueueServer implements IBillQuery
         this.start();
     }
 
+    /**
+     * Used for authenticating bill system users
+     * @param user username
+     * @param password password
+     * @return MovementUserDto corresponding to the username if the password was correct, if not, null.
+     */
     @Override
     public MovementUserDto authenticate(String user, String password)
     {

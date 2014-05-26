@@ -34,21 +34,37 @@ public class MovementDto
         this.lane = lane;
     }
 
+    /**
+     * Get the {@link #vehicleMovements} of the {@link MovementDto}.
+     * @return The vehicles currently driving on the {@link #lane}.
+     */
     public List<VehicleMovementDto> getVehicleMovements()
     {
         return vehicleMovements;
     }
 
+    /**
+     * Set the {@link #vehicleMovements} of the {@link MovementDto}.
+     * @param vehicleMovements The vehicles currently driving on the {@link #lane}.
+     */
     public void setVehicleMovements(List<VehicleMovementDto> vehicleMovements)
     {
         this.vehicleMovements = vehicleMovements;
     }
 
+    /**
+     * Get the {@link #lane} of the {@link MovementDto}.
+     * @return The lane on which the {@link #vehicleMovements} are currently driving.
+     */
     public LaneDto getLane()
     {
         return lane;
     }
 
+    /**
+     * Set the {@link #lane} of the {@link MovementDto}.
+     * @param lane The lane on which the {@link #vehicleMovements} are currently driving.
+     */
     public void setLane(LaneDto lane)
     {
         this.lane = lane;

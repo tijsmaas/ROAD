@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by geh on 10-4-14.
+ * This class is the base for a push based JMS Topic server.
  */
 public abstract class TopicServer
 {

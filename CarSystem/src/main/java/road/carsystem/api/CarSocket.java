@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by geh on 7-4-14.
+ * This class manages te actual connection with the client via a websocket.
  */
 @Stateless @ServerEndpoint("/socket")
 public class CarSocket
