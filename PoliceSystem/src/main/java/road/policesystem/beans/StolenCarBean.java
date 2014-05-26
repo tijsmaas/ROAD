@@ -1,5 +1,6 @@
 package road.policesystem.beans;
 
+import com.esotericsoftware.minlog.Log;
 import road.movementdtos.dtos.CityDto;
 import road.movementdtos.dtos.VehicleDto;
 import road.movementdtos.dtos.VehicleMovementDto;
@@ -88,6 +89,8 @@ public class StolenCarBean
         if(licensePlate == null || licensePlate.isEmpty()) return false;
         System.out.println("Updating realtime location...");
         this.movements = policeService.getVehicleMovements(licensePlate);
+        if(this.movements == null) return false;
+
         VehicleMovementDto mostResentMovement = null;
         for(VehicleMovementDto movement : this.movements)
         {

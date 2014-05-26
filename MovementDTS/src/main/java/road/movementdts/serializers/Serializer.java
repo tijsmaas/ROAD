@@ -4,6 +4,9 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.gson.Gson;
+import road.movementdtos.dtos.*;
+import road.movemententities.entities.*;
+
 import java.io.ByteArrayOutputStream;
 
 /**
@@ -19,6 +22,14 @@ public class Serializer
     {
         this.gson = new Gson();
         this.kryo = new Kryo();
+
+        kryo.register(VehicleDto.class);
+        kryo.register(VehicleMovementDto.class);
+        kryo.register(VehicleOwnerDto.class);
+        kryo.register(CityDto.class);
+        kryo.register(MovementDto.class);
+        kryo.register(LaneDto.class);
+        kryo.register(MovementUserDto.class);
     }
 
     public <T> byte[] serializeBytes(T obj)
