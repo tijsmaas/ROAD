@@ -19,7 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Mitch on 21-5-2014.
+ * Bean for stolen car detail view.
+ * In this view the police officer can see movements, current movement, and owner history.
+ *
+ * Created by Tijs
  */
 @ManagedBean
 @ViewScoped
@@ -31,10 +34,13 @@ public class StolenCarBean
     @Inject
     private PoliceService policeService;
 
-    List<VehicleMovementDto> movements = new ArrayList();
-    VehicleMovementDto realtimeLocation = null;
-    String realtimeLocationPlace = "";
-
+    // List of vehicle movements.
+    private List<VehicleMovementDto> movements = new ArrayList();
+    // The realtime movement, this will be loaded instantly so that it is never null.
+    private VehicleMovementDto realtimeLocation = null;
+    // The realtime location place is a text that shows it's current location in plain text.
+    private String realtimeLocationPlace = "";
+    // The license plate of the selected vehicle.
     private String licensePlate = "";
 
     public String getLicensePlate() {
@@ -104,6 +110,9 @@ public class StolenCarBean
         return true;
     }
 
+    /**
+     * Update the realtime location of the selected vehicle.
+     */
     private void updateRealtimeLocationPlace() {
         if(this.realtimeLocation == null) return;
 
@@ -115,10 +124,16 @@ public class StolenCarBean
         this.realtimeLocationPlace = from.getCityName()+" -> "+to.getCityName()+" ";
     }
 
+    /**
+     * @return The last known movement of the selected vehicle, if no vehicle selected then null.
+     */
     public VehicleMovementDto getRealtimeLocation() {
         return realtimeLocation;
     }
 
+    /**
+     * @return The last known movement.location in plain text.
+     */
     public String getRealtimeLocationPlace() {
         return realtimeLocationPlace;
     }
@@ -140,12 +155,22 @@ public class StolenCarBean
         return policeService.getStolenCarByLicensePlate(licensePlate);
     }
 
+    /**
+     * Get a list of vehicle owners from the currently selected vehicle.
+     * If there is no vehicle selected, the an empty list will be returned.
+     * @return A list of vehicle owners.
+     */
     public List<VehicleOwnerDto> getVehicleOwners()
     {
         if(licensePlate == null || licensePlate.isEmpty()) return new ArrayList();
         return policeService.getVehicleOwners(licensePlate);
     }
 
+    /**
+     * Get a list of vehicle movements from the currently selected vehicle.
+     * If there is no vehicle selected, the an empty list will be returned.     *
+     * @return A list of vehicle movements.
+     */
     public List<VehicleMovementDto> getVehicleMovements()
     {
         if(licensePlate == null || licensePlate.isEmpty()) return new ArrayList();

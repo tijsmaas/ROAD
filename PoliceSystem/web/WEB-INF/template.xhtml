@@ -8,13 +8,6 @@
     <h:outputStylesheet library="bootstrap" name="bootstrap.css"/>
     <h:outputStylesheet library="css" name="style.css"/>
     <h:outputScript library="bootstrap" name="bootstrap.js"/>
-    <style>
-        .table td
-        {
-            text-align:left;
-        }
-    </style>
-
 </h:head>
 <h:body>
         <div class="header">
@@ -28,7 +21,8 @@
 
             <div class="contentWrapper">
                 <ui:insert name="content">
-                    Default Content
+                    <!-- Page context will be dynamically loaded here.
+                    For all pages the basic style/script headers are the same. -->
                 </ui:insert>
             </div>
         </div>
