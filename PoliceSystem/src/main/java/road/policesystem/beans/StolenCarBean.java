@@ -85,7 +85,7 @@ public class StolenCarBean
      */
     public boolean updateRealtimeLocation()
     {
-        if(licensePlate == null) return false;
+        if(licensePlate == null || licensePlate.isEmpty()) return false;
         System.out.println("Updating realtime location...");
         this.movements = policeService.getVehicleMovements(licensePlate);
         VehicleMovementDto mostResentMovement = null;
@@ -127,7 +127,7 @@ public class StolenCarBean
      */
     public boolean isActive()
     {
-        boolean active = this.getStolenCarByLicensePlate() != null;
+        boolean active = this.licensePlate != null && !this.licensePlate.isEmpty();
         if(active) updateRealtimeLocation();
         return active;
     }
@@ -139,13 +139,13 @@ public class StolenCarBean
 
     public List<VehicleOwnerDto> getVehicleOwners()
     {
-        if(licensePlate == null) return new ArrayList();
+        if(licensePlate == null || licensePlate.isEmpty()) return new ArrayList();
         return policeService.getVehicleOwners(licensePlate);
     }
 
     public List<VehicleMovementDto> getVehicleMovements()
     {
-        if(licensePlate == null) return new ArrayList();
+        if(licensePlate == null || licensePlate.isEmpty()) return new ArrayList();
         this.movements = policeService.getVehicleMovements(licensePlate);
         return this.movements;
     }
