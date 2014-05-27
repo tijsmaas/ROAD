@@ -8,6 +8,9 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**
+ * {@inheritDoc}
+ *
+ *
  * Created by Niek on 28/03/14.
  *  Aidas 2014
  */

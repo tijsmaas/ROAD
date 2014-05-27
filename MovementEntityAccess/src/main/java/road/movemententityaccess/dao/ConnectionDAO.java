@@ -3,6 +3,7 @@ package road.movemententityaccess.dao;
 import road.movemententities.entities.Connection;
 
 /**
+ * the {@link road.movemententityaccess.dao.ConnectionDAO} specifies all the database action belonging to {@link road.movemententities.entities.Connection connections}
  * Created by Niek on 28/03/14.
  *  Aidas 2014
  */
@@ -15,5 +16,9 @@ public interface ConnectionDAO
      */
     Connection find(int connectionID);
 
+    /**
+     * Get the amount of connections in the database
+     * @return
+     */
 	Long count();
 }

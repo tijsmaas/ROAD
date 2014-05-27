@@ -6,6 +6,8 @@ import road.movemententities.entities.enumerations.ConnectionState;
 import javax.persistence.*;
 
 /**
+ * Connection is used internally for connection SUMO Lanes and edges.
+ *
  * Created by Niek on 14/03/14.
  *  Aidas 2014
  */

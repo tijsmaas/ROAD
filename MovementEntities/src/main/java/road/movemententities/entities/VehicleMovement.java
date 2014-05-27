@@ -3,6 +3,8 @@ package road.movemententities.entities;
 import javax.persistence.*;
 
 /**
+ * The VehicleMovement class is the entity that maps vehicles to movements, including some more details
+ *
  * Created by Niek  on 4/03/14..
  *  Aidas 2014
  */
@@ -30,11 +32,20 @@ public class VehicleMovement implements MovementEntity<Integer>
     private double longitude;
 
 
-    // Empty constructor for JPA
+    /**
+     * Empty constructor for JPA
+     */
     public VehicleMovement()
     {
     }
 
+    /**
+     * Create a new instance of this
+     * @param movement the {@link Movement} of this VehicleMovement
+     * @param vehicle the {@link Vehicle} belonging to this movement
+     * @param position the current position of the vehicle
+     * @param speed the current speed of the vehicle
+     */
     public VehicleMovement(Movement movement, Vehicle vehicle, float position, float speed)
     {
         this.movement = movement;
@@ -43,6 +54,14 @@ public class VehicleMovement implements MovementEntity<Integer>
         this.speed = speed;
     }
 
+
+    /**
+     * Create a new instance of this
+     * @param movement the {@link Movement} of this {@link VehicleMovement}
+     * @param vehicleOwnership the {@link road.movemententities.entities.VehicleOwnership} of this Movement
+     * @param position the current position of the vehicle
+     * @param speed the current speed of the vehicle
+     */
     public VehicleMovement(Movement movement, VehicleOwnership vehicleOwnership, float position, float speed)
     {
         this.movement = movement;
@@ -51,6 +70,15 @@ public class VehicleMovement implements MovementEntity<Integer>
         this.speed = speed;
     }
 
+    /**
+     * Create a new instance of this
+     * @param movement the current {@link Movement} of this {@link road.movemententities.entities.VehicleMovement}
+     * @param vehicle  the {@link Vehicle} belonging to this movement     *
+     * @param position the current position of the vehicle
+     * @param speed the current speed of the vehicle
+     * @param latitude the current latitude of the vehicle
+     * @param longitude the current longitude of the vehicle
+     */
     public VehicleMovement(Movement movement, Vehicle vehicle, float position, float speed, double latitude, double longitude)
     {
         this(movement, vehicle, position, speed);
@@ -58,6 +86,15 @@ public class VehicleMovement implements MovementEntity<Integer>
         this.longitude = longitude;
     }
 
+    /**
+     * Create a new instance of this
+     * @param movement the current {@link Movement} of this {@link road.movemententities.entities.VehicleMovement}
+     * @param vehicleOwnership the {@link road.movemententities.entities.VehicleOwnership} of this Movement
+     * @param position the current position of the vehicle
+     * @param speed the current speed of the vehicle
+     * @param latitude the current latitude of the vehicle
+     * @param longitude the current longitude of the vehicle
+     */
     public VehicleMovement(Movement movement, VehicleOwnership vehicleOwnership, float position, float speed, double latitude, double longitude)
     {
         this(movement, vehicleOwnership, position, speed);

@@ -2,16 +2,16 @@ package road.movemententityaccess.dao;
 
 import road.movemententities.entities.City;
 import road.movemententities.entities.CityRate;
-import road.movemententities.entities.Vehicle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
+ * {@inheritDoc}
+ *
  * Created by Mitch on 28/03/14.
  *  Aidas 2014
  */
@@ -23,6 +23,10 @@ public class CityDAOImpl implements CityDAO
         this.em = emf.createEntityManager();
     }
 
+    /**
+     * {@inheritDoc}
+     * @return the number of cities found
+     */
     @Override
     public Long count()
     {
@@ -58,6 +62,13 @@ public class CityDAOImpl implements CityDAO
         return resultList;
     }
 
+    /**
+     * {@inheritDoc}
+     * @param cityId the ID of the city to change it for
+     * @param addDate the new date of the kilomter rate
+     * @param price the new price of the kilometer rate
+     * @return true when success, false when not
+     */
     @Override
     public boolean adjustKilometerRate(String cityId, Date addDate, double price)
     {

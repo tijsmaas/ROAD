@@ -3,6 +3,8 @@ package road.movemententityaccess.dao;
 import road.movemententities.entities.Edge;
 
 /**
+ * The EdgeDAO specifies all the database actions belonging to an edge
+ *
  * Created by Niek on 28/03/14.
  *  Aidas 2014
  */
