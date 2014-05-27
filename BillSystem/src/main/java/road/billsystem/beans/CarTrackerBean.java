@@ -15,7 +15,7 @@ import java.util.List;
  * Bean for the Cartracker manager
  *
  * Created by Niek on 21/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 
 @Named

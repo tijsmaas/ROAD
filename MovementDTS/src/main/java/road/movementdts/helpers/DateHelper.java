@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by Niek on 14/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public class DateHelper
 {

@@ -5,7 +5,7 @@ L.OSM.TileLayer = L.TileLayer.extend({
         url: document.location.protocol === 'https:' ?
             'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' :
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attribution: '© <a target="_parent" href="http://www.openstreetmap.org">OpenStreetMap</a> and contributors, under an <a target="_parent" href="http://www.openstreetmap.org/copyright">open license</a>'
+        attribution: ' <a target="_parent" href="http://www.openstreetmap.org">OpenStreetMap</a> and contributors, under an <a target="_parent" href="http://www.openstreetmap.org/copyright">open license</a>'
     },
 
     initialize: function (options) {

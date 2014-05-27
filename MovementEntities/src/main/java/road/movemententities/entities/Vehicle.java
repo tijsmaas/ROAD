@@ -8,7 +8,7 @@ import java.util.List;
  * The Vehicle entity specifies the vehicle, so that it can be used to map movements to the vehicle.
  * <p/>
  * Created by Niek on 14/03/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 @Entity
 public class Vehicle implements MovementEntity

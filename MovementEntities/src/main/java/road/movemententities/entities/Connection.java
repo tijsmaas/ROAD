@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 /**
  * Created by Niek on 14/03/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 @Entity
 public class Connection implements MovementEntity<Integer>

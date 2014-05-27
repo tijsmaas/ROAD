@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Created by Niek on 19/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 @Path("/invoiceAPI")
 public class InvoiceAPI

@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Payment session stored when authorizing a payment
  * Created by Niek on 13/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public class PaymentSession
 {

@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * Class for generating invoices on the given
  * <p/>
  * Created by Niek on 17/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public class InvoiceGenerator
 {

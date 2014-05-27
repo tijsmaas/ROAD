@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Created by Niek on 28/03/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public class MovementDAOImpl implements MovementDAO
 {

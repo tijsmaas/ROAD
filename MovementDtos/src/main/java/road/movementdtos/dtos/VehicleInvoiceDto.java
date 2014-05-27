@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Created by Niek on 18/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public class VehicleInvoiceDto
 {

@@ -14,7 +14,7 @@ import java.util.*;
  * TODO: Look for a way to implement a Java alternative to automapper
  * <p/>
  * Created by Niek on 18/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public class DtoMapper
 {

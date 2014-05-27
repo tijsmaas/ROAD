@@ -6,7 +6,7 @@ import java.util.Date;
  * The data transfer object for performing a search query on invoices.
  *
  * Created by Niek on 21/05/14.
- * © Aidas 2014
+ * Copyright Aidas 2014
  */
 public class InvoiceSearchQuery
 {

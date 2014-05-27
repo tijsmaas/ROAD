@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 /**
+ * Emeddable primary key for CityRates
+ *
  * Created by Mitch on 12-5-2014.
  */
 @Entity

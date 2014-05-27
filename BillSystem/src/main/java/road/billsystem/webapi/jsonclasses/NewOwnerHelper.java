@@ -2,7 +2,7 @@ package road.billsystem.webapi.jsonclasses;
 
 /**
  * Created by Niek on 24/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public class NewOwnerHelper
 {

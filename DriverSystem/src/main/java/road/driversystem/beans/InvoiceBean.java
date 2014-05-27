@@ -13,7 +13,7 @@ import java.util.List;
  * Bean containing all the functionalities for viewing a user's invoices.
  *
  * Created by Niek on 18/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 @Named
 @RequestScoped

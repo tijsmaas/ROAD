@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 /**
  * Created by Niek on 20/05/14.
- * © Aidas 2014
+ * Aidas 2014
  */
 @Named
 @RequestScoped

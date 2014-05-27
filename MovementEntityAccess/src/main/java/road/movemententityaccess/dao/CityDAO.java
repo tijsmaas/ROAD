@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Created by Mitch on 28/03/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public interface CityDAO
 {

@@ -7,7 +7,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 
 /**
  * Created by Niek on 25/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public class ChangeOwnerFailedExceptionMapper
         implements ExceptionMapper<ChangeOwnerFailedException>

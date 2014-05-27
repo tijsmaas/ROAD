@@ -12,7 +12,7 @@ import java.util.List;
  * Interface containing all methods that are used for querying the database for invoice related stuff
  *
  * Created by Niek on 14/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 public interface InvoiceDAO
 {

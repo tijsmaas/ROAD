@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * Created by Niek on 13/05/14.
- * © Aidas 2014
+ *  Aidas 2014
  */
 @RequestScoped
 @Named
