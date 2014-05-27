@@ -21,12 +21,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This bean stores the user login session,
  * @author Mitch
  */
 @Named("userBean") @SessionScoped
 public class UserBean implements Serializable
 {
+    // Store the authenticated user details.
     private MovementUserDto loggedinUser;
 
     private String loginRedirect = " ";
@@ -42,6 +43,9 @@ public class UserBean implements Serializable
         return loggedinUser;
     }
 
+    /**
+     * Logout a user, then redirect to the login page.
+     */
     public void logout()
     {
         try {
@@ -54,11 +58,20 @@ public class UserBean implements Serializable
         }
     }
 
+
+    /**
+     * Get the redirection URL.
+     * @return The redirection URL.
+     */
     public String getLoginRedirect()
     {
         return loginRedirect;
     }
 
+
+    /**
+     * Redirect to the login page if the user has not been authenticated yet.
+     */
     public void redirectIfNotLoggedIn()
     {
 

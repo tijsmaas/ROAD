@@ -11,21 +11,18 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
+ * Authenticate police and judge users.
  * @author Niek
  */
 @Named("loginBean") @RequestScoped
 public class LoginBean
 {
+    // Basic authentication parameters
     private String username;
     private String password;
+
+    // If this is true then a login attempt has failed.
     private boolean failed = false;
 
     @Inject
@@ -64,6 +61,10 @@ public class LoginBean
         this.failed = failed;
     }
 
+    /**
+     * Authenticate the user check if the login is valid and redirect automatically.
+     * @throws IOException
+     */
     public void login() throws IOException
     {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -74,6 +75,7 @@ public class LoginBean
             if (!failed)
             {
                 userBean.setLoggedinUser(user);
+                // redirect the user if login is successful
                 context.redirect(Utilities.getHostnameAndContext() + userBean.getLoginRedirect());
             }
         } catch(Exception ex)
@@ -83,6 +85,9 @@ public class LoginBean
         }
     }
 
+    /**
+     * Redirect an authenticated user to the 'home' screen.
+     */
     public void redirectIfLoggedIn()
     {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();

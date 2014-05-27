@@ -8,6 +8,7 @@
     <h:panelGroup id="container">
         <p:layout style="min-width:400px;min-height:600px;">
 
+            <!-- Left panel for choosing a license plate -->
             <p:layoutUnit position="west" resizable="true" size="300" minSize="300" maxSize="300">
                 <h:form id="selectVehicleForm">
 
@@ -19,6 +20,7 @@
                 </h:form>
             </p:layoutUnit>
 
+            <!-- Right panel for showing vehicle details -->
             <p:layoutUnit position="center">
                 <h:form id="vehicleForm" styleClass="form-horizontal">
                     <c:panelGroup layout="block" rendered="#{stolenCarBean.active}">
